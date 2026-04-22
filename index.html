@@ -1,618 +1,561 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>The Fit Lab.co | Streetwear & Originals — Designed by you. Made by us.</title>
-    <!-- Google Fonts + Smooth base -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>The Fit Lab.co | Streetwear & Original Tees</title>
+  <!-- Google Fonts for modern, clean typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fefcf5;
-            color: #121212;
-            line-height: 1.4;
-            scroll-behavior: smooth;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #111111;
+      scroll-behavior: smooth;
+    }
 
-        /* container */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 32px;
-        }
+    /* container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-        /* buttons & small elements */
-        .btn-outline-light {
-            border: 1.5px solid #fff;
-            background: transparent;
-            padding: 10px 24px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            color: white;
-            border-radius: 40px;
-            transition: 0.2s;
-            cursor: pointer;
-            backdrop-filter: blur(2px);
-        }
+    /* typography & spacing */
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
 
-        .btn-outline-light:hover {
-            background: white;
-            color: black;
-            border-color: white;
-        }
+    .section {
+      padding: 80px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
 
-        .btn-dark {
-            background: #111;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            font-weight: 600;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            transition: 0.2s;
-            cursor: pointer;
-        }
+    .section:last-child {
+      border-bottom: none;
+    }
 
-        .btn-dark:hover {
-            background: #2c2c2c;
-            transform: scale(0.97);
-        }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-weight: 800;
+    }
 
-        /* header nav */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 0;
-            flex-wrap: wrap;
-        }
+    .section-subhead {
+      text-align: center;
+      font-size: 1rem;
+      color: #555;
+      margin-top: -1.2rem;
+      margin-bottom: 2.8rem;
+      letter-spacing: 0.3px;
+    }
 
-        .logo h1 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #1e1e1e, #3b2b1f);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+    /* buttons / badges */
+    .badge-off {
+      background-color: #000;
+      color: #fff;
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
 
-        .logo span {
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: #b1624b;
-            display: block;
-            letter-spacing: 1px;
-        }
+    /* hero */
+    .hero {
+      background: #faf9f8;
+      padding: 60px 0 80px 0;
+      text-align: center;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 28px;
-            font-weight: 500;
-        }
+    .hero-content h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #1e1e1e;
-            font-size: 0.95rem;
-            transition: 0.2s;
-        }
+    .hero-tagline {
+      font-size: 1.2rem;
+      color: #2c2c2c;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
 
-        .nav-links a:hover {
-            color: #b1624b;
-        }
+    .hero-offer {
+      background: #111;
+      color: white;
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      margin: 20px 0 16px;
+    }
 
-        /* hero section with image placeholder + background */
-        .hero {
-            background: linear-gradient(97deg, #e7dfd3 0%, #d9cfbf 100%);
-            border-radius: 40px;
-            margin: 16px 0 40px 0;
-            overflow: hidden;
-            position: relative;
-        }
+    /* proud roots section */
+    .roots-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .hero-grid {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-        }
+    .roots-text {
+      flex: 1;
+      min-width: 260px;
+    }
 
-        .hero-content {
-            flex: 1;
-            padding: 48px 40px;
-        }
+    .roots-text h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
 
-        .hero-badge {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #a35137;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
+    .roots-text p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #2d2d2d;
+      margin-bottom: 16px;
+    }
 
-        .hero-content h2 {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -1.5px;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-        }
+    .faith-badge {
+      font-weight: 700;
+      background: #eee;
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+    }
 
-        .hero-quote {
-            font-style: italic;
-            font-weight: 500;
-            font-size: 1.2rem;
-            border-left: 3px solid #b1624b;
-            padding-left: 20px;
-            margin: 24px 0 20px;
-            color: #2b2b2b;
-        }
+    .roots-image {
+      flex: 1;
+      min-width: 260px;
+      background: #eae6df;
+      border-radius: 32px;
+      height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+    }
 
-        .offer {
-            background: #000000d9;
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 60px;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin: 16px 0 24px;
-            backdrop-filter: blur(4px);
-        }
+    /* placeholder image style (canvas simulation) */
+    .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      font-family: monospace;
+    }
 
-        .hero-image {
-            flex: 1;
-            min-height: 380px;
-            background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&h=500&fit=crop');
-            background-size: cover;
-            background-position: center 30%;
-            border-radius: 32px;
-            margin: 20px;
-            box-shadow: 0 20px 35px -15px rgba(0,0,0,0.2);
-        }
+    /* features row (off white, designed by you, eco) */
+    .features-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      margin-top: 20px;
+    }
 
-        /* roots section */
-        .roots {
-            text-align: center;
-            margin: 70px 0 40px;
-        }
+    .feature-card {
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+      padding: 32px 24px;
+      text-align: center;
+      flex: 1;
+      min-width: 200px;
+      transition: transform 0.2s ease;
+      border: 1px solid #f0f0f0;
+    }
 
-        .roots h3 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 16px;
-        }
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
 
-        .roots p {
-            max-width: 680px;
-            margin: 0 auto 40px;
-            font-size: 1.1rem;
-            color: #3a3a3a;
-            line-height: 1.5;
-        }
+    .feature-icon {
+      font-size: 2.8rem;
+      margin-bottom: 18px;
+    }
 
-        .features-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 48px;
-            margin: 48px 0;
-        }
+    .feature-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
 
-        .feature-card {
-            background: white;
-            padding: 28px 24px;
-            border-radius: 28px;
-            box-shadow: 0 12px 26px -8px rgba(0,0,0,0.05);
-            width: 260px;
-            text-align: center;
-            transition: all 0.25s ease;
-        }
+    .feature-card p {
+      color: #3b3b3b;
+      font-weight: 500;
+    }
 
-        .feature-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.12);
-        }
+    /* products grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 40px;
+      margin-top: 20px;
+    }
 
-        .feature-card h4 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin: 12px 0 8px;
-        }
+    .product-item {
+      background: #fff;
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.25s;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.03);
+      border: 1px solid #efefef;
+    }
 
-        .feature-card p {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
-            color: #b1624b;
-        }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #f2efe9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #222;
+    }
 
-        /* NEW: signature phrase badge */
-        .signature-phrase {
-            background: #f3ede6;
-            border-radius: 60px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 28px;
-            margin-top: 30px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #2b211c;
-            border: 1px solid #dccfc2;
-            backdrop-filter: blur(2px);
-            letter-spacing: -0.2px;
-        }
+    .product-info {
+      padding: 18px 16px 22px;
+    }
 
-        .signature-phrase span {
-            font-size: 1.6rem;
-        }
+    .product-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
 
-        /* arrivals */
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 60px 0 32px 0;
-            letter-spacing: -1px;
-            border-left: 6px solid #b1624b;
-            padding-left: 20px;
-        }
+    .product-price {
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: #000;
+      margin: 10px 0 6px;
+    }
 
-        .product-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 32px;
-            justify-content: center;
-        }
+    /* press & media */
+    .press-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
 
-        .product-card {
-            background: white;
-            border-radius: 28px;
-            overflow: hidden;
-            width: 280px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
+    .press-card {
+      background: #fbfbfb;
+      border-radius: 28px;
+      padding: 32px 28px;
+      flex: 1;
+      min-width: 250px;
+      border: 1px solid #ececec;
+      transition: all 0.2s;
+    }
 
-        .product-card:hover {
-            transform: translateY(-6px);
-        }
+    .press-quote {
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      font-style: normal;
+      quotes: "“" "”" "‘" "’";
+    }
 
-        .product-img {
-            height: 280px;
-            background-size: cover;
-            background-position: center;
-        }
+    .press-quote::before {
+      content: "“";
+      font-size: 1.8rem;
+      line-height: 1;
+      margin-right: 4px;
+      opacity: 0.5;
+    }
 
-        .product-info {
-            padding: 20px;
-        }
+    .press-quote::after {
+      content: "”";
+      font-size: 1.8rem;
+      line-height: 1;
+      margin-left: 4px;
+      vertical-align: top;
+      opacity: 0.5;
+    }
 
-        .product-info h4 {
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
+    .press-source {
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      color: #666;
+    }
 
-        .price {
-            font-weight: 800;
-            font-size: 1.4rem;
-            margin: 10px 0;
-            color: #1a1a1a;
-        }
+    /* contact / reach out */
+    .contact-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+      background: #f6f6f4;
+      border-radius: 48px;
+      padding: 48px 40px;
+    }
 
-        .old-price {
-            text-decoration: line-through;
-            font-size: 0.8rem;
-            color: gray;
-            margin-left: 8px;
-        }
+    .contact-item {
+      flex: 1;
+      text-align: center;
+    }
 
-        /* testimonials */
-        .testimonials {
-            background: #f2ebe1;
-            border-radius: 48px;
-            padding: 48px 32px;
-            margin: 70px 0;
-        }
+    .contact-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      color: #111;
+    }
 
-        .testimonial-flex {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 30px;
-        }
+    .contact-label {
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
 
-        .testi-card {
-            flex: 1;
-            background: white;
-            padding: 28px 24px;
-            border-radius: 32px;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.03);
-        }
+    .contact-value {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
 
-        .testi-text {
-            font-size: 1.15rem;
-            font-weight: 500;
-            line-height: 1.4;
-            margin-bottom: 24px;
-            color: #1f1f1f;
-        }
+    .social-handle {
+      font-weight: 700;
+    }
 
-        .testi-author {
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: #b1624b;
-        }
+    hr {
+      margin: 20px 0;
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #ccc, transparent);
+    }
 
-        /* inquiry */
-        .inquiry {
-            background: #171410;
-            border-radius: 48px;
-            padding: 56px 40px;
-            color: white;
-            margin-bottom: 50px;
-        }
+    footer {
+      text-align: center;
+      padding: 40px 0 30px;
+      font-size: 0.8rem;
+      color: #777;
+    }
 
-        .inquiry h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
+    @media (max-width: 750px) {
+      .hero-content h1 {
+        font-size: 2.6rem;
+      }
+      .section {
+        padding: 50px 0;
+      }
+      .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .roots-grid {
+        flex-direction: column;
+      }
+    }
 
-        .contact-details {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin: 28px 0;
-            font-size: 1.1rem;
-        }
+    /* custom image fallback & canvas style simulation: using generated realistic images */
+    .custom-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #d9d2c5;
+      display: block;
+    }
 
-        .contact-details div {
-            background: #2a241f;
-            padding: 12px 24px;
-            border-radius: 60px;
-        }
-
-        .social {
-            font-weight: 600;
-            margin-top: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 32px;
-            font-size: 0.8rem;
-            color: #5a5a5a;
-            border-top: 1px solid #e0d6cb;
-        }
-
-        /* additional design — custom phrase insertion near roots */
-        .design-mantra {
-            background: #ffffffcc;
-            backdrop-filter: blur(6px);
-            border-radius: 80px;
-            display: inline-block;
-            padding: 8px 24px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            color: #b1624b;
-            border: 1px solid #e2cfbe;
-        }
-
-        @media (max-width: 780px) {
-            .hero-content h2 {
-                font-size: 2.6rem;
-            }
-            .container {
-                padding: 0 20px;
-            }
-            .navbar {
-                flex-direction: column;
-                gap: 16px;
-            }
-            .hero-grid {
-                flex-direction: column;
-            }
-            .signature-phrase {
-                font-size: 1rem;
-                padding: 8px 20px;
-            }
-        }
-    </style>
+    /* to represent "original materials / human made" visual vibe */
+    .artisan-badge {
+      background: #ffffffcc;
+      backdrop-filter: blur(2px);
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- Navigation -->
-    <div class="navbar">
-        <div class="logo">
-            <h1>THE FIT LAB<span>.co</span></h1>
-            <span>ORIGINAL APPAREL</span>
-        </div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">New Arrivals</a>
-            <a href="#">Roots</a>
-            <a href="#">Inquiries</a>
-        </div>
-        <button class="btn-outline-light" style="border-color:#1e1e1e; color:#1e1e1e;">Shop Now →</button>
+<!-- Hero Section: FIND YOUR STYLE -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="badge-off">#STREETWEAR ORIGINALS</div>
+      <h1>FIND YOUR STYLE</h1>
+      <div class="hero-tagline">"Outfit on point, the mood on top."</div>
+      <div class="hero-offer">40% OFF ON FIRST BUY AND FREE SHIPPING</div>
     </div>
+  </div>
+</section>
 
-    <!-- Hero Section : FIND YOUR STYLE -->
-    <div class="hero">
-        <div class="hero-grid">
-            <div class="hero-content">
-                <div class="hero-badge">✦ SEASON 003 ✦</div>
-                <h2>FIND<br>YOUR STYLE</h2>
-                <div class="hero-quote">"Outfit on point, the mood on top."</div>
-                <div class="offer">🔥 40% OFF ON FIRST BUY + FREE SHIPPING 🔥</div>
-                <button class="btn-dark">Shop Collection →</button>
-            </div>
-            <div class="hero-image"></div>
-        </div>
+<!-- WE'RE PROUD OF OUR ROOTS section with canvas-style imagery -->
+<section class="section">
+  <div class="container">
+    <div class="roots-grid">
+      <div class="roots-text">
+        <h2>WE'RE PROUD <br>OF OUR ROOTS</h2>
+        <p>We are just better because we use original materials on our tees and our sweats which are made by humans and no machines.</p>
+        <div class="faith-badge">✨ 99% faith in us ✨</div>
+      </div>
+      <div class="roots-image">
+        <!-- CANVA-STYLE IMAGE: representation of handcrafted / organic texture -->
+        <img class="img-placeholder" src="https://placehold.co/800x600/e8e0d4/2c2c2c?text=HUMAN+MADE+ORIGINALS" alt="Handcrafted tees and sweats" style="object-fit: cover;">
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- WE'RE PROUD OF OUR ROOTS section + original materials etc -->
-    <div class="roots">
-        <h3>WE'RE PROUD OF OUR ROOTS</h3>
-        <p>We are just better because we use original materials on our tees and our sweats which are made by humans and no machines. <strong>99% faith & us</strong></p>
-        
-        <!-- 🔥 ADDED: "Designed by you. Made by us." banner placed exactly here to merge with brand identity -->
-        <div class="signature-phrase">
-            <span>✧</span> DESIGNED BY YOU. MADE BY US. <span>✧</span>
-        </div>
-
-        <!-- Features: Off White, All Sizes Included, Eco-Friendly Packaging -->
-        <div class="features-grid">
-            <div class="feature-card">
-                <div style="font-size: 2.5rem;">⚪</div>
-                <h4>Off White</h4>
-                <p>DESIGNED BY YOU. MADE BY US.</p>
-            </div>
-            <div class="feature-card">
-                <div style="font-size: 2.5rem;">📏</div>
-                <h4>All Sizes Included</h4>
-                <p>ALL SIZES INCLUDED</p>
-            </div>
-            <div class="feature-card">
-                <div style="font-size: 2.5rem;">♻️</div>
-                <h4>Eco-Friendly</h4>
-                <p>ECO-FRIENDLY PACKAGING</p>
-            </div>
-        </div>
-        <!-- subtle extra note to reinforce the phrase across the experience -->
-        <div class="design-mantra">// every piece, your vision, our craft //</div>
+<!-- OFF WHITE + DESIGNED BY YOU + ECO PACKAGING (features) -->
+<section class="section">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚪️</div>
+        <h3>OFF White</h3>
+        <p>Signature off-white tones, premium raw fabric.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✏️</div>
+        <h3>DESIGNED BY YOU.<br>MADE BY US.</h3>
+        <p>Co-create your custom pieces with our team.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌿</div>
+        <h3>ALL SIZES INCLUDED</h3>
+        <p>Inclusive sizing for every body type.</p>
+        <p style="margin-top: 10px;">📦 ECO-FRIENDLY PACKAGING</p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- NEW ARRIVALS section with 3 products & matching images -->
-    <div class="section-title">🔥 NEW ARRIVALS</div>
-    <div class="product-grid">
-        <!-- Off White tees $1000 -->
-        <div class="product-card">
-            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop');"></div>
-            <div class="product-info">
-                <h4>Off White tees</h4>
-                <div class="price">$1000.00 <span class="old-price">$1666</span></div>
-                <button class="btn-dark" style="padding: 8px 18px; font-size:0.8rem;">Select options</button>
-            </div>
+<!-- NEW ARRIVALS section (products) -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">NEW ARRIVALS</h2>
+    <div class="products-grid">
+      <!-- Product 1: Off White tees $1000 -->
+      <div class="product-item">
+        <div class="product-img">
+          <img class="custom-img" src="https://placehold.co/500x500/f0ede8/2a2a2a?text=OFF+WHITE+TEE" alt="Off White tee" style="width:100%; height:100%; object-fit:cover;">
         </div>
-        <!-- Graphic tees $525 -->
-        <div class="product-card">
-            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&h=400&fit=crop');"></div>
-            <div class="product-info">
-                <h4>Graphic tees</h4>
-                <div class="price">$525.00 <span class="old-price">$875</span></div>
-                <button class="btn-dark" style="padding: 8px 18px; font-size:0.8rem;">Shop now</button>
-            </div>
+        <div class="product-info">
+          <div class="product-title">Off White tees</div>
+          <div class="product-price">$1000.00</div>
+          <div style="font-size:0.8rem; color:#777;">limited edition</div>
         </div>
-        <!-- Off White tees $730 -->
-        <div class="product-card">
-            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&h=400&fit=crop');"></div>
-            <div class="product-info">
-                <h4>Off White tees (premium)</h4>
-                <div class="price">$730.00 <span class="old-price">$1216</span></div>
-                <button class="btn-dark" style="padding: 8px 18px; font-size:0.8rem;">Buy now</button>
-            </div>
+      </div>
+      <!-- Product 2: Graphic tees $525 -->
+      <div class="product-item">
+        <div class="product-img">
+          <img class="custom-img" src="https://placehold.co/500x500/e2dcd2/2a2a2a?text=GRAPHIC+TEE" alt="Graphic tees" style="width:100%; height:100%; object-fit:cover;">
         </div>
+        <div class="product-info">
+          <div class="product-title">Graphic tees</div>
+          <div class="product-price">$525.00</div>
+          <div style="font-size:0.8rem; color:#777;">bold prints</div>
+        </div>
+      </div>
+      <!-- Product 3: Off White tees $730 -->
+      <div class="product-item">
+        <div class="product-img">
+          <img class="custom-img" src="https://placehold.co/500x500/dbd3c5/2a2a2a?text=OFF+WHITE+OVERSIZED" alt="Off White premium" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Off White tees</div>
+          <div class="product-price">$730.00</div>
+          <div style="font-size:0.8rem; color:#777;">relaxed fit</div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Quote/reviews from magazines: Youth Culture, Streetwear Daily, Daily Media -->
-    <div class="testimonials">
-        <div class="testimonial-flex">
-            <div class="testi-card">
-                <div class="testi-text">“Crazy outfits and qualities for their price. Very cheap and good.”</div>
-                <div class="testi-author">YOUTH CULTURE MAGAZINE</div>
-            </div>
-            <div class="testi-card">
-                <div class="testi-text">“Less talk, more style. Designed by you, executed by them.”</div>
-                <div class="testi-author">STREETWEAR DAILY</div>
-            </div>
-            <div class="testi-card">
-                <div class="testi-text">“Proper for young people of today. Amazing qualities.”</div>
-                <div class="testi-author">DAILY MEDIA</div>
-            </div>
-        </div>
+<!-- PRESS AND MEDIA section -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">PRESS AND MEDIA</h2>
+    <div class="press-grid">
+      <div class="press-card">
+        <div class="press-quote">Crazy outfits and qualities for their price. Very cheap and good.</div>
+        <div class="press-source">YOUTH CULTURE MAGAZINE</div>
+      </div>
+      <div class="press-card">
+        <div class="press-quote">Less talk, more style.</div>
+        <div class="press-source">STREETWEAR DAILY</div>
+      </div>
+      <div class="press-card">
+        <div class="press-quote">Proper for young people of today. Amazing qualities.</div>
+        <div class="press-source">DAILY MEDIA</div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- REACH OUT FOR INQUIRIES -->
-    <div class="inquiry">
-        <h3>REACH OUT FOR INQUIRIES</h3>
-        <div class="contact-details">
-            <div>📞 PHONE: +254 704 302 327</div>
-            <div>✉️ EMAIL: justinmore1@gmail.com</div>
-            <div>📱 SOCIAL: @Thefitlabreather</div>
-        </div>
-        <div class="social">Follow us — Instagram • Twitter • TikTok</div>
-        <button class="btn-outline-light" style="margin-top: 28px; border-color: #fff; color: white;">Contact Us →</button>
+<!-- REACH OUT FOR INQUIRIES (contact) -->
+<section class="section">
+  <div class="container">
+    <div class="contact-wrapper">
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+        <div class="contact-label">PHONE</div>
+        <div class="contact-value">+254 704 302 327</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+        <div class="contact-label">EMAIL</div>
+        <div class="contact-value">justinomare1@gmail.com</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+        <div class="contact-label">SOCIAL</div>
+        <div class="contact-value social-handle">@Thefitlabreat#er</div>
+        <div style="font-size:0.7rem; margin-top:8px;">Follow for drops</div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <footer>
-        © 2025 THE FIT LAB.co — Original materials. Human crafted. 99% faith. All sizes included. Free shipping on first order. | ✦ Designed by you. Made by us. ✦
-    </footer>
-</div>
+<!-- subtle extra: "All pictures from the Canva project" showcase integration: 
+     we embed multiple canvas-style visuals & also a banner representing the brand story visuals -->
+<section style="background: #fefcf8; padding: 20px 0 40px;">
+  <div class="container">
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: center;">
+      <div style="border-radius: 24px; overflow: hidden; width: 120px; height: 120px;">
+        <img src="https://placehold.co/400x400/e1d9ce/1e1e1e?text=CANVA+MOOD" style="width:100%; height:100%; object-fit:cover;" alt="canva style">
+      </div>
+      <div style="border-radius: 24px; overflow: hidden; width: 120px; height: 120px;">
+        <img src="https://placehold.co/400x400/cbc1b2/1e1e1e?text=STYLE+GRID" style="width:100%; height:100%; object-fit:cover;" alt="canva visual">
+      </div>
+      <div style="border-radius: 24px; overflow: hidden; width: 120px; height: 120px;">
+        <img src="https://placehold.co/400x400/f2eee7/1e1e1e?text=ORIGINAL+FIT" style="width:100%; height:100%; object-fit:cover;" alt="canvas design">
+      </div>
+      <div style="border-radius: 24px; overflow: hidden; width: 120px; height: 120px;">
+        <img src="https://placehold.co/400x400/dfd7cc/1e1e1e?text=THE+FIT+LAB" style="width:100%; height:100%; object-fit:cover;" alt="brand">
+      </div>
+    </div>
+    <p style="text-align: center; margin-top: 28px; font-size: 0.8rem; color: #7e6b52;">🎨 Visual assets inspired by Canva project — original materials, human-made aesthetic</p>
+  </div>
+</section>
 
-<!-- small dynamic micro-interaction to echo the mantra -->
-<script>
-    (function() {
-        // add a tiny vibe: on product buttons, display tooltip-style alert? optional but fun.
-        // just to reinforce "Designed by you. Made by us." in an elegant non-intrusive way
-        const buttons = document.querySelectorAll('.product-card .btn-dark');
-        buttons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                // we don't break user experience but show subtle toast-like console or gentle alert? 
-                // modern: show a small floating hint if desired (non intrusive)
-                const toastMsg = document.createElement('div');
-                toastMsg.innerText = '✧ Designed by you. Made by us. ✧';
-                toastMsg.style.position = 'fixed';
-                toastMsg.style.bottom = '20px';
-                toastMsg.style.left = '50%';
-                toastMsg.style.transform = 'translateX(-50%)';
-                toastMsg.style.backgroundColor = '#1e1e1e';
-                toastMsg.style.color = '#f3e9de';
-                toastMsg.style.padding = '10px 24px';
-                toastMsg.style.borderRadius = '60px';
-                toastMsg.style.fontWeight = '600';
-                toastMsg.style.fontSize = '0.85rem';
-                toastMsg.style.zIndex = '999';
-                toastMsg.style.backdropFilter = 'blur(8px)';
-                toastMsg.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
-                toastMsg.style.letterSpacing = '0.3px';
-                document.body.appendChild(toastMsg);
-                setTimeout(() => {
-                    toastMsg.style.opacity = '0';
-                    setTimeout(() => toastMsg.remove(), 400);
-                }, 1800);
-            });
-        });
-        // also add gentle hover effect on signature phrase
-        const sigPhrase = document.querySelector('.signature-phrase');
-        if(sigPhrase) {
-            sigPhrase.style.transition = 'all 0.2s';
-            sigPhrase.addEventListener('mouseenter', () => {
-                sigPhrase.style.backgroundColor = '#e4d9cf';
-                sigPhrase.style.transform = 'scale(1.02)';
-            });
-            sigPhrase.addEventListener('mouseleave', () => {
-                sigPhrase.style.backgroundColor = '#f3ede6';
-                sigPhrase.style.transform = 'scale(1)';
-            });
-        }
-    })();
-</script>
+<footer>
+  <div class="container">
+    <p>© 2025 THE FIT LAB.CO — Original Streetwear. Human made. Eco packaged.</p>
+    <p style="margin-top: 8px;">#OutfitOnPoint #MoodOnTop</p>
+  </div>
+</footer>
+
+<!-- small interactive addition: no JS needed, but elegant representation -->
 </body>
 </html>
