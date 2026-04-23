@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>The Fit Lab.co | Streetwear & Originals — Designed by you. Made by us.</title>
     <!-- Google Fonts + Smooth base -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -22,14 +21,12 @@
             scroll-behavior: smooth;
         }
 
-        /* container */
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 32px;
         }
 
-        /* buttons & small elements */
         .btn-outline-light {
             border: 1.5px solid #fff;
             background: transparent;
@@ -67,7 +64,6 @@
             transform: scale(0.97);
         }
 
-        /* header nav */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -111,7 +107,6 @@
             color: #b1624b;
         }
 
-        /* hero section with image placeholder + background */
         .hero {
             background: linear-gradient(97deg, #e7dfd3 0%, #d9cfbf 100%);
             border-radius: 40px;
@@ -174,6 +169,7 @@
             backdrop-filter: blur(4px);
         }
 
+        /* Main hero image (right side) */
         .hero-image {
             flex: 1;
             min-height: 380px;
@@ -187,46 +183,73 @@
             z-index: 1;
         }
 
-        /* NEW: added small floating accent image on the left-middle of hero content */
-        .hero-floating-accent {
+        /* LEFT image (12.png) already positioned left-middle */
+        .hero-floating-accent-left {
             position: absolute;
             left: 20px;
             top: 50%;
             transform: translateY(-50%);
             width: 85px;
             height: auto;
-            opacity: 0.75;
+            opacity: 0.85;
             z-index: 5;
             pointer-events: none;
             filter: drop-shadow(0 8px 12px rgba(0,0,0,0.1));
-            transition: all 0.3s ease;
             border-radius: 20px;
+            transition: all 0.2s;
         }
-        
-        /* for better responsiveness, adjust size & position */
+
+        /* NEW RIGHT IMAGE: The Fit Lab.co (13).png placed on the right side of "FIND YOUR STYLE" text area */
+        .hero-floating-accent-right {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 85px;
+            height: auto;
+            opacity: 0.85;
+            z-index: 5;
+            pointer-events: none;
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.1));
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
         @media (max-width: 880px) {
-            .hero-floating-accent {
+            .hero-floating-accent-left {
                 width: 60px;
                 left: 12px;
             }
+            .hero-floating-accent-right {
+                width: 60px;
+                right: 12px;
+            }
             .hero-content {
                 padding-left: 85px;
-            }
-        }
-        
-        @media (max-width: 640px) {
-            .hero-floating-accent {
-                width: 48px;
-                left: 10px;
-                top: 30%;
-                transform: translateY(-30%);
-            }
-            .hero-content {
-                padding-left: 70px;
+                padding-right: 85px;
             }
         }
 
-        /* roots section */
+        @media (max-width: 640px) {
+            .hero-floating-accent-left {
+                width: 48px;
+                left: 8px;
+                top: 35%;
+            }
+            .hero-floating-accent-right {
+                width: 48px;
+                right: 8px;
+                top: 35%;
+            }
+            .hero-content {
+                padding-left: 68px;
+                padding-right: 68px;
+            }
+            .hero-content h2 {
+                font-size: 2.4rem;
+            }
+        }
+
         .roots {
             text-align: center;
             margin: 70px 0 40px;
@@ -284,7 +307,6 @@
             color: #b1624b;
         }
 
-        /* signature phrase badge */
         .signature-phrase {
             background: #f3ede6;
             border-radius: 60px;
@@ -305,7 +327,6 @@
             font-size: 1.6rem;
         }
 
-        /* arrivals */
         .section-title {
             font-size: 2.5rem;
             font-weight: 800;
@@ -364,7 +385,6 @@
             margin-left: 8px;
         }
 
-        /* testimonials */
         .testimonials {
             background: #f2ebe1;
             border-radius: 48px;
@@ -401,7 +421,6 @@
             color: #b1624b;
         }
 
-        /* inquiry */
         .inquiry {
             background: #171410;
             border-radius: 48px;
@@ -473,22 +492,12 @@
                 font-size: 1rem;
                 padding: 8px 20px;
             }
-            .hero-floating-accent {
-                width: 55px;
-                left: 8px;
-                top: 40%;
-            }
-            .hero-content {
-                padding-left: 75px;
-                padding-right: 20px;
-            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Navigation -->
     <div class="navbar">
         <div class="logo">
             <h1>THE FIT LAB<span>.co</span></h1>
@@ -503,12 +512,16 @@
         <button class="btn-outline-light" style="border-color:#1e1e1e; color:#1e1e1e;">Shop Now →</button>
     </div>
 
-    <!-- Hero Section : FIND YOUR STYLE (with added left-middle image The Fit Lab.co (12).png) -->
+    <!-- Hero Section: FIND YOUR STYLE with left and right accent images -->
     <div class="hero">
         <div class="hero-grid">
             <div class="hero-content">
-                <!-- LEFT-MIDDLE IMAGE ADDED: The Fit Lab.co (12).png placed exactly left-middle of the FIND YOUR STYLE content area -->
-                <img class="hero-floating-accent" src="The Fit Lab.co (12).png" alt="The Fit Lab accent" onerror="this.style.opacity='0.5'; this.style.border='1px dashed #b1624b';">
+                <!-- LEFT image: The Fit Lab.co (12).png (already added from previous request) -->
+                <img class="hero-floating-accent-left" src="The Fit Lab.co (12).png" alt="Fit Lab style left" onerror="this.style.opacity='0.6'; this.style.border='1px solid #b1624b';">
+                
+                <!-- RIGHT image: The Fit Lab.co (13).png added to the right side of "FIND YOUR STYLE" textual content -->
+                <img class="hero-floating-accent-right" src="The Fit Lab.co (13).png" alt="Fit Lab style right" onerror="this.style.opacity='0.6'; this.style.border='1px solid #b1624b';">
+                
                 <div class="hero-badge">✦ SEASON 003 ✦</div>
                 <h2>FIND<br>YOUR STYLE</h2>
                 <div class="hero-quote">"Outfit on point, the mood on top."</div>
@@ -519,17 +532,15 @@
         </div>
     </div>
 
-    <!-- WE'RE PROUD OF OUR ROOTS section + original materials etc -->
+    <!-- WE'RE PROUD OF OUR ROOTS section -->
     <div class="roots">
         <h3>WE'RE PROUD OF OUR ROOTS</h3>
         <p>We are just better because we use original materials on our tees and our sweats which are made by humans and no machines. <strong>99% faith & us</strong></p>
         
-        <!-- "Designed by you. Made by us." banner -->
         <div class="signature-phrase">
             <span>✧</span> DESIGNED BY YOU. MADE BY US. <span>✧</span>
         </div>
 
-        <!-- Features: Off White, All Sizes Included, Eco-Friendly Packaging -->
         <div class="features-grid">
             <div class="feature-card">
                 <div style="font-size: 2.5rem;">⚪</div>
@@ -550,10 +561,9 @@
         <div class="design-mantra">// every piece, your vision, our craft //</div>
     </div>
 
-    <!-- NEW ARRIVALS section with 3 products & original The Fit Lab.co (10).png in middle -->
+    <!-- NEW ARRIVALS section (The Fit Lab.co (10).png in the middle) -->
     <div class="section-title">🔥 NEW ARRIVALS</div>
     <div class="product-grid">
-        <!-- Off White tees $1000 (LEFT) -->
         <div class="product-card">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop');"></div>
             <div class="product-info">
@@ -563,7 +573,7 @@
             </div>
         </div>
         
-        <!-- MIDDLE CARD: The Fit Lab.co (10).png image added here as requested (kept from previous) -->
+        <!-- MIDDLE CARD: The Fit Lab.co (10).png -->
         <div class="product-card">
             <div class="product-img" style="background-image: url('The Fit Lab.co (10).png');"></div>
             <div class="product-info">
@@ -573,7 +583,6 @@
             </div>
         </div>
         
-        <!-- Off White tees $730 (RIGHT) -->
         <div class="product-card">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&h=400&fit=crop');"></div>
             <div class="product-info">
@@ -584,7 +593,7 @@
         </div>
     </div>
 
-    <!-- Quote/reviews from magazines: Youth Culture, Streetwear Daily, Daily Media -->
+    <!-- Testimonials -->
     <div class="testimonials">
         <div class="testimonial-flex">
             <div class="testi-card">
@@ -602,7 +611,7 @@
         </div>
     </div>
 
-    <!-- REACH OUT FOR INQUIRIES -->
+    <!-- Inquiry -->
     <div class="inquiry">
         <h3>REACH OUT FOR INQUIRIES</h3>
         <div class="contact-details">
@@ -619,10 +628,9 @@
     </footer>
 </div>
 
-<!-- subtle micro-interactions + fallback for images & "Designed by you. Made by us." mantra -->
 <script>
     (function() {
-        // Toast interaction for product buttons (mantra reinforcement)
+        // mantra toast on product buttons
         const buttons = document.querySelectorAll('.product-card .btn-dark');
         buttons.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -650,8 +658,8 @@
                 }, 1800);
             });
         });
-        
-        // hover effect on signature phrase
+
+        // signature phrase hover effect
         const sigPhrase = document.querySelector('.signature-phrase');
         if(sigPhrase) {
             sigPhrase.style.transition = 'all 0.2s';
@@ -665,16 +673,21 @@
             });
         }
 
-        // Optional: If hero accent image fails to load, provide graceful fallback but still retain layout
-        const heroAccent = document.querySelector('.hero-floating-accent');
-        if(heroAccent) {
-            heroAccent.addEventListener('error', function() {
-                this.style.opacity = '0.6';
-                this.style.border = '1px solid #b1624b';
+        // Graceful fallback for both left and right images (just console silent)
+        const leftImg = document.querySelector('.hero-floating-accent-left');
+        const rightImg = document.querySelector('.hero-floating-accent-right');
+        if(leftImg) {
+            leftImg.addEventListener('error', function() {
+                this.style.opacity = '0.5';
+                this.style.border = '1px dashed #b1624b';
                 this.style.borderRadius = '20px';
-                this.style.padding = '4px';
-                this.style.backgroundColor = '#f2e8dd';
-                this.alt = 'Fit Lab accent';
+            });
+        }
+        if(rightImg) {
+            rightImg.addEventListener('error', function() {
+                this.style.opacity = '0.5';
+                this.style.border = '1px dashed #b1624b';
+                this.style.borderRadius = '20px';
             });
         }
     })();
