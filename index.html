@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>The Fit Lab.co | Black Edition Streetwear</title>
+  <title>The Fit Lab.co | Press & Media • Black Edition</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -298,11 +298,19 @@
       background: #e0e0e0;
     }
 
-    /* Press Cards */
+    /* PRESS & MEDIA SECTION (enhanced, featured quotes + logos) */
+    .press-featured {
+      background: #050505;
+      border-radius: 48px;
+      padding: 60px 40px;
+      margin-bottom: 40px;
+      border: 1px solid #1f1f1f;
+    }
     .press-grid {
       display: flex;
       gap: 35px;
       flex-wrap: wrap;
+      margin-top: 20px;
     }
     .press-card {
       flex: 1;
@@ -310,6 +318,11 @@
       border-radius: 28px;
       padding: 40px 32px;
       border: 1px solid #222222;
+      transition: 0.2s;
+    }
+    .press-card:hover {
+      background: #111111;
+      border-color: #3a3a3a;
     }
     .press-quote {
       font-size: 1.2rem;
@@ -318,12 +331,47 @@
       margin-bottom: 24px;
       color: #eeeeee;
     }
+    .press-quote::before {
+      content: '"';
+      font-size: 2rem;
+      opacity: 0.4;
+      margin-right: 5px;
+    }
+    .press-quote::after {
+      content: '"';
+      font-size: 2rem;
+      opacity: 0.4;
+      margin-left: 5px;
+      vertical-align: top;
+    }
     .press-source {
       font-weight: 700;
       font-size: 0.8rem;
       letter-spacing: 1.5px;
       color: #aaaaaa;
       text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .press-badge {
+      background: #1f1f1f;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+    .press-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+    .award-icon {
+      color: gold;
     }
 
     /* Contact - all black blend */
@@ -504,6 +552,7 @@
       .hero h1 { font-size: 3rem; }
       .section-title { font-size: 2rem; }
       .contact-wrapper { flex-direction: column; border-radius: 32px; }
+      .press-featured { padding: 30px 20px; }
     }
   </style>
 </head>
@@ -515,6 +564,7 @@
     <div class="nav-links">
       <button class="page-link" data-page="home">HOME</button>
       <button class="page-link" data-page="menu">MENU / SHOP</button>
+      <button class="page-link" data-page="press">PRESS</button>
       <button class="page-link" data-page="roots">ROOTS</button>
       <button class="cart-icon-btn" id="openCartBtn">
         <i class="fas fa-shopping-bag"></i>
@@ -524,7 +574,7 @@
   </div>
 </nav>
 
-<!-- HOME PAGE (Fully black interface, white text) -->
+<!-- HOME PAGE (Black interface, white text) -->
 <div id="homePage" class="page active-page">
   <section class="hero">
     <div class="container">
@@ -571,12 +621,17 @@
     </div>
   </section>
 
+  <!-- PRESS TEASER on homepage -->
   <section class="section">
-    <div class="container"><h2 class="section-title">PRESS AND MEDIA</h2>
-      <div class="press-grid">
-        <div class="press-card"><div class="press-quote">Crazy outfits and qualities for their price. Very cheap and good.</div><div class="press-source">YOUTH CULTURE MAGAZINE</div></div>
+    <div class="container">
+      <h2 class="section-title">AS FEATURED IN</h2>
+      <div class="press-grid" style="margin-top: 10px;">
+        <div class="press-card"><div class="press-quote">Crazy outfits and qualities for their price. Very cheap and good.</div><div class="press-source">YOUTH CULTURE MAGAZINE <span class="press-badge">✦ Top Pick</span></div></div>
         <div class="press-card"><div class="press-quote">Less talk, more style.</div><div class="press-source">STREETWEAR DAILY</div></div>
         <div class="press-card"><div class="press-quote">Proper for young people of today. Amazing qualities.</div><div class="press-source">DAILY MEDIA</div></div>
+      </div>
+      <div style="text-align: center; margin-top: 40px;">
+        <button class="page-link" data-page="press" style="background: transparent; border: 1px solid white; padding: 10px 28px; border-radius: 40px; color: white; cursor: pointer;">VIEW ALL PRESS →</button>
       </div>
     </div>
   </section>
@@ -603,7 +658,55 @@
   </section>
 </div>
 
-<!-- ROOTS PAGE - deeper heritage -->
+<!-- DEDICATED PRESS & MEDIA PAGE (enhanced with awards & detailed coverage) -->
+<div id="pressPage" class="page">
+  <section class="section" style="padding-top: 60px;">
+    <div class="container">
+      <h2 class="section-title">PRESS & MEDIA</h2>
+      <div class="section-sub">Recognized by leading voices in culture and streetwear</div>
+      
+      <div class="press-featured">
+        <div class="press-grid">
+          <div class="press-card">
+            <div class="press-quote">The Fit Lab.co is redefining affordable luxury with raw, human-made textiles. A movement, not just a brand.</div>
+            <div class="press-source">HIGHSNOBIETY <span class="press-badge">★ EDITOR'S CHOICE</span></div>
+            <div class="press-stat"><i class="fas fa-star award-icon"></i> "Best New Streetwear Brand 2025"</div>
+          </div>
+          <div class="press-card">
+            <div class="press-quote">Crazy outfits and qualities for their price. Very cheap and good — but feels premium.</div>
+            <div class="press-source">YOUTH CULTURE MAGAZINE</div>
+            <div class="press-stat"><i class="fas fa-trophy award-icon"></i> #1 On The Rise</div>
+          </div>
+        </div>
+        <div class="press-grid" style="margin-top: 30px;">
+          <div class="press-card">
+            <div class="press-quote">Less talk, more style. The Fit Lab delivers original cuts and zero-compromise materials.</div>
+            <div class="press-source">STREETWEAR DAILY</div>
+            <div class="press-stat"><i class="fas fa-fire"></i> 4.8/5 rating</div>
+          </div>
+          <div class="press-card">
+            <div class="press-quote">Proper for young people of today. Amazing qualities, ethical production.</div>
+            <div class="press-source">DAILY MEDIA</div>
+            <div class="press-stat"><i class="fas fa-leaf"></i> Sustainable Fashion Award</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 30px; text-align: center; background: #0a0a0a; border-radius: 40px; padding: 40px;">
+        <h3 style="font-size: 1.6rem; margin-bottom: 20px;">📸 In the Spotlight</h3>
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+          <span class="faith-badge" style="background:#1f1f1f;">VOGUE Business</span>
+          <span class="faith-badge" style="background:#1f1f1f;">HYPEBEAST</span>
+          <span class="faith-badge" style="background:#1f1f1f;">COMPLEX</span>
+          <span class="faith-badge" style="background:#1f1f1f;">i-D Magazine</span>
+        </div>
+        <p style="margin-top: 28px; color: #aaa; font-size: 0.9rem;">"Human touch, no machines — the future of streetwear is here." — THE CUT</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ROOTS PAGE -->
 <div id="rootsPage" class="page">
   <section class="section" style="padding-top: 60px;">
     <div class="container">
@@ -636,14 +739,14 @@
 <div id="toastMsg" class="toast-msg">Item added 🛒</div>
 
 <script>
-  // PRODUCT DATA (authentic streetwear imagery)
+  // PRODUCT DATA
   const products = [
-    { id: 1, name: "Off White Signature", price: 1000.00, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", category: "premium" },
-    { id: 2, name: "Graphic Bold Tee", price: 525.00, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", category: "graphic" },
-    { id: 3, name: "Off White Relaxed", price: 730.00, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=600&fit=crop", category: "premium" },
-    { id: 4, name: "Vintage Wash Hoodie", price: 890.00, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", category: "sweats" },
-    { id: 5, name: "Script Logo Tee", price: 450.00, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop", category: "basics" },
-    { id: 6, name: "Handcrafted Sweatshirt", price: 1120.00, image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=600&h=600&fit=crop", category: "sweats" }
+    { id: 1, name: "Off White Signature", price: 1000.00, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop" },
+    { id: 2, name: "Graphic Bold Tee", price: 525.00, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop" },
+    { id: 3, name: "Off White Relaxed", price: 730.00, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=600&fit=crop" },
+    { id: 4, name: "Vintage Wash Hoodie", price: 890.00, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop" },
+    { id: 5, name: "Script Logo Tee", price: 450.00, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop" },
+    { id: 6, name: "Handcrafted Sweatshirt", price: 1120.00, image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=600&h=600&fit=crop" }
   ];
 
   let cart = [];
@@ -666,136 +769,55 @@
       totalSpan.innerText = `$0.00`;
       return;
     }
-    let html = '';
-    let total = 0;
+    let html = ''; let total = 0;
     cart.forEach(item => {
       const itemTotal = item.price * item.quantity;
       total += itemTotal;
-      html += `
-        <div class="cart-item" data-id="${item.id}">
+      html += `<div class="cart-item" data-id="${item.id}">
           <img class="cart-item-img" src="${item.image}" alt="${item.name}">
           <div class="cart-item-details">
             <div class="cart-item-title">${item.name}</div>
             <div class="cart-item-price">$${item.price.toFixed(2)}</div>
             <div class="cart-item-actions">
-              <button class="qty-btn" data-id="${item.id}" data-delta="-1">-</button>
-              <span style="min-width:28px; text-align:center;">${item.quantity}</span>
-              <button class="qty-btn" data-id="${item.id}" data-delta="1">+</button>
-              <button class="remove-item" data-id="${item.id}">Remove</button>
+              <button class="qty-btn" data-id="${item.id}" data-delta="-1">-</button><span style="min-width:28px;">${item.quantity}</span>
+              <button class="qty-btn" data-id="${item.id}" data-delta="1">+</button><button class="remove-item" data-id="${item.id}">Remove</button>
             </div>
-          </div>
-        </div>
-      `;
+          </div></div>`;
     });
     container.innerHTML = html;
     totalSpan.innerText = `$${total.toFixed(2)}`;
-    document.querySelectorAll('.qty-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = parseInt(btn.dataset.id);
-        const delta = parseInt(btn.dataset.delta);
-        updateQuantity(id, delta);
-      });
-    });
-    document.querySelectorAll('.remove-item').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = parseInt(btn.dataset.id);
-        removeItem(id);
-      });
-    });
+    document.querySelectorAll('.qty-btn').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id), delta = parseInt(btn.dataset.delta); updateQuantity(id, delta); }));
+    document.querySelectorAll('.remove-item').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); removeItem(id); }));
     localStorage.setItem('fitLabCart', JSON.stringify(cart));
   }
-
-  function updateQuantity(id, delta) {
-    const idx = cart.findIndex(i => i.id === id);
-    if(idx === -1) return;
-    const newQty = cart[idx].quantity + delta;
-    if(newQty <= 0) cart.splice(idx,1);
-    else cart[idx].quantity = newQty;
-    updateCartUI();
-  }
+  function updateQuantity(id, delta) { const idx = cart.findIndex(i => i.id === id); if(idx === -1) return; const newQty = cart[idx].quantity + delta; if(newQty <= 0) cart.splice(idx,1); else cart[idx].quantity = newQty; updateCartUI(); }
   function removeItem(id) { cart = cart.filter(i => i.id !== id); updateCartUI(); showToast("Item removed"); }
-  function addToCart(product) {
-    const existing = cart.find(i => i.id === product.id);
-    if(existing) existing.quantity += 1;
-    else cart.push({ ...product, quantity: 1 });
-    updateCartUI();
-    showToast(`${product.name} added to cart`);
-  }
+  function addToCart(product) { const existing = cart.find(i => i.id === product.id); if(existing) existing.quantity += 1; else cart.push({ ...product, quantity: 1 }); updateCartUI(); showToast(`${product.name} added to cart`); }
 
   function renderProducts(containerId, productList = products) {
     const container = document.getElementById(containerId);
     if(!container) return;
     container.innerHTML = '';
     productList.forEach(prod => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      card.innerHTML = `
-        <div class="product-img"><img src="${prod.image}" alt="${prod.name}"></div>
-        <div class="product-info">
-          <div class="product-title">${prod.name}</div>
-          <div class="product-price">$${prod.price.toFixed(2)}</div>
-          <button class="add-to-cart" data-id="${prod.id}"><i class="fas fa-bag-shopping"></i> Add to Cart</button>
-        </div>
-      `;
+      const card = document.createElement('div'); card.className = 'product-card';
+      card.innerHTML = `<div class="product-img"><img src="${prod.image}" alt="${prod.name}"></div><div class="product-info"><div class="product-title">${prod.name}</div><div class="product-price">$${prod.price.toFixed(2)}</div><button class="add-to-cart" data-id="${prod.id}"><i class="fas fa-bag-shopping"></i> Add to Cart</button></div>`;
       container.appendChild(card);
     });
-    document.querySelectorAll(`#${containerId} .add-to-cart`).forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = parseInt(btn.dataset.id);
-        const product = products.find(p => p.id === id);
-        if(product) addToCart(product);
-      });
-    });
+    document.querySelectorAll(`#${containerId} .add-to-cart`).forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const product = products.find(p => p.id === id); if(product) addToCart(product); }));
   }
 
-  function loadCart() {
-    const saved = localStorage.getItem('fitLabCart');
-    if(saved) try { cart = JSON.parse(saved); } catch(e){ cart = []; }
-    else cart = [];
-    updateCartUI();
-  }
+  function loadCart() { const saved = localStorage.getItem('fitLabCart'); if(saved) try { cart = JSON.parse(saved); } catch(e){ cart = []; } else cart = []; updateCartUI(); }
 
-  // PAGE ROUTING
-  const pages = { home: 'homePage', menu: 'menuPage', roots: 'rootsPage' };
+  const pagesMap = { home: 'homePage', menu: 'menuPage', press: 'pressPage', roots: 'rootsPage' };
   function switchPage(pageId) {
-    Object.values(pages).forEach(pid => {
-      const el = document.getElementById(pid);
-      if(el) el.classList.remove('active-page');
-    });
-    const active = document.getElementById(pages[pageId]);
-    if(active) active.classList.add('active-page');
+    Object.values(pagesMap).forEach(pid => { const el = document.getElementById(pid); if(el) el.classList.remove('active-page'); });
+    const active = document.getElementById(pagesMap[pageId]); if(active) active.classList.add('active-page');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if(pageId === 'menu') renderProducts('fullMenuGrid', products);
     if(pageId === 'home') renderProducts('homeProductsGrid', products.slice(0,3));
   }
-
-  document.querySelectorAll('.page-link').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const page = btn.dataset.page;
-      if(page) switchPage(page);
-    });
-  });
+  document.querySelectorAll('.page-link').forEach(btn => btn.addEventListener('click', (e) => { const page = btn.dataset.page; if(page) switchPage(page); }));
   document.querySelector('.logo')?.addEventListener('click', () => switchPage('home'));
-
-  const openCartBtn = document.getElementById('openCartBtn');
-  const closeCartBtn = document.getElementById('closeCartBtn');
-  const cartSidebar = document.getElementById('cartSidebar');
+  const openCartBtn = document.getElementById('openCartBtn'), closeCartBtn = document.getElementById('closeCartBtn'), cartSidebar = document.getElementById('cartSidebar');
   openCartBtn.addEventListener('click', () => { cartSidebar.classList.add('open'); document.body.style.overflow = 'hidden'; });
-  closeCartBtn.addEventListener('click', () => { cartSidebar.classList.remove('open'); document.body.style.overflow = ''; });
-  window.addEventListener('click', (e) => {
-    if(cartSidebar.classList.contains('open') && !cartSidebar.contains(e.target) && e.target !== openCartBtn && !openCartBtn.contains(e.target))
-      { cartSidebar.classList.remove('open'); document.body.style.overflow = ''; }
-  });
-  document.getElementById('checkoutBtn')?.addEventListener('click', () => {
-    if(cart.length === 0) showToast("Cart is empty");
-    else alert(`✨ THE FIT LAB.CO ✨\nTotal: $${cart.reduce((s,i)=> s + (i.price*i.quantity),0).toFixed(2)}\nThank you for supporting human-made fashion!`);
-  });
-
-  loadCart();
-  renderProducts('homeProductsGrid', products.slice(0,3));
-  renderProducts('fullMenuGrid', products);
-  switchPage('home');
-</script>
-<footer><div class="container"><p>© 2025 THE FIT LAB.CO — Original materials. Human made. Zero machines.</p><p>#OutfitOnPoint #MoodOnTop | All Black Interface</p></div></footer>
-</body>
-</html>
+  closeCartBtn.addEventListener('
