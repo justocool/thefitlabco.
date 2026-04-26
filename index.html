@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>The Fit Lab.co | Streetwear Originals</title>
+  <title>The Fit Lab.co | Black Edition Streetwear</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -26,14 +26,14 @@
       padding: 0 32px;
     }
 
-    /* Navigation - dark theme */
+    /* Navigation - pure black */
     .navbar {
       padding: 28px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      border-bottom: 1px solid #222;
+      border-bottom: 1px solid #1a1a1a;
       background: #000000;
       position: sticky;
       top: 0;
@@ -47,7 +47,7 @@
       cursor: pointer;
       color: #FFFFFF;
     }
-    .logo .light { font-weight: 400; color: #aaa; }
+    .logo .light { font-weight: 400; color: #888888; }
 
     .nav-links {
       display: flex;
@@ -64,7 +64,7 @@
       font-family: inherit;
       color: #FFFFFF;
     }
-    .nav-links button:hover, .page-link:hover { color: #ccc; }
+    .nav-links button:hover, .page-link:hover { color: #aaaaaa; }
     .cart-icon-btn {
       background: none;
       border: none;
@@ -97,7 +97,7 @@
     }
     @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
-    /* Hero Section - Black background, white text */
+    /* Hero Section - all black */
     .hero {
       padding: 80px 0 100px;
       text-align: center;
@@ -137,7 +137,7 @@
 
     .section {
       padding: 90px 0;
-      border-bottom: 1px solid #222;
+      border-bottom: 1px solid #151515;
     }
     .section-title {
       font-size: 2.8rem;
@@ -148,7 +148,7 @@
     }
     .section-sub {
       text-align: center;
-      color: #aaa;
+      color: #aaaaaa;
       margin-bottom: 50px;
     }
 
@@ -172,10 +172,10 @@
       font-size: 1.1rem;
       line-height: 1.6;
       margin-bottom: 28px;
-      color: #ddd;
+      color: #dddddd;
     }
     .faith-badge {
-      background: #222;
+      background: #1a1a1a;
       color: #FFFFFF;
       display: inline-block;
       padding: 10px 24px;
@@ -184,10 +184,11 @@
     }
     .roots-image {
       flex: 1;
-      background: #1a1a1a;
+      background: #0d0d0d;
       border-radius: 32px;
       height: 420px;
       overflow: hidden;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.5);
     }
     .roots-image img {
       width: 100%;
@@ -195,7 +196,7 @@
       object-fit: cover;
     }
 
-    /* Features Cards - dark theme */
+    /* Features Cards - deep black UI */
     .features-grid {
       display: flex;
       gap: 30px;
@@ -205,16 +206,17 @@
     .feature-card {
       flex: 1;
       min-width: 240px;
-      background: #111111;
+      background: #0a0a0a;
       border-radius: 28px;
       padding: 45px 28px;
       text-align: center;
-      border: 1px solid #2a2a2a;
-      transition: 0.2s;
+      border: 1px solid #222222;
+      transition: 0.25s;
     }
     .feature-card:hover {
       transform: translateY(-6px);
-      background: #1a1a1a;
+      background: #121212;
+      border-color: #3a3a3a;
     }
     .feature-icon {
       font-size: 3.2rem;
@@ -226,31 +228,31 @@
       color: #FFFFFF;
     }
     .feature-card p {
-      color: #bbb;
+      color: #bbbbbb;
     }
 
-    /* PRODUCT GRID */
+    /* PRODUCT GRID - dark cards */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 40px;
     }
     .product-card {
-      background: #111111;
+      background: #0a0a0a;
       border-radius: 28px;
       overflow: hidden;
-      border: 1px solid #2a2a2a;
+      border: 1px solid #222222;
       transition: 0.25s;
     }
     .product-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 20px 35px rgba(0,0,0,0.5);
-      border-color: #444;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.8);
+      border-color: #444444;
     }
     .product-img {
       width: 100%;
       aspect-ratio: 1 / 1;
-      background: #1c1c1c;
+      background: #111111;
       overflow: hidden;
     }
     .product-img img {
@@ -293,7 +295,7 @@
       transition: 0.2s;
     }
     .add-to-cart:hover {
-      background: #dddddd;
+      background: #e0e0e0;
     }
 
     /* Press Cards */
@@ -304,36 +306,36 @@
     }
     .press-card {
       flex: 1;
-      background: #111111;
+      background: #0a0a0a;
       border-radius: 28px;
       padding: 40px 32px;
-      border: 1px solid #2a2a2a;
+      border: 1px solid #222222;
     }
     .press-quote {
       font-size: 1.2rem;
       font-weight: 500;
       line-height: 1.5;
       margin-bottom: 24px;
-      color: #eee;
+      color: #eeeeee;
     }
     .press-source {
       font-weight: 700;
       font-size: 0.8rem;
       letter-spacing: 1.5px;
-      color: #aaa;
+      color: #aaaaaa;
       text-transform: uppercase;
     }
 
-    /* Contact - dark version */
+    /* Contact - all black blend */
     .contact-wrapper {
       display: flex;
       flex-wrap: wrap;
       gap: 40px;
-      background: #111111;
+      background: #0a0a0a;
       border-radius: 50px;
       padding: 55px 45px;
       justify-content: space-between;
-      border: 1px solid #2a2a2a;
+      border: 1px solid #222222;
     }
     .contact-item {
       flex: 1;
@@ -347,17 +349,17 @@
     .contact-value {
       font-size: 1.2rem;
       font-weight: 600;
-      color: #ddd;
+      color: #cccccc;
     }
 
     footer {
       text-align: center;
       padding: 50px 0;
-      color: #777;
-      border-top: 1px solid #222;
+      color: #777777;
+      border-top: 1px solid #151515;
     }
 
-    /* CART SIDEBAR */
+    /* CART SIDEBAR - BLACK EDITION */
     .cart-overlay {
       position: fixed;
       top: 0;
@@ -365,21 +367,22 @@
       width: 100%;
       max-width: 480px;
       height: 100vh;
-      background: #0a0a0a;
-      box-shadow: -8px 0 30px rgba(0,0,0,0.6);
+      background: #030303;
+      box-shadow: -8px 0 30px rgba(0,0,0,0.8);
       z-index: 1000;
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2,0.9,0.4,1.1);
       display: flex;
       flex-direction: column;
       color: #FFFFFF;
+      border-left: 1px solid #2a2a2a;
     }
     .cart-overlay.open {
       transform: translateX(0);
     }
     .cart-header {
       padding: 24px 28px;
-      border-bottom: 1px solid #2a2a2a;
+      border-bottom: 1px solid #222222;
       display: flex;
       justify-content: space-between;
     }
@@ -404,13 +407,13 @@
       display: flex;
       gap: 16px;
       margin-bottom: 24px;
-      border-bottom: 1px solid #2a2a2a;
+      border-bottom: 1px solid #222222;
       padding-bottom: 16px;
     }
     .cart-item-img {
       width: 70px;
       height: 70px;
-      background: #1c1c1c;
+      background: #111111;
       border-radius: 16px;
       object-fit: cover;
     }
@@ -423,7 +426,7 @@
     }
     .cart-item-price {
       font-weight: 600;
-      color: #ccc;
+      color: #cccccc;
     }
     .cart-item-actions {
       display: flex;
@@ -432,7 +435,7 @@
       margin-top: 8px;
     }
     .qty-btn {
-      background: #2a2a2a;
+      background: #222222;
       border: none;
       width: 28px;
       height: 28px;
@@ -451,7 +454,7 @@
     }
     .cart-footer {
       padding: 24px 28px 32px;
-      border-top: 1px solid #2a2a2a;
+      border-top: 1px solid #222222;
     }
     .cart-total {
       display: flex;
@@ -473,7 +476,7 @@
     }
     .empty-cart-msg {
       text-align: center;
-      color: #aaa;
+      color: #aaaaaa;
       margin-top: 60px;
     }
     .toast-msg {
@@ -491,6 +494,10 @@
       transition: 0.2s;
       pointer-events: none;
       font-weight: 500;
+    }
+
+    button, .page-link, .cart-icon-btn {
+      outline: none;
     }
 
     @media (max-width: 768px) {
@@ -517,7 +524,7 @@
   </div>
 </nav>
 
-<!-- HOME PAGE (Black background, white text) -->
+<!-- HOME PAGE (Fully black interface, white text) -->
 <div id="homePage" class="page active-page">
   <section class="hero">
     <div class="container">
@@ -596,7 +603,7 @@
   </section>
 </div>
 
-<!-- ROOTS PAGE -->
+<!-- ROOTS PAGE - deeper heritage -->
 <div id="rootsPage" class="page">
   <section class="section" style="padding-top: 60px;">
     <div class="container">
@@ -629,7 +636,7 @@
 <div id="toastMsg" class="toast-msg">Item added 🛒</div>
 
 <script>
-  // PRODUCT DATA (with high-quality images for all products)
+  // PRODUCT DATA (authentic streetwear imagery)
   const products = [
     { id: 1, name: "Off White Signature", price: 1000.00, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", category: "premium" },
     { id: 2, name: "Graphic Bold Tee", price: 525.00, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", category: "graphic" },
@@ -789,6 +796,6 @@
   renderProducts('fullMenuGrid', products);
   switchPage('home');
 </script>
-<footer><div class="container"><p>© 2025 THE FIT LAB.CO — Original materials. Human made. Zero machines.</p><p>#OutfitOnPoint #MoodOnTop | Streetwear culture</p></div></footer>
+<footer><div class="container"><p>© 2025 THE FIT LAB.CO — Original materials. Human made. Zero machines.</p><p>#OutfitOnPoint #MoodOnTop | All Black Interface</p></div></footer>
 </body>
 </html>
