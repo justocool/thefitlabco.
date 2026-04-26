@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>The Fit Lab.co | Original Streetwear</title>
+  <title>The Fit Lab.co | Interactive Streetwear Cart</title>
+  <!-- Google Fonts & Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -16,7 +17,8 @@
     body {
       font-family: 'Inter', sans-serif;
       background: #FFFFFF;
-      color: #1A1A1A;
+      color: #111111;
+      scroll-behavior: smooth;
     }
 
     .container {
@@ -25,63 +27,231 @@
       padding: 0 32px;
     }
 
-    /* Header / Navigation */
+    /* Navigation + Cart Icon */
     .navbar {
-      padding: 24px 0;
+      padding: 28px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       border-bottom: 1px solid #EAEAEA;
+      position: relative;
     }
 
     .logo {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 800;
       letter-spacing: -0.02em;
     }
 
-    .logo span {
-      color: #666;
+    .logo .light {
       font-weight: 400;
+      color: #888;
     }
 
     .nav-links {
       display: flex;
       gap: 32px;
-      font-weight: 500;
+      align-items: center;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: #1A1A1A;
+      color: #111;
+      font-weight: 500;
       transition: 0.2s;
     }
 
     .nav-links a:hover {
-      color: #888;
+      color: #999;
     }
 
-    /* Hero Section */
+    /* Cart Button & Sidebar */
+    .cart-icon-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      position: relative;
+      color: #111;
+      margin-left: 10px;
+      transition: transform 0.1s;
+    }
+
+    .cart-icon-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background: #111;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 30px;
+      padding: 2px 7px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* Cart Sidebar Overlay */
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 480px;
+      height: 100vh;
+      background: white;
+      box-shadow: -8px 0 30px rgba(0,0,0,0.1);
+      z-index: 1000;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      display: flex;
+      flex-direction: column;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .cart-overlay.open {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      padding: 24px 28px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 16px;
+    }
+
+    .cart-item-img {
+      width: 70px;
+      height: 70px;
+      background: #f3f0ea;
+      border-radius: 16px;
+      object-fit: cover;
+    }
+
+    .cart-item-details {
+      flex: 1;
+    }
+
+    .cart-item-title {
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .cart-item-price {
+      font-weight: 600;
+      color: #222;
+    }
+
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .qty-btn {
+      background: #f0f0f0;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 30px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+
+    .remove-item {
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      font-size: 0.8rem;
+      text-decoration: underline;
+    }
+
+    .cart-footer {
+      padding: 24px 28px 32px;
+      border-top: 1px solid #eee;
+      background: #fefefe;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: #111;
+      color: white;
+      border: none;
+      padding: 16px;
+      font-weight: 700;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .empty-cart-msg {
+      text-align: center;
+      color: #888;
+      margin-top: 60px;
+    }
+
+    /* Hero, Sections */
     .hero {
       padding: 80px 0 100px;
       text-align: center;
-      background: linear-gradient(135deg, #F8F6F2 0%, #FFFFFF 100%);
+      background: linear-gradient(135deg, #F7F5F0 0%, #FFFFFF 100%);
     }
 
     .hero-badge {
       display: inline-block;
-      background: #1A1A1A;
+      background: #111;
       color: white;
-      padding: 6px 18px;
+      padding: 6px 20px;
       border-radius: 40px;
       font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .hero h1 {
-      font-size: 4.5rem;
+      font-size: 5rem;
       font-weight: 900;
       letter-spacing: -0.03em;
       margin-bottom: 20px;
@@ -91,27 +261,25 @@
       font-size: 1.3rem;
       color: #444;
       font-style: italic;
-      margin-bottom: 32px;
+      margin-bottom: 35px;
     }
 
     .offer-banner {
-      background: #1A1A1A;
+      background: #111;
       color: white;
       display: inline-block;
-      padding: 14px 32px;
+      padding: 14px 36px;
       border-radius: 60px;
       font-weight: 700;
-      font-size: 1rem;
     }
 
-    /* Section Styles */
     .section {
-      padding: 80px 0;
-      border-bottom: 1px solid #EFEFEF;
+      padding: 90px 0;
+      border-bottom: 1px solid #F0F0F0;
     }
 
     .section-title {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: 800;
       text-align: center;
       margin-bottom: 16px;
@@ -120,10 +288,10 @@
     .section-sub {
       text-align: center;
       color: #666;
-      margin-bottom: 48px;
+      margin-bottom: 50px;
     }
 
-    /* Roots Section */
+    /* Roots, Features, Products */
     .roots-grid {
       display: flex;
       gap: 60px;
@@ -136,17 +304,15 @@
     }
 
     .roots-text h2 {
-      font-size: 2.8rem;
+      font-size: 3rem;
       font-weight: 800;
       margin-bottom: 24px;
-      line-height: 1.2;
     }
 
     .roots-text p {
       font-size: 1.1rem;
       line-height: 1.6;
-      color: #333;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .faith-badge {
@@ -155,16 +321,14 @@
       padding: 10px 24px;
       border-radius: 40px;
       font-weight: 600;
-      font-size: 0.9rem;
     }
 
     .roots-image {
       flex: 1;
-      background: #E8E2D8;
+      background: #E5DDD2;
       border-radius: 32px;
-      height: 400px;
+      height: 420px;
       overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
 
     .roots-image img {
@@ -173,7 +337,6 @@
       object-fit: cover;
     }
 
-    /* Features */
     .features-grid {
       display: flex;
       gap: 30px;
@@ -183,39 +346,33 @@
 
     .feature-card {
       flex: 1;
-      min-width: 220px;
+      min-width: 240px;
       background: white;
       border-radius: 28px;
-      padding: 40px 24px;
+      padding: 45px 28px;
       text-align: center;
       border: 1px solid #EEEEEE;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: 0.2s;
     }
 
     .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 30px rgba(0,0,0,0.05);
+      transform: translateY(-6px);
     }
 
     .feature-icon {
-      font-size: 3rem;
+      font-size: 3.2rem;
       margin-bottom: 20px;
     }
 
     .feature-card h3 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin-bottom: 12px;
-    }
-
-    .feature-card p {
-      color: #555;
-      line-height: 1.4;
     }
 
     /* Products */
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 40px;
     }
 
@@ -224,18 +381,18 @@
       border-radius: 28px;
       overflow: hidden;
       border: 1px solid #EFEFEF;
-      transition: 0.2s;
+      transition: 0.25s;
     }
 
     .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+      transform: translateY(-10px);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.12);
     }
 
     .product-img {
       width: 100%;
       aspect-ratio: 1 / 1;
-      background: #F3F0EA;
+      background: #F2EFE9;
       overflow: hidden;
     }
 
@@ -243,28 +400,50 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: 0.3s;
     }
 
     .product-info {
-      padding: 20px;
+      padding: 24px;
     }
 
     .product-title {
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin-bottom: 8px;
     }
 
     .product-price {
       font-weight: 800;
-      font-size: 1.4rem;
-      color: #1A1A1A;
+      font-size: 1.5rem;
+      color: #111;
+      margin-bottom: 16px;
     }
 
-    /* Press Section */
+    .add-to-cart {
+      width: 100%;
+      background: #111;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .add-to-cart:hover {
+      background: #333;
+    }
+
+    /* Press & Contact */
     .press-grid {
       display: flex;
-      gap: 30px;
+      gap: 35px;
       flex-wrap: wrap;
     }
 
@@ -272,90 +451,77 @@
       flex: 1;
       background: #FAFAFA;
       border-radius: 28px;
-      padding: 36px 28px;
+      padding: 40px 32px;
       border: 1px solid #EFEFEF;
     }
 
     .press-quote {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 500;
-      line-height: 1.45;
-      margin-bottom: 20px;
-    }
-
-    .press-quote::before {
-      content: '"';
-      font-size: 2rem;
-      opacity: 0.4;
-      margin-right: 4px;
-    }
-
-    .press-quote::after {
-      content: '"';
-      font-size: 2rem;
-      opacity: 0.4;
-      margin-left: 4px;
-      vertical-align: top;
+      line-height: 1.5;
+      margin-bottom: 24px;
     }
 
     .press-source {
       font-weight: 700;
       font-size: 0.8rem;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       color: #888;
       text-transform: uppercase;
     }
 
-    /* Contact Section */
     .contact-wrapper {
       display: flex;
       flex-wrap: wrap;
       gap: 40px;
       background: #F5F3EF;
-      border-radius: 48px;
-      padding: 48px 40px;
+      border-radius: 50px;
+      padding: 55px 45px;
       justify-content: space-between;
     }
 
     .contact-item {
       flex: 1;
       text-align: center;
-      min-width: 180px;
     }
 
     .contact-icon {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       margin-bottom: 16px;
     }
 
-    .contact-label {
-      font-weight: 700;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 8px;
-      color: #666;
-    }
-
     .contact-value {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 600;
     }
 
     footer {
       text-align: center;
-      padding: 40px 0;
-      color: #888;
-      font-size: 0.85rem;
+      padding: 50px 0;
+      color: #999;
     }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.8rem; }
-      .navbar { flex-direction: column; gap: 16px; }
-      .nav-links { gap: 20px; }
-      .section { padding: 50px 0; }
-      .roots-grid { flex-direction: column; }
+      .hero h1 { font-size: 3rem; }
+      .section-title { font-size: 2rem; }
       .contact-wrapper { flex-direction: column; }
+    }
+
+    /* toast */
+    .toast-msg {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      z-index: 1100;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -363,18 +529,20 @@
 
 <nav class="container">
   <div class="navbar">
-    <div class="logo">THE FIT LAB<span>.co</span></div>
+    <div class="logo">THE FIT LAB<span class="light">.co</span></div>
     <div class="nav-links">
-      <a href="#">NEW</a>
+      <a href="#">SHOP</a>
       <a href="#">ARRIVALS</a>
       <a href="#">ROOTS</a>
-      <a href="#">CONTACT</a>
+      <button class="cart-icon-btn" id="openCartBtn">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
     </div>
   </div>
 </nav>
 
 <main>
-  <!-- HERO -->
   <section class="hero">
     <div class="container">
       <div class="hero-badge">#STREETWEAR ORIGINALS</div>
@@ -384,132 +552,293 @@
     </div>
   </section>
 
-  <!-- ROOTS -->
   <section class="section">
     <div class="container">
       <div class="roots-grid">
         <div class="roots-text">
           <h2>WE'RE PROUD<br>OF OUR ROOTS</h2>
           <p>We are just better because we use original materials on our tees and our sweats which are made by humans and no machines.</p>
-          <div class="faith-badge">✨ 99% faith in us ✨</div>
+          <div class="faith-badge">✨ 99% faith | 1% us ✨</div>
         </div>
         <div class="roots-image">
-          <img src="https://placehold.co/800x600/D9D0C4/2C2C2C?text=HUMAN+MADE+CRAFT" alt="Handcrafted materials">
+          <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&h=600&fit=crop" alt="handcrafted materials">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FEATURES -->
   <section class="section">
     <div class="container">
       <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">⚪</div>
-          <h3>OFF White</h3>
-          <p>Raw, premium off-white tones</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">✏️</div>
-          <h3>DESIGNED BY YOU.<br>MADE BY US.</h3>
-          <p>Custom creations, co-designed</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌱</div>
-          <h3>ALL SIZES INCLUDED</h3>
-          <p>Inclusive sizing for everyone<br>📦 Eco-friendly packaging</p>
-        </div>
+        <div class="feature-card"><div class="feature-icon">⚪</div><h3>Off-White™</h3><p>Premium off-white, raw texture</p></div>
+        <div class="feature-card"><div class="feature-icon">✏️✨</div><h3>DESIGNED BY YOU.<br>MADE BY US.</h3><p>Co-create your custom pieces</p></div>
+        <div class="feature-card"><div class="feature-icon">🌍📦</div><h3>ALL SIZES INCLUDED</h3><p>Inclusive sizing • Eco-friendly packaging</p></div>
       </div>
     </div>
   </section>
 
-  <!-- NEW ARRIVALS -->
+  <!-- PRODUCTS SECTION with interactive cart buttons -->
   <section class="section">
     <div class="container">
       <h2 class="section-title">NEW ARRIVALS</h2>
-      <div class="products-grid">
-        <div class="product-card">
-          <div class="product-img">
-            <img src="https://placehold.co/600x600/E0D8CC/1A1A1A?text=OFF+WHITE+TEE" alt="Off White tees">
-          </div>
-          <div class="product-info">
-            <div class="product-title">Off White tees</div>
-            <div class="product-price">$1000.00</div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-img">
-            <img src="https://placehold.co/600x600/D4CABE/1A1A1A?text=GRAPHIC+TEE" alt="Graphic tees">
-          </div>
-          <div class="product-info">
-            <div class="product-title">Graphic tees</div>
-            <div class="product-price">$525.00</div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-img">
-            <img src="https://placehold.co/600x600/CBC0B0/1A1A1A?text=OFF+WHITE+TEE" alt="Off White tees">
-          </div>
-          <div class="product-info">
-            <div class="product-title">Off White tees</div>
-            <div class="product-price">$730.00</div>
-          </div>
-        </div>
+      <div class="section-sub">Add to cart — limited stock</div>
+      <div class="products-grid" id="productsGrid">
+        <!-- products dynamically generated but static data will be used -->
       </div>
     </div>
   </section>
 
-  <!-- PRESS -->
   <section class="section">
     <div class="container">
       <h2 class="section-title">PRESS AND MEDIA</h2>
       <div class="press-grid">
-        <div class="press-card">
-          <div class="press-quote">Crazy outfits and qualities for their price. Very cheap and good.</div>
-          <div class="press-source">YOUTH CULTURE MAGAZINE</div>
-        </div>
-        <div class="press-card">
-          <div class="press-quote">Less talk, more style.</div>
-          <div class="press-source">STREETWEAR DAILY</div>
-        </div>
-        <div class="press-card">
-          <div class="press-quote">Proper for young people of today. Amazing qualities.</div>
-          <div class="press-source">DAILY MEDIA</div>
-        </div>
+        <div class="press-card"><div class="press-quote">Crazy outfits and qualities for their price. Very cheap and good.</div><div class="press-source">YOUTH CULTURE MAGAZINE</div></div>
+        <div class="press-card"><div class="press-quote">Less talk, more style.</div><div class="press-source">STREETWEAR DAILY</div></div>
+        <div class="press-card"><div class="press-quote">Proper for young people of today. Amazing qualities.</div><div class="press-source">DAILY MEDIA</div></div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section class="section">
     <div class="container">
       <div class="contact-wrapper">
-        <div class="contact-item">
-          <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
-          <div class="contact-label">PHONE</div>
-          <div class="contact-value">+254 704 302 327</div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-          <div class="contact-label">EMAIL</div>
-          <div class="contact-value">justinomare1@gmail.com</div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon"><i class="fab fa-instagram"></i></div>
-          <div class="contact-label">SOCIAL</div>
-          <div class="contact-value">@Thefitlabreat#er</div>
-        </div>
+        <div class="contact-item"><div class="contact-icon"><i class="fas fa-phone-alt"></i></div><div class="contact-label">PHONE</div><div class="contact-value">+254 704 302 327</div></div>
+        <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div class="contact-label">EMAIL</div><div class="contact-value">justinomare1@gmail.com</div></div>
+        <div class="contact-item"><div class="contact-icon"><i class="fab fa-instagram"></i></div><div class="contact-label">SOCIAL</div><div class="contact-value">@Thriftabrealmere</div></div>
       </div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="container">
-    <p>© 2025 THE FIT LAB.CO — Original materials. Human made. No machines.</p>
-    <p style="margin-top: 12px;">#OutfitOnPoint #MoodOnTop</p>
-  </div>
-</footer>
+<footer><div class="container"><p>© 2025 THE FIT LAB.CO — Original materials. Human made. Zero machines.</p><p style="margin-top: 14px;">#OutfitOnPoint #MoodOnTop</p></div></footer>
 
+<!-- CART SIDEBAR -->
+<div id="cartSidebar" class="cart-overlay">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="close-cart" id="closeCartBtn"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-items" id="cartItemsContainer">
+    <div class="empty-cart-msg">Your cart is empty.<br>Add some fresh tees!</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Total</span><span id="cartTotalPrice">$0.00</span></div>
+    <button class="checkout-btn" id="checkoutBtn">Checkout →</button>
+  </div>
+</div>
+
+<div id="toastMsg" class="toast-msg">Item added to cart 🛒</div>
+
+<script>
+  // ---------- PRODUCT DATA (matches PNG + new arrivals)
+  const products = [
+    { id: 1, name: "Off White tees", price: 1000.00, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop" },
+    { id: 2, name: "Graphic tees", price: 525.00, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop" },
+    { id: 3, name: "Off White tees", price: 730.00, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=600&fit=crop" }
+  ];
+
+  // CART STATE: { id, name, price, quantity, image }
+  let cart = [];
+
+  // DOM elements
+  const productsGrid = document.getElementById('productsGrid');
+  const cartSidebar = document.getElementById('cartSidebar');
+  const openCartBtn = document.getElementById('openCartBtn');
+  const closeCartBtn = document.getElementById('closeCartBtn');
+  const cartItemsContainer = document.getElementById('cartItemsContainer');
+  const cartTotalSpan = document.getElementById('cartTotalPrice');
+  const cartCountSpan = document.getElementById('cartCount');
+  const toastMsgDiv = document.getElementById('toastMsg');
+
+  let toastTimeout = null;
+  function showToast(message = "Item added to cart 🛒") {
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastMsgDiv.textContent = message;
+    toastMsgDiv.style.opacity = "1";
+    toastTimeout = setTimeout(() => {
+      toastMsgDiv.style.opacity = "0";
+    }, 1800);
+  }
+
+  // update cart UI (sidebar + cart count + total)
+  function updateCartUI() {
+    // update cart count badge
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCountSpan.textContent = totalItems;
+
+    // render cart items list
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = `<div class="empty-cart-msg">Your cart is empty.<br>Add some fresh tees!</div>`;
+      cartTotalSpan.textContent = `$0.00`;
+      return;
+    }
+
+    let innerHtml = '';
+    let total = 0;
+    for (let i = 0; i < cart.length; i++) {
+      const item = cart[i];
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+      innerHtml += `
+        <div class="cart-item" data-id="${item.id}">
+          <img class="cart-item-img" src="${item.image}" alt="${item.name}">
+          <div class="cart-item-details">
+            <div class="cart-item-title">${item.name}</div>
+            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+            <div class="cart-item-actions">
+              <button class="qty-btn" data-id="${item.id}" data-delta="-1">-</button>
+              <span style="min-width: 28px; text-align:center;">${item.quantity}</span>
+              <button class="qty-btn" data-id="${item.id}" data-delta="1">+</button>
+              <button class="remove-item" data-id="${item.id}">Remove</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    cartItemsContainer.innerHTML = innerHtml;
+    cartTotalSpan.textContent = `$${total.toFixed(2)}`;
+
+    // attach event listeners for quantity buttons & remove inside cart
+    document.querySelectorAll('.qty-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = parseInt(btn.getAttribute('data-id'));
+        const delta = parseInt(btn.getAttribute('data-delta'));
+        updateQuantity(id, delta);
+      });
+    });
+    document.querySelectorAll('.remove-item').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = parseInt(btn.getAttribute('data-id'));
+        removeItemFromCart(id);
+      });
+    });
+  }
+
+  function updateQuantity(productId, delta) {
+    const index = cart.findIndex(item => item.id === productId);
+    if (index === -1) return;
+    const newQty = cart[index].quantity + delta;
+    if (newQty <= 0) {
+      cart.splice(index, 1);
+    } else {
+      cart[index].quantity = newQty;
+    }
+    updateCartUI();
+    saveCartToLocal();
+  }
+
+  function removeItemFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartUI();
+    saveCartToLocal();
+    showToast("Item removed");
+  }
+
+  function addToCart(product) {
+    const existing = cart.find(item => item.id === product.id);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+        image: product.image
+      });
+    }
+    updateCartUI();
+    saveCartToLocal();
+    showToast(`${product.name} added to cart ✨`);
+    // optional open cart sidebar? don't force
+  }
+
+  function saveCartToLocal() {
+    localStorage.setItem('fitLabCart', JSON.stringify(cart));
+  }
+
+  function loadCartFromLocal() {
+    const saved = localStorage.getItem('fitLabCart');
+    if (saved) {
+      try {
+        cart = JSON.parse(saved);
+      } catch(e) { cart = []; }
+    } else {
+      cart = [];
+    }
+    updateCartUI();
+  }
+
+  // render product cards with interactive buttons
+  function renderProducts() {
+    if (!productsGrid) return;
+    productsGrid.innerHTML = '';
+    products.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <div class="product-img">
+          <img src="${product.image}" alt="${product.name}">
+        </div>
+        <div class="product-info">
+          <div class="product-title">${product.name}</div>
+          <div class="product-price">$${product.price.toFixed(2)}</div>
+          <button class="add-to-cart" data-id="${product.id}">
+            <i class="fas fa-bag-shopping"></i> Add to Cart
+          </button>
+        </div>
+      `;
+      productsGrid.appendChild(card);
+    });
+    // attach add-to-cart listeners
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = parseInt(btn.getAttribute('data-id'));
+        const product = products.find(p => p.id === id);
+        if (product) addToCart(product);
+      });
+    });
+  }
+
+  // sidebar controls
+  function openCart() {
+    cartSidebar.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart() {
+    cartSidebar.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // checkout 
+  function handleCheckout() {
+    if (cart.length === 0) {
+      showToast("Your cart is empty! Add some style.");
+      return;
+    }
+    const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+    alert(`✨ Thanks for shopping at The Fit Lab.co!\nTotal items: ${totalItems}\nTotal: $${cart.reduce((sum,i)=> sum + (i.price*i.quantity),0).toFixed(2)}\n\nThis is a demo — your order would be processed here.`);
+    // optional: clear cart after demo? not clearing, just message.
+  }
+
+  // event binding
+  openCartBtn.addEventListener('click', openCart);
+  closeCartBtn.addEventListener('click', closeCart);
+  document.getElementById('checkoutBtn')?.addEventListener('click', handleCheckout);
+
+  // close overlay when clicking outside? optional - just use close.
+  window.addEventListener('click', (e) => {
+    if (cartSidebar.classList.contains('open') && !cartSidebar.contains(e.target) && e.target !== openCartBtn && !openCartBtn.contains(e.target)) {
+      closeCart();
+    }
+  });
+
+  // init
+  renderProducts();
+  loadCartFromLocal();
+  // Additional listener to save any updates on quantity removal etc already stored.
+</script>
 </body>
 </html>
