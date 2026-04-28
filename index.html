@@ -25,7 +25,7 @@
       font-family: 'Orbitron', monospace;
       letter-spacing: 1px;
     }
-    /* ========= FAST SPACE BACKGROUND WITH MOVING PLANETS ========= */
+    /* ========= FAST SPACE BACKGROUND ========= */
     .universe {
       position: fixed;
       top: 0;
@@ -48,11 +48,7 @@
       0% { transform: scale(1) translate(0, 0); opacity: 0.6; }
       100% { transform: scale(1.1) translate(2%, 1%); opacity: 1; }
     }
-    .stars-layer {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
+    .stars-layer { position: absolute; width: 100%; height: 100%; }
     .star {
       position: absolute;
       background: white;
@@ -63,7 +59,6 @@
       0% { opacity: 0.1; transform: scale(1); }
       100% { opacity: 1; transform: scale(1.5); }
     }
-    /* Fast moving planets */
     .fast-planet {
       position: absolute;
       border-radius: 50%;
@@ -324,7 +319,7 @@
     }
     .feature-card:hover { border-color: #FFD700; transform: translateY(-8px); }
     .feature-icon { font-size: 3rem; color: #FFD700; margin-bottom: 16px; }
-    /* Press Grid - Expanded */
+    /* Press Grid */
     .press-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -342,44 +337,34 @@
     .press-quote { font-size: 1rem; line-height: 1.5; margin-bottom: 20px; color: #eee; font-style: italic; }
     .press-source { font-weight: 800; font-size: 0.85rem; color: #FFD700; text-transform: uppercase; }
     .press-badge { background: rgba(255,215,0,0.2); padding: 4px 12px; border-radius: 30px; font-size: 0.7rem; margin-left: 8px; }
-    /* Cart Sidebar */
+    
+    /* Cart Sidebar - Payment Only */
     .cart-overlay {
-      background: rgba(0,0,0,0.98);
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 500px;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.98);
       backdrop-filter: blur(20px);
       border-left: 2px solid #FFD700;
-    }
-    .shipping-options, .payment-section, .promo-section {
-      margin: 15px 0;
-      padding: 15px;
-      background: rgba(20,20,30,0.6);
-      border-radius: 24px;
-    }
-    .shipping-option {
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
       display: flex;
-      align-items: center;
-      padding: 10px 12px;
-      margin: 8px 0;
-      background: rgba(0,0,0,0.5);
-      border-radius: 60px;
-      border: 1px solid rgba(255,215,0,0.2);
-      cursor: pointer;
-      transition: all 0.2s;
+      flex-direction: column;
+      z-index: 1000;
+      overflow-y: auto;
     }
-    .shipping-option:hover, .shipping-option.selected { border-color: #FFD700; background: rgba(255,215,0,0.15); }
-    .address-input {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      background: #1a1a1a;
-      border: 1px solid rgba(255,215,0,0.3);
-      border-radius: 40px;
-      color: white;
-    }
+    .cart-header { position: sticky; top: 0; background: rgba(0,0,0,0.95); z-index: 5; }
+    .cart-items-scroll { flex: 1; overflow-y: auto; padding: 20px; }
+    .cart-footer { position: sticky; bottom: 0; background: rgba(0,0,0,0.95); z-index: 5; }
+    .payment-section { margin: 12px 0; padding: 12px; background: rgba(20,20,30,0.8); border-radius: 20px; }
     .payment-btn {
       border: 1px solid rgba(255,215,0,0.4);
       background: #111;
       border-radius: 80px;
-      padding: 14px 18px;
+      padding: 12px 16px;
       margin: 8px 0;
       display: flex;
       align-items: center;
@@ -388,28 +373,51 @@
       transition: all 0.3s;
     }
     .payment-btn:hover { border-color: #FFD700; background: rgba(255,215,0,0.15); }
-    .promo-input-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .promo-input {
-      flex: 1;
-      padding: 12px;
-      background: #1a1a1a;
-      border: 1px solid #FFD700;
-      border-radius: 40px;
-      color: white;
-    }
     .checkout-btn {
       width: 100%;
       background: linear-gradient(135deg, #FFD700, #E6B800);
-      padding: 16px;
+      padding: 14px;
       border-radius: 40px;
       font-weight: 800;
       border: none;
       cursor: pointer;
-      margin-top: 15px;
+      margin-top: 12px;
+      transition: all 0.3s;
+    }
+    .checkout-btn:hover { transform: scale(1.02); box-shadow: 0 0 15px #FFD700; }
+    
+    /* Shipping Details Page */
+    .shipping-page {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      border-radius: 60px;
+      border: 2px solid #FFD700;
+    }
+    .shipping-details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin: 30px 0;
+    }
+    .detail-card {
+      background: rgba(20,20,30,0.8);
+      border-radius: 32px;
+      padding: 25px;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+    .detail-label {
+      color: #FFD700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .detail-value {
+      font-size: 1.2rem;
+      font-weight: 600;
     }
     .toast-msg {
       position: fixed;
@@ -425,11 +433,13 @@
       opacity: 0;
       transition: 0.2s;
     }
-    footer { text-align: center; padding: 40px 0; border-top: 1px solid rgba(255,215,0,0.2); }
+    footer { text-align: center; padding: 40px 0; border-top: 1px solid rgba(255,215,0,0.2); margin-top: 40px; }
     @media (max-width: 768px) {
       .hero h1 { font-size: 3rem; }
       .dashboard-nav { gap: 8px; padding: 5px 12px; }
       .dashboard-btn { font-size: 0.7rem; padding: 5px 8px; }
+      .cart-overlay { max-width: 100%; }
+      .shipping-details-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -475,33 +485,49 @@
 </div>
 
 <div id="menuPage" class="page"><section class="section"><div class="container"><h2 class="section-title">✨ CARGO MANIFEST</h2><div class="products-grid" id="fullMenuGrid"></div></div></section></div>
-
 <div id="pressPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🌍 INTERSTELLAR PRESS</h2><div class="press-grid" id="pressGrid"></div></div></section></div>
-
 <div id="rootsPage" class="page"><section class="section"><div class="container"><div class="features-grid"><div class="feature-card"><div class="feature-icon"><i class="fas fa-hands"></i></div><h2>MISSION: HUMAN CRAFT</h2><p>Every stitch is made by human hands. OFF WHITE™ tees and handcrafted bags use ethically sourced materials. Zero machines. 99% faith, 1% us.</p></div></div></div></section></div>
 
-<!-- CART SIDEBAR -->
-<div id="cartSidebar" class="cart-overlay" style="position:fixed; top:0; right:0; width:100%; max-width:500px; height:100vh; transform:translateX(100%); transition:transform 0.3s; display:flex; flex-direction:column; z-index:1000; overflow-y:auto;">
-  <div style="padding:24px; border-bottom:1px solid #FFD700; display:flex; justify-content:space-between;">
+<!-- SHIPPING DETAILS PAGE (shown after payment) -->
+<div id="shippingPage" class="page">
+  <div class="container">
+    <div class="shipping-page">
+      <div style="text-align: center;">
+        <i class="fas fa-rocket" style="font-size: 3rem; color: #FFD700; margin-bottom: 20px;"></i>
+        <h1 style="color:#FFD700; margin-bottom: 10px;">🚀 ORDER CONFIRMED</h1>
+        <p style="color: #ccc; margin-bottom: 30px;">Your cosmic cargo is preparing for launch</p>
+      </div>
+      <div class="shipping-details-grid" id="shippingDetailsGrid">
+        <!-- Dynamic content from JS -->
+      </div>
+      <div style="text-align: center; margin-top: 30px;">
+        <button class="neon-btn" id="backToShopBtn"><i class="fas fa-shopping-cart"></i> CONTINUE EXPLORING</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART SIDEBAR - Payment Only (Shipping moved to separate page) -->
+<div id="cartSidebar" class="cart-overlay">
+  <div class="cart-header" style="padding:20px; border-bottom:1px solid #FFD700; display:flex; justify-content:space-between;">
     <h3 style="color:#FFD700;">✦ ORBIT CART ✦</h3>
     <button id="closeCartBtn" style="background:none; border:none; font-size:1.8rem; color:#FFD700; cursor:pointer;">&times;</button>
   </div>
-  <div id="cartItemsContainer" style="flex:1; overflow-y:auto; padding:20px;"></div>
-  <div style="padding:20px; border-top:1px solid rgba(255,215,0,0.3);">
-    <div class="shipping-options"><div style="color:#FFD700; margin-bottom:10px;"><i class="fas fa-truck"></i> SELECT CARRIER</div><div id="shippingOptionsContainer"></div></div>
-    <div><div style="color:#FFD700; margin:10px 0 5px;"><i class="fas fa-map-marker-alt"></i> DELIVERY COORDINATES</div>
-    <input type="text" id="fullName" class="address-input" placeholder="Full Name" value="Cosmic Explorer">
-    <input type="text" id="addressLine" class="address-input" placeholder="Street Address" value="123 Galaxy Lane">
-    <input type="text" id="city" class="address-input" placeholder="City" value="Nairobi"></div>
-    <div class="promo-section"><div style="color:#FFD700;"><i class="fas fa-ticket-alt"></i> PROMO CODE (40% OFF SHIPPING)</div>
-    <div class="promo-input-group"><input type="text" id="promoCode" class="promo-input" placeholder="OFFWHITE40"><button id="applyPromoBtn" class="neon-btn" style="padding:0 20px;">APPLY</button></div>
-    <div id="promoMessage" style="font-size:0.8rem; margin-top:5px; color:#FFD700;"></div></div>
-    <div class="payment-section"><div style="color:#FFD700; margin-bottom:10px;"><i class="fas fa-credit-card"></i> PAYMENT STARPORT</div>
-    <div class="payment-btn" data-method="paypal"><i class="fab fa-paypal"></i> PayPal</div>
-    <div class="payment-btn" data-method="apple"><i class="fab fa-apple"></i> Apple Pay</div>
-    <div class="payment-btn" data-method="card"><i class="far fa-credit-card"></i> Credit / Debit Card</div>
-    <div id="cardDetails" style="display:none; margin-top:15px;"><input type="text" id="cardNumber" class="address-input" placeholder="Card Number"><input type="text" id="cardExpiry" class="address-input" placeholder="MM/YY"><input type="text" id="cardCvc" class="address-input" placeholder="CVC"><button id="submitCardPayment" class="neon-btn" style="width:100%; margin-top:10px;">PAY NOW</button></div></div>
-    <div class="cart-total" style="display:flex; justify-content:space-between; font-size:1.3rem; font-weight:800; margin:15px 0;"><span>TOTAL</span><span id="cartTotalPrice">$0.00</span></div>
+  <div class="cart-items-scroll" id="cartItemsContainer" style="flex:1;"></div>
+  <div class="cart-footer" style="padding:20px; border-top:1px solid rgba(255,215,0,0.3);">
+    <div class="payment-section">
+      <div style="color:#FFD700; margin-bottom:8px;"><i class="fas fa-credit-card"></i> PAYMENT STARPORT</div>
+      <div class="payment-btn" data-method="paypal"><i class="fab fa-paypal"></i> PayPal</div>
+      <div class="payment-btn" data-method="apple"><i class="fab fa-apple"></i> Apple Pay</div>
+      <div class="payment-btn" data-method="card"><i class="far fa-credit-card"></i> Credit / Debit Card</div>
+      <div id="cardDetails" style="display:none; margin-top:12px;">
+        <input type="text" id="cardNumber" class="address-input" placeholder="Card Number" style="width:100%; padding:10px; margin:5px 0; background:#1a1a1a; border:1px solid #FFD700; border-radius:40px; color:white;">
+        <input type="text" id="cardExpiry" class="address-input" placeholder="MM/YY" style="width:100%; padding:10px; margin:5px 0; background:#1a1a1a; border:1px solid #FFD700; border-radius:40px; color:white;">
+        <input type="text" id="cardCvc" class="address-input" placeholder="CVC" style="width:100%; padding:10px; margin:5px 0; background:#1a1a1a; border:1px solid #FFD700; border-radius:40px; color:white;">
+        <button id="submitCardPayment" class="neon-btn" style="width:100%; margin-top:8px;">PAY NOW</button>
+      </div>
+    </div>
+    <div class="cart-total" style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:800; margin:12px 0;"><span>TOTAL</span><span id="cartTotalPrice">$0.00</span></div>
     <button class="checkout-btn" id="checkoutBtn">COMPLETE PURCHASE →</button>
   </div>
 </div>
@@ -521,7 +547,7 @@
     starsLayer.appendChild(star);
   }
 
-  // Rocket animation functions
+  // Rocket animation
   function flyRocket(isAdd = true) {
     const rocket = document.createElement('div');
     rocket.className = isAdd ? 'rocket-fly' : 'rocket-crash';
@@ -557,37 +583,25 @@
   // Press outlets
   const pressOutlets = [
     { name: "Los Angeles Times", quote: "OFF WHITE™ is redefining luxury streetwear with cosmic craftsmanship.", badge: "★ FEATURED" },
-    { name: "Chicago Tribune", quote: "The handcrafted bag collection is a masterpiece of sustainable design.", badge: "✦ EDITORS' PICK" },
-    { name: "New York Post", quote: "Why OFF WHITE™ is the most exciting brand to watch right now.", badge: "🔥 TRENDING" },
-    { name: "Newsweek", quote: "Zero machines, infinite style — the future of fashion is here.", badge: "★ BREAKTHROUGH" },
+    { name: "Chicago Tribune", quote: "The handcrafted bag collection is a masterpiece.", badge: "✦ EDITORS' PICK" },
+    { name: "New York Post", quote: "The most exciting brand to watch right now.", badge: "🔥 TRENDING" },
+    { name: "Newsweek", quote: "Zero machines, infinite style.", badge: "★ BREAKTHROUGH" },
     { name: "Time", quote: "One of the most innovative labels of the decade.", badge: "✦ BEST OF 2025" },
-    { name: "ABC News", quote: "From the cosmos to your closet — OFF WHITE™ delivers.", badge: "📺 SPOTLIGHT" },
-    { name: "CBS News", quote: "Artisan leather, ethical production, cosmic vision.", badge: "📺 MORNING SHOW" },
-    { name: "MSNBC", quote: "The brand changing how we think about luxury.", badge: "📺 INTERVIEW" }
+    { name: "ABC News", quote: "From the cosmos to your closet.", badge: "📺 SPOTLIGHT" },
+    { name: "CBS News", quote: "Artisan leather, cosmic vision.", badge: "📺 MORNING SHOW" },
+    { name: "MSNBC", quote: "The brand changing luxury.", badge: "📺 INTERVIEW" }
   ];
 
   function renderPress() {
     const container = document.getElementById('pressGrid');
-    if (!container) return;
-    container.innerHTML = pressOutlets.map(p => `
-      <div class="press-card"><div class="press-quote">"${p.quote}"</div><div class="press-source">${p.name} <span class="press-badge">${p.badge}</span></div></div>
-    `).join('');
+    if (container) container.innerHTML = pressOutlets.map(p => `<div class="press-card"><div class="press-quote">"${p.quote}"</div><div class="press-source">${p.name} <span class="press-badge">${p.badge}</span></div></div>`).join('');
   }
 
-  // Cart state
   let cart = [];
-  let selectedShipping = { id: 'ups', name: 'UPS Ground', cost: 15 };
-  let promoApplied = false;
-  const shippingCompanies = [
-    { id: 'dhl', name: 'DHL Express', cost: 25, time: '2-3 days' },
-    { id: 'fedex', name: 'FedEx Priority', cost: 20, time: '3-4 days' },
-    { id: 'ups', name: 'UPS Ground', cost: 15, time: '5-7 days' },
-    { id: 'usps', name: 'USPS First Class', cost: 10, time: '7-10 days' }
-  ];
+  let selectedMethod = null;
 
-  function getShippingCost() { return cart.length === 0 ? 0 : (promoApplied ? selectedShipping.cost * 0.6 : selectedShipping.cost); }
   function getCartSubtotal() { return cart.reduce((s, i) => s + (i.price * i.quantity), 0); }
-  function getFinalTotal() { return getCartSubtotal() + getShippingCost(); }
+  function getFinalTotal() { return getCartSubtotal(); }
 
   function showToast(msg) { const t = document.getElementById('toastMsg'); t.textContent = msg; t.style.opacity = '1'; setTimeout(() => t.style.opacity = '0', 2000); }
 
@@ -596,10 +610,10 @@
     document.getElementById('cartCount').innerText = totalItems;
     const container = document.getElementById('cartItemsContainer');
     const totalSpan = document.getElementById('cartTotalPrice');
-    if (cart.length === 0) { container.innerHTML = '<div style="text-align:center; color:#aaa;">🪐 Cart empty</div>'; totalSpan.innerText = '$0.00'; return; }
+    if (cart.length === 0) { container.innerHTML = '<div style="text-align:center; color:#aaa; padding:40px;">🪐 Cart empty<br>Add some cosmic gear</div>'; totalSpan.innerText = '$0.00'; return; }
     let html = '';
     cart.forEach(item => {
-      html += `<div style="display:flex; gap:12px; margin-bottom:20px;"><img src="${item.image}" style="width:60px;height:60px;border-radius:12px;object-fit:cover;"><div style="flex:1;"><b>${item.name}</b><br>$${item.price}<br><button class="qty-btn" data-id="${item.id}" data-delta="-1" style="background:#333; border:none; padding:2px 10px; border-radius:20px; cursor:pointer;">-</button> ${item.quantity} <button class="qty-btn" data-id="${item.id}" data-delta="1" style="background:#333; border:none; padding:2px 10px; border-radius:20px; cursor:pointer;">+</button> <button class="remove-item" data-id="${item.id}" style="background:none; color:#FFD700; text-decoration:underline; cursor:pointer;">remove</button></div></div>`;
+      html += `<div style="display:flex; gap:12px; margin-bottom:20px; background:rgba(255,215,0,0.05); padding:12px; border-radius:20px;"><img src="${item.image}" style="width:60px;height:60px;border-radius:12px;object-fit:cover;"><div style="flex:1;"><b style="color:#FFD700;">${item.name}</b><br>$${item.price}<br><div style="margin-top:8px;"><button class="qty-btn" data-id="${item.id}" data-delta="-1" style="background:#333; border:none; padding:4px 12px; border-radius:20px; cursor:pointer;">-</button> <span style="margin:0 10px;">${item.quantity}</span> <button class="qty-btn" data-id="${item.id}" data-delta="1" style="background:#333; border:none; padding:4px 12px; border-radius:20px; cursor:pointer;">+</button> <button class="remove-item" data-id="${item.id}" style="background:none; color:#FFD700; text-decoration:underline; cursor:pointer; margin-left:15px;">remove</button></div></div></div>`;
     });
     container.innerHTML = html;
     totalSpan.innerText = `$${getFinalTotal().toFixed(2)}`;
@@ -627,32 +641,42 @@
     showToast(`${product.name} added to orbit!`);
   }
 
-  function renderShippingOptions() {
-    const container = document.getElementById('shippingOptionsContainer');
-    if(!container) return;
-    container.innerHTML = shippingCompanies.map(ship => `
-      <div class="shipping-option ${selectedShipping.id === ship.id ? 'selected' : ''}" data-id="${ship.id}">
-        <div style="flex:1;"><strong>${ship.name}</strong><br><span style="font-size:0.75rem;">${ship.time}</span></div>
-        <div>$${ship.cost.toFixed(2)} ${promoApplied ? `<span style="color:#FFD700; font-size:0.7rem;">→ $${(ship.cost*0.6).toFixed(2)}</span>` : ''}</div>
-      </div>
-    `);
-    document.querySelectorAll('.shipping-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        const ship = shippingCompanies.find(s => s.id === opt.dataset.id);
-        if(ship) { selectedShipping = ship; renderShippingOptions(); updateCartUI(); }
-      });
-    });
+  // Show shipping details page after payment
+  function showShippingDetails() {
+    const subtotal = getCartSubtotal();
+    const itemsList = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
+    const orderDate = new Date().toLocaleString();
+    const estimatedDelivery = new Date(Date.now() + 5*24*60*60*1000).toLocaleDateString();
+    
+    const grid = document.getElementById('shippingDetailsGrid');
+    if (grid) {
+      grid.innerHTML = `
+        <div class="detail-card"><div class="detail-label"><i class="fas fa-hashtag"></i> ORDER NUMBER</div><div class="detail-value">#OW${Math.floor(Math.random()*100000)}-${Date.now().toString().slice(-6)}</div></div>
+        <div class="detail-card"><div class="detail-label"><i class="fas fa-calendar"></i> ORDER DATE</div><div class="detail-value">${orderDate}</div></div>
+        <div class="detail-card"><div class="detail-label"><i class="fas fa-box"></i> ITEMS</div><div class="detail-value">${itemsList || '—'}</div></div>
+        <div class="detail-card"><div class="detail-label"><i class="fas fa-dollar-sign"></i> TOTAL PAID</div><div class="detail-value">$${subtotal.toFixed(2)}</div></div>
+        <div class="detail-card"><div class="detail-label"><i class="fas fa-truck"></i> SHIPPING CARRIER</div><div class="detail-value">Cosmic Logistics (Express)</div></div>
+        <div class="detail-card"><div class="detail-label"><i class="fas fa-clock"></i> EST. DELIVERY</div><div class="detail-value">${estimatedDelivery}</div></div>
+        <div class="detail-card"><div class="detail-label"><i class="fas fa-map-marker-alt"></i> DESTINATION</div><div class="detail-value">Intergalactic Shipping Hub</div></div>
+        <div class="detail-card"><div class="detail-label"><i class="fas fa-rocket"></i> TRACKING CODE</div><div class="detail-value">OW-${Math.random().toString(36).substring(2, 10).toUpperCase()}</div></div>
+      `;
+    }
+    switchPage('shipping');
   }
 
-  // Promo code logic
-  document.getElementById('applyPromoBtn')?.addEventListener('click', () => {
-    const code = document.getElementById('promoCode').value.trim();
-    if(code === 'OFFWHITE40') { promoApplied = true; document.getElementById('promoMessage').innerText = '✓ 40% shipping discount applied!'; updateCartUI(); renderShippingOptions(); }
-    else { document.getElementById('promoMessage').innerText = 'Invalid code. Try OFFWHITE40'; }
-  });
+  function processOrder(method) {
+    if(cart.length === 0) { showToast("Cart empty"); return; }
+    showToast(`✓ Payment processed via ${method}. Redirecting to shipping...`);
+    setTimeout(() => {
+      showShippingDetails();
+      cart = [];
+      updateCartUI();
+      document.getElementById('cartSidebar').style.transform = 'translateX(100%)';
+      flyRocket(true);
+    }, 800);
+  }
 
-  // Payment methods
-  let selectedMethod = null;
+  // Payment handlers
   document.querySelectorAll('.payment-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const method = btn.dataset.method;
@@ -661,21 +685,15 @@
     });
   });
   document.getElementById('submitCardPayment')?.addEventListener('click', () => {
-    const card = document.getElementById('cardNumber').value;
-    if(card.length < 10) showToast("Enter valid card");
+    const card = document.getElementById('cardNumber')?.value;
+    if(!card || card.length < 10) showToast("Enter valid card");
     else processOrder('Credit Card');
   });
-
-  function processOrder(method) {
-    if(cart.length === 0) { showToast("Cart empty"); return; }
-    const address = `${document.getElementById('fullName').value}, ${document.getElementById('addressLine').value}, ${document.getElementById('city').value}`;
-    alert(`✅ LAUNCH SUCCESSFUL! 🚀\nMethod: ${method}\nTotal: $${getFinalTotal().toFixed(2)}\nCarrier: ${selectedShipping.name}\nDelivery to: ${address}\n\nThank you for flying OFF WHITE™`);
-    cart = [];
-    updateCartUI();
-    document.getElementById('cartSidebar').style.transform = 'translateX(100%)';
-    showToast("Order launched into space!");
-  }
-  document.getElementById('checkoutBtn')?.addEventListener('click', () => { if(selectedMethod) processOrder(selectedMethod.toUpperCase()); else showToast("Select a payment method"); });
+  document.getElementById('checkoutBtn')?.addEventListener('click', () => { 
+    if(selectedMethod) processOrder(selectedMethod.toUpperCase()); 
+    else showToast("Select a payment method"); 
+  });
+  document.getElementById('backToShopBtn')?.addEventListener('click', () => switchPage('home'));
 
   function renderProducts(containerId, list = products) {
     const c = document.getElementById(containerId); if(!c) return;
@@ -689,18 +707,24 @@
   }
 
   // Routing
-  const pages = { home:'homePage', menu:'menuPage', press:'pressPage', roots:'rootsPage' };
-  function switchPage(p) { Object.values(pages).forEach(pid => { document.getElementById(pid).classList.remove('active-page'); }); document.getElementById(pages[p]).classList.add('active-page'); window.scrollTo({top:0}); if(p === 'menu') renderProducts('fullMenuGrid', products); if(p === 'home') renderProducts('homeProductsGrid', products.slice(0,3)); }
-  document.querySelectorAll('.page-link').forEach(btn => btn.addEventListener('click', (e) => { const pg = btn.dataset.page; if(pg) switchPage(pg); }));
+  const pages = { home:'homePage', menu:'menuPage', press:'pressPage', roots:'rootsPage', shipping:'shippingPage' };
+  function switchPage(p) { 
+    Object.values(pages).forEach(pid => { const el = document.getElementById(pid); if(el) el.classList.remove('active-page'); }); 
+    document.getElementById(pages[p]).classList.add('active-page'); 
+    window.scrollTo({top:0}); 
+    if(p === 'menu') renderProducts('fullMenuGrid', products); 
+    if(p === 'home') renderProducts('homeProductsGrid', products.slice(0,3));
+  }
+  document.querySelectorAll('.page-link').forEach(btn => btn.addEventListener('click', (e) => { const pg = btn.dataset.page; if(pg && pages[pg]) switchPage(pg); }));
   document.querySelector('.logo')?.addEventListener('click', () => switchPage('home'));
   document.getElementById('openCartBtn').addEventListener('click', () => { document.getElementById('cartSidebar').style.transform = 'translateX(0)'; });
   document.getElementById('closeCartBtn').addEventListener('click', () => { document.getElementById('cartSidebar').style.transform = 'translateX(100%)'; });
+  
   function loadCart() { const saved = localStorage.getItem('offWhiteCart'); if(saved) try { cart = JSON.parse(saved); } catch(e){} updateCartUI(); }
   loadCart();
   renderProducts('homeProductsGrid', products.slice(0,3));
   renderProducts('fullMenuGrid', products);
   renderPress();
-  renderShippingOptions();
   switchPage('home');
 
   // Cursor effects
@@ -714,6 +738,6 @@
   let lastX=0,lastY=0;
   document.addEventListener('mousemove', (e) => { if(Math.abs(e.clientX-lastX)>5 || Math.abs(e.clientY-lastY)>5) { const dust = document.createElement('div'); dust.className = 'stardust'; dust.style.left = e.clientX-2+'px'; dust.style.top = e.clientY-2+'px'; document.body.appendChild(dust); setTimeout(() => dust.remove(), 500); } lastX=e.clientX; lastY=e.clientY; });
 </script>
-<footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. 40% shipping code: OFFWHITE40 • @thefitlabreal</p></div></footer>
+<footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. @thefitlabreal</p></div></footer>
 </body>
 </html>
