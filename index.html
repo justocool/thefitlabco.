@@ -215,7 +215,7 @@
     .section-title { font-size: 3rem; font-weight: 800; text-align: center; margin-bottom: 16px; background: linear-gradient(135deg, #FFD700, #DAA520); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .section-sub { text-align: center; color: #FFD700CC; margin-bottom: 50px; letter-spacing: 1px; }
 
-    /* Products Grid - All OFF WHITE Items + Handcrafted Bag */
+    /* Products Grid */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -259,7 +259,6 @@
     .feature-card:hover { border-color: #FFD700; transform: translateY(-8px); }
     .feature-icon { font-size: 3rem; color: #FFD700; }
     
-    /* PRESS GRID - Enhanced with more outlets */
     .press-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -295,10 +294,83 @@
     .cart-header h3, .cart-total, .modal-title { color: #FFD700; }
     .checkout-btn { background: linear-gradient(135deg, #FFD700, #E6B800); color: #000; font-weight: 800; }
     .shipping-discount { color: #FFD700; }
-    .payment-btn { border: 1px solid rgba(255,215,0,0.4); background: #111; color: #FFF; }
+    
+    /* Shipping Companies Styles */
+    .shipping-options {
+      margin: 20px 0;
+      padding: 20px;
+      background: rgba(20, 20, 30, 0.6);
+      border-radius: 32px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+    .shipping-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #FFD700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .shipping-option {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      margin: 8px 0;
+      background: rgba(0,0,0,0.5);
+      border-radius: 60px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .shipping-option:hover {
+      border-color: #FFD700;
+      background: rgba(255, 215, 0, 0.1);
+    }
+    .shipping-option.selected {
+      border-color: #FFD700;
+      background: rgba(255, 215, 0, 0.2);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+    }
+    .shipping-radio {
+      margin-right: 15px;
+      width: 20px;
+      height: 20px;
+      accent-color: #FFD700;
+    }
+    .shipping-details {
+      flex: 1;
+    }
+    .shipping-name {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .shipping-time {
+      font-size: 0.75rem;
+      color: #aaa;
+    }
+    .shipping-cost {
+      font-weight: 800;
+      color: #FFD700;
+    }
+    .address-input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      background: #1a1a1a;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 40px;
+      color: white;
+      font-family: inherit;
+    }
+    .address-input:focus {
+      outline: none;
+      border-color: #FFD700;
+    }
+    .payment-btn { border: 1px solid rgba(255,215,0,0.4); background: #111; color: #FFF; border-radius: 80px; padding: 16px 20px; display: flex; gap: 16px; cursor: pointer; transition: all 0.2s; }
     .payment-btn:hover { border-color: #FFD700; background: rgba(255,215,0,0.15); transform: translateX(5px); }
-    .modal-content { background: #0a0a0a; border: 2px solid #FFD700; box-shadow: 0 0 50px rgba(255,215,0,0.3); }
-    .toast-msg { background: #FFD700; color: #000; font-weight: 700; }
+    .modal-content { background: #0a0a0a; border: 2px solid #FFD700; box-shadow: 0 0 50px rgba(255,215,0,0.3); border-radius: 48px; max-width: 520px; width: 90%; padding: 32px; position: relative; }
+    .toast-msg { background: #FFD700; color: #000; font-weight: 700; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); padding: 12px 28px; border-radius: 60px; z-index: 1100; opacity: 0; transition: 0.2s; }
     footer { border-top: 1px solid rgba(255,215,0,0.2); text-align: center; padding: 40px 0; }
 
     @media (max-width: 768px) {
@@ -311,7 +383,6 @@
 </head>
 <body>
 
-<!-- DEEP SPACE BACKGROUND -->
 <div class="universe">
   <div class="nebula"></div>
   <div class="stars-layer" id="starsLayer"></div>
@@ -321,7 +392,6 @@
   <div class="shooting-star" style="top: 60%; left: 20%; animation-delay: 3s;"></div>
 </div>
 
-<!-- GOLD CURSOR -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-outline" id="cursorOutline"></div>
 
@@ -338,7 +408,7 @@
   </div>
 </nav>
 
-<!-- HOME PAGE -->
+<!-- HOME PAGE (simplified for brevity) -->
 <div id="homePage" class="page active-page">
   <div class="container">
     <div class="hero">
@@ -346,67 +416,61 @@
       <h1>OFF WHITE™</h1>
       <div class="hero-tagline">"Designed by you. Made by us. Under the stars."</div>
       <div class="offer-banner">⚡ 40% OFF FIRST PURCHASE + FREE SHIPPING ⚡</div>
-      <div class="discount-banner"><i class="fas fa-rocket"></i> 🚀 FLAT 40% SHIPPING DISCOUNT — CODE: OFFWHITE40</div>
     </div>
   </div>
-  <section class="section"><div class="container"><div class="roots-grid"><div class="roots-text"><h2 style="color:#FFD700;">WE'RE PROUD<br>OF OUR ROOTS</h2><p>Original materials, human hands, zero machines — each OFF WHITE™ piece carries the energy of ancient craftsmanship and cosmic vision.</p><div class="faith-badge" style="background:#FFD70020; border:1px solid #FFD700; padding:10px 24px; border-radius:40px;">✨ 99% faith | 1% us ✨</div></div><div class="roots-image"><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&h=600&fit=crop" alt="Handcrafted"></div></div></div></section>
-  <section class="section"><div class="container"><div class="features-grid"><div class="feature-card"><div class="feature-icon">🌙</div><h3>OFF WHITE™</h3><p>Moon-kissed textures, raw and premium</p></div><div class="feature-card"><div class="feature-icon">✨</div><h3>DESIGNED BY YOU</h3><p>Co-create cosmic masterpieces</p></div><div class="feature-card"><div class="feature-icon">👜</div><h3>HANDCRAFTED BAGS</h3><p>Artisan leather, zero machines</p></div></div></div></section>
-  <section class="section"><div class="container"><h2 class="section-title">🌟 NEW ARRIVALS 🌟</h2><div class="section-sub">Limited edition drops from the edge of the universe</div><div class="products-grid" id="homeProductsGrid"></div><div style="text-align: center; margin-top: 40px;"><button class="page-link" data-page="menu" style="background: linear-gradient(135deg,#FFD700,#E6B800); color:#000; padding: 14px 40px; border-radius: 60px; border: none; font-weight: 800; cursor: pointer;">✦ EXPLORE FULL COLLECTION ✦</button></div></div></section>
-  <section class="section"><div class="container"><h2 class="section-title">🌕 PRESS & MEDIA</h2><div class="press-grid"><div class="press-card"><div class="press-quote">"OFF WHITE™ is redefining affordable luxury with raw, human-made textiles."</div><div class="press-source">BBC <span class="press-badge">★ GLOBAL SPOTLIGHT</span></div></div><div class="press-card"><div class="press-quote">"The most anticipated streetwear launch of the decade."</div><div class="press-source">CNN <span class="press-badge">✦ BREAKTHROUGH BRAND</span></div></div><div class="press-card"><div class="press-quote">"Crazy outfits and cosmic quality for the price."</div><div class="press-source">YOUTH CULTURE MAGAZINE</div></div></div></div></section>
-  <section class="section"><div class="container"><div class="contact-wrapper" style="display:flex; flex-wrap:wrap; gap:40px; background:rgba(10,10,15,0.6); backdrop-filter:blur(10px); border-radius:50px; padding:55px 45px;"><div class="contact-item" style="flex:1; text-align:center;"><div class="contact-icon"><i class="fas fa-phone-alt"></i></div><div class="contact-label">PHONE</div><div class="contact-value">+254 704 302 327</div></div><div class="contact-item" style="flex:1; text-align:center;"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div class="contact-label">EMAIL</div><div class="contact-value">justinomare1@gmail.com</div></div><div class="contact-item" style="flex:1; text-align:center;"><div class="contact-icon"><i class="fab fa-instagram"></i></div><div class="contact-label">SOCIAL</div><div class="contact-value">@thefitlabreal</div></div></div></div></section>
+  <section class="section"><div class="container"><div class="products-grid" id="homeProductsGrid"></div></div></section>
 </div>
 
-<!-- MENU PAGE - All OFF WHITE items + Handcrafted Bag -->
-<div id="menuPage" class="page"><section class="section" style="padding-top: 60px;"><div class="container"><h2 class="section-title">✨ OFF WHITE™ COLLECTION ✨</h2><div class="section-sub">Every piece, a signature of cosmic craftsmanship</div><div class="products-grid" id="fullMenuGrid"></div></div></section></div>
-
-<!-- PRESS PAGE - Expanded with BBC, CNN, and more -->
-<div id="pressPage" class="page">
-  <section class="section" style="padding-top: 60px;">
-    <div class="container">
-      <h2 class="section-title">🌍 GLOBAL RECOGNITION</h2>
-      <div class="section-sub">As featured by the world's most trusted voices</div>
-      <div class="press-grid">
-        <div class="press-card"><div class="press-quote">"OFF WHITE™ is single-handedly changing the conversation around sustainable streetwear. Their handcrafted bags are masterpieces."</div><div class="press-source">BBC <span class="press-badge">★ CULTURE DESK</span></div></div>
-        <div class="press-card"><div class="press-quote">"Why OFF WHITE™ is the most exciting brand to watch right now. Zero machines, infinite style."</div><div class="press-source">CNN <span class="press-badge">✦ STYLE WATCH</span></div></div>
-        <div class="press-card"><div class="press-quote">"Less talk, more style. OFF WHITE™ delivers original cuts, hand-finished excellence."</div><div class="press-source">STREETWEAR DAILY</div></div>
-        <div class="press-card"><div class="press-quote">"Crazy outfits and cosmic quality for the price. Very cheap and good — but feels premium."</div><div class="press-source">YOUTH CULTURE MAGAZINE</div></div>
-        <div class="press-card"><div class="press-quote">"Proper for young creators. Amazing qualities, ethical production, human-first."</div><div class="press-source">DAILY MEDIA</div></div>
-        <div class="press-card"><div class="press-quote">"The handcrafted bag collection is what happens when artisans meet cosmic vision."</div><div class="press-source">VOGUE BUSINESS</div></div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div id="rootsPage" class="page"><section class="section" style="padding-top: 60px;"><div class="container"><div class="roots-grid" style="flex-direction: row-reverse;"><div class="roots-text"><h2>HUMAN CRAFT,<br>NO MACHINES</h2><p>Every stitch, every seam is made by human hands. Our OFF WHITE™ tees and handcrafted bags use original, sustainable materials sourced ethically. 99% faith, 1% us.</p><div class="faith-badge" style="background:#FFD70020; border:1px solid #FFD700;">🧵 LIMITED BATCHES • ORIGINAL FIBERS • HANDMADE BAGS</div></div><div class="roots-image"><img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800&h=600&fit=crop" alt="Artisan"></div></div></div></section></div>
+<div id="menuPage" class="page"><section class="section"><div class="container"><h2 class="section-title">✨ OFF WHITE™ COLLECTION ✨</h2><div class="products-grid" id="fullMenuGrid"></div></div></section></div>
+<div id="pressPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🌍 GLOBAL RECOGNITION</h2><div class="press-grid"><div class="press-card"><div class="press-quote">"OFF WHITE™ is redefining affordable luxury with raw, human-made textiles."</div><div class="press-source">BBC <span class="press-badge">★ GLOBAL SPOTLIGHT</span></div></div><div class="press-card"><div class="press-quote">"The most anticipated streetwear launch of the decade."</div><div class="press-source">CNN <span class="press-badge">✦ BREAKTHROUGH BRAND</span></div></div></div></div></section></div>
+<div id="rootsPage" class="page"><section class="section"><div class="container"><div class="roots-grid"><div class="roots-text"><h2>HUMAN CRAFT, NO MACHINES</h2><p>Every stitch is made by human hands. OFF WHITE™ tees and handcrafted bags use ethically sourced materials.</p></div></div></div></section></div>
 
 <!-- CART SIDEBAR -->
 <div id="cartSidebar" class="cart-overlay" style="position:fixed; top:0; right:0; width:100%; max-width:480px; height:100vh; background:#030303; transform:translateX(100%); transition:transform 0.3s; display:flex; flex-direction:column; z-index:1000;">
   <div class="cart-header" style="padding:24px 28px; border-bottom:1px solid #FFD700; display:flex; justify-content:space-between;"><h3>✦ YOUR CART ✦</h3><button class="close-cart" id="closeCartBtn" style="background:none; border:none; font-size:1.5rem; color:#FFD700;">&times;</button></div>
-  <div class="cart-items" id="cartItemsContainer" style="flex:1; overflow-y:auto; padding:20px 24px;"><div class="empty-cart-msg" style="color:#aaa;">Your cart orbits empty.<br>Add some OFF WHITE™ pieces!</div></div>
-  <div class="cart-footer" style="padding:24px 28px; border-top:1px solid #FFD700;"><div class="shipping-discount" id="shippingDiscountRow" style="display:flex; justify-content:space-between; margin-bottom:12px;"><span><i class="fas fa-tag"></i> Shipping (40% OFF)</span><span id="shippingAmount">-$0.00</span></div><div class="cart-total" style="display:flex; justify-content:space-between; font-size:1.3rem; font-weight:800; margin-bottom:20px;"><span>Total</span><span id="cartTotalPrice">$0.00</span></div><button class="checkout-btn" id="checkoutBtn" style="width:100%; padding:16px; border-radius:40px; font-weight:800;">PROCEED TO CHECKOUT →</button></div>
+  <div class="cart-items" id="cartItemsContainer" style="flex:1; overflow-y:auto; padding:20px 24px;"><div class="empty-cart-msg" style="color:#aaa;">Your cart orbits empty.</div></div>
+  <div class="cart-footer" style="padding:24px 28px; border-top:1px solid #FFD700;"><div class="shipping-discount" id="shippingDiscountRow" style="display:flex; justify-content:space-between; margin-bottom:12px;"><span><i class="fas fa-tag"></i> Base Shipping Discount (40%)</span><span id="shippingAmount">-$0.00</span></div><div class="cart-total" style="display:flex; justify-content:space-between; font-size:1.3rem; font-weight:800; margin-bottom:20px;"><span>Total</span><span id="cartTotalPrice">$0.00</span></div><button class="checkout-btn" id="checkoutBtn" style="width:100%; padding:16px; border-radius:40px; font-weight:800;">PROCEED TO CHECKOUT →</button></div>
 </div>
 
-<!-- CHECKOUT MODAL -->
+<!-- CHECKOUT MODAL with SHIPPING COMPANIES -->
 <div id="checkoutModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.98); backdrop-filter:blur(20px); z-index:2000; justify-content:center; align-items:center;">
-  <div class="modal-content" style="background:#0c0c0c; border:2px solid #FFD700; border-radius:48px; max-width:480px; width:90%; padding:32px; position:relative; box-shadow:0 0 70px rgba(255,215,0,0.4);">
+  <div class="modal-content">
     <span class="modal-close" id="closeModalBtn" style="position:absolute; top:20px; right:24px; font-size:1.8rem; cursor:pointer; color:#FFD700;">&times;</span>
     <div class="modal-title" style="font-size:1.8rem; font-weight:800; color:#FFD700; text-align:center;">⚡ OFF WHITE PAYMENT ⚡</div>
     <div class="modal-total" id="modalTotalAmount" style="background:#1a1a1a; padding:15px; border-radius:60px; text-align:center; margin:20px 0; color:#FFD700;">Total: $0.00</div>
-    <div class="payment-options" style="display:flex; flex-direction:column; gap:18px;">
-      <div class="payment-btn" id="paypalOption" style="background:#111; border:1px solid #FFD700; border-radius:80px; padding:16px 20px; display:flex; gap:16px; cursor:pointer;"><i class="fab fa-paypal"></i> PayPal</div>
-      <div class="payment-btn" id="applePayOption" style="background:#111; border:1px solid #FFD700; border-radius:80px; padding:16px 20px; display:flex; gap:16px; cursor:pointer;"><i class="fab fa-apple"></i> Apple Pay</div>
-      <div class="payment-btn" id="cardOption" style="background:#111; border:1px solid #FFD700; border-radius:80px; padding:16px 20px; display:flex; gap:16px; cursor:pointer;"><i class="far fa-credit-card"></i> Credit / Debit Card</div>
+    
+    <!-- Shipping Details Section -->
+    <div class="shipping-options">
+      <div class="shipping-title"><i class="fas fa-truck"></i> SELECT SHIPPING COMPANY</div>
+      <div id="shippingOptionsContainer"></div>
+      
+      <div style="margin-top: 15px;">
+        <div class="shipping-title"><i class="fas fa-map-marker-alt"></i> DELIVERY ADDRESS</div>
+        <input type="text" id="fullName" class="address-input" placeholder="Full Name" value="Cosmic Explorer">
+        <input type="text" id="addressLine" class="address-input" placeholder="Street Address" value="123 Galaxy Lane">
+        <input type="text" id="city" class="address-input" placeholder="City" value="Nairobi">
+        <input type="text" id="postalCode" class="address-input" placeholder="Postal Code" value="00100">
+      </div>
     </div>
-    <div id="cardFormContainer" style="display:none; margin-top:20px; background:#111; padding:24px; border-radius:32px;"><input type="text" placeholder="Card Number" id="cardNumber" style="width:100%; padding:14px; margin:8px 0; background:#222; border:1px solid #FFD700; border-radius:40px; color:white;"><input type="text" placeholder="MM/YY" id="cardExpiry" style="width:100%; padding:14px; margin:8px 0; background:#222; border:1px solid #FFD700; border-radius:40px; color:white;"><input type="text" placeholder="CVC" id="cardCvc" style="width:100%; padding:14px; margin:8px 0; background:#222; border:1px solid #FFD700; border-radius:40px; color:white;"><button class="pay-now" id="submitCardPayment" style="background:#FFD700; color:#000; width:100%; padding:14px; border-radius:40px; font-weight:800; margin-top:16px;">PAY NOW</button></div>
-    <p style="text-align:center; margin-top:20px; font-size:0.7rem; color:#FFD700;">⚡ 40% shipping discount • OFF WHITE™ secure ⚡</p>
+    
+    <div class="payment-options" style="display:flex; flex-direction:column; gap:18px;">
+      <div class="payment-btn" id="paypalOption"><i class="fab fa-paypal"></i> PayPal</div>
+      <div class="payment-btn" id="applePayOption"><i class="fab fa-apple"></i> Apple Pay</div>
+      <div class="payment-btn" id="cardOption"><i class="far fa-credit-card"></i> Credit / Debit Card</div>
+    </div>
+    <div id="cardFormContainer" style="display:none; margin-top:20px; background:#111; padding:24px; border-radius:32px;">
+      <input type="text" placeholder="Card Number" id="cardNumber" class="address-input" style="margin:5px 0;"><input type="text" placeholder="MM/YY" id="cardExpiry" class="address-input" style="margin:5px 0;"><input type="text" placeholder="CVC" id="cardCvc" class="address-input" style="margin:5px 0;">
+      <button class="pay-now" id="submitCardPayment" style="background:#FFD700; color:#000; width:100%; padding:14px; border-radius:40px; font-weight:800; margin-top:16px;">PAY NOW</button>
+    </div>
+    <p style="text-align:center; margin-top:20px; font-size:0.7rem; color:#FFD700;">⚡ 40% shipping discount applied • OFF WHITE™ secure ⚡</p>
   </div>
 </div>
-<div id="toastMsg" class="toast-msg" style="position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#FFD700; color:#000; padding:12px 28px; border-radius:60px; font-weight:700; z-index:1100; opacity:0; transition:0.2s;">✨ ADDED ✨</div>
+<div id="toastMsg" class="toast-msg">✨ ADDED ✨</div>
 
 <script>
-  // Stars Generation
+  // Stars generation
   const starsLayer = document.getElementById('starsLayer');
-  for (let i = 0; i < 400; i++) {
+  for (let i = 0; i < 300; i++) {
     const star = document.createElement('div');
     star.className = 'star';
     star.style.width = Math.random() * 3 + 'px';
@@ -414,11 +478,10 @@
     star.style.left = Math.random() * 100 + '%';
     star.style.top = Math.random() * 100 + '%';
     star.style.animationDelay = Math.random() * 6 + 's';
-    star.style.animationDuration = 1.5 + Math.random() * 5 + 's';
     starsLayer.appendChild(star);
   }
 
-  // Cursor effect
+  // Cursor
   const cursorDot = document.getElementById('cursorDot'), cursorOutline = document.getElementById('cursorOutline');
   if (cursorDot && cursorOutline) {
     window.addEventListener('mousemove', (e) => {
@@ -427,29 +490,37 @@
       cursorOutline.style.left = e.clientX - 20 + 'px';
       cursorOutline.style.top = e.clientY - 20 + 'px';
     });
-    const interactive = document.querySelectorAll('button, .add-to-cart, .page-link, .product-card, .cart-icon-btn, .payment-btn');
-    interactive.forEach(el => {
-      el.addEventListener('mouseenter', () => { cursorOutline.style.transform = 'scale(1.7)'; cursorDot.style.transform = 'scale(1.5)'; });
-      el.addEventListener('mouseleave', () => { cursorOutline.style.transform = 'scale(1)'; cursorDot.style.transform = 'scale(1)'; });
-    });
   }
 
-  // Products - ALL OFF WHITE™ + Handcrafted Bag
+  // Products
   const products = [
-    { id: 1, name: "OFF WHITE™ SIGNATURE", price: 1000.00, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", desc: "🌕 Moon-kissed fabric: ultra-soft organic cotton. Hand-finished by master artisans under lunar light — each thread carries celestial energy." },
-    { id: 2, name: "OFF WHITE™ GRAPHIC", price: 525.00, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", desc: "🌋 Volcanic ink prints that shift under starlight. Made from recycled cosmic fibers — bold, rebellious, for intergalactic explorers." },
-    { id: 3, name: "OFF WHITE™ RELAXED", price: 730.00, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=600&fit=crop", desc: "🌀 Zero-gravity weave: anti-gravity fit, thermoregulating fabric — perfect for space travelers. Each piece has a unique ripple pattern." },
-    { id: 4, name: "OFF WHITE™ HOODIE", price: 890.00, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "🔥 Nebula-dyed fleece: weighted like a warm supernova, soft as moon dust. Each hoodie has a one-of-a-kind cosmic gradient." },
-    { id: 5, name: "OFF WHITE™ SCRIPT", price: 450.00, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop", desc: "✨ Ancient scriptrunner: gold foil lettering that glows under blacklight. 100% human-stitched, zero machines, infinite style." },
-    { id: 6, name: "👜 HANDCRAFTED BAG", price: 1850.00, image: "https://images.unsplash.com/photo-1591561954557-26941169b06f?w=600&h=600&fit=crop", desc: "🌙 Artisan leather bag, hand-stitched over 40 hours. Each bag carries a unique serial number and is made from sustainable, plant-tanned leather. Zero machines — only human hands and ancestral techniques." }
+    { id: 1, name: "OFF WHITE™ SIGNATURE", price: 1000.00, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", desc: "Moon-kissed fabric, ultra-soft organic cotton." },
+    { id: 2, name: "OFF WHITE™ GRAPHIC", price: 525.00, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", desc: "Volcanic ink prints that shift under starlight." },
+    { id: 3, name: "OFF WHITE™ RELAXED", price: 730.00, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=600&fit=crop", desc: "Zero-gravity weave, anti-gravity fit." },
+    { id: 4, name: "OFF WHITE™ HOODIE", price: 890.00, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "Nebula-dyed fleece, warm as a supernova." },
+    { id: 5, name: "OFF WHITE™ SCRIPT", price: 450.00, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop", desc: "Ancient scriptrunner, gold foil lettering." },
+    { id: 6, name: "👜 HANDCRAFTED BAG", price: 1850.00, image: "https://images.unsplash.com/photo-1591561954557-26941169b06f?w=600&h=600&fit=crop", desc: "Artisan leather bag, hand-stitched over 40 hours. Zero machines." }
   ];
 
-  let cart = []; let toastTimeout = null;
+  // Shipping Companies
+  const shippingCompanies = [
+    { id: 'dhl', name: 'DHL Express', time: '2-3 business days', baseCost: 25, icon: 'fas fa-fw fa-rocket' },
+    { id: 'fedex', name: 'FedEx Priority', time: '3-4 business days', baseCost: 20, icon: 'fas fa-fw fa-plane' },
+    { id: 'ups', name: 'UPS Ground', time: '5-7 business days', baseCost: 15, icon: 'fas fa-fw fa-truck' },
+    { id: 'usps', name: 'USPS First Class', time: '7-10 business days', baseCost: 10, icon: 'fas fa-fw fa-envelope' },
+    { id: 'cosmic', name: 'Cosmic Logistics', time: '1-2 business days (Premium)', baseCost: 35, icon: 'fas fa-fw fa-star' }
+  ];
+
+  let cart = [];
+  let selectedShipping = shippingCompanies[2]; // default UPS
+  let toastTimeout = null;
   function showToast(msg) { const t = document.getElementById('toastMsg'); if(toastTimeout) clearTimeout(toastTimeout); t.textContent = msg; t.style.opacity = '1'; toastTimeout = setTimeout(() => t.style.opacity = '0', 2000); }
-  const SHIPPING_BASE = 15;
-  function getShippingDiscount() { return cart.length === 0 ? 0 : SHIPPING_BASE * 0.40; }
+  
+  const SHIPPING_DISCOUNT_RATE = 0.40;
+  function getShippingDiscount() { return cart.length === 0 ? 0 : (selectedShipping.baseCost * SHIPPING_DISCOUNT_RATE); }
   function getCartSubtotal() { return cart.reduce((s, i) => s + (i.price * i.quantity), 0); }
-  function getFinalTotal() { return getCartSubtotal() - getShippingDiscount(); }
+  function getShippingCost() { return cart.length === 0 ? 0 : selectedShipping.baseCost; }
+  function getFinalTotal() { return getCartSubtotal() + getShippingCost() - getShippingDiscount(); }
 
   function updateCartUI() {
     const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
@@ -457,12 +528,12 @@
     const container = document.getElementById('cartItemsContainer');
     const totalSpan = document.getElementById('cartTotalPrice');
     const shipSpan = document.getElementById('shippingAmount');
-    if (cart.length === 0) { container.innerHTML = `<div class="empty-cart-msg">🪐 Your cart orbits empty.<br>Add OFF WHITE™ pieces!</div>`; totalSpan.innerText = '$0.00'; if(shipSpan) shipSpan.innerText = '-$0.00'; return; }
+    if (cart.length === 0) { container.innerHTML = `<div class="empty-cart-msg">🪐 Your cart orbits empty.</div>`; totalSpan.innerText = '$0.00'; if(shipSpan) shipSpan.innerText = '-$0.00'; return; }
     let html = '';
     cart.forEach(item => { html += `<div class="cart-item" style="display:flex; gap:16px; margin-bottom:24px;"><img src="${item.image}" style="width:70px; height:70px; border-radius:16px; object-fit:cover;"><div style="flex:1;"><div style="font-weight:800;">${item.name}</div><div>$${item.price.toFixed(2)}</div><div style="display:flex; gap:12px; margin-top:8px;"><button class="qty-btn" data-id="${item.id}" data-delta="-1" style="background:#222; border:none; width:28px; border-radius:30px; color:white;">-</button><span>${item.quantity}</span><button class="qty-btn" data-id="${item.id}" data-delta="1" style="background:#222; border:none; width:28px; border-radius:30px; color:white;">+</button><button class="remove-item" data-id="${item.id}" style="background:none; color:#aaa; text-decoration:underline;">Remove</button></div></div></div>`; });
     container.innerHTML = html;
-    const subtotal = getCartSubtotal(), discount = getShippingDiscount();
-    totalSpan.innerText = `$${(subtotal - discount).toFixed(2)}`;
+    const subtotal = getCartSubtotal(), shipCost = getShippingCost(), discount = getShippingDiscount();
+    totalSpan.innerText = `$${(subtotal + shipCost - discount).toFixed(2)}`;
     if(shipSpan) shipSpan.innerText = `-$${discount.toFixed(2)}`;
     document.querySelectorAll('.qty-btn').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id), delta = parseInt(btn.dataset.delta); updateQuantity(id, delta); }));
     document.querySelectorAll('.remove-item').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); removeItem(id); }));
@@ -483,18 +554,55 @@
     document.querySelectorAll(`#${containerId} .add-to-cart`).forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const prod = products.find(p => p.id === id); if(prod) addToCart(prod); }));
   }
 
-  // Checkout Modal
+  // Render Shipping Options in Modal
+  function renderShippingOptions() {
+    const container = document.getElementById('shippingOptionsContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    shippingCompanies.forEach(ship => {
+      const optionDiv = document.createElement('div');
+      optionDiv.className = `shipping-option ${selectedShipping?.id === ship.id ? 'selected' : ''}`;
+      optionDiv.dataset.id = ship.id;
+      const discountedCost = ship.baseCost - (ship.baseCost * SHIPPING_DISCOUNT_RATE);
+      optionDiv.innerHTML = `
+        <input type="radio" name="shipping" class="shipping-radio" ${selectedShipping?.id === ship.id ? 'checked' : ''}>
+        <div class="shipping-details"><div class="shipping-name"><i class="${ship.icon}"></i> ${ship.name}</div><div class="shipping-time">${ship.time}</div></div>
+        <div class="shipping-cost">$${ship.baseCost.toFixed(2)} <span style="font-size:0.7rem; color:#aaa;">→ $${discountedCost.toFixed(2)} after 40% off</span></div>
+      `;
+      optionDiv.addEventListener('click', () => {
+        selectedShipping = ship;
+        renderShippingOptions();
+        updateModalTotal();
+      });
+      container.appendChild(optionDiv);
+    });
+  }
+
+  function updateModalTotal() {
+    if (!document.getElementById('modalTotalAmount')) return;
+    const total = getFinalTotal();
+    document.getElementById('modalTotalAmount').innerHTML = `✨ SUBTOTAL: $${getCartSubtotal().toFixed(2)}<br>➕ ${selectedShipping.name}: $${getShippingCost().toFixed(2)}<br>➖ 40% DISCOUNT: -$${getShippingDiscount().toFixed(2)}<br>⭐ TOTAL: $${total.toFixed(2)} ⭐`;
+  }
+
+  // Checkout Modal Logic
   const modal = document.getElementById('checkoutModal');
-  let currentTotal = 0;
-  function openModal() { if(cart.length===0){ showToast("Cart empty"); return; } currentTotal = getFinalTotal(); document.getElementById('modalTotalAmount').innerHTML = `✨ TOTAL: $${currentTotal.toFixed(2)} ✨`; document.getElementById('cardFormContainer').style.display = 'none'; modal.style.display = 'flex'; }
+  function openModal() { if(cart.length===0){ showToast("Cart empty"); return; } renderShippingOptions(); updateModalTotal(); document.getElementById('cardFormContainer').style.display = 'none'; modal.style.display = 'flex'; }
   function closeModal() { modal.style.display = 'none'; }
-  function process(method) { if(cart.length===0) return; alert(`✅ PAYMENT SUCCESSFUL via ${method}\n⭐ OFF WHITE™ Final: $${currentTotal.toFixed(2)} (40% shipping discount)\n🌌 Thank you — follow @thefitlabreal`); cart = []; updateCartUI(); closeModal(); document.getElementById('cartSidebar').style.transform = 'translateX(100%)'; showToast("Order placed! Cosmic delivery."); }
+  
+  function processOrder(method) {
+    if(cart.length===0) return;
+    const address = `${document.getElementById('fullName').value}, ${document.getElementById('addressLine').value}, ${document.getElementById('city').value}, ${document.getElementById('postalCode').value}`;
+    const shippingDetails = `${selectedShipping.name} (${selectedShipping.time}) - Est. delivery`;
+    alert(`✅ PAYMENT SUCCESSFUL via ${method}\n⭐ OFF WHITE™ Total: $${getFinalTotal().toFixed(2)}\n🚚 Shipping: ${shippingDetails}\n📍 Delivering to: ${address}\n🌌 Thank you — follow @thefitlabreal`);
+    cart = []; updateCartUI(); closeModal(); document.getElementById('cartSidebar').style.transform = 'translateX(100%)'; showToast("Order placed! Cosmic delivery.");
+  }
+  
   document.getElementById('checkoutBtn').addEventListener('click', openModal);
   document.getElementById('closeModalBtn').addEventListener('click', closeModal);
-  document.getElementById('paypalOption').addEventListener('click', () => process('PayPal'));
-  document.getElementById('applePayOption').addEventListener('click', () => process('Apple Pay'));
+  document.getElementById('paypalOption').addEventListener('click', () => processOrder('PayPal'));
+  document.getElementById('applePayOption').addEventListener('click', () => processOrder('Apple Pay'));
   document.getElementById('cardOption').addEventListener('click', () => { document.getElementById('cardFormContainer').style.display = 'block'; });
-  document.getElementById('submitCardPayment').addEventListener('click', () => { const cn = document.getElementById('cardNumber').value; if(cn.length<10) { showToast("Enter valid card"); return; } process('Credit/Debit Card'); });
+  document.getElementById('submitCardPayment').addEventListener('click', () => { const cn = document.getElementById('cardNumber').value; if(cn.length<10) { showToast("Enter valid card"); return; } processOrder('Credit/Debit Card'); });
   window.onclick = (e) => { if(e.target === modal) closeModal(); };
 
   // Routing
@@ -506,12 +614,13 @@
   openCart.addEventListener('click', () => { sidebar.style.transform = 'translateX(0)'; document.body.style.overflow = 'hidden'; });
   closeCart.addEventListener('click', () => { sidebar.style.transform = 'translateX(100%)'; document.body.style.overflow = ''; });
   window.addEventListener('click', (e) => { if(sidebar.style.transform === 'translateX(0px)' && !sidebar.contains(e.target) && e.target !== openCart && !openCart.contains(e.target)) { sidebar.style.transform = 'translateX(100%)'; document.body.style.overflow = ''; } });
+  
   function loadCart() { const saved = localStorage.getItem('offWhiteCart'); if(saved) try { cart = JSON.parse(saved); } catch(e){} updateCartUI(); }
   loadCart();
   renderProducts('homeProductsGrid', products.slice(0,3));
   renderProducts('fullMenuGrid', products);
   switchPage('home');
 </script>
-<footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. 40% shipping discount • No machines • @thefitlabreal</p></div></footer>
+<footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. 40% shipping discount • Multiple carriers • @thefitlabreal</p></div></footer>
 </body>
 </html>
