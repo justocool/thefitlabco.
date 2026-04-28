@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>OFF WHITE™ | Cosmic Luxury • Handcrafted Bags</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -22,7 +23,13 @@
       overflow-x: hidden;
     }
 
-    /* ========= HYPERSPACE NEBULA ========= */
+    /* Futuristic Headings */
+    h1, h2, .logo, .section-title, .product-title, .hero h1, .nav-links button, .dashboard-btn {
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 1px;
+    }
+
+    /* ========= HYPERSPACE NEBULA WITH DEPTH ========= */
     .universe {
       position: fixed;
       top: 0;
@@ -31,6 +38,7 @@
       height: 100%;
       z-index: -3;
       background: radial-gradient(ellipse at 20% 30%, #0a0a2a, #000000);
+      overflow: hidden;
     }
     .nebula {
       position: absolute;
@@ -44,6 +52,7 @@
       0% { transform: scale(1) translate(0, 0); opacity: 0.6; }
       100% { transform: scale(1.1) translate(2%, 1%); opacity: 1; }
     }
+    /* Parallax Stars Layer */
     .stars-layer {
       position: absolute;
       width: 100%;
@@ -54,6 +63,7 @@
       background: white;
       border-radius: 50%;
       animation: twinkle 2s infinite alternate;
+      transition: transform 0.2s ease;
     }
     @keyframes twinkle {
       0% { opacity: 0.2; transform: scale(1); }
@@ -81,17 +91,6 @@
       box-shadow: 0 0 80px rgba(255, 215, 0, 0.6);
       animation: moonFloat 6s infinite alternate;
     }
-    .moon-glow::before {
-      content: '';
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: rgba(0,0,0,0.15);
-      border-radius: 50%;
-      top: 50px;
-      left: 60px;
-      box-shadow: 25px 35px 0 8px rgba(0,0,0,0.1), 70px 25px 0 12px rgba(0,0,0,0.08);
-    }
     @keyframes moonFloat {
       0% { transform: translateY(0); box-shadow: 0 0 60px rgba(255,215,0,0.4); }
       100% { transform: translateY(-15px); box-shadow: 0 0 100px rgba(255,215,0,0.8); }
@@ -113,7 +112,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* ========= GOLD CURSOR ========= */
+    /* ========= STARDUST CURSOR TRAIL ========= */
     .cursor-dot {
       width: 6px;
       height: 6px;
@@ -136,6 +135,103 @@
       backdrop-filter: blur(3px);
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
     }
+    .stardust {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      background: radial-gradient(circle, #FFD700, #ffaa00);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.8;
+      animation: fadeOut 0.5s ease-out forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 0.8; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0); }
+    }
+
+    /* Ripple Effect */
+    .ripple {
+      position: fixed;
+      border-radius: 50%;
+      background: rgba(255, 215, 0, 0.5);
+      transform: scale(0);
+      animation: rippleAnim 0.6s linear forwards;
+      pointer-events: none;
+      z-index: 10000;
+    }
+    @keyframes rippleAnim {
+      0% { transform: scale(0); opacity: 0.6; }
+      100% { transform: scale(4); opacity: 0; }
+    }
+
+    /* Neon Glow & Orbit Lines */
+    .orbit-section {
+      position: relative;
+      border-radius: 60px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+    .orbit-section::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 62px;
+      background: radial-gradient(circle, rgba(255,215,0,0.2), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+    .orbit-section:hover::before {
+      opacity: 1;
+    }
+    /* Orbital ring animation for icons */
+    .orbit-icon {
+      position: relative;
+      display: inline-block;
+    }
+    .orbit-icon::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 120%;
+      border: 1px dashed rgba(255, 215, 0, 0.5);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: orbitSpin 8s linear infinite;
+    }
+    @keyframes orbitSpin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Neon Glowing Buttons */
+    .neon-btn {
+      background: linear-gradient(135deg, #FFD700, #E6B800);
+      color: #000;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      font-family: 'Orbitron', monospace;
+    }
+    .neon-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #FFD700, 0 0 5px #FFD700;
+      text-shadow: 0 0 5px #000;
+    }
 
     .container {
       max-width: 1280px;
@@ -145,239 +241,210 @@
       z-index: 10;
     }
 
-    /* Glass Navigation */
+    /* Spaceship Dashboard Navigation */
     .navbar {
-      padding: 24px 0;
+      padding: 20px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(15px);
-      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-      border-radius: 0 0 40px 40px;
+      border-bottom: 2px solid #FFD700;
+      border-radius: 0 0 30px 30px;
       margin-bottom: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     }
     .logo {
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       font-weight: 800;
       cursor: pointer;
       background: linear-gradient(135deg, #FFD700, #FFF5CC);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 15px rgba(255,215,0,0.3);
+      letter-spacing: 2px;
+    }
+    .dashboard-nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 20px;
+      border-radius: 60px;
+      border: 1px solid rgba(255,215,0,0.4);
+    }
+    .dashboard-btn {
+      background: none;
+      border: none;
+      color: #FFD700;
+      font-family: 'Orbitron', monospace;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: all 0.3s;
       letter-spacing: 1px;
     }
-    .logo sup {
-      font-size: 0.7rem;
-      -webkit-text-fill-color: #FFD700;
-      color: #FFD700;
+    .dashboard-btn:hover {
+      background: rgba(255,215,0,0.2);
+      border-radius: 40px;
+      text-shadow: 0 0 8px #FFD700;
+      transform: translateY(-2px);
     }
-    .nav-links { display: flex; gap: 32px; align-items: center; }
-    .nav-links button, .page-link {
-      background: none; border: none; font-weight: 500; cursor: pointer; font-size: 0.95rem;
-      transition: 0.2s; font-family: inherit; color: #FFFFFF;
+    .cart-icon-btn {
+      background: rgba(255,215,0,0.15);
+      border: 1px solid #FFD700;
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 1.2rem;
     }
-    .nav-links button:hover, .page-link:hover { color: #FFD700; text-shadow: 0 0 8px #FFD700; transform: translateY(-2px); }
-    .cart-icon-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; position: relative; color: #FFD700; transition: transform 0.2s; }
-    .cart-icon-btn:hover { transform: scale(1.1); }
-    .cart-count { position: absolute; top: -8px; right: -12px; background: #FFD700; color: #000; font-size: 0.7rem; font-weight: 800; border-radius: 30px; padding: 2px 7px; }
+    .cart-count {
+      background: #FFD700;
+      color: #000;
+      border-radius: 30px;
+      padding: 2px 8px;
+      margin-left: 8px;
+    }
 
     /* Pages */
     .page { display: none; animation: fadeIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
     .active-page { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Hero */
+    /* Hero Section - LAUNCH */
     .hero {
       padding: 100px 0 120px;
       text-align: center;
-      background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(8px);
+      position: relative;
       border-radius: 70px;
       margin-top: 20px;
-      border: 1px solid rgba(255,215,0,0.2);
+      border: 1px solid rgba(255,215,0,0.3);
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
     }
-    .hero-badge { background: #FFD700; color: #000; display: inline-block; padding: 8px 24px; border-radius: 60px; font-size: 0.8rem; font-weight: 700; margin-bottom: 28px; letter-spacing: 1px; }
+    .hero-badge { background: #FFD700; color: #000; display: inline-block; padding: 8px 28px; border-radius: 60px; font-size: 0.8rem; font-weight: 800; margin-bottom: 28px; font-family: 'Orbitron', monospace; }
     .hero h1 { font-size: 5rem; font-weight: 900; margin-bottom: 20px; background: linear-gradient(135deg, #FFD700, #FFEAA7, #FFF8DC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(255,215,0,0.5); }
-    .hero-tagline { font-size: 1.4rem; color: #FFD700; font-style: italic; margin-bottom: 35px; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
-    .offer-banner { background: linear-gradient(135deg, #FFD700, #F0C000); color: #000; display: inline-block; padding: 16px 42px; border-radius: 60px; font-weight: 800; transition: all 0.3s; box-shadow: 0 0 20px rgba(255,215,0,0.4); }
-    .offer-banner:hover { transform: scale(1.03); box-shadow: 0 0 35px rgba(255,215,0,0.7); }
+    .hero-tagline { font-size: 1.4rem; color: #FFD700; font-style: italic; margin-bottom: 35px; }
 
     .section {
-      padding: 90px 0;
-      margin: 30px 0;
+      padding: 80px 0;
+      margin: 40px 0;
+      border-radius: 60px;
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(12px);
-      border-radius: 60px;
-      border: 1px solid rgba(255, 215, 0, 0.15);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      transition: all 0.3s;
     }
-    .section-title { font-size: 3rem; font-weight: 800; text-align: center; margin-bottom: 16px; background: linear-gradient(135deg, #FFD700, #DAA520); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .section-sub { text-align: center; color: #FFD700CC; margin-bottom: 50px; letter-spacing: 1px; }
+    .section-title { font-size: 2.8rem; font-weight: 800; text-align: center; margin-bottom: 16px; background: linear-gradient(135deg, #FFD700, #DAA520); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Orbitron', monospace; letter-spacing: 2px; }
 
     /* Products Grid */
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 45px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
     }
     .product-card {
-      background: rgba(8, 8, 12, 0.75);
+      background: rgba(8, 8, 12, 0.8);
       backdrop-filter: blur(12px);
       border-radius: 32px;
       overflow: hidden;
       border: 1px solid rgba(255, 215, 0, 0.3);
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      transition: all 0.4s;
     }
     .product-card:hover {
-      transform: translateY(-15px) scale(1.02);
+      transform: translateY(-12px);
       border-color: #FFD700;
-      box-shadow: 0 30px 50px rgba(255, 215, 0, 0.25);
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
     }
-    .product-img { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; }
-    .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-    .product-card:hover .product-img img { transform: scale(1.08); }
-    .product-info { padding: 28px; }
-    .product-title { font-weight: 800; font-size: 1.6rem; margin-bottom: 6px; color: #FFD700; letter-spacing: -0.5px; }
-    .product-price { font-weight: 800; font-size: 1.7rem; margin-bottom: 14px; color: #FFF; }
-    .product-description { font-size: 0.9rem; color: #ddd; margin-bottom: 20px; line-height: 1.5; border-top: 1px dashed rgba(255,215,0,0.3); padding-top: 16px; }
+    .product-img img { width: 100%; height: 280px; object-fit: cover; transition: transform 0.5s; }
+    .product-card:hover .product-img img { transform: scale(1.05); }
+    .product-info { padding: 24px; }
+    .product-title { font-weight: 800; font-size: 1.4rem; color: #FFD700; font-family: 'Orbitron', monospace; }
+    .product-price { font-weight: 800; font-size: 1.6rem; margin: 10px 0; }
     .add-to-cart {
-      width: 100%; background: linear-gradient(135deg, #FFD700, #E6B800); color: #000; border: none;
-      padding: 14px; border-radius: 50px; font-weight: 800; cursor: pointer; display: flex;
-      align-items: center; justify-content: center; gap: 10px; transition: 0.2s;
-    }
-    .add-to-cart:hover { background: #FFD700; transform: scale(0.98); box-shadow: 0 0 20px #FFD700; }
-
-    .roots-grid, .features-grid { display: flex; gap: 45px; flex-wrap: wrap; }
-    .feature-card, .roots-image, .contact-wrapper {
-      background: rgba(10, 10, 15, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      border-radius: 32px;
-      transition: all 0.3s;
-    }
-    .feature-card:hover { border-color: #FFD700; transform: translateY(-8px); }
-    .feature-icon { font-size: 3rem; color: #FFD700; }
-    
-    .press-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
-    .press-card {
-      background: rgba(10, 10, 15, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      border-radius: 32px;
-      padding: 32px 28px;
-      transition: all 0.3s;
-    }
-    .press-card:hover { border-color: #FFD700; transform: translateY(-5px); background: rgba(20,20,30,0.7); }
-    .press-quote { font-size: 1.1rem; font-weight: 500; line-height: 1.5; margin-bottom: 20px; color: #eee; }
-    .press-source { font-weight: 800; font-size: 0.85rem; letter-spacing: 1.5px; color: #FFD700; text-transform: uppercase; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .press-badge { background: rgba(255,215,0,0.2); padding: 4px 12px; border-radius: 30px; font-size: 0.7rem; font-weight: 500; color: #FFD700; }
-
-    .discount-banner {
-      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(0,0,0,0.6));
-      border: 1px solid #FFD700;
-      border-radius: 60px;
-      padding: 18px 32px;
-      text-align: center;
-      margin-top: 30px;
-      color: #FFD700;
-      font-weight: 600;
-      backdrop-filter: blur(8px);
-    }
-
-    /* Cart & Modal */
-    .cart-overlay { background: rgba(0,0,0,0.97); backdrop-filter: blur(20px); border-left: 2px solid #FFD700; }
-    .cart-header h3, .cart-total, .modal-title { color: #FFD700; }
-    .checkout-btn { background: linear-gradient(135deg, #FFD700, #E6B800); color: #000; font-weight: 800; }
-    .shipping-discount { color: #FFD700; }
-    
-    /* Shipping Companies Styles */
-    .shipping-options {
-      margin: 20px 0;
-      padding: 20px;
-      background: rgba(20, 20, 30, 0.6);
-      border-radius: 32px;
-      border: 1px solid rgba(255, 215, 0, 0.3);
-    }
-    .shipping-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #FFD700;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .shipping-option {
-      display: flex;
-      align-items: center;
-      padding: 12px 15px;
-      margin: 8px 0;
-      background: rgba(0,0,0,0.5);
-      border-radius: 60px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .shipping-option:hover {
-      border-color: #FFD700;
-      background: rgba(255, 215, 0, 0.1);
-    }
-    .shipping-option.selected {
-      border-color: #FFD700;
-      background: rgba(255, 215, 0, 0.2);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
-    }
-    .shipping-radio {
-      margin-right: 15px;
-      width: 20px;
-      height: 20px;
-      accent-color: #FFD700;
-    }
-    .shipping-details {
-      flex: 1;
-    }
-    .shipping-name {
-      font-weight: 700;
-      font-size: 1rem;
-    }
-    .shipping-time {
-      font-size: 0.75rem;
-      color: #aaa;
-    }
-    .shipping-cost {
-      font-weight: 800;
-      color: #FFD700;
-    }
-    .address-input {
       width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      background: #1a1a1a;
-      border: 1px solid rgba(255, 215, 0, 0.3);
+      background: linear-gradient(135deg, #FFD700, #E6B800);
+      border: none;
+      padding: 12px;
       border-radius: 40px;
-      color: white;
-      font-family: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Orbitron', monospace;
     }
-    .address-input:focus {
-      outline: none;
-      border-color: #FFD700;
+    .add-to-cart:hover {
+      transform: scale(0.98);
+      box-shadow: 0 0 20px #FFD700;
     }
-    .payment-btn { border: 1px solid rgba(255,215,0,0.4); background: #111; color: #FFF; border-radius: 80px; padding: 16px 20px; display: flex; gap: 16px; cursor: pointer; transition: all 0.2s; }
-    .payment-btn:hover { border-color: #FFD700; background: rgba(255,215,0,0.15); transform: translateX(5px); }
-    .modal-content { background: #0a0a0a; border: 2px solid #FFD700; box-shadow: 0 0 50px rgba(255,215,0,0.3); border-radius: 48px; max-width: 520px; width: 90%; padding: 32px; position: relative; }
+
+    .features-grid { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; }
+    .feature-card {
+      background: rgba(10, 10, 15, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 40px;
+      padding: 40px;
+      text-align: center;
+      flex: 1;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .feature-card:hover { border-color: #FFD700; transform: translateY(-8px); box-shadow: 0 0 25px rgba(255,215,0,0.2); }
+    .feature-icon { font-size: 3rem; color: #FFD700; margin-bottom: 16px; position: relative; display: inline-block; }
+
+    .press-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    .press-card {
+      background: rgba(10, 10, 15, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 32px;
+      padding: 32px;
+      transition: all 0.3s;
+    }
+    .press-card:hover { border-color: #FFD700; transform: translateY(-5px); }
+
+    /* Contact Section - Control Center */
+    .control-center {
+      background: rgba(10, 10, 20, 0.8);
+      backdrop-filter: blur(12px);
+      border-radius: 60px;
+      padding: 50px 40px;
+      border: 1px solid #FFD700;
+      box-shadow: 0 0 30px rgba(255,215,0,0.2);
+    }
+    .control-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+    }
+    .control-item {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50px;
+      min-width: 180px;
+      border: 1px solid rgba(255,215,0,0.3);
+      transition: 0.3s;
+    }
+    .control-item:hover { border-color: #FFD700; transform: translateY(-5px); box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+    .control-item i { font-size: 2.5rem; color: #FFD700; margin-bottom: 12px; display: block; }
+
+    /* Cart & Modal (simplified) */
+    .cart-overlay { background: rgba(0,0,0,0.98); backdrop-filter: blur(20px); border-left: 2px solid #FFD700; }
+    .checkout-btn { background: linear-gradient(135deg, #FFD700, #E6B800); color: #000; font-weight: 800; transition: 0.3s; }
+    .checkout-btn:hover { transform: scale(1.02); box-shadow: 0 0 15px #FFD700; }
+    .modal-content { background: #0a0a0a; border: 2px solid #FFD700; border-radius: 48px; max-width: 500px; padding: 32px; }
     .toast-msg { background: #FFD700; color: #000; font-weight: 700; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); padding: 12px 28px; border-radius: 60px; z-index: 1100; opacity: 0; transition: 0.2s; }
-    footer { border-top: 1px solid rgba(255,215,0,0.2); text-align: center; padding: 40px 0; }
+    footer { border-top: 1px solid rgba(255,215,0,0.2); text-align: center; padding: 40px 0; margin-top: 40px; }
 
     @media (max-width: 768px) {
       .hero h1 { font-size: 3rem; }
       .section-title { font-size: 2rem; }
-      .cursor-dot, .cursor-outline { display: none; }
-      * { cursor: auto; }
+      .dashboard-nav { gap: 8px; padding: 5px 12px; }
+      .dashboard-btn { font-size: 0.7rem; padding: 5px 10px; }
+      .container { padding: 0 20px; }
     }
   </style>
 </head>
@@ -398,79 +465,51 @@
 <nav class="container">
   <div class="navbar">
     <div class="logo" data-page="home">OFF WHITE<sup>™</sup></div>
-    <div class="nav-links">
-      <button class="page-link" data-page="home">HOME</button>
-      <button class="page-link" data-page="menu">COLLECTION</button>
-      <button class="page-link" data-page="press">PRESS</button>
-      <button class="page-link" data-page="roots">ROOTS</button>
+    <div class="dashboard-nav">
+      <button class="dashboard-btn page-link" data-page="home"><i class="fas fa-rocket"></i> LAUNCH</button>
+      <button class="dashboard-btn page-link" data-page="menu"><i class="fas fa-box-open"></i> CARGO</button>
+      <button class="dashboard-btn page-link" data-page="press"><i class="fas fa-newspaper"></i> SIGNAL</button>
+      <button class="dashboard-btn page-link" data-page="roots"><i class="fas fa-globe"></i> MISSION</button>
       <button class="cart-icon-btn" id="openCartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></button>
     </div>
   </div>
 </nav>
 
-<!-- HOME PAGE (simplified for brevity) -->
+<!-- HOME / LAUNCH PAGE -->
 <div id="homePage" class="page active-page">
   <div class="container">
-    <div class="hero">
-      <div class="hero-badge">✦ COSMIC LUXURY STREETWEAR ✦</div>
+    <div class="hero orbit-section">
+      <div class="hero-badge">✦ PREPARE FOR LAUNCH ✦</div>
       <h1>OFF WHITE™</h1>
       <div class="hero-tagline">"Designed by you. Made by us. Under the stars."</div>
-      <div class="offer-banner">⚡ 40% OFF FIRST PURCHASE + FREE SHIPPING ⚡</div>
+      <button class="neon-btn page-link" data-page="menu"><i class="fas fa-cart-plus"></i> ENTER COLLECTION</button>
     </div>
   </div>
-  <section class="section"><div class="container"><div class="products-grid" id="homeProductsGrid"></div></div></section>
+  <section class="section orbit-section"><div class="container"><div class="features-grid"><div class="feature-card"><div class="feature-icon orbit-icon"><i class="fas fa-moon"></i></div><h3>OFF WHITE™</h3><p>Moon-kissed textures, raw and premium</p></div><div class="feature-card"><div class="feature-icon orbit-icon"><i class="fas fa-paintbrush"></i></div><h3>DESIGNED BY YOU</h3><p>Co-create cosmic masterpieces</p></div><div class="feature-card"><div class="feature-icon orbit-icon"><i class="fas fa-shopping-bag"></i></div><h3>HANDCRAFTED BAGS</h3><p>Artisan leather, zero machines</p></div></div></div></section>
+  <section class="section orbit-section"><div class="container"><h2 class="section-title">🌟 NEW ARRIVALS 🌟</h2><div class="products-grid" id="homeProductsGrid"></div><div style="text-align:center; margin-top:40px;"><button class="neon-btn page-link" data-page="menu">✦ FULL COLLECTION ✦</button></div></div></section>
+  <section class="section orbit-section"><div class="container"><h2 class="section-title">🌕 PRESS SIGNALS</h2><div class="press-grid"><div class="press-card"><div class="press-quote">"OFF WHITE™ is redefining affordable luxury with raw, human-made textiles."</div><div class="press-source">BBC <span class="press-badge">★ GLOBAL SPOTLIGHT</span></div></div><div class="press-card"><div class="press-quote">"The most anticipated streetwear launch of the decade."</div><div class="press-source">CNN <span class="press-badge">✦ BREAKTHROUGH BRAND</span></div></div><div class="press-card"><div class="press-quote">"Crazy outfits and cosmic quality for the price."</div><div class="press-source">YOUTH CULTURE MAGAZINE</div></div></div></div></section>
+  <section class="section"><div class="container"><div class="control-center"><h2 class="section-title">🛸 CONTROL CENTER</h2><div class="control-panel"><div class="control-item"><i class="fas fa-phone-alt"></i><div>COMMS</div><div>+254 704 302 327</div></div><div class="control-item"><i class="fas fa-envelope"></i><div>HOLOGRAM</div><div>justinomare1@gmail.com</div></div><div class="control-item"><i class="fab fa-instagram"></i><div>QUANTUM LINK</div><div>@thefitlabreal</div></div></div></div></div></section>
 </div>
 
-<div id="menuPage" class="page"><section class="section"><div class="container"><h2 class="section-title">✨ OFF WHITE™ COLLECTION ✨</h2><div class="products-grid" id="fullMenuGrid"></div></div></section></div>
-<div id="pressPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🌍 GLOBAL RECOGNITION</h2><div class="press-grid"><div class="press-card"><div class="press-quote">"OFF WHITE™ is redefining affordable luxury with raw, human-made textiles."</div><div class="press-source">BBC <span class="press-badge">★ GLOBAL SPOTLIGHT</span></div></div><div class="press-card"><div class="press-quote">"The most anticipated streetwear launch of the decade."</div><div class="press-source">CNN <span class="press-badge">✦ BREAKTHROUGH BRAND</span></div></div></div></div></section></div>
-<div id="rootsPage" class="page"><section class="section"><div class="container"><div class="roots-grid"><div class="roots-text"><h2>HUMAN CRAFT, NO MACHINES</h2><p>Every stitch is made by human hands. OFF WHITE™ tees and handcrafted bags use ethically sourced materials.</p></div></div></div></section></div>
+<!-- MENU / CARGO PAGE -->
+<div id="menuPage" class="page"><section class="section orbit-section"><div class="container"><h2 class="section-title">✨ CARGO MANIFEST ✨</h2><div class="products-grid" id="fullMenuGrid"></div></div></section></div>
+<div id="pressPage" class="page"><section class="section orbit-section"><div class="container"><h2 class="section-title">🌍 INTERSTELLAR PRESS</h2><div class="press-grid"><div class="press-card"><div class="press-quote">"OFF WHITE™ is single-handedly changing the conversation around sustainable streetwear."</div><div class="press-source">BBC</div></div><div class="press-card"><div class="press-quote">"Why OFF WHITE™ is the most exciting brand to watch right now."</div><div class="press-source">CNN</div></div><div class="press-card"><div class="press-quote">"Handcrafted bags that feel like wearable art."</div><div class="press-source">VOGUE BUSINESS</div></div></div></div></section></div>
+<div id="rootsPage" class="page"><section class="section orbit-section"><div class="container"><div class="features-grid"><div class="feature-card"><div class="feature-icon orbit-icon"><i class="fas fa-hands"></i></div><h2>MISSION: HUMAN CRAFT</h2><p>Every stitch is made by human hands. OFF WHITE™ tees and handcrafted bags use ethically sourced materials. Zero machines. 99% faith, 1% us.</p></div></div></div></section></div>
 
 <!-- CART SIDEBAR -->
-<div id="cartSidebar" class="cart-overlay" style="position:fixed; top:0; right:0; width:100%; max-width:480px; height:100vh; background:#030303; transform:translateX(100%); transition:transform 0.3s; display:flex; flex-direction:column; z-index:1000;">
-  <div class="cart-header" style="padding:24px 28px; border-bottom:1px solid #FFD700; display:flex; justify-content:space-between;"><h3>✦ YOUR CART ✦</h3><button class="close-cart" id="closeCartBtn" style="background:none; border:none; font-size:1.5rem; color:#FFD700;">&times;</button></div>
-  <div class="cart-items" id="cartItemsContainer" style="flex:1; overflow-y:auto; padding:20px 24px;"><div class="empty-cart-msg" style="color:#aaa;">Your cart orbits empty.</div></div>
-  <div class="cart-footer" style="padding:24px 28px; border-top:1px solid #FFD700;"><div class="shipping-discount" id="shippingDiscountRow" style="display:flex; justify-content:space-between; margin-bottom:12px;"><span><i class="fas fa-tag"></i> Base Shipping Discount (40%)</span><span id="shippingAmount">-$0.00</span></div><div class="cart-total" style="display:flex; justify-content:space-between; font-size:1.3rem; font-weight:800; margin-bottom:20px;"><span>Total</span><span id="cartTotalPrice">$0.00</span></div><button class="checkout-btn" id="checkoutBtn" style="width:100%; padding:16px; border-radius:40px; font-weight:800;">PROCEED TO CHECKOUT →</button></div>
+<div id="cartSidebar" class="cart-overlay" style="position:fixed; top:0; right:0; width:100%; max-width:450px; height:100vh; background:#030303; transform:translateX(100%); transition:transform 0.3s; display:flex; flex-direction:column; z-index:1000;">
+  <div class="cart-header" style="padding:24px; border-bottom:1px solid #FFD700;"><h3>✦ ORBIT CART ✦</h3><button class="close-cart" id="closeCartBtn" style="background:none; border:none; font-size:1.5rem; color:#FFD700;">&times;</button></div>
+  <div class="cart-items" id="cartItemsContainer" style="flex:1; overflow-y:auto; padding:20px;"></div>
+  <div class="cart-footer" style="padding:24px; border-top:1px solid #FFD700;"><div class="cart-total" style="display:flex; justify-content:space-between; font-size:1.3rem; font-weight:800; margin-bottom:20px;"><span>FUEL TOTAL</span><span id="cartTotalPrice">$0.00</span></div><button class="checkout-btn neon-btn" id="checkoutBtn" style="width:100%;">CHECKOUT →</button></div>
 </div>
 
-<!-- CHECKOUT MODAL with SHIPPING COMPANIES -->
-<div id="checkoutModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.98); backdrop-filter:blur(20px); z-index:2000; justify-content:center; align-items:center;">
-  <div class="modal-content">
-    <span class="modal-close" id="closeModalBtn" style="position:absolute; top:20px; right:24px; font-size:1.8rem; cursor:pointer; color:#FFD700;">&times;</span>
-    <div class="modal-title" style="font-size:1.8rem; font-weight:800; color:#FFD700; text-align:center;">⚡ OFF WHITE PAYMENT ⚡</div>
-    <div class="modal-total" id="modalTotalAmount" style="background:#1a1a1a; padding:15px; border-radius:60px; text-align:center; margin:20px 0; color:#FFD700;">Total: $0.00</div>
-    
-    <!-- Shipping Details Section -->
-    <div class="shipping-options">
-      <div class="shipping-title"><i class="fas fa-truck"></i> SELECT SHIPPING COMPANY</div>
-      <div id="shippingOptionsContainer"></div>
-      
-      <div style="margin-top: 15px;">
-        <div class="shipping-title"><i class="fas fa-map-marker-alt"></i> DELIVERY ADDRESS</div>
-        <input type="text" id="fullName" class="address-input" placeholder="Full Name" value="Cosmic Explorer">
-        <input type="text" id="addressLine" class="address-input" placeholder="Street Address" value="123 Galaxy Lane">
-        <input type="text" id="city" class="address-input" placeholder="City" value="Nairobi">
-        <input type="text" id="postalCode" class="address-input" placeholder="Postal Code" value="00100">
-      </div>
-    </div>
-    
-    <div class="payment-options" style="display:flex; flex-direction:column; gap:18px;">
-      <div class="payment-btn" id="paypalOption"><i class="fab fa-paypal"></i> PayPal</div>
-      <div class="payment-btn" id="applePayOption"><i class="fab fa-apple"></i> Apple Pay</div>
-      <div class="payment-btn" id="cardOption"><i class="far fa-credit-card"></i> Credit / Debit Card</div>
-    </div>
-    <div id="cardFormContainer" style="display:none; margin-top:20px; background:#111; padding:24px; border-radius:32px;">
-      <input type="text" placeholder="Card Number" id="cardNumber" class="address-input" style="margin:5px 0;"><input type="text" placeholder="MM/YY" id="cardExpiry" class="address-input" style="margin:5px 0;"><input type="text" placeholder="CVC" id="cardCvc" class="address-input" style="margin:5px 0;">
-      <button class="pay-now" id="submitCardPayment" style="background:#FFD700; color:#000; width:100%; padding:14px; border-radius:40px; font-weight:800; margin-top:16px;">PAY NOW</button>
-    </div>
-    <p style="text-align:center; margin-top:20px; font-size:0.7rem; color:#FFD700;">⚡ 40% shipping discount applied • OFF WHITE™ secure ⚡</p>
-  </div>
-</div>
-<div id="toastMsg" class="toast-msg">✨ ADDED ✨</div>
+<div id="toastMsg" class="toast-msg">✨ ADDED TO ORBIT ✨</div>
 
 <script>
-  // Stars generation
+  // Stars Generation with depth effect on scroll
   const starsLayer = document.getElementById('starsLayer');
-  for (let i = 0; i < 300; i++) {
+  const stars = [];
+  for (let i = 0; i < 400; i++) {
     const star = document.createElement('div');
     star.className = 'star';
     star.style.width = Math.random() * 3 + 'px';
@@ -478,142 +517,109 @@
     star.style.left = Math.random() * 100 + '%';
     star.style.top = Math.random() * 100 + '%';
     star.style.animationDelay = Math.random() * 6 + 's';
+    star.style.animationDuration = 1.5 + Math.random() * 5 + 's';
+    star.dataset.depth = Math.random() * 0.5 + 0.2;
     starsLayer.appendChild(star);
+    stars.push(star);
   }
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    stars.forEach(star => {
+      const depth = parseFloat(star.dataset.depth);
+      const moveY = scrollY * depth * 0.1;
+      star.style.transform = `translateY(${moveY}px)`;
+    });
+  });
+
+  // Star dust trail
+  let lastX = 0, lastY = 0;
+  document.addEventListener('mousemove', (e) => {
+    const deltaX = Math.abs(e.clientX - lastX);
+    const deltaY = Math.abs(e.clientY - lastY);
+    if (deltaX > 5 || deltaY > 5) {
+      const dust = document.createElement('div');
+      dust.className = 'stardust';
+      dust.style.left = e.clientX - 2 + 'px';
+      dust.style.top = e.clientY - 2 + 'px';
+      document.body.appendChild(dust);
+      setTimeout(() => dust.remove(), 500);
+    }
+    lastX = e.clientX;
+    lastY = e.clientY;
+  });
+
+  // Ripple effect on clicks
+  document.addEventListener('click', (e) => {
+    const ripple = document.createElement('div');
+    ripple.className = 'ripple';
+    ripple.style.left = e.clientX - 20 + 'px';
+    ripple.style.top = e.clientY - 20 + 'px';
+    document.body.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  });
 
   // Cursor
   const cursorDot = document.getElementById('cursorDot'), cursorOutline = document.getElementById('cursorOutline');
-  if (cursorDot && cursorOutline) {
-    window.addEventListener('mousemove', (e) => {
-      cursorDot.style.left = e.clientX - 3 + 'px';
-      cursorDot.style.top = e.clientY - 3 + 'px';
-      cursorOutline.style.left = e.clientX - 20 + 'px';
-      cursorOutline.style.top = e.clientY - 20 + 'px';
-    });
-  }
+  window.addEventListener('mousemove', (e) => {
+    cursorDot.style.left = e.clientX - 3 + 'px';
+    cursorDot.style.top = e.clientY - 3 + 'px';
+    cursorOutline.style.left = e.clientX - 20 + 'px';
+    cursorOutline.style.top = e.clientY - 20 + 'px';
+  });
+  document.querySelectorAll('button, .add-to-cart, .page-link, .product-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursorOutline.style.transform = 'scale(1.6)'; cursorDot.style.transform = 'scale(1.5)'; });
+    el.addEventListener('mouseleave', () => { cursorOutline.style.transform = 'scale(1)'; cursorDot.style.transform = 'scale(1)'; });
+  });
 
   // Products
   const products = [
-    { id: 1, name: "OFF WHITE™ SIGNATURE", price: 1000.00, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", desc: "Moon-kissed fabric, ultra-soft organic cotton." },
-    { id: 2, name: "OFF WHITE™ GRAPHIC", price: 525.00, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", desc: "Volcanic ink prints that shift under starlight." },
-    { id: 3, name: "OFF WHITE™ RELAXED", price: 730.00, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=600&fit=crop", desc: "Zero-gravity weave, anti-gravity fit." },
-    { id: 4, name: "OFF WHITE™ HOODIE", price: 890.00, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "Nebula-dyed fleece, warm as a supernova." },
-    { id: 5, name: "OFF WHITE™ SCRIPT", price: 450.00, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop", desc: "Ancient scriptrunner, gold foil lettering." },
-    { id: 6, name: "👜 HANDCRAFTED BAG", price: 1850.00, image: "https://images.unsplash.com/photo-1591561954557-26941169b06f?w=600&h=600&fit=crop", desc: "Artisan leather bag, hand-stitched over 40 hours. Zero machines." }
-  ];
-
-  // Shipping Companies
-  const shippingCompanies = [
-    { id: 'dhl', name: 'DHL Express', time: '2-3 business days', baseCost: 25, icon: 'fas fa-fw fa-rocket' },
-    { id: 'fedex', name: 'FedEx Priority', time: '3-4 business days', baseCost: 20, icon: 'fas fa-fw fa-plane' },
-    { id: 'ups', name: 'UPS Ground', time: '5-7 business days', baseCost: 15, icon: 'fas fa-fw fa-truck' },
-    { id: 'usps', name: 'USPS First Class', time: '7-10 business days', baseCost: 10, icon: 'fas fa-fw fa-envelope' },
-    { id: 'cosmic', name: 'Cosmic Logistics', time: '1-2 business days (Premium)', baseCost: 35, icon: 'fas fa-fw fa-star' }
+    { id: 1, name: "OFF WHITE™ SIGNATURE", price: 1000, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", desc: "Moon-kissed fabric" },
+    { id: 2, name: "OFF WHITE™ GRAPHIC", price: 525, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", desc: "Volcanic ink prints" },
+    { id: 3, name: "OFF WHITE™ HOODIE", price: 890, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "Nebula-dyed fleece" },
+    { id: 4, name: "👜 HANDCRAFTED BAG", price: 1850, image: "https://images.unsplash.com/photo-1591561954557-26941169b06f?w=600&h=600&fit=crop", desc: "Artisan leather, zero machines" }
   ];
 
   let cart = [];
-  let selectedShipping = shippingCompanies[2]; // default UPS
-  let toastTimeout = null;
-  function showToast(msg) { const t = document.getElementById('toastMsg'); if(toastTimeout) clearTimeout(toastTimeout); t.textContent = msg; t.style.opacity = '1'; toastTimeout = setTimeout(() => t.style.opacity = '0', 2000); }
-  
-  const SHIPPING_DISCOUNT_RATE = 0.40;
-  function getShippingDiscount() { return cart.length === 0 ? 0 : (selectedShipping.baseCost * SHIPPING_DISCOUNT_RATE); }
-  function getCartSubtotal() { return cart.reduce((s, i) => s + (i.price * i.quantity), 0); }
-  function getShippingCost() { return cart.length === 0 ? 0 : selectedShipping.baseCost; }
-  function getFinalTotal() { return getCartSubtotal() + getShippingCost() - getShippingDiscount(); }
-
+  function showToast(msg) { const t = document.getElementById('toastMsg'); t.textContent = msg; t.style.opacity = '1'; setTimeout(() => t.style.opacity = '0', 2000); }
   function updateCartUI() {
-    const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
+    const totalItems = cart.reduce((s,i) => s + i.quantity, 0);
     document.getElementById('cartCount').innerText = totalItems;
     const container = document.getElementById('cartItemsContainer');
     const totalSpan = document.getElementById('cartTotalPrice');
-    const shipSpan = document.getElementById('shippingAmount');
-    if (cart.length === 0) { container.innerHTML = `<div class="empty-cart-msg">🪐 Your cart orbits empty.</div>`; totalSpan.innerText = '$0.00'; if(shipSpan) shipSpan.innerText = '-$0.00'; return; }
-    let html = '';
-    cart.forEach(item => { html += `<div class="cart-item" style="display:flex; gap:16px; margin-bottom:24px;"><img src="${item.image}" style="width:70px; height:70px; border-radius:16px; object-fit:cover;"><div style="flex:1;"><div style="font-weight:800;">${item.name}</div><div>$${item.price.toFixed(2)}</div><div style="display:flex; gap:12px; margin-top:8px;"><button class="qty-btn" data-id="${item.id}" data-delta="-1" style="background:#222; border:none; width:28px; border-radius:30px; color:white;">-</button><span>${item.quantity}</span><button class="qty-btn" data-id="${item.id}" data-delta="1" style="background:#222; border:none; width:28px; border-radius:30px; color:white;">+</button><button class="remove-item" data-id="${item.id}" style="background:none; color:#aaa; text-decoration:underline;">Remove</button></div></div></div>`; });
+    if (cart.length === 0) { container.innerHTML = '<div>🪐 Cart empty</div>'; totalSpan.innerText = '$0.00'; return; }
+    let html = '', subtotal = 0;
+    cart.forEach(item => { subtotal += item.price * item.quantity; html += `<div style="display:flex; gap:12px; margin-bottom:20px;"><img src="${item.image}" style="width:60px;height:60px;border-radius:12px;"><div><b>${item.name}</b><br>$${item.price}<br><button class="qty-btn" data-id="${item.id}" data-delta="-1">-</button> ${item.quantity} <button class="qty-btn" data-id="${item.id}" data-delta="1">+</button> <button class="remove-item" data-id="${item.id}">remove</button></div></div>`; });
     container.innerHTML = html;
-    const subtotal = getCartSubtotal(), shipCost = getShippingCost(), discount = getShippingDiscount();
-    totalSpan.innerText = `$${(subtotal + shipCost - discount).toFixed(2)}`;
-    if(shipSpan) shipSpan.innerText = `-$${discount.toFixed(2)}`;
+    totalSpan.innerText = `$${subtotal.toFixed(2)}`;
     document.querySelectorAll('.qty-btn').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id), delta = parseInt(btn.dataset.delta); updateQuantity(id, delta); }));
     document.querySelectorAll('.remove-item').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); removeItem(id); }));
     localStorage.setItem('offWhiteCart', JSON.stringify(cart));
   }
   function updateQuantity(id, delta) { const idx = cart.findIndex(i => i.id === id); if(idx === -1) return; const nq = cart[idx].quantity + delta; if(nq <= 0) cart.splice(idx,1); else cart[idx].quantity = nq; updateCartUI(); }
-  function removeItem(id) { cart = cart.filter(i => i.id !== id); updateCartUI(); showToast("Item removed"); }
-  function addToCart(product) { const ex = cart.find(i => i.id === product.id); if(ex) ex.quantity++; else cart.push({ ...product, quantity: 1 }); updateCartUI(); showToast(`${product.name} added + 40% shipping!`); }
+  function removeItem(id) { cart = cart.filter(i => i.id !== id); updateCartUI(); showToast("Removed"); }
+  function addToCart(product) { const ex = cart.find(i => i.id === product.id); if(ex) ex.quantity++; else cart.push({ ...product, quantity: 1 }); updateCartUI(); showToast(`${product.name} added`); }
 
   function renderProducts(containerId, list = products) {
     const c = document.getElementById(containerId); if(!c) return;
     c.innerHTML = '';
     list.forEach(p => {
       const card = document.createElement('div'); card.className = 'product-card';
-      card.innerHTML = `<div class="product-img"><img src="${p.image}" alt="${p.name}"></div><div class="product-info"><div class="product-title">${p.name}</div><div class="product-price">$${p.price.toFixed(2)}</div><div class="product-description"><i class="fas fa-star" style="color:#FFD700;"></i> ${p.desc}</div><button class="add-to-cart" data-id="${p.id}"><i class="fas fa-cart-plus"></i> ADD TO CART</button></div>`;
+      card.innerHTML = `<div class="product-img"><img src="${p.image}"></div><div class="product-info"><div class="product-title">${p.name}</div><div class="product-price">$${p.price}</div><div class="product-description">${p.desc}</div><button class="add-to-cart" data-id="${p.id}"><i class="fas fa-cart-plus"></i> ADD TO CART</button></div>`;
       c.appendChild(card);
     });
     document.querySelectorAll(`#${containerId} .add-to-cart`).forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const prod = products.find(p => p.id === id); if(prod) addToCart(prod); }));
   }
 
-  // Render Shipping Options in Modal
-  function renderShippingOptions() {
-    const container = document.getElementById('shippingOptionsContainer');
-    if (!container) return;
-    container.innerHTML = '';
-    shippingCompanies.forEach(ship => {
-      const optionDiv = document.createElement('div');
-      optionDiv.className = `shipping-option ${selectedShipping?.id === ship.id ? 'selected' : ''}`;
-      optionDiv.dataset.id = ship.id;
-      const discountedCost = ship.baseCost - (ship.baseCost * SHIPPING_DISCOUNT_RATE);
-      optionDiv.innerHTML = `
-        <input type="radio" name="shipping" class="shipping-radio" ${selectedShipping?.id === ship.id ? 'checked' : ''}>
-        <div class="shipping-details"><div class="shipping-name"><i class="${ship.icon}"></i> ${ship.name}</div><div class="shipping-time">${ship.time}</div></div>
-        <div class="shipping-cost">$${ship.baseCost.toFixed(2)} <span style="font-size:0.7rem; color:#aaa;">→ $${discountedCost.toFixed(2)} after 40% off</span></div>
-      `;
-      optionDiv.addEventListener('click', () => {
-        selectedShipping = ship;
-        renderShippingOptions();
-        updateModalTotal();
-      });
-      container.appendChild(optionDiv);
-    });
-  }
-
-  function updateModalTotal() {
-    if (!document.getElementById('modalTotalAmount')) return;
-    const total = getFinalTotal();
-    document.getElementById('modalTotalAmount').innerHTML = `✨ SUBTOTAL: $${getCartSubtotal().toFixed(2)}<br>➕ ${selectedShipping.name}: $${getShippingCost().toFixed(2)}<br>➖ 40% DISCOUNT: -$${getShippingDiscount().toFixed(2)}<br>⭐ TOTAL: $${total.toFixed(2)} ⭐`;
-  }
-
-  // Checkout Modal Logic
-  const modal = document.getElementById('checkoutModal');
-  function openModal() { if(cart.length===0){ showToast("Cart empty"); return; } renderShippingOptions(); updateModalTotal(); document.getElementById('cardFormContainer').style.display = 'none'; modal.style.display = 'flex'; }
-  function closeModal() { modal.style.display = 'none'; }
-  
-  function processOrder(method) {
-    if(cart.length===0) return;
-    const address = `${document.getElementById('fullName').value}, ${document.getElementById('addressLine').value}, ${document.getElementById('city').value}, ${document.getElementById('postalCode').value}`;
-    const shippingDetails = `${selectedShipping.name} (${selectedShipping.time}) - Est. delivery`;
-    alert(`✅ PAYMENT SUCCESSFUL via ${method}\n⭐ OFF WHITE™ Total: $${getFinalTotal().toFixed(2)}\n🚚 Shipping: ${shippingDetails}\n📍 Delivering to: ${address}\n🌌 Thank you — follow @thefitlabreal`);
-    cart = []; updateCartUI(); closeModal(); document.getElementById('cartSidebar').style.transform = 'translateX(100%)'; showToast("Order placed! Cosmic delivery.");
-  }
-  
-  document.getElementById('checkoutBtn').addEventListener('click', openModal);
-  document.getElementById('closeModalBtn').addEventListener('click', closeModal);
-  document.getElementById('paypalOption').addEventListener('click', () => processOrder('PayPal'));
-  document.getElementById('applePayOption').addEventListener('click', () => processOrder('Apple Pay'));
-  document.getElementById('cardOption').addEventListener('click', () => { document.getElementById('cardFormContainer').style.display = 'block'; });
-  document.getElementById('submitCardPayment').addEventListener('click', () => { const cn = document.getElementById('cardNumber').value; if(cn.length<10) { showToast("Enter valid card"); return; } processOrder('Credit/Debit Card'); });
-  window.onclick = (e) => { if(e.target === modal) closeModal(); };
-
   // Routing
   const pages = { home:'homePage', menu:'menuPage', press:'pressPage', roots:'rootsPage' };
-  function switchPage(p) { Object.values(pages).forEach(pid => { const el = document.getElementById(pid); if(el) el.classList.remove('active-page'); }); document.getElementById(pages[p]).classList.add('active-page'); window.scrollTo({top:0}); if(p === 'menu') renderProducts('fullMenuGrid', products); if(p === 'home') renderProducts('homeProductsGrid', products.slice(0,3)); }
+  function switchPage(p) { Object.values(pages).forEach(pid => { document.getElementById(pid).classList.remove('active-page'); }); document.getElementById(pages[p]).classList.add('active-page'); window.scrollTo({top:0}); if(p === 'menu') renderProducts('fullMenuGrid', products); if(p === 'home') renderProducts('homeProductsGrid', products.slice(0,3)); }
   document.querySelectorAll('.page-link').forEach(btn => btn.addEventListener('click', (e) => { const pg = btn.dataset.page; if(pg) switchPage(pg); }));
   document.querySelector('.logo')?.addEventListener('click', () => switchPage('home'));
-  const openCart = document.getElementById('openCartBtn'), closeCart = document.getElementById('closeCartBtn'), sidebar = document.getElementById('cartSidebar');
-  openCart.addEventListener('click', () => { sidebar.style.transform = 'translateX(0)'; document.body.style.overflow = 'hidden'; });
-  closeCart.addEventListener('click', () => { sidebar.style.transform = 'translateX(100%)'; document.body.style.overflow = ''; });
-  window.addEventListener('click', (e) => { if(sidebar.style.transform === 'translateX(0px)' && !sidebar.contains(e.target) && e.target !== openCart && !openCart.contains(e.target)) { sidebar.style.transform = 'translateX(100%)'; document.body.style.overflow = ''; } });
+  
+  const sidebar = document.getElementById('cartSidebar');
+  document.getElementById('openCartBtn').addEventListener('click', () => { sidebar.style.transform = 'translateX(0)'; });
+  document.getElementById('closeCartBtn').addEventListener('click', () => { sidebar.style.transform = 'translateX(100%)'; });
+  document.getElementById('checkoutBtn').addEventListener('click', () => { if(cart.length) alert("✅ Order placed!\nThank you for flying OFF WHITE™"); cart = []; updateCartUI(); sidebar.style.transform = 'translateX(100%)'; showToast("Order launched!"); });
   
   function loadCart() { const saved = localStorage.getItem('offWhiteCart'); if(saved) try { cart = JSON.parse(saved); } catch(e){} updateCartUI(); }
   loadCart();
@@ -621,6 +627,6 @@
   renderProducts('fullMenuGrid', products);
   switchPage('home');
 </script>
-<footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. 40% shipping discount • Multiple carriers • @thefitlabreal</p></div></footer>
+<footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. Mission Control: @thefitlabreal</p></div></footer>
 </body>
 </html>
