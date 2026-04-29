@@ -20,9 +20,33 @@
       scroll-behavior: smooth;
       overflow-x: hidden;
     }
-    /* Launch page uses default cursor */
-    .launch-page, .launch-page * {
-      cursor: auto !important;
+    h1, h2, .logo, .section-title, .product-title, .hero h1, .dashboard-btn {
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 1px;
+    }
+    
+    /* ========= LAUNCH PAGE CUSTOM COOL CURSOR ========= */
+    .launch-cursor {
+      width: 30px;
+      height: 30px;
+      border: 2px solid #FFD700;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 10001;
+      transition: transform 0.1s ease;
+      box-shadow: 0 0 15px rgba(255,215,0,0.8), inset 0 0 5px rgba(255,215,0,0.5);
+      backdrop-filter: blur(2px);
+    }
+    .launch-cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: #FFD700;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 10002;
+      box-shadow: 0 0 12px #FFD700;
     }
     /* Main app uses custom gold cursor */
     .main-app, .main-app * {
@@ -48,6 +72,7 @@
       z-index: 9998;
       transition: transform 0.15s;
       backdrop-filter: blur(3px);
+      box-shadow: 0 0 20px rgba(255,215,0,0.6);
     }
     .stardust {
       position: fixed;
@@ -75,10 +100,6 @@
     @keyframes rippleAnim {
       0% { transform: scale(0); opacity: 0.6; }
       100% { transform: scale(4); opacity: 0; }
-    }
-    h1, h2, .logo, .section-title, .product-title, .hero h1, .dashboard-btn {
-      font-family: 'Orbitron', monospace;
-      letter-spacing: 1px;
     }
     /* ========= FAST SPACE BACKGROUND ========= */
     .universe {
@@ -191,7 +212,7 @@
       z-index: 10;
     }
     
-    /* ========= LAUNCH PAGE (SEPARATE) ========= */
+    /* ========= LAUNCH PAGE ========= */
     .launch-page {
       position: fixed;
       top: 0;
@@ -417,7 +438,7 @@
     .press-source { font-weight: 800; font-size: 0.8rem; color: #FFD700; text-transform: uppercase; }
     .press-badge { background: rgba(255,215,0,0.2); padding: 3px 10px; border-radius: 30px; font-size: 0.65rem; margin-left: 8px; }
     
-    /* Origin Page - Expanded with more content */
+    /* Origin Page */
     .origin-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -550,8 +571,10 @@
   <div class="fast-planet planet-4" style="--moveY: -5px"></div>
   <div class="fast-planet planet-5" style="--moveY: 30px"></div>
 </div>
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-outline" id="cursorOutline"></div>
+
+<!-- LAUNCH PAGE CURSOR ELEMENTS -->
+<div class="launch-cursor" id="launchCursor"></div>
+<div class="launch-cursor-dot" id="launchCursorDot"></div>
 
 <!-- SEPARATE LAUNCH PAGE -->
 <div id="launchPage" class="launch-page">
@@ -598,47 +621,18 @@
   <!-- PRESS PAGE -->
   <div id="pressPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🌍 INTERSTELLAR PRESS</h2><div class="press-grid" id="pressGrid"></div></div></section></div>
   
-  <!-- ROOTS PAGE - EXPANDED ORIGIN SECTION -->
+  <!-- ROOTS PAGE -->
   <div id="rootsPage" class="page">
     <section class="section">
       <div class="container">
         <h2 class="section-title">🌱 THE ORIGIN STORY</h2>
         <div class="origin-grid">
-          <div class="origin-card">
-            <div class="origin-icon"><i class="fas fa-hands"></i></div>
-            <div class="origin-title">HUMAN CRAFT</div>
-            <div class="origin-text">Every stitch, every seam is made by human hands. Our artisans spend over 40 hours on each handcrafted bag, ensuring zero machines touch the final product. This is slow fashion at its finest.</div>
-          </div>
-          <div class="origin-card">
-            <div class="origin-icon"><i class="fas fa-leaf"></i></div>
-            <div class="origin-title">SUSTAINABLE MATERIALS</div>
-            <div class="origin-text">We source ethically harvested organic cotton, plant-tanned leathers, and recycled cosmic fibers. Our commitment to the planet is as strong as our commitment to style.</div>
-          </div>
-          <div class="origin-card">
-            <div class="origin-icon"><i class="fas fa-star"></i></div>
-            <div class="origin-title">99% FAITH, 1% US</div>
-            <div class="origin-text">We believe in the energy of creation. Each piece carries the intention of its maker — lunar energy infused, cosmic vision realized. You're not buying a product; you're adopting a story.</div>
-          </div>
-          <div class="origin-card">
-            <div class="origin-icon"><i class="fas fa-globe-africa"></i></div>
-            <div class="origin-title">ETHICAL PRODUCTION</div>
-            <div class="origin-text">Our workshops are powered by renewable energy. Every artisan receives fair wages, healthcare, and creative freedom. We're building a community, not just a brand.</div>
-          </div>
-          <div class="origin-card">
-            <div class="origin-icon"><i class="fas fa-infinity"></i></div>
-            <div class="origin-title">LIMITED BATCHES</div>
-            <div class="origin-text">No mass production. Each drop is limited to 500 pieces worldwide, making every OFF WHITE™ item a rare artifact of cosmic craftsmanship.</div>
-          </div>
-          <div class="origin-card">
-            <div class="origin-icon"><i class="fas fa-dove"></i></div>
-            <div class="origin-title">ZERO WASTE PHILOSOPHY</div>
-            <div class="origin-text">We repurpose every fabric scrap. Leftover materials become patches, accessories, or upcycled limited editions. Nothing goes to waste in our universe.</div>
-          </div>
-        </div>
-        <div style="text-align: center; margin-top: 40px; padding: 30px; background: rgba(255,215,0,0.1); border-radius: 60px;">
-          <i class="fas fa-quote-left" style="color:#FFD700; font-size: 2rem;"></i>
-          <p style="font-size: 1.2rem; font-style: italic; margin: 15px 0;">"We don't mass-produce. We soul-produce."</p>
-          <p style="color:#FFD700;">— The OFF WHITE™ Collective</p>
+          <div class="origin-card"><div class="origin-icon"><i class="fas fa-hands"></i></div><div class="origin-title">HUMAN CRAFT</div><div class="origin-text">Every stitch, every seam is made by human hands. Our artisans spend over 40 hours on each handcrafted bag.</div></div>
+          <div class="origin-card"><div class="origin-icon"><i class="fas fa-leaf"></i></div><div class="origin-title">SUSTAINABLE MATERIALS</div><div class="origin-text">Ethically harvested organic cotton, plant-tanned leathers, and recycled cosmic fibers.</div></div>
+          <div class="origin-card"><div class="origin-icon"><i class="fas fa-star"></i></div><div class="origin-title">99% FAITH, 1% US</div><div class="origin-text">Each piece carries lunar energy and cosmic vision. You're adopting a story, not just a product.</div></div>
+          <div class="origin-card"><div class="origin-icon"><i class="fas fa-globe-africa"></i></div><div class="origin-title">ETHICAL PRODUCTION</div><div class="origin-text">Powered by renewable energy. Every artisan receives fair wages and creative freedom.</div></div>
+          <div class="origin-card"><div class="origin-icon"><i class="fas fa-infinity"></i></div><div class="origin-title">LIMITED BATCHES</div><div class="origin-text">Each drop is limited to 500 pieces worldwide. Rare artifacts of cosmic craftsmanship.</div></div>
+          <div class="origin-card"><div class="origin-icon"><i class="fas fa-dove"></i></div><div class="origin-title">ZERO WASTE</div><div class="origin-text">Every fabric scrap is repurposed into patches, accessories, or upcycled editions.</div></div>
         </div>
       </div>
     </section>
@@ -709,19 +703,18 @@
     }, 1500);
   }
 
-  // PRODUCTS - ALL PRICES UNDER $300
+  // PRODUCTS - Updated Handcrafted Bag with dedicated bag image
   const products = [
     { id: 1, name: "OFF WHITE™ SIGNATURE", price: 189, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", desc: "Moon-kissed fabric, ultra-soft organic cotton" },
     { id: 2, name: "OFF WHITE™ GRAPHIC", price: 159, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", desc: "Volcanic ink prints that shift under starlight" },
     { id: 3, name: "OFF WHITE™ HOODIE", price: 249, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "Nebula-dyed fleece, warm as a supernova" },
-    { id: 4, name: "👜 HANDCRAFTED BAG", price: 279, image: "https://images.unsplash.com/photo-1591561954557-26941169b06f?w=600&h=600&fit=crop", desc: "Artisan leather, hand-stitched over 40 hours" },
+    { id: 4, name: "👜 HANDCRAFTED BAG", price: 279, image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=600&fit=crop", desc: "Artisan leather bag, hand-stitched over 40 hours. Premium sustainable leather, zero machines." },
     { id: 5, name: "OFF WHITE™ SCRIPT", price: 129, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop", desc: "Ancient scriptrunner, gold foil lettering" },
     { id: 6, name: "OFF WHITE™ RELAXED", price: 199, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=600&fit=crop", desc: "Zero-gravity weave, anti-gravity fit" },
     { id: 7, name: "🚀 NIKE AIR SPACE4", price: 289, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop", desc: "Limited edition cosmic sneakers. Glow-in-dark sole. Lunar cushioning technology." },
     { id: 8, name: "👟 JORDAN AIR SPACE 11s", price: 299, image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600&h=600&fit=crop", desc: "Interstellar edition, carbon fiber weave, zero-gravity comfort, patent leather nebula finish." }
   ];
 
-  // Press outlets
   const pressOutlets = [
     { name: "Los Angeles Times", quote: "OFF WHITE™ is redefining luxury streetwear with cosmic craftsmanship.", badge: "★ FEATURED" },
     { name: "Chicago Tribune", quote: "The handcrafted bag collection is a masterpiece of sustainable design.", badge: "✦ EDITORS' PICK" },
@@ -860,18 +853,34 @@
   renderPress();
   switchPage('home');
 
-  // LAUNCH PAGE SEPARATION
+  // LAUNCH PAGE LOGIC with cool cursor
   const launchPage = document.getElementById('launchPage');
   const mainApp = document.getElementById('mainApp');
   const enterBtn = document.getElementById('enterBtn');
+  const launchCursor = document.getElementById('launchCursor');
+  const launchCursorDot = document.getElementById('launchCursorDot');
+  
+  // Launch page cursor movement
+  document.addEventListener('mousemove', (e) => {
+    if (launchPage && !launchPage.classList.contains('hide-launch')) {
+      launchCursor.style.left = e.clientX - 15 + 'px';
+      launchCursor.style.top = e.clientY - 15 + 'px';
+      launchCursorDot.style.left = e.clientX - 3 + 'px';
+      launchCursorDot.style.top = e.clientY - 3 + 'px';
+    }
+  });
+  
   enterBtn.addEventListener('click', () => {
     launchPage.classList.add('hide-launch');
     mainApp.classList.add('visible');
+    // Remove launch cursor elements
+    launchCursor.style.display = 'none';
+    launchCursorDot.style.display = 'none';
     flyRocket(true);
     setTimeout(() => flyRocket(true), 300);
   });
 
-  // Cursor effects (only active in main app)
+  // Main app cursor effects
   const cursorDot = document.getElementById('cursorDot'), cursorOutline = document.getElementById('cursorOutline');
   window.addEventListener('mousemove', (e) => {
     if (mainApp.classList.contains('visible')) {
