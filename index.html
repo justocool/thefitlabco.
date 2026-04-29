@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>OFF WHITE™ | Cosmic Luxury • Handcrafted Bags</title>
+  <title>OFF WHITE™ | Cosmic Luxury • Space Kicks</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -185,7 +185,7 @@
       z-index: 10;
     }
     
-    /* ========= LAUNCH PAGE (SEPARATE SPLASH) ========= */
+    /* ========= LAUNCH PAGE (SEPARATE) ========= */
     .launch-page {
       position: fixed;
       top: 0;
@@ -198,7 +198,6 @@
       justify-content: center;
       align-items: center;
       transition: opacity 1s ease, visibility 1s ease;
-      backdrop-filter: blur(0px);
     }
     .launch-page.hide-launch {
       opacity: 0;
@@ -250,7 +249,7 @@
       color: rgba(255,215,0,0.6);
     }
     
-    /* Main App (hidden until launch) */
+    /* Main App */
     .main-app {
       opacity: 0;
       transition: opacity 1.5s ease;
@@ -370,7 +369,7 @@
     .product-img img { width: 100%; height: 260px; object-fit: cover; }
     .product-info { padding: 20px; }
     .product-title { font-size: 1.3rem; color: #FFD700; }
-    .product-price { font-size: 1.5rem; margin: 8px 0; }
+    .product-price { font-size: 1.5rem; margin: 8px 0; color: #fff; font-weight: 700; }
     .add-to-cart {
       width: 100%;
       background: linear-gradient(135deg, #FFD700, #E6B800);
@@ -381,7 +380,7 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    .add-to-cart:hover { box-shadow: 0 0 20px #FFD700; }
+    .add-to-cart:hover { box-shadow: 0 0 20px #FFD700; transform: scale(0.98); }
     .features-grid { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
     .feature-card {
       background: rgba(10, 10, 15, 0.7);
@@ -409,7 +408,7 @@
     }
     .press-card:hover { border-color: #FFD700; transform: translateY(-5px); }
     .press-quote { font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; color: #eee; font-style: italic; }
-    .press-source { font-weight: 800; font-size: 0.8rem; color: #FFD700; }
+    .press-source { font-weight: 800; font-size: 0.8rem; color: #FFD700; text-transform: uppercase; }
     .press-badge { background: rgba(255,215,0,0.2); padding: 3px 10px; border-radius: 30px; font-size: 0.65rem; margin-left: 8px; }
     
     /* Cart Sidebar */
@@ -430,7 +429,7 @@
       z-index: 1000;
       overflow-y: auto;
     }
-    .cart-header { position: sticky; top: 0; background: rgba(0,0,0,0.95); z-index: 5; padding: 20px; border-bottom: 1px solid #FFD700; display: flex; justify-content: space-between; }
+    .cart-header { position: sticky; top: 0; background: rgba(0,0,0,0.95); padding: 20px; border-bottom: 1px solid #FFD700; display: flex; justify-content: space-between; }
     .cart-items-scroll { flex: 1; overflow-y: auto; padding: 20px; }
     .cart-footer { position: sticky; bottom: 0; background: rgba(0,0,0,0.95); padding: 20px; border-top: 1px solid rgba(255,215,0,0.3); }
     .payment-section { margin: 12px 0; padding: 12px; background: rgba(20,20,30,0.8); border-radius: 20px; }
@@ -508,8 +507,8 @@
       .hero h1 { font-size: 2.5rem; }
       .dashboard-nav { gap: 8px; padding: 5px 12px; }
       .dashboard-btn { font-size: 0.7rem; padding: 5px 8px; }
-      .shipping-details-grid { grid-template-columns: 1fr; }
       .launch-logo { font-size: 3.5rem; }
+      .shipping-details-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -537,7 +536,7 @@
   </div>
 </div>
 
-<!-- MAIN APPLICATION (initially hidden) -->
+<!-- MAIN APPLICATION -->
 <div id="mainApp" class="main-app">
   <div class="container">
     <div class="navbar">
@@ -566,8 +565,13 @@
     <section class="section"><div class="container"><h2 class="section-title">🌟 NEW ARRIVALS</h2><div class="products-grid" id="homeProductsGrid"></div></div></section>
   </div>
 
+  <!-- MENU PAGE -->
   <div id="menuPage" class="page"><section class="section"><div class="container"><h2 class="section-title">✨ CARGO MANIFEST</h2><div class="products-grid" id="fullMenuGrid"></div></div></section></div>
+  
+  <!-- PRESS PAGE -->
   <div id="pressPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🌍 INTERSTELLAR PRESS</h2><div class="press-grid" id="pressGrid"></div></div></section></div>
+  
+  <!-- ROOTS PAGE -->
   <div id="rootsPage" class="page"><section class="section"><div class="container"><div class="features-grid"><div class="feature-card"><div class="feature-icon"><i class="fas fa-hands"></i></div><h2>ORIGIN: HUMAN CRAFT</h2><p>Every stitch by human hands. Ethically sourced materials. 99% faith, 1% us.</p></div></div></div></section></div>
 
   <!-- SHIPPING DETAILS PAGE -->
@@ -596,7 +600,7 @@
       <button class="checkout-btn" id="checkoutBtn">COMPLETE PURCHASE →</button>
     </div>
   </div>
-  <footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. @thefitlabreal</p></div></footer>
+  <footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. Space Kicks Collection • @thefitlabreal</p></div></footer>
 </div>
 <div id="toastMsg" class="toast-msg">✨ ADDED TO ORBIT ✨</div>
 
@@ -635,23 +639,34 @@
     }, 1500);
   }
 
+  // PRODUCTS - ALL PRICES UNDER $300 - Added Nike Air Space4 & Jordan Air Space 11s
   const products = [
-    { id: 1, name: "OFF WHITE™ SIGNATURE", price: 1000, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", desc: "Moon-kissed fabric" },
-    { id: 2, name: "OFF WHITE™ GRAPHIC", price: 525, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", desc: "Volcanic ink prints" },
-    { id: 3, name: "OFF WHITE™ HOODIE", price: 890, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "Nebula-dyed fleece" },
-    { id: 4, name: "👜 HANDCRAFTED BAG", price: 1850, image: "https://images.unsplash.com/photo-1591561954557-26941169b06f?w=600&h=600&fit=crop", desc: "Artisan leather, zero machines" }
+    { id: 1, name: "OFF WHITE™ SIGNATURE", price: 189, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", desc: "Moon-kissed fabric, ultra-soft organic cotton" },
+    { id: 2, name: "OFF WHITE™ GRAPHIC", price: 159, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", desc: "Volcanic ink prints that shift under starlight" },
+    { id: 3, name: "OFF WHITE™ HOODIE", price: 249, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "Nebula-dyed fleece, warm as a supernova" },
+    { id: 4, name: "👜 HANDCRAFTED BAG", price: 279, image: "https://images.unsplash.com/photo-1591561954557-26941169b06f?w=600&h=600&fit=crop", desc: "Artisan leather, hand-stitched over 40 hours" },
+    { id: 5, name: "OFF WHITE™ SCRIPT", price: 129, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop", desc: "Ancient scriptrunner, gold foil lettering" },
+    { id: 6, name: "OFF WHITE™ RELAXED", price: 199, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=600&fit=crop", desc: "Zero-gravity weave, anti-gravity fit" },
+    { id: 7, name: "🚀 NIKE AIR SPACE4", price: 289, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop", desc: "Limited edition cosmic sneakers. Glow-in-dark sole. Lunar cushioning technology." },
+    { id: 8, name: "👟 JORDAN AIR SPACE 11s", price: 299, image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600&h=600&fit=crop", desc: "Interstellar edition, carbon fiber weave, zero-gravity comfort, patent leather nebula finish." }
   ];
 
+  // Press outlets
   const pressOutlets = [
-    { name: "Los Angeles Times", quote: "OFF WHITE™ is redefining luxury streetwear.", badge: "★ FEATURED" },
-    { name: "Chicago Tribune", quote: "The handcrafted bag collection is a masterpiece.", badge: "✦ EDITORS' PICK" },
-    { name: "New York Post", quote: "The most exciting brand to watch.", badge: "🔥 TRENDING" },
-    { name: "Newsweek", quote: "Zero machines, infinite style.", badge: "★ BREAKTHROUGH" },
-    { name: "Time", quote: "One of the most innovative labels.", badge: "✦ BEST OF 2025" },
-    { name: "ABC News", quote: "From the cosmos to your closet.", badge: "📺 SPOTLIGHT" },
-    { name: "CBS News", quote: "Artisan leather, cosmic vision.", badge: "📺 MORNING SHOW" },
-    { name: "MSNBC", quote: "The brand changing luxury.", badge: "📺 INTERVIEW" }
+    { name: "Los Angeles Times", quote: "OFF WHITE™ is redefining luxury streetwear with cosmic craftsmanship.", badge: "★ FEATURED" },
+    { name: "Chicago Tribune", quote: "The handcrafted bag collection is a masterpiece of sustainable design.", badge: "✦ EDITORS' PICK" },
+    { name: "New York Post", quote: "Why OFF WHITE™ is the most exciting brand to watch right now.", badge: "🔥 TRENDING" },
+    { name: "Newsweek", quote: "Zero machines, infinite style — the future of fashion is here.", badge: "★ BREAKTHROUGH" },
+    { name: "Time", quote: "One of the most innovative labels of the decade.", badge: "✦ BEST OF 2025" },
+    { name: "ABC News", quote: "From the cosmos to your closet — OFF WHITE™ delivers.", badge: "📺 SPOTLIGHT" },
+    { name: "CBS News", quote: "Artisan leather, ethical production, cosmic vision.", badge: "📺 MORNING SHOW" },
+    { name: "MSNBC", quote: "The brand changing how we think about luxury.", badge: "📺 INTERVIEW" }
   ];
+
+  function renderPress() {
+    const container = document.getElementById('pressGrid');
+    if (container) container.innerHTML = pressOutlets.map(p => `<div class="press-card"><div class="press-quote">"${p.quote}"</div><div class="press-source">${p.name} <span class="press-badge">${p.badge}</span></div></div>`).join('');
+  }
 
   let cart = [];
   let selectedMethod = null;
@@ -754,18 +769,13 @@
     document.querySelectorAll(`#${containerId} .add-to-cart`).forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const prod = products.find(p => p.id === id); if(prod) addToCart(prod); }));
   }
 
-  function renderPress() {
-    const container = document.getElementById('pressGrid');
-    if (container) container.innerHTML = pressOutlets.map(p => `<div class="press-card"><div class="press-quote">"${p.quote}"</div><div class="press-source">${p.name} <span class="press-badge">${p.badge}</span></div></div>`).join('');
-  }
-
   const pages = { home:'homePage', menu:'menuPage', press:'pressPage', roots:'rootsPage', shipping:'shippingPage' };
   function switchPage(p) { 
     Object.values(pages).forEach(pid => { const el = document.getElementById(pid); if(el) el.classList.remove('active-page'); }); 
     document.getElementById(pages[p]).classList.add('active-page'); 
     window.scrollTo({top:0}); 
     if(p === 'menu') renderProducts('fullMenuGrid', products); 
-    if(p === 'home') renderProducts('homeProductsGrid', products.slice(0,3));
+    if(p === 'home') renderProducts('homeProductsGrid', products.slice(0,4));
   }
 
   document.querySelectorAll('.page-link').forEach(btn => btn.addEventListener('click', (e) => { const pg = btn.dataset.page; if(pg && pages[pg]) switchPage(pg); }));
@@ -775,20 +785,18 @@
   
   function loadCart() { const saved = localStorage.getItem('offWhiteCart'); if(saved) try { cart = JSON.parse(saved); } catch(e){} updateCartUI(); }
   loadCart();
-  renderProducts('homeProductsGrid', products.slice(0,3));
+  renderProducts('homeProductsGrid', products.slice(0,4));
   renderProducts('fullMenuGrid', products);
   renderPress();
   switchPage('home');
 
-  // LAUNCH PAGE SEPARATION LOGIC
+  // LAUNCH PAGE SEPARATION
   const launchPage = document.getElementById('launchPage');
   const mainApp = document.getElementById('mainApp');
   const enterBtn = document.getElementById('enterBtn');
-  
   enterBtn.addEventListener('click', () => {
     launchPage.classList.add('hide-launch');
     mainApp.classList.add('visible');
-    // Play a rocket effect on launch
     flyRocket(true);
     setTimeout(() => flyRocket(true), 300);
   });
