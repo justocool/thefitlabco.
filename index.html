@@ -25,7 +25,7 @@
       letter-spacing: 1px;
     }
     
-    /* ========= LAUNCH PAGE CUSTOM COOL CURSOR ========= */
+    /* ========= LAUNCH PAGE CURSOR ========= */
     .launch-cursor {
       width: 30px;
       height: 30px;
@@ -48,59 +48,69 @@
       z-index: 10002;
       box-shadow: 0 0 12px #FFD700;
     }
-    /* Main app uses custom gold cursor */
+    
+    /* ========= MAIN APP COOL CURSOR ========= */
     .main-app, .main-app * {
       cursor: none;
     }
-    .cursor-dot {
-      width: 6px;
-      height: 6px;
-      background: #FFD700;
-      border-radius: 50%;
+    .custom-cursor {
       position: fixed;
       pointer-events: none;
       z-index: 9999;
-      box-shadow: 0 0 12px #FFD700;
+      width: 40px;
+      height: 40px;
     }
-    .cursor-outline {
+    .cursor-outer {
+      position: absolute;
       width: 40px;
       height: 40px;
       border: 2px solid #FFD700;
       border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      transition: transform 0.15s;
-      backdrop-filter: blur(3px);
-      box-shadow: 0 0 20px rgba(255,215,0,0.6);
+      top: 0;
+      left: 0;
+      transition: transform 0.2s ease, width 0.2s, height 0.2s;
+      box-shadow: 0 0 15px rgba(255,215,0,0.6);
+      backdrop-filter: blur(2px);
     }
-    .stardust {
+    .cursor-inner {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #FFD700;
+      border-radius: 50%;
+      top: 17px;
+      left: 17px;
+      transition: transform 0.1s ease;
+      box-shadow: 0 0 10px #FFD700;
+    }
+    .cursor-trail {
       position: fixed;
-      width: 3px;
-      height: 3px;
+      width: 4px;
+      height: 4px;
       background: radial-gradient(circle, #FFD700, #ffaa00);
       border-radius: 50%;
       pointer-events: none;
-      z-index: 9997;
-      animation: fadeOut 0.5s ease-out forwards;
+      z-index: 9998;
+      animation: trailFade 0.6s ease-out forwards;
     }
-    @keyframes fadeOut {
+    @keyframes trailFade {
       0% { opacity: 0.8; transform: scale(1); }
       100% { opacity: 0; transform: scale(0); }
     }
-    .ripple {
+    .cursor-ripple {
       position: fixed;
       border-radius: 50%;
-      background: rgba(255, 215, 0, 0.5);
+      background: rgba(255, 215, 0, 0.4);
       transform: scale(0);
       animation: rippleAnim 0.6s linear forwards;
       pointer-events: none;
-      z-index: 10000;
+      z-index: 9997;
     }
     @keyframes rippleAnim {
-      0% { transform: scale(0); opacity: 0.6; }
+      0% { transform: scale(0); opacity: 0.8; }
       100% { transform: scale(4); opacity: 0; }
     }
+    
     /* ========= FAST SPACE BACKGROUND ========= */
     .universe {
       position: fixed;
@@ -150,6 +160,28 @@
     .planet-3 { width: 80px; height: 80px; background: radial-gradient(circle, #f5af19, #f12711); top: 70%; animation-duration: 10s; animation-delay: 1s; }
     .planet-4 { width: 30px; height: 30px; background: radial-gradient(circle, #a8c0ff, #3f2b96); top: 85%; animation-duration: 5s; animation-delay: 4s; }
     .planet-5 { width: 50px; height: 50px; background: radial-gradient(circle, #ffd89b, #19547b); top: 25%; animation-duration: 7s; animation-delay: 3s; }
+    .moon-glow {
+      position: absolute;
+      bottom: 5%;
+      right: 3%;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, #f5e6a0, #c9b36b);
+      border-radius: 50%;
+      box-shadow: 0 0 80px rgba(255, 215, 0, 0.6);
+      animation: moonFloat 6s infinite alternate;
+    }
+    @keyframes moonFloat {
+      0% { transform: translateY(0); box-shadow: 0 0 60px rgba(255,215,0,0.4); }
+      100% { transform: translateY(-15px); box-shadow: 0 0 100px rgba(255,215,0,0.8); }
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 10;
+    }
     
     /* Rocket Animations */
     .rocket-fly {
@@ -187,29 +219,6 @@
     @keyframes explodeAnim {
       0% { transform: scale(0); opacity: 1; }
       100% { transform: scale(3); opacity: 0; }
-    }
-    
-    .moon-glow {
-      position: absolute;
-      bottom: 5%;
-      right: 3%;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, #f5e6a0, #c9b36b);
-      border-radius: 50%;
-      box-shadow: 0 0 80px rgba(255, 215, 0, 0.6);
-      animation: moonFloat 6s infinite alternate;
-    }
-    @keyframes moonFloat {
-      0% { transform: translateY(0); box-shadow: 0 0 60px rgba(255,215,0,0.4); }
-      100% { transform: translateY(-15px); box-shadow: 0 0 100px rgba(255,215,0,0.8); }
-    }
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 32px;
-      position: relative;
-      z-index: 10;
     }
     
     /* ========= LAUNCH PAGE ========= */
@@ -308,7 +317,7 @@
     }
     .dashboard-nav {
       display: flex;
-      gap: 20px;
+      gap: 15px;
       align-items: center;
       background: rgba(0,0,0,0.5);
       padding: 8px 20px;
@@ -331,20 +340,27 @@
       border-radius: 40px;
       text-shadow: 0 0 8px #FFD700;
     }
-    .cart-icon-btn {
+    .cart-icon-btn, .wishlist-icon-btn, .account-icon-btn {
       background: rgba(255,215,0,0.15);
       border: 1px solid #FFD700;
       border-radius: 50px;
-      padding: 8px 18px;
-      font-size: 1.2rem;
+      padding: 8px 16px;
+      font-size: 1rem;
       cursor: pointer;
+      transition: all 0.3s;
+      color: #FFD700;
     }
-    .cart-count {
+    .cart-icon-btn:hover, .wishlist-icon-btn:hover, .account-icon-btn:hover {
+      background: rgba(255,215,0,0.3);
+      transform: scale(1.05);
+    }
+    .cart-count, .wishlist-count {
       background: #FFD700;
       color: #000;
       border-radius: 30px;
       padding: 2px 8px;
       margin-left: 8px;
+      font-size: 0.75rem;
     }
     .page { display: none; animation: fadeIn 0.5s; }
     .active-page { display: block; }
@@ -391,12 +407,32 @@
       overflow: hidden;
       border: 1px solid rgba(255, 215, 0, 0.3);
       transition: all 0.4s;
+      position: relative;
     }
     .product-card:hover { transform: translateY(-12px); border-color: #FFD700; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
     .product-img img { width: 100%; height: 260px; object-fit: cover; }
     .product-info { padding: 20px; }
     .product-title { font-size: 1.3rem; color: #FFD700; }
     .product-price { font-size: 1.5rem; margin: 8px 0; color: #fff; font-weight: 700; }
+    .wishlist-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid #FFD700;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: #FFD700;
+      font-size: 1.2rem;
+    }
+    .wishlist-btn:hover { transform: scale(1.1); background: #FFD700; color: #000; }
+    .wishlist-btn.active { background: #FFD700; color: #000; }
     .add-to-cart {
       width: 100%;
       background: linear-gradient(135deg, #FFD700, #E6B800);
@@ -436,9 +472,6 @@
     .press-card:hover { border-color: #FFD700; transform: translateY(-5px); }
     .press-quote { font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; color: #eee; font-style: italic; }
     .press-source { font-weight: 800; font-size: 0.8rem; color: #FFD700; text-transform: uppercase; }
-    .press-badge { background: rgba(255,215,0,0.2); padding: 3px 10px; border-radius: 30px; font-size: 0.65rem; margin-left: 8px; }
-    
-    /* Origin Page */
     .origin-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -450,15 +483,106 @@
       border: 1px solid rgba(255, 215, 0, 0.2);
       border-radius: 32px;
       padding: 30px;
-      transition: all 0.3s;
       text-align: center;
+      transition: all 0.3s;
     }
-    .origin-card:hover { border-color: #FFD700; transform: translateY(-8px); background: rgba(255,215,0,0.05); }
+    .origin-card:hover { border-color: #FFD700; transform: translateY(-8px); }
     .origin-icon { font-size: 2.5rem; color: #FFD700; margin-bottom: 20px; }
     .origin-title { font-size: 1.4rem; color: #FFD700; margin-bottom: 15px; font-family: 'Orbitron', monospace; }
-    .origin-text { font-size: 0.9rem; line-height: 1.6; color: #ddd; }
     
-    /* Cart Sidebar */
+    /* Account Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(20px);
+      z-index: 1100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+    .modal-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .account-modal {
+      background: rgba(10,10,20,0.95);
+      border: 2px solid #FFD700;
+      border-radius: 48px;
+      padding: 40px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .account-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .account-header i { font-size: 3rem; color: #FFD700; }
+    .account-field {
+      margin: 15px 0;
+    }
+    .account-field label {
+      display: block;
+      color: #FFD700;
+      margin-bottom: 5px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+    .account-field input, .account-field textarea {
+      width: 100%;
+      padding: 12px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 40px;
+      color: white;
+      font-family: inherit;
+    }
+    .account-field input:focus, .account-field textarea:focus {
+      outline: none;
+      border-color: #FFD700;
+    }
+    .save-account-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #FFD700, #E6B800);
+      padding: 14px;
+      border-radius: 40px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .wishlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .wishlist-item {
+      background: rgba(20,20,30,0.8);
+      border-radius: 20px;
+      padding: 15px;
+      text-align: center;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+    .wishlist-item img { width: 100%; height: 150px; object-fit: cover; border-radius: 12px; }
+    .wishlist-item h4 { color: #FFD700; margin: 10px 0; }
+    .remove-wishlist {
+      background: #ff4444;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+    }
     .cart-overlay {
       position: fixed;
       top: 0;
@@ -476,8 +600,8 @@
       z-index: 1000;
       overflow-y: auto;
     }
-    .cart-header { position: sticky; top: 0; background: rgba(0,0,0,0.95); padding: 20px; border-bottom: 1px solid #FFD700; display: flex; justify-content: space-between; }
-    .cart-items-scroll { flex: 1; overflow-y: auto; padding: 20px; }
+    .cart-header, .wishlist-header { position: sticky; top: 0; background: rgba(0,0,0,0.95); padding: 20px; border-bottom: 1px solid #FFD700; display: flex; justify-content: space-between; }
+    .cart-items-scroll, .wishlist-items-scroll { flex: 1; overflow-y: auto; padding: 20px; }
     .cart-footer { position: sticky; bottom: 0; background: rgba(0,0,0,0.95); padding: 20px; border-top: 1px solid rgba(255,215,0,0.3); }
     .payment-section { margin: 12px 0; padding: 12px; background: rgba(20,20,30,0.8); border-radius: 20px; }
     .payment-btn {
@@ -554,9 +678,8 @@
       .hero h1 { font-size: 2.5rem; }
       .dashboard-nav { gap: 8px; padding: 5px 12px; }
       .dashboard-btn { font-size: 0.7rem; padding: 5px 8px; }
+      .cart-icon-btn, .wishlist-icon-btn, .account-icon-btn { padding: 5px 10px; font-size: 0.8rem; }
       .launch-logo { font-size: 3.5rem; }
-      .shipping-details-grid { grid-template-columns: 1fr; }
-      .origin-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -572,11 +695,11 @@
   <div class="fast-planet planet-5" style="--moveY: 30px"></div>
 </div>
 
-<!-- LAUNCH PAGE CURSOR ELEMENTS -->
+<!-- LAUNCH PAGE CURSOR -->
 <div class="launch-cursor" id="launchCursor"></div>
 <div class="launch-cursor-dot" id="launchCursorDot"></div>
 
-<!-- SEPARATE LAUNCH PAGE -->
+<!-- LAUNCH PAGE -->
 <div id="launchPage" class="launch-page">
   <div class="launch-content">
     <div class="launch-logo">OFF WHITE™</div>
@@ -586,22 +709,24 @@
   </div>
 </div>
 
-<!-- MAIN APPLICATION -->
+<!-- MAIN APP -->
 <div id="mainApp" class="main-app">
   <div class="container">
     <div class="navbar">
       <div class="logo" data-page="home">OFF WHITE<sup>™</sup></div>
       <div class="dashboard-nav">
-        <button class="dashboard-btn page-link" data-page="home"><i class="fas fa-home"></i> MISSION</button>
-        <button class="dashboard-btn page-link" data-page="menu"><i class="fas fa-box-open"></i> CARGO</button>
-        <button class="dashboard-btn page-link" data-page="press"><i class="fas fa-newspaper"></i> SIGNAL</button>
-        <button class="dashboard-btn page-link" data-page="roots"><i class="fas fa-globe"></i> ORIGIN</button>
+        <button class="dashboard-btn page-link" data-page="home">MISSION</button>
+        <button class="dashboard-btn page-link" data-page="menu">CARGO</button>
+        <button class="dashboard-btn page-link" data-page="press">SIGNAL</button>
+        <button class="dashboard-btn page-link" data-page="roots">ORIGIN</button>
+        <button class="wishlist-icon-btn" id="openWishlistBtn"><i class="fas fa-heart"></i><span class="wishlist-count" id="wishlistCount">0</span></button>
         <button class="cart-icon-btn" id="openCartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></button>
+        <button class="account-icon-btn" id="openAccountBtn"><i class="fas fa-user-astronaut"></i></button>
       </div>
     </div>
   </div>
 
-  <!-- HOME PAGE -->
+  <!-- PAGES -->
   <div id="homePage" class="page active-page">
     <div class="container">
       <div class="hero">
@@ -615,38 +740,25 @@
     <section class="section"><div class="container"><h2 class="section-title">🌟 NEW ARRIVALS</h2><div class="products-grid" id="homeProductsGrid"></div></div></section>
   </div>
 
-  <!-- MENU PAGE -->
   <div id="menuPage" class="page"><section class="section"><div class="container"><h2 class="section-title">✨ CARGO MANIFEST</h2><div class="products-grid" id="fullMenuGrid"></div></div></section></div>
-  
-  <!-- PRESS PAGE -->
   <div id="pressPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🌍 INTERSTELLAR PRESS</h2><div class="press-grid" id="pressGrid"></div></div></section></div>
-  
-  <!-- ROOTS PAGE -->
-  <div id="rootsPage" class="page">
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">🌱 THE ORIGIN STORY</h2>
-        <div class="origin-grid">
-          <div class="origin-card"><div class="origin-icon"><i class="fas fa-hands"></i></div><div class="origin-title">HUMAN CRAFT</div><div class="origin-text">Every stitch, every seam is made by human hands. Our artisans spend over 40 hours on each handcrafted bag.</div></div>
-          <div class="origin-card"><div class="origin-icon"><i class="fas fa-leaf"></i></div><div class="origin-title">SUSTAINABLE MATERIALS</div><div class="origin-text">Ethically harvested organic cotton, plant-tanned leathers, and recycled cosmic fibers.</div></div>
-          <div class="origin-card"><div class="origin-icon"><i class="fas fa-star"></i></div><div class="origin-title">99% FAITH, 1% US</div><div class="origin-text">Each piece carries lunar energy and cosmic vision. You're adopting a story, not just a product.</div></div>
-          <div class="origin-card"><div class="origin-icon"><i class="fas fa-globe-africa"></i></div><div class="origin-title">ETHICAL PRODUCTION</div><div class="origin-text">Powered by renewable energy. Every artisan receives fair wages and creative freedom.</div></div>
-          <div class="origin-card"><div class="origin-icon"><i class="fas fa-infinity"></i></div><div class="origin-title">LIMITED BATCHES</div><div class="origin-text">Each drop is limited to 500 pieces worldwide. Rare artifacts of cosmic craftsmanship.</div></div>
-          <div class="origin-card"><div class="origin-icon"><i class="fas fa-dove"></i></div><div class="origin-title">ZERO WASTE</div><div class="origin-text">Every fabric scrap is repurposed into patches, accessories, or upcycled editions.</div></div>
-        </div>
-      </div>
-    </section>
-  </div>
+  <div id="rootsPage" class="page"><section class="section"><div class="container"><div class="origin-grid"><div class="origin-card"><div class="origin-icon"><i class="fas fa-hands"></i></div><div class="origin-title">HUMAN CRAFT</div><div class="origin-text">Every stitch by human hands. 40+ hours per bag.</div></div><div class="origin-card"><div class="origin-icon"><i class="fas fa-leaf"></i></div><div class="origin-title">SUSTAINABLE</div><div class="origin-text">Organic cotton, plant-tanned leathers.</div></div><div class="origin-card"><div class="origin-icon"><i class="fas fa-star"></i></div><div class="origin-title">99% FAITH</div><div class="origin-text">Lunar energy infused. You adopt a story.</div></div></div></div></section></div>
 
-  <!-- SHIPPING DETAILS PAGE -->
+  <!-- SHIPPING PAGE -->
   <div id="shippingPage" class="page">
     <div class="container">
       <div class="shipping-page">
-        <div style="text-align: center;"><i class="fas fa-rocket" style="font-size: 2.5rem; color: #FFD700;"></i><h1 style="color:#FFD700; margin: 15px 0;">🚀 ORDER CONFIRMED</h1><p>Your cosmic cargo is preparing for launch</p></div>
+        <div style="text-align: center;"><i class="fas fa-rocket" style="font-size: 2.5rem; color: #FFD700;"></i><h1 style="color:#FFD700; margin: 15px 0;">🚀 ORDER CONFIRMED</h1></div>
         <div class="shipping-details-grid" id="shippingDetailsGrid"></div>
-        <div style="text-align: center;"><button class="neon-btn" id="backToShopBtn"><i class="fas fa-shopping-cart"></i> CONTINUE EXPLORING</button></div>
+        <div style="text-align: center;"><button class="neon-btn" id="backToShopBtn">CONTINUE EXPLORING</button></div>
       </div>
     </div>
+  </div>
+
+  <!-- WISHLIST SIDEBAR -->
+  <div id="wishlistSidebar" class="cart-overlay">
+    <div class="wishlist-header"><h3 style="color:#FFD700;">✦ MY WISHLIST ✦</h3><button id="closeWishlistBtn" style="background:none; border:none; font-size:1.8rem; color:#FFD700; cursor:pointer;">&times;</button></div>
+    <div class="wishlist-items-scroll" id="wishlistContainer"></div>
   </div>
 
   <!-- CART SIDEBAR -->
@@ -654,7 +766,7 @@
     <div class="cart-header"><h3 style="color:#FFD700;">✦ ORBIT CART ✦</h3><button id="closeCartBtn" style="background:none; border:none; font-size:1.8rem; color:#FFD700; cursor:pointer;">&times;</button></div>
     <div class="cart-items-scroll" id="cartItemsContainer"></div>
     <div class="cart-footer">
-      <div class="payment-section"><div style="color:#FFD700; margin-bottom:8px;"><i class="fas fa-credit-card"></i> PAYMENT STARPORT</div>
+      <div class="payment-section"><div style="color:#FFD700;">PAYMENT</div>
         <div class="payment-btn" data-method="paypal"><i class="fab fa-paypal"></i> PayPal</div>
         <div class="payment-btn" data-method="apple"><i class="fab fa-apple"></i> Apple Pay</div>
         <div class="payment-btn" data-method="card"><i class="far fa-credit-card"></i> Credit Card</div>
@@ -664,12 +776,25 @@
       <button class="checkout-btn" id="checkoutBtn">COMPLETE PURCHASE →</button>
     </div>
   </div>
-  <footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. Space Kicks Collection • @thefitlabreal</p></div></footer>
+
+  <!-- ACCOUNT MODAL -->
+  <div id="accountModal" class="modal-overlay">
+    <div class="account-modal">
+      <div class="account-header"><i class="fas fa-user-astronaut"></i><h2 style="color:#FFD700; margin-top:10px;">COSMIC PROFILE</h2></div>
+      <div class="account-field"><label>FULL NAME</label><input type="text" id="accName" placeholder="Cosmic Explorer"></div>
+      <div class="account-field"><label>EMAIL</label><input type="email" id="accEmail" placeholder="explorer@cosmic.space"></div>
+      <div class="account-field"><label>SHIPPING ADDRESS</label><textarea id="accAddress" rows="2" placeholder="Your interstellar base..."></textarea></div>
+      <div class="account-field"><label>PHONE NUMBER</label><input type="tel" id="accPhone" placeholder="+1 234 567 8900"></div>
+      <button class="save-account-btn" id="saveAccountBtn">SAVE PROFILE</button>
+      <button id="closeAccountBtn" style="margin-top:15px; width:100%; background:#333; border:none; padding:12px; border-radius:40px; color:#FFD700; cursor:pointer;">CLOSE</button>
+    </div>
+  </div>
+
+  <footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. @thefitlabreal</p></div></footer>
 </div>
 <div id="toastMsg" class="toast-msg">✨ ADDED TO ORBIT ✨</div>
 
 <script>
-  // Stars generation
   const starsLayer = document.getElementById('starsLayer');
   for (let i = 0; i < 300; i++) {
     const star = document.createElement('div');
@@ -703,58 +828,55 @@
     }, 1500);
   }
 
-  // PRODUCTS - Updated Handcrafted Bag with dedicated bag image
   const products = [
-    { id: 1, name: "OFF WHITE™ SIGNATURE", price: 189, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", desc: "Moon-kissed fabric, ultra-soft organic cotton" },
-    { id: 2, name: "OFF WHITE™ GRAPHIC", price: 159, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", desc: "Volcanic ink prints that shift under starlight" },
-    { id: 3, name: "OFF WHITE™ HOODIE", price: 249, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "Nebula-dyed fleece, warm as a supernova" },
-    { id: 4, name: "👜 HANDCRAFTED BAG", price: 279, image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=600&fit=crop", desc: "Artisan leather bag, hand-stitched over 40 hours. Premium sustainable leather, zero machines." },
-    { id: 5, name: "OFF WHITE™ SCRIPT", price: 129, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop", desc: "Ancient scriptrunner, gold foil lettering" },
-    { id: 6, name: "OFF WHITE™ RELAXED", price: 199, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=600&fit=crop", desc: "Zero-gravity weave, anti-gravity fit" },
-    { id: 7, name: "🚀 NIKE AIR SPACE4", price: 289, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop", desc: "Limited edition cosmic sneakers. Glow-in-dark sole. Lunar cushioning technology." },
-    { id: 8, name: "👟 JORDAN AIR SPACE 11s", price: 299, image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600&h=600&fit=crop", desc: "Interstellar edition, carbon fiber weave, zero-gravity comfort, patent leather nebula finish." }
+    { id: 1, name: "OFF WHITE™ SIGNATURE", price: 189, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", desc: "Moon-kissed fabric" },
+    { id: 2, name: "OFF WHITE™ GRAPHIC", price: 159, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", desc: "Volcanic ink prints" },
+    { id: 3, name: "OFF WHITE™ HOODIE", price: 249, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "Nebula-dyed fleece" },
+    { id: 4, name: "👜 HANDCRAFTED BAG", price: 279, image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=600&fit=crop", desc: "Artisan leather, 40+ hours" },
+    { id: 5, name: "OFF WHITE™ SCRIPT", price: 129, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop", desc: "Gold foil lettering" },
+    { id: 6, name: "OFF WHITE™ RELAXED", price: 199, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=600&fit=crop", desc: "Zero-gravity weave" },
+    { id: 7, name: "🚀 NIKE AIR SPACE4", price: 289, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop", desc: "Glow-in-dark sole" },
+    { id: 8, name: "👟 JORDAN AIR SPACE 11s", price: 299, image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600&h=600&fit=crop", desc: "Carbon fiber weave" }
   ];
 
   const pressOutlets = [
-    { name: "Los Angeles Times", quote: "OFF WHITE™ is redefining luxury streetwear with cosmic craftsmanship.", badge: "★ FEATURED" },
-    { name: "Chicago Tribune", quote: "The handcrafted bag collection is a masterpiece of sustainable design.", badge: "✦ EDITORS' PICK" },
-    { name: "New York Post", quote: "Why OFF WHITE™ is the most exciting brand to watch right now.", badge: "🔥 TRENDING" },
-    { name: "Newsweek", quote: "Zero machines, infinite style — the future of fashion is here.", badge: "★ BREAKTHROUGH" },
-    { name: "Time", quote: "One of the most innovative labels of the decade.", badge: "✦ BEST OF 2025" },
-    { name: "ABC News", quote: "From the cosmos to your closet — OFF WHITE™ delivers.", badge: "📺 SPOTLIGHT" },
-    { name: "CBS News", quote: "Artisan leather, ethical production, cosmic vision.", badge: "📺 MORNING SHOW" },
-    { name: "MSNBC", quote: "The brand changing how we think about luxury.", badge: "📺 INTERVIEW" }
+    { name: "Los Angeles Times", quote: "OFF WHITE™ is redefining luxury streetwear.", badge: "★ FEATURED" },
+    { name: "Chicago Tribune", quote: "The handcrafted bag collection is a masterpiece.", badge: "✦ EDITORS' PICK" },
+    { name: "New York Post", quote: "The most exciting brand to watch.", badge: "🔥 TRENDING" },
+    { name: "Newsweek", quote: "Zero machines, infinite style.", badge: "★ BREAKTHROUGH" },
+    { name: "Time", quote: "One of the most innovative labels.", badge: "✦ BEST OF 2025" },
+    { name: "ABC News", quote: "From the cosmos to your closet.", badge: "📺 SPOTLIGHT" }
   ];
 
-  function renderPress() {
-    const container = document.getElementById('pressGrid');
-    if (container) container.innerHTML = pressOutlets.map(p => `<div class="press-card"><div class="press-quote">"${p.quote}"</div><div class="press-source">${p.name} <span class="press-badge">${p.badge}</span></div></div>`).join('');
-  }
-
-  let cart = [];
+  let cart = [], wishlist = [], userAccount = { name: "", email: "", address: "", phone: "" };
   let selectedMethod = null;
 
-  function getCartSubtotal() { return cart.reduce((s, i) => s + (i.price * i.quantity), 0); }
-  function getFinalTotal() { return getCartSubtotal(); }
-  function showToast(msg) { const t = document.getElementById('toastMsg'); t.textContent = msg; t.style.opacity = '1'; setTimeout(() => t.style.opacity = '0', 2000); }
+  function loadData() {
+    const savedCart = localStorage.getItem('offWhiteCart'); if(savedCart) cart = JSON.parse(savedCart);
+    const savedWishlist = localStorage.getItem('offWhiteWishlist'); if(savedWishlist) wishlist = JSON.parse(savedWishlist);
+    const savedAccount = localStorage.getItem('offWhiteAccount'); if(savedAccount) userAccount = JSON.parse(savedAccount);
+    updateCartUI(); updateWishlistUI(); loadAccountToForm();
+  }
+  function saveAll() { localStorage.setItem('offWhiteCart', JSON.stringify(cart)); localStorage.setItem('offWhiteWishlist', JSON.stringify(wishlist)); localStorage.setItem('offWhiteAccount', JSON.stringify(userAccount)); }
 
+  function showToast(msg) { const t = document.getElementById('toastMsg'); t.textContent = msg; t.style.opacity = '1'; setTimeout(() => t.style.opacity = '0', 2000); }
+  function getCartSubtotal() { return cart.reduce((s, i) => s + (i.price * i.quantity), 0); }
+  
   function updateCartUI() {
-    const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
-    document.getElementById('cartCount').innerText = totalItems;
+    document.getElementById('cartCount').innerText = cart.reduce((s, i) => s + i.quantity, 0);
     const container = document.getElementById('cartItemsContainer');
     const totalSpan = document.getElementById('cartTotalPrice');
-    if (cart.length === 0) { container.innerHTML = '<div style="text-align:center; color:#aaa; padding:40px;">🪐 Cart empty</div>'; totalSpan.innerText = '$0.00'; return; }
+    if (cart.length === 0) { container.innerHTML = '<div style="text-align:center; padding:40px;">🪐 Cart empty</div>'; totalSpan.innerText = '$0.00'; return; }
     let html = '';
     cart.forEach(item => {
-      html += `<div style="display:flex; gap:12px; margin-bottom:20px; background:rgba(255,215,0,0.05); padding:12px; border-radius:20px;"><img src="${item.image}" style="width:55px;height:55px;border-radius:12px;object-fit:cover;"><div style="flex:1;"><b style="color:#FFD700;">${item.name}</b><br>$${item.price}<br><div style="margin-top:8px;"><button class="qty-btn" data-id="${item.id}" data-delta="-1" style="background:#333; border:none; padding:4px 12px; border-radius:20px;">-</button> <span style="margin:0 10px;">${item.quantity}</span> <button class="qty-btn" data-id="${item.id}" data-delta="1" style="background:#333; border:none; padding:4px 12px; border-radius:20px;">+</button> <button class="remove-item" data-id="${item.id}" style="background:none; color:#FFD700; text-decoration:underline; margin-left:15px;">remove</button></div></div></div>`;
+      html += `<div style="display:flex; gap:12px; margin-bottom:20px; background:rgba(255,215,0,0.05); padding:12px; border-radius:20px;"><img src="${item.image}" style="width:55px;height:55px;border-radius:12px;object-fit:cover;"><div style="flex:1;"><b style="color:#FFD700;">${item.name}</b><br>$${item.price}<br><div><button class="qty-btn" data-id="${item.id}" data-delta="-1" style="background:#333; border:none; padding:4px 12px; border-radius:20px;">-</button> <span>${item.quantity}</span> <button class="qty-btn" data-id="${item.id}" data-delta="1" style="background:#333; border:none; padding:4px 12px; border-radius:20px;">+</button> <button class="remove-item" data-id="${item.id}" style="background:none; color:#FFD700;">remove</button></div></div></div>`;
     });
     container.innerHTML = html;
-    totalSpan.innerText = `$${getFinalTotal().toFixed(2)}`;
+    totalSpan.innerText = `$${getCartSubtotal().toFixed(2)}`;
     document.querySelectorAll('.qty-btn').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id), delta = parseInt(btn.dataset.delta); updateQuantity(id, delta); }));
-    document.querySelectorAll('.remove-item').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); removeItem(id); flyRocket(false); showToast("Item removed"); }));
-    localStorage.setItem('offWhiteCart', JSON.stringify(cart));
+    document.querySelectorAll('.remove-item').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); removeItem(id); flyRocket(false); showToast("Removed"); }));
+    saveAll();
   }
-
   function updateQuantity(id, delta) {
     const idx = cart.findIndex(i => i.id === id);
     if(idx === -1) return;
@@ -764,7 +886,7 @@
     updateCartUI();
     if(delta > 0) flyRocket(true);
   }
-  function removeItem(id) { cart = cart.filter(i => i.id !== id); updateCartUI(); flyRocket(false); showToast("Removed"); }
+  function removeItem(id) { cart = cart.filter(i => i.id !== id); updateCartUI(); flyRocket(false); saveAll(); }
   function addToCart(product) {
     const ex = cart.find(i => i.id === product.id);
     if(ex) ex.quantity++;
@@ -772,131 +894,118 @@
     updateCartUI();
     flyRocket(true);
     showToast(`${product.name} added!`);
+    saveAll();
   }
-
-  function showShippingDetails() {
-    const subtotal = getCartSubtotal();
-    const itemsList = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
-    const orderDate = new Date().toLocaleString();
-    const estimatedDelivery = new Date(Date.now() + 5*24*60*60*1000).toLocaleDateString();
-    const grid = document.getElementById('shippingDetailsGrid');
-    if (grid) {
-      grid.innerHTML = `
-        <div class="detail-card"><div class="detail-label">ORDER NUMBER</div><div class="detail-value">#OW${Math.floor(Math.random()*100000)}</div></div>
-        <div class="detail-card"><div class="detail-label">ORDER DATE</div><div class="detail-value">${orderDate}</div></div>
-        <div class="detail-card"><div class="detail-label">ITEMS</div><div class="detail-value">${itemsList || '—'}</div></div>
-        <div class="detail-card"><div class="detail-label">TOTAL PAID</div><div class="detail-value">$${subtotal.toFixed(2)}</div></div>
-        <div class="detail-card"><div class="detail-label">SHIPPING CARRIER</div><div class="detail-value">Cosmic Logistics Express</div></div>
-        <div class="detail-card"><div class="detail-label">EST. DELIVERY</div><div class="detail-value">${estimatedDelivery}</div></div>
-        <div class="detail-card"><div class="detail-label">TRACKING CODE</div><div class="detail-value">OW-${Math.random().toString(36).substring(2, 10).toUpperCase()}</div></div>
-      `;
-    }
-    switchPage('shipping');
+  function toggleWishlist(product) {
+    const exists = wishlist.find(i => i.id === product.id);
+    if(exists) wishlist = wishlist.filter(i => i.id !== product.id);
+    else wishlist.push({ ...product });
+    updateWishlistUI();
+    showToast(exists ? `Removed from wishlist` : `Added to wishlist`);
+    saveAll();
   }
-
-  function processOrder(method) {
-    if(cart.length === 0) { showToast("Cart empty"); return; }
-    showToast(`✓ Payment via ${method}. Redirecting...`);
-    setTimeout(() => {
-      showShippingDetails();
-      cart = [];
-      updateCartUI();
-      document.getElementById('cartSidebar').style.transform = 'translateX(100%)';
-      flyRocket(true);
-    }, 800);
+  function updateWishlistUI() {
+    document.getElementById('wishlistCount').innerText = wishlist.length;
+    const container = document.getElementById('wishlistContainer');
+    if(!container) return;
+    if(wishlist.length === 0) { container.innerHTML = '<div style="text-align:center; padding:40px;">💫 No saved items yet</div>'; return; }
+    container.innerHTML = `<div class="wishlist-grid">${wishlist.map(p => `<div class="wishlist-item"><img src="${p.image}"><h4>${p.name}</h4><p>$${p.price}</p><button class="remove-wishlist" data-id="${p.id}">Remove</button><button class="add-to-cart-from-wishlist" data-id="${p.id}" style="margin-top:8px; background:#FFD700; border:none; padding:8px; border-radius:30px; width:100%; cursor:pointer;">Add to Cart</button></div>`).join('')}</div>`;
+    document.querySelectorAll('.remove-wishlist').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const prod = products.find(p => p.id === id); if(prod) toggleWishlist(prod); }));
+    document.querySelectorAll('.add-to-cart-from-wishlist').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const prod = products.find(p => p.id === id); if(prod) { addToCart(prod); showToast(`${prod.name} added to cart!`); } }));
   }
-
-  document.querySelectorAll('.payment-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const method = btn.dataset.method;
-      if(method === 'card') { document.getElementById('cardDetails').style.display = 'block'; selectedMethod = 'card'; }
-      else { document.getElementById('cardDetails').style.display = 'none'; selectedMethod = method; showToast(`Selected ${method}`); }
-    });
+  function loadAccountToForm() {
+    document.getElementById('accName').value = userAccount.name || '';
+    document.getElementById('accEmail').value = userAccount.email || '';
+    document.getElementById('accAddress').value = userAccount.address || '';
+    document.getElementById('accPhone').value = userAccount.phone || '';
+  }
+  document.getElementById('saveAccountBtn')?.addEventListener('click', () => {
+    userAccount = {
+      name: document.getElementById('accName').value,
+      email: document.getElementById('accEmail').value,
+      address: document.getElementById('accAddress').value,
+      phone: document.getElementById('accPhone').value
+    };
+    saveAll();
+    showToast("Profile saved to the cosmos!");
+    document.getElementById('accountModal').classList.remove('active');
   });
-  document.getElementById('submitCardPayment')?.addEventListener('click', () => {
-    const card = document.getElementById('cardNumber')?.value;
-    if(!card || card.length < 8) showToast("Enter valid card");
-    else processOrder('Credit Card');
-  });
-  document.getElementById('checkoutBtn')?.addEventListener('click', () => { if(selectedMethod) processOrder(selectedMethod.toUpperCase()); else showToast("Select payment method"); });
-  document.getElementById('backToShopBtn')?.addEventListener('click', () => switchPage('home'));
 
   function renderProducts(containerId, list = products) {
     const c = document.getElementById(containerId); if(!c) return;
     c.innerHTML = '';
     list.forEach(p => {
+      const isWishlisted = wishlist.some(w => w.id === p.id);
       const card = document.createElement('div'); card.className = 'product-card';
-      card.innerHTML = `<div class="product-img"><img src="${p.image}"></div><div class="product-info"><div class="product-title">${p.name}</div><div class="product-price">$${p.price}</div><div class="product-description" style="font-size:0.8rem; margin-bottom:12px;">${p.desc}</div><button class="add-to-cart" data-id="${p.id}"><i class="fas fa-cart-plus"></i> ADD</button></div>`;
+      card.innerHTML = `<div class="product-img"><img src="${p.image}"></div><div class="product-info"><div class="product-title">${p.name}</div><div class="product-price">$${p.price}</div><div class="product-description" style="font-size:0.8rem; margin-bottom:12px;">${p.desc}</div><button class="add-to-cart" data-id="${p.id}"><i class="fas fa-cart-plus"></i> ADD</button></div><button class="wishlist-btn ${isWishlisted ? 'active' : ''}" data-id="${p.id}"><i class="fas fa-heart"></i></button>`;
       c.appendChild(card);
     });
     document.querySelectorAll(`#${containerId} .add-to-cart`).forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const prod = products.find(p => p.id === id); if(prod) addToCart(prod); }));
+    document.querySelectorAll(`#${containerId} .wishlist-btn`).forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const prod = products.find(p => p.id === id); if(prod) { toggleWishlist(prod); renderProducts(containerId, list); if(containerId === 'fullMenuGrid') renderProducts('fullMenuGrid', products); if(containerId === 'homeProductsGrid') renderProducts('homeProductsGrid', products.slice(0,4)); } }));
   }
+
+  function showShippingDetails() {
+    const subtotal = getCartSubtotal();
+    const itemsList = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
+    document.getElementById('shippingDetailsGrid').innerHTML = `
+      <div class="detail-card"><div class="detail-label">ORDER</div><div class="detail-value">#OW${Math.floor(Math.random()*100000)}</div></div>
+      <div class="detail-card"><div class="detail-label">DATE</div><div class="detail-value">${new Date().toLocaleString()}</div></div>
+      <div class="detail-card"><div class="detail-label">ITEMS</div><div class="detail-value">${itemsList}</div></div>
+      <div class="detail-card"><div class="detail-label">TOTAL</div><div class="detail-value">$${subtotal}</div></div>
+      <div class="detail-card"><div class="detail-label">SHIPPING TO</div><div class="detail-value">${userAccount.address || 'Intergalactic Base'}</div></div>
+      <div class="detail-card"><div class="detail-label">TRACKING</div><div class="detail-value">OW-${Math.random().toString(36).substring(2,8).toUpperCase()}</div></div>`;
+    switchPage('shipping');
+  }
+  function processOrder(method) {
+    if(cart.length === 0) { showToast("Cart empty"); return; }
+    showToast(`✓ Payment via ${method}. Thank you!`);
+    setTimeout(() => { showShippingDetails(); cart = []; updateCartUI(); document.getElementById('cartSidebar').style.transform = 'translateX(100%)'; flyRocket(true); saveAll(); }, 800);
+  }
+
+  document.querySelectorAll('.payment-btn').forEach(btn => btn.addEventListener('click', () => {
+    const method = btn.dataset.method;
+    if(method === 'card') { document.getElementById('cardDetails').style.display = 'block'; selectedMethod = 'card'; }
+    else { document.getElementById('cardDetails').style.display = 'none'; selectedMethod = method; }
+  }));
+  document.getElementById('submitCardPayment')?.addEventListener('click', () => { const card = document.getElementById('cardNumber')?.value; if(card?.length > 5) processOrder('Credit Card'); else showToast("Enter card"); });
+  document.getElementById('checkoutBtn')?.addEventListener('click', () => { if(selectedMethod) processOrder(selectedMethod.toUpperCase()); else showToast("Select payment"); });
+  document.getElementById('backToShopBtn')?.addEventListener('click', () => switchPage('home'));
 
   const pages = { home:'homePage', menu:'menuPage', press:'pressPage', roots:'rootsPage', shipping:'shippingPage' };
-  function switchPage(p) { 
-    Object.values(pages).forEach(pid => { const el = document.getElementById(pid); if(el) el.classList.remove('active-page'); }); 
-    document.getElementById(pages[p]).classList.add('active-page'); 
-    window.scrollTo({top:0}); 
-    if(p === 'menu') renderProducts('fullMenuGrid', products); 
-    if(p === 'home') renderProducts('homeProductsGrid', products.slice(0,4));
-  }
-
+  function switchPage(p) { Object.values(pages).forEach(pid => { const el = document.getElementById(pid); if(el) el.classList.remove('active-page'); }); document.getElementById(pages[p]).classList.add('active-page'); window.scrollTo({top:0}); if(p === 'menu') renderProducts('fullMenuGrid', products); if(p === 'home') renderProducts('homeProductsGrid', products.slice(0,4)); }
   document.querySelectorAll('.page-link').forEach(btn => btn.addEventListener('click', (e) => { const pg = btn.dataset.page; if(pg && pages[pg]) switchPage(pg); }));
   document.querySelector('.logo')?.addEventListener('click', () => switchPage('home'));
   document.getElementById('openCartBtn').addEventListener('click', () => { document.getElementById('cartSidebar').style.transform = 'translateX(0)'; });
   document.getElementById('closeCartBtn').addEventListener('click', () => { document.getElementById('cartSidebar').style.transform = 'translateX(100%)'; });
+  document.getElementById('openWishlistBtn').addEventListener('click', () => { updateWishlistUI(); document.getElementById('wishlistSidebar').style.transform = 'translateX(0)'; });
+  document.getElementById('closeWishlistBtn').addEventListener('click', () => { document.getElementById('wishlistSidebar').style.transform = 'translateX(100%)'; });
+  document.getElementById('openAccountBtn').addEventListener('click', () => { loadAccountToForm(); document.getElementById('accountModal').classList.add('active'); });
+  document.getElementById('closeAccountBtn').addEventListener('click', () => { document.getElementById('accountModal').classList.remove('active'); });
   
-  function loadCart() { const saved = localStorage.getItem('offWhiteCart'); if(saved) try { cart = JSON.parse(saved); } catch(e){} updateCartUI(); }
-  loadCart();
   renderProducts('homeProductsGrid', products.slice(0,4));
   renderProducts('fullMenuGrid', products);
-  renderPress();
-  switchPage('home');
+  document.getElementById('pressGrid').innerHTML = pressOutlets.map(p => `<div class="press-card"><div class="press-quote">"${p.quote}"</div><div class="press-source">${p.name} <span class="press-badge">${p.badge}</span></div></div>`).join('');
+  loadData();
 
-  // LAUNCH PAGE LOGIC with cool cursor
-  const launchPage = document.getElementById('launchPage');
-  const mainApp = document.getElementById('mainApp');
-  const enterBtn = document.getElementById('enterBtn');
-  const launchCursor = document.getElementById('launchCursor');
-  const launchCursorDot = document.getElementById('launchCursorDot');
-  
-  // Launch page cursor movement
-  document.addEventListener('mousemove', (e) => {
-    if (launchPage && !launchPage.classList.contains('hide-launch')) {
-      launchCursor.style.left = e.clientX - 15 + 'px';
-      launchCursor.style.top = e.clientY - 15 + 'px';
-      launchCursorDot.style.left = e.clientX - 3 + 'px';
-      launchCursorDot.style.top = e.clientY - 3 + 'px';
-    }
-  });
-  
-  enterBtn.addEventListener('click', () => {
-    launchPage.classList.add('hide-launch');
-    mainApp.classList.add('visible');
-    // Remove launch cursor elements
-    launchCursor.style.display = 'none';
-    launchCursorDot.style.display = 'none';
-    flyRocket(true);
-    setTimeout(() => flyRocket(true), 300);
-  });
+  // LAUNCH LOGIC
+  const launchPage = document.getElementById('launchPage'), mainApp = document.getElementById('mainApp'), enterBtn = document.getElementById('enterBtn');
+  const launchCursor = document.getElementById('launchCursor'), launchCursorDot = document.getElementById('launchCursorDot');
+  document.addEventListener('mousemove', (e) => { if(launchPage && !launchPage.classList.contains('hide-launch')) { launchCursor.style.left = e.clientX - 15 + 'px'; launchCursor.style.top = e.clientY - 15 + 'px'; launchCursorDot.style.left = e.clientX - 3 + 'px'; launchCursorDot.style.top = e.clientY - 3 + 'px'; } });
+  enterBtn.addEventListener('click', () => { launchPage.classList.add('hide-launch'); mainApp.classList.add('visible'); launchCursor.style.display = 'none'; launchCursorDot.style.display = 'none'; flyRocket(true); setTimeout(() => flyRocket(true), 300); });
 
-  // Main app cursor effects
-  const cursorDot = document.getElementById('cursorDot'), cursorOutline = document.getElementById('cursorOutline');
-  window.addEventListener('mousemove', (e) => {
-    if (mainApp.classList.contains('visible')) {
-      cursorDot.style.left = e.clientX - 3 + 'px';
-      cursorDot.style.top = e.clientY - 3 + 'px';
-      cursorOutline.style.left = e.clientX - 20 + 'px';
-      cursorOutline.style.top = e.clientY - 20 + 'px';
-    }
+  // Main app cool cursor
+  const customCursor = document.createElement('div'); customCursor.className = 'custom-cursor';
+  customCursor.innerHTML = '<div class="cursor-outer"></div><div class="cursor-inner"></div>';
+  document.body.appendChild(customCursor);
+  const cursorOuter = customCursor.querySelector('.cursor-outer'), cursorInner = customCursor.querySelector('.cursor-inner');
+  document.addEventListener('mousemove', (e) => { if(mainApp.classList.contains('visible')) { customCursor.style.left = e.clientX - 20 + 'px'; customCursor.style.top = e.clientY - 20 + 'px'; } });
+  document.querySelectorAll('button, .add-to-cart, .page-link, .product-card, .wishlist-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => { if(mainApp.classList.contains('visible')) { cursorOuter.style.transform = 'scale(1.5)'; cursorInner.style.transform = 'scale(1.3)'; } });
+    el.addEventListener('mouseleave', () => { if(mainApp.classList.contains('visible')) { cursorOuter.style.transform = 'scale(1)'; cursorInner.style.transform = 'scale(1)'; } });
   });
-  document.querySelectorAll('button, .add-to-cart, .page-link, .product-card').forEach(el => {
-    el.addEventListener('mouseenter', () => { if(mainApp.classList.contains('visible')) { cursorOutline.style.transform = 'scale(1.6)'; cursorDot.style.transform = 'scale(1.5)'; } });
-    el.addEventListener('mouseleave', () => { if(mainApp.classList.contains('visible')) { cursorOutline.style.transform = 'scale(1)'; cursorDot.style.transform = 'scale(1)'; } });
-  });
-  document.addEventListener('click', (e) => { if(mainApp.classList.contains('visible')) { const ripple = document.createElement('div'); ripple.className = 'ripple'; ripple.style.left = e.clientX - 20 + 'px'; ripple.style.top = e.clientY - 20 + 'px'; document.body.appendChild(ripple); setTimeout(() => ripple.remove(), 600); } });
+  document.addEventListener('click', (e) => { if(mainApp.classList.contains('visible')) { const ripple = document.createElement('div'); ripple.className = 'cursor-ripple'; ripple.style.left = e.clientX - 20 + 'px'; ripple.style.top = e.clientY - 20 + 'px'; document.body.appendChild(ripple); setTimeout(() => ripple.remove(), 600); } });
   let lastX=0,lastY=0;
-  document.addEventListener('mousemove', (e) => { if(mainApp.classList.contains('visible') && (Math.abs(e.clientX-lastX)>5 || Math.abs(e.clientY-lastY)>5)) { const dust = document.createElement('div'); dust.className = 'stardust'; dust.style.left = e.clientX-2+'px'; dust.style.top = e.clientY-2+'px'; document.body.appendChild(dust); setTimeout(() => dust.remove(), 500); } lastX=e.clientX; lastY=e.clientY; });
+  document.addEventListener('mousemove', (e) => { if(mainApp.classList.contains('visible') && (Math.abs(e.clientX-lastX)>5 || Math.abs(e.clientY-lastY)>5)) { const trail = document.createElement('div'); trail.className = 'cursor-trail'; trail.style.left = e.clientX-2+'px'; trail.style.top = e.clientY-2+'px'; document.body.appendChild(trail); setTimeout(() => trail.remove(), 600); } lastX=e.clientX; lastY=e.clientY; });
 </script>
 </body>
 </html>
