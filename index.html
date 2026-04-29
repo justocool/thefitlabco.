@@ -12,7 +12,6 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      cursor: none;
     }
     body {
       font-family: 'Inter', sans-serif;
@@ -20,6 +19,62 @@
       color: #FFFFFF;
       scroll-behavior: smooth;
       overflow-x: hidden;
+    }
+    /* Launch page uses default cursor */
+    .launch-page, .launch-page * {
+      cursor: auto !important;
+    }
+    /* Main app uses custom gold cursor */
+    .main-app, .main-app * {
+      cursor: none;
+    }
+    .cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: #FFD700;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      box-shadow: 0 0 12px #FFD700;
+    }
+    .cursor-outline {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #FFD700;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.15s;
+      backdrop-filter: blur(3px);
+    }
+    .stardust {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      background: radial-gradient(circle, #FFD700, #ffaa00);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9997;
+      animation: fadeOut 0.5s ease-out forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 0.8; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0); }
+    }
+    .ripple {
+      position: fixed;
+      border-radius: 50%;
+      background: rgba(255, 215, 0, 0.5);
+      transform: scale(0);
+      animation: rippleAnim 0.6s linear forwards;
+      pointer-events: none;
+      z-index: 10000;
+    }
+    @keyframes rippleAnim {
+      0% { transform: scale(0); opacity: 0.6; }
+      100% { transform: scale(4); opacity: 0; }
     }
     h1, h2, .logo, .section-title, .product-title, .hero h1, .dashboard-btn {
       font-family: 'Orbitron', monospace;
@@ -127,55 +182,6 @@
     @keyframes moonFloat {
       0% { transform: translateY(0); box-shadow: 0 0 60px rgba(255,215,0,0.4); }
       100% { transform: translateY(-15px); box-shadow: 0 0 100px rgba(255,215,0,0.8); }
-    }
-    /* Cursor & Effects */
-    .cursor-dot {
-      width: 6px;
-      height: 6px;
-      background: #FFD700;
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow: 0 0 12px #FFD700;
-    }
-    .cursor-outline {
-      width: 40px;
-      height: 40px;
-      border: 2px solid #FFD700;
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      transition: transform 0.15s;
-      backdrop-filter: blur(3px);
-    }
-    .stardust {
-      position: fixed;
-      width: 3px;
-      height: 3px;
-      background: radial-gradient(circle, #FFD700, #ffaa00);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9997;
-      animation: fadeOut 0.5s ease-out forwards;
-    }
-    @keyframes fadeOut {
-      0% { opacity: 0.8; transform: scale(1); }
-      100% { opacity: 0; transform: scale(0); }
-    }
-    .ripple {
-      position: fixed;
-      border-radius: 50%;
-      background: rgba(255, 215, 0, 0.5);
-      transform: scale(0);
-      animation: rippleAnim 0.6s linear forwards;
-      pointer-events: none;
-      z-index: 10000;
-    }
-    @keyframes rippleAnim {
-      0% { transform: scale(0); opacity: 0.6; }
-      100% { transform: scale(4); opacity: 0; }
     }
     .container {
       max-width: 1280px;
@@ -411,6 +417,26 @@
     .press-source { font-weight: 800; font-size: 0.8rem; color: #FFD700; text-transform: uppercase; }
     .press-badge { background: rgba(255,215,0,0.2); padding: 3px 10px; border-radius: 30px; font-size: 0.65rem; margin-left: 8px; }
     
+    /* Origin Page - Expanded with more content */
+    .origin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .origin-card {
+      background: rgba(10, 10, 15, 0.8);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 32px;
+      padding: 30px;
+      transition: all 0.3s;
+      text-align: center;
+    }
+    .origin-card:hover { border-color: #FFD700; transform: translateY(-8px); background: rgba(255,215,0,0.05); }
+    .origin-icon { font-size: 2.5rem; color: #FFD700; margin-bottom: 20px; }
+    .origin-title { font-size: 1.4rem; color: #FFD700; margin-bottom: 15px; font-family: 'Orbitron', monospace; }
+    .origin-text { font-size: 0.9rem; line-height: 1.6; color: #ddd; }
+    
     /* Cart Sidebar */
     .cart-overlay {
       position: fixed;
@@ -509,6 +535,7 @@
       .dashboard-btn { font-size: 0.7rem; padding: 5px 8px; }
       .launch-logo { font-size: 3.5rem; }
       .shipping-details-grid { grid-template-columns: 1fr; }
+      .origin-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -571,8 +598,51 @@
   <!-- PRESS PAGE -->
   <div id="pressPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🌍 INTERSTELLAR PRESS</h2><div class="press-grid" id="pressGrid"></div></div></section></div>
   
-  <!-- ROOTS PAGE -->
-  <div id="rootsPage" class="page"><section class="section"><div class="container"><div class="features-grid"><div class="feature-card"><div class="feature-icon"><i class="fas fa-hands"></i></div><h2>ORIGIN: HUMAN CRAFT</h2><p>Every stitch by human hands. Ethically sourced materials. 99% faith, 1% us.</p></div></div></div></section></div>
+  <!-- ROOTS PAGE - EXPANDED ORIGIN SECTION -->
+  <div id="rootsPage" class="page">
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">🌱 THE ORIGIN STORY</h2>
+        <div class="origin-grid">
+          <div class="origin-card">
+            <div class="origin-icon"><i class="fas fa-hands"></i></div>
+            <div class="origin-title">HUMAN CRAFT</div>
+            <div class="origin-text">Every stitch, every seam is made by human hands. Our artisans spend over 40 hours on each handcrafted bag, ensuring zero machines touch the final product. This is slow fashion at its finest.</div>
+          </div>
+          <div class="origin-card">
+            <div class="origin-icon"><i class="fas fa-leaf"></i></div>
+            <div class="origin-title">SUSTAINABLE MATERIALS</div>
+            <div class="origin-text">We source ethically harvested organic cotton, plant-tanned leathers, and recycled cosmic fibers. Our commitment to the planet is as strong as our commitment to style.</div>
+          </div>
+          <div class="origin-card">
+            <div class="origin-icon"><i class="fas fa-star"></i></div>
+            <div class="origin-title">99% FAITH, 1% US</div>
+            <div class="origin-text">We believe in the energy of creation. Each piece carries the intention of its maker — lunar energy infused, cosmic vision realized. You're not buying a product; you're adopting a story.</div>
+          </div>
+          <div class="origin-card">
+            <div class="origin-icon"><i class="fas fa-globe-africa"></i></div>
+            <div class="origin-title">ETHICAL PRODUCTION</div>
+            <div class="origin-text">Our workshops are powered by renewable energy. Every artisan receives fair wages, healthcare, and creative freedom. We're building a community, not just a brand.</div>
+          </div>
+          <div class="origin-card">
+            <div class="origin-icon"><i class="fas fa-infinity"></i></div>
+            <div class="origin-title">LIMITED BATCHES</div>
+            <div class="origin-text">No mass production. Each drop is limited to 500 pieces worldwide, making every OFF WHITE™ item a rare artifact of cosmic craftsmanship.</div>
+          </div>
+          <div class="origin-card">
+            <div class="origin-icon"><i class="fas fa-dove"></i></div>
+            <div class="origin-title">ZERO WASTE PHILOSOPHY</div>
+            <div class="origin-text">We repurpose every fabric scrap. Leftover materials become patches, accessories, or upcycled limited editions. Nothing goes to waste in our universe.</div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px; padding: 30px; background: rgba(255,215,0,0.1); border-radius: 60px;">
+          <i class="fas fa-quote-left" style="color:#FFD700; font-size: 2rem;"></i>
+          <p style="font-size: 1.2rem; font-style: italic; margin: 15px 0;">"We don't mass-produce. We soul-produce."</p>
+          <p style="color:#FFD700;">— The OFF WHITE™ Collective</p>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- SHIPPING DETAILS PAGE -->
   <div id="shippingPage" class="page">
@@ -639,7 +709,7 @@
     }, 1500);
   }
 
-  // PRODUCTS - ALL PRICES UNDER $300 - Added Nike Air Space4 & Jordan Air Space 11s
+  // PRODUCTS - ALL PRICES UNDER $300
   const products = [
     { id: 1, name: "OFF WHITE™ SIGNATURE", price: 189, image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=600&h=600&fit=crop", desc: "Moon-kissed fabric, ultra-soft organic cotton" },
     { id: 2, name: "OFF WHITE™ GRAPHIC", price: 159, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop", desc: "Volcanic ink prints that shift under starlight" },
@@ -801,16 +871,23 @@
     setTimeout(() => flyRocket(true), 300);
   });
 
-  // Cursor effects
+  // Cursor effects (only active in main app)
   const cursorDot = document.getElementById('cursorDot'), cursorOutline = document.getElementById('cursorOutline');
-  window.addEventListener('mousemove', (e) => { cursorDot.style.left = e.clientX - 3 + 'px'; cursorDot.style.top = e.clientY - 3 + 'px'; cursorOutline.style.left = e.clientX - 20 + 'px'; cursorOutline.style.top = e.clientY - 20 + 'px'; });
-  document.querySelectorAll('button, .add-to-cart, .page-link, .product-card').forEach(el => {
-    el.addEventListener('mouseenter', () => { cursorOutline.style.transform = 'scale(1.6)'; cursorDot.style.transform = 'scale(1.5)'; });
-    el.addEventListener('mouseleave', () => { cursorOutline.style.transform = 'scale(1)'; cursorDot.style.transform = 'scale(1)'; });
+  window.addEventListener('mousemove', (e) => {
+    if (mainApp.classList.contains('visible')) {
+      cursorDot.style.left = e.clientX - 3 + 'px';
+      cursorDot.style.top = e.clientY - 3 + 'px';
+      cursorOutline.style.left = e.clientX - 20 + 'px';
+      cursorOutline.style.top = e.clientY - 20 + 'px';
+    }
   });
-  document.addEventListener('click', (e) => { const ripple = document.createElement('div'); ripple.className = 'ripple'; ripple.style.left = e.clientX - 20 + 'px'; ripple.style.top = e.clientY - 20 + 'px'; document.body.appendChild(ripple); setTimeout(() => ripple.remove(), 600); });
+  document.querySelectorAll('button, .add-to-cart, .page-link, .product-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { if(mainApp.classList.contains('visible')) { cursorOutline.style.transform = 'scale(1.6)'; cursorDot.style.transform = 'scale(1.5)'; } });
+    el.addEventListener('mouseleave', () => { if(mainApp.classList.contains('visible')) { cursorOutline.style.transform = 'scale(1)'; cursorDot.style.transform = 'scale(1)'; } });
+  });
+  document.addEventListener('click', (e) => { if(mainApp.classList.contains('visible')) { const ripple = document.createElement('div'); ripple.className = 'ripple'; ripple.style.left = e.clientX - 20 + 'px'; ripple.style.top = e.clientY - 20 + 'px'; document.body.appendChild(ripple); setTimeout(() => ripple.remove(), 600); } });
   let lastX=0,lastY=0;
-  document.addEventListener('mousemove', (e) => { if(Math.abs(e.clientX-lastX)>5 || Math.abs(e.clientY-lastY)>5) { const dust = document.createElement('div'); dust.className = 'stardust'; dust.style.left = e.clientX-2+'px'; dust.style.top = e.clientY-2+'px'; document.body.appendChild(dust); setTimeout(() => dust.remove(), 500); } lastX=e.clientX; lastY=e.clientY; });
+  document.addEventListener('mousemove', (e) => { if(mainApp.classList.contains('visible') && (Math.abs(e.clientX-lastX)>5 || Math.abs(e.clientY-lastY)>5)) { const dust = document.createElement('div'); dust.className = 'stardust'; dust.style.left = e.clientX-2+'px'; dust.style.top = e.clientY-2+'px'; document.body.appendChild(dust); setTimeout(() => dust.remove(), 500); } lastX=e.clientX; lastY=e.clientY; });
 </script>
 </body>
 </html>
