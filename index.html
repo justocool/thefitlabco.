@@ -180,8 +180,41 @@
     }
     .add-to-cart:hover { background: rgba(0,212,255,0.25); border-color: #00D4FF; }
     
-    /* Account Modal & Sidebar */
-    .account-overlay {
+    /* Press Grid - Expanded */
+    .press-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+    .press-card {
+      background: rgba(15, 15, 25, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: 28px;
+      padding: 28px;
+      transition: all 0.3s;
+    }
+    .press-card:hover { border-color: rgba(0,212,255,0.5); transform: translateY(-5px); }
+    .press-quote { font-size: 1rem; line-height: 1.5; margin-bottom: 20px; color: #CCCCCC; font-style: normal; }
+    .press-source { font-weight: 600; font-size: 0.8rem; color: #00D4FF; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    .press-badge { background: rgba(0,212,255,0.15); padding: 3px 12px; border-radius: 30px; font-size: 0.7rem; color: #00D4FF; }
+    .press-date { font-size: 0.7rem; color: #888; margin-top: 12px; }
+    .load-more-btn {
+      display: block;
+      margin: 20px auto 0;
+      background: transparent;
+      border: 1px solid #00D4FF;
+      color: #00D4FF;
+      padding: 12px 32px;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .load-more-btn:hover { background: rgba(0,212,255,0.15); transform: translateY(-2px); }
+    
+    .account-overlay, .wishlist-overlay, .cart-overlay {
       position: fixed;
       top: 0;
       right: 0;
@@ -197,8 +230,9 @@
       flex-direction: column;
       z-index: 1000;
     }
+    .cart-overlay { max-width: 500px; }
     .account-header { padding: 20px; border-bottom: 1px solid rgba(0,212,255,0.2); display: flex; justify-content: space-between; align-items: center; }
-    .account-content { padding: 24px; flex: 1; overflow-y: auto; }
+    .account-content, .cart-items-scroll { padding: 24px; flex: 1; overflow-y: auto; }
     .input-group { margin-bottom: 20px; }
     .input-group label { display: block; margin-bottom: 8px; color: #00D4FF; font-size: 0.8rem; letter-spacing: 1px; }
     .account-input {
@@ -210,7 +244,6 @@
       color: white;
       font-family: inherit;
     }
-    .account-input:focus { outline: none; border-color: #00D4FF; }
     .auth-btn {
       width: 100%;
       background: linear-gradient(135deg, #00D4FF, #0088AA);
@@ -223,59 +256,19 @@
       color: #000;
     }
     .logout-btn { background: rgba(255,51,102,0.2); border: 1px solid #FF3366; color: #FF3366; }
-    .user-greeting { color: #00D4FF; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(0,212,255,0.2); }
-    
-    /* Wishlist Sidebar */
-    .wishlist-overlay {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 100%;
-      max-width: 500px;
-      height: 100vh;
-      background: rgba(8, 8, 12, 0.98);
-      backdrop-filter: blur(24px);
-      border-left: 1px solid rgba(0, 212, 255, 0.4);
-      transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      display: flex;
-      flex-direction: column;
-      z-index: 1000;
-    }
-    .cart-overlay {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 100%;
-      max-width: 500px;
-      height: 100vh;
-      background: rgba(8, 8, 12, 0.98);
-      backdrop-filter: blur(24px);
-      border-left: 1px solid rgba(0, 212, 255, 0.4);
-      transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      display: flex;
-      flex-direction: column;
-      z-index: 1000;
-    }
-    .wishlist-item, .cart-item {
-      display: flex;
-      gap: 14px;
-      margin-bottom: 20px;
-      background: rgba(0,212,255,0.05);
-      padding: 14px;
-      border-radius: 24px;
-      border: 1px solid rgba(0,212,255,0.1);
-    }
-    .countdown { font-size: 3.5rem; font-weight: 700; color: #00D4FF; letter-spacing: 6px; margin: 20px 0; font-family: monospace; }
+    .wishlist-item, .cart-item { display: flex; gap: 14px; margin-bottom: 20px; background: rgba(0,212,255,0.05); padding: 14px; border-radius: 24px; border: 1px solid rgba(0,212,255,0.1); }
+    .countdown { font-size: 3rem; font-weight: 700; color: #00D4FF; letter-spacing: 4px; margin: 20px 0; font-family: monospace; }
     .launch-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin: 40px 0; }
     .stat-card { background: rgba(0,212,255,0.1); padding: 20px 30px; border-radius: 40px; border: 1px solid rgba(0,212,255,0.3); }
-    
     .shipping-page { max-width: 900px; margin: 40px auto; padding: 40px; background: rgba(10,10,15,0.7); backdrop-filter: blur(24px); border-radius: 48px; border: 1px solid rgba(0,212,255,0.3); }
     .shipping-details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 30px 0; }
     .detail-card { background: rgba(0,212,255,0.05); border-radius: 28px; padding: 22px; border: 1px solid rgba(0,212,255,0.15); }
     .toast-msg { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00D4FF; color: #000; padding: 12px 28px; border-radius: 60px; font-weight: 600; z-index: 1100; opacity: 0; transition: 0.2s; }
     footer { text-align: center; padding: 40px 0; border-top: 1px solid rgba(0,212,255,0.15); margin-top: 40px; color: #666; }
+    .mission-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .mission-card { background: rgba(15,15,25,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(0,212,255,0.2); border-radius: 32px; padding: 32px; }
+    .mission-number { font-size: 3rem; font-weight: 700; color: rgba(0,212,255,0.3); }
+    .mission-title { font-size: 1.5rem; font-weight: 600; color: #00D4FF; margin: 12px 0; }
     
     @media (max-width: 768px) {
       .container { padding: 0 20px; }
@@ -314,7 +307,18 @@
 <div id="launchPage" class="page"><div class="container"><div class="hero"><div class="hero-badge"><i class="fas fa-rocket"></i> PRE-ORDER NOW LIVE</div><h1 style="font-size:3.2rem;">AIRSPACE COLLECTION</h1><div class="countdown" id="countdownTimer">14d 08h 32m</div><div class="launch-stats"><div class="stat-card"><div class="stat-value">500</div><div class="stat-label">Limited Pairs</div></div><div class="stat-card"><div class="stat-value">🌌</div><div class="stat-label">Cosmic Edition</div></div></div></div><section class="section"><h2 class="section-title">🚀 PRE-ORDER DROPS</h2><div class="products-grid" id="teaserGrid"></div></section></div></div>
 <div id="homePage" class="page active-page"><div class="container"><div class="hero"><div class="hero-badge">✦ COSMIC COLLECTION 2025 ✦</div><h1>OFF WHITE™</h1><div class="hero-tagline" style="color:#AAA; margin-bottom:30px;">"Designed by you. Made by us. Under the stars."</div><button class="neon-btn page-link" data-page="menu">EXPLORE COLLECTION</button></div></div><section class="section"><div class="container"><h2 class="section-title">🌟 NEW ARRIVALS</h2><div class="products-grid" id="homeProductsGrid"></div></div></section></div>
 <div id="menuPage" class="page"><section class="section"><div class="container"><h2 class="section-title">✨ CARGO MANIFEST</h2><div class="products-grid" id="fullMenuGrid"></div></div></section></div>
-<div id="pressPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🌍 INTERSTELLAR PRESS</h2><div class="press-grid" id="pressGrid"></div></div></section></div>
+
+<!-- PRESS PAGE - Expanded with more outlets and load more -->
+<div id="pressPage" class="page">
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">🌍 INTERSTELLAR PRESS</h2>
+      <div class="press-grid" id="pressGrid"></div>
+      <button class="load-more-btn" id="loadMorePressBtn"><i class="fas fa-plus-circle"></i> LOAD MORE PRESS</button>
+    </div>
+  </section>
+</div>
+
 <div id="missionsPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🪐 EXPLORE OUR MISSIONS</h2><div class="mission-grid" id="missionGrid"></div></div></section></div>
 <div id="shippingPage" class="page"><div class="container"><div class="shipping-page"><div style="text-align:center;"><i class="fas fa-rocket" style="font-size:2.5rem; color:#00D4FF;"></i><h1 style="color:#00D4FF;">ORDER CONFIRMED</h1></div><div class="shipping-details-grid" id="shippingDetailsGrid"></div><div style="text-align:center; margin-top:24px;"><button class="neon-btn" id="backToShopBtn">CONTINUE EXPLORING</button></div></div></div></div>
 
@@ -322,50 +326,14 @@
 <div id="accountSidebar" class="account-overlay">
   <div class="account-header"><h3 style="color:#00D4FF;"><i class="fas fa-user-astronaut"></i> COSMIC ACCOUNT</h3><button id="closeAccountBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF; cursor:pointer;">&times;</button></div>
   <div class="account-content" id="accountContent">
-    <div id="loginView">
-      <div class="input-group"><label>EMAIL</label><input type="email" id="loginEmail" class="account-input" placeholder="cosmic@explorer.com"></div>
-      <div class="input-group"><label>PASSWORD</label><input type="password" id="loginPassword" class="account-input" placeholder="••••••"></div>
-      <button class="auth-btn" id="doLoginBtn"><i class="fas fa-sign-in-alt"></i> LOGIN</button>
-      <button class="auth-btn" id="showRegisterBtn" style="margin-top:12px; background:transparent; border:1px solid #00D4FF; color:#00D4FF;">CREATE ACCOUNT</button>
-    </div>
-    <div id="registerView" style="display:none;">
-      <div class="input-group"><label>FULL NAME</label><input type="text" id="regName" class="account-input" placeholder="Orion Starwalker"></div>
-      <div class="input-group"><label>EMAIL</label><input type="email" id="regEmail" class="account-input" placeholder="cosmic@explorer.com"></div>
-      <div class="input-group"><label>PASSWORD</label><input type="password" id="regPassword" class="account-input" placeholder="••••••"></div>
-      <div class="input-group"><label>SHIPPING ADDRESS</label><input type="text" id="regAddress" class="account-input" placeholder="Intergalactic Hub, NY"></div>
-      <button class="auth-btn" id="doRegisterBtn"><i class="fas fa-user-plus"></i> REGISTER</button>
-      <button class="auth-btn" id="showLoginBtn" style="margin-top:12px; background:transparent; border:1px solid #00D4FF; color:#00D4FF;">BACK TO LOGIN</button>
-    </div>
-    <div id="profileView" style="display:none;">
-      <div class="user-greeting" id="userGreeting"></div>
-      <div class="input-group"><label>SAVED ADDRESS</label><div id="savedAddress" style="background:rgba(0,212,255,0.1); padding:12px; border-radius:20px;"></div></div>
-      <button class="auth-btn logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOGOUT</button>
-    </div>
+    <div id="loginView"><div class="input-group"><label>EMAIL</label><input type="email" id="loginEmail" class="account-input" placeholder="cosmic@explorer.com"></div><div class="input-group"><label>PASSWORD</label><input type="password" id="loginPassword" class="account-input" placeholder="••••••"></div><button class="auth-btn" id="doLoginBtn">LOGIN</button><button class="auth-btn" id="showRegisterBtn" style="margin-top:12px; background:transparent; border:1px solid #00D4FF; color:#00D4FF;">CREATE ACCOUNT</button></div>
+    <div id="registerView" style="display:none;"><div class="input-group"><label>FULL NAME</label><input type="text" id="regName" class="account-input"></div><div class="input-group"><label>EMAIL</label><input type="email" id="regEmail" class="account-input"></div><div class="input-group"><label>PASSWORD</label><input type="password" id="regPassword" class="account-input"></div><div class="input-group"><label>ADDRESS</label><input type="text" id="regAddress" class="account-input"></div><button class="auth-btn" id="doRegisterBtn">REGISTER</button><button class="auth-btn" id="showLoginBtn" style="margin-top:12px; background:transparent; border:1px solid #00D4FF; color:#00D4FF;">BACK TO LOGIN</button></div>
+    <div id="profileView" style="display:none;"><div class="user-greeting" id="userGreeting"></div><div class="input-group"><label>SAVED ADDRESS</label><div id="savedAddress" style="background:rgba(0,212,255,0.1); padding:12px; border-radius:20px;"></div></div><button class="auth-btn logout-btn" id="logoutBtn">LOGOUT</button></div>
   </div>
 </div>
 
-<!-- Wishlist Sidebar -->
-<div id="wishlistSidebar" class="wishlist-overlay">
-  <div class="account-header"><h3 style="color:#FF3366;"><i class="fas fa-heart"></i> MY WISHLIST</h3><button id="closeWishlistBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF; cursor:pointer;">&times;</button></div>
-  <div class="cart-items-scroll" id="wishlistItemsContainer" style="flex:1; overflow-y:auto; padding:20px;"></div>
-</div>
-
-<!-- Cart Sidebar -->
-<div id="cartSidebar" class="cart-overlay">
-  <div class="account-header"><h3 style="color:#00D4FF;">✦ ORBIT CART ✦</h3><button id="closeCartBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF; cursor:pointer;">&times;</button></div>
-  <div class="cart-items-scroll" id="cartItemsContainer" style="flex:1; overflow-y:auto; padding:20px;"></div>
-  <div class="cart-footer" style="padding:20px; border-top:1px solid rgba(0,212,255,0.2);">
-    <div class="payment-section" style="margin:0; padding:16px; background:rgba(0,212,255,0.05); border-radius:24px;">
-      <div style="color:#00D4FF; margin-bottom:12px;"><i class="fas fa-credit-card"></i> PAYMENT</div>
-      <div class="payment-btn" data-method="paypal"><i class="fab fa-paypal"></i> PayPal</div>
-      <div class="payment-btn" data-method="apple"><i class="fab fa-apple"></i> Apple Pay</div>
-      <div class="payment-btn" data-method="card"><i class="far fa-credit-card"></i> Credit Card</div>
-      <div id="cardDetails" style="display:none; margin-top:12px;"><input type="text" id="cardNumber" class="account-input" placeholder="Card Number"><input type="text" id="cardExpiry" class="account-input" placeholder="MM/YY"><input type="text" id="cardCvc" class="account-input" placeholder="CVC"><button id="submitCardPayment" class="auth-btn" style="margin-top:8px;">PAY NOW</button></div>
-    </div>
-    <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700; margin:16px 0;"><span>TOTAL</span><span id="cartTotalPrice">$0.00</span></div>
-    <button class="auth-btn" id="checkoutBtn" style="background:linear-gradient(135deg,#00D4FF,#0088AA);">COMPLETE PURCHASE →</button>
-  </div>
-</div>
+<div id="wishlistSidebar" class="wishlist-overlay"><div class="account-header"><h3 style="color:#FF3366;"><i class="fas fa-heart"></i> MY WISHLIST</h3><button id="closeWishlistBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF; cursor:pointer;">&times;</button></div><div class="cart-items-scroll" id="wishlistItemsContainer"></div></div>
+<div id="cartSidebar" class="cart-overlay"><div class="account-header"><h3 style="color:#00D4FF;">✦ ORBIT CART ✦</h3><button id="closeCartBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF; cursor:pointer;">&times;</button></div><div class="cart-items-scroll" id="cartItemsContainer"></div><div class="cart-footer" style="padding:20px; border-top:1px solid rgba(0,212,255,0.2);"><div class="payment-section" style="margin:0; padding:16px; background:rgba(0,212,255,0.05); border-radius:24px;"><div style="color:#00D4FF; margin-bottom:12px;">PAYMENT</div><div class="payment-btn" data-method="paypal"><i class="fab fa-paypal"></i> PayPal</div><div class="payment-btn" data-method="apple"><i class="fab fa-apple"></i> Apple Pay</div><div class="payment-btn" data-method="card"><i class="far fa-credit-card"></i> Credit Card</div><div id="cardDetails" style="display:none; margin-top:12px;"><input type="text" id="cardNumber" class="account-input" placeholder="Card Number"><input type="text" id="cardExpiry" class="account-input" placeholder="MM/YY"><input type="text" id="cardCvc" class="account-input" placeholder="CVC"><button id="submitCardPayment" class="auth-btn" style="margin-top:8px;">PAY NOW</button></div></div><div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700; margin:16px 0;"><span>TOTAL</span><span id="cartTotalPrice">$0.00</span></div><button class="auth-btn" id="checkoutBtn" style="background:linear-gradient(135deg,#00D4FF,#0088AA);">COMPLETE PURCHASE →</button></div></div>
 <div id="toastMsg" class="toast-msg"></div>
 
 <script>
@@ -384,8 +352,34 @@
     { id: 104, name: "✨ NEBULA PERFUME (Pre)", price: 280, image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=600&fit=crop", desc: "Limited batch" },
     { id: 105, name: "🌌 COSMIC SWEATPANTS (Pre)", price: 450, image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&h=600&fit=crop", desc: "Exclusive colorway" }
   ];
-  const pressOutlets = [{ name:"LA Times", quote:"Redefining luxury streetwear", badge:"★"},{ name:"Chicago Tribune", quote:"Handcrafted masterpiece", badge:"✦"},{ name:"NY Post", quote:"Most anticipated drop", badge:"🔥"}];
   
+  // EXPANDED PRESS OUTLETS - 20+ outlets
+  const allPressOutlets = [
+    { name: "Los Angeles Times", quote: "OFF WHITE™ is redefining luxury streetwear with cosmic craftsmanship.", badge: "★ FEATURED", date: "March 2025" },
+    { name: "Chicago Tribune", quote: "The handcrafted backpack collection is a masterpiece of zero-machine production.", badge: "✦ EDITORS' PICK", date: "Feb 2025" },
+    { name: "New York Post", quote: "Airspace 1s are the most anticipated sneaker drop of the year.", badge: "🔥 TRENDING", date: "April 2025" },
+    { name: "Newsweek", quote: "Zero machines, infinite style. The future of luxury is here.", badge: "★ BREAKTHROUGH", date: "Jan 2025" },
+    { name: "Time Magazine", quote: "One of the most innovative fashion labels of the decade.", badge: "✦ BEST OF 2025", date: "Dec 2024" },
+    { name: "ABC News", quote: "From the cosmos to your closet — OFF WHITE™ bridges galaxies.", badge: "📺 SPOTLIGHT", date: "March 2025" },
+    { name: "CBS News", quote: "Artisan leather backpacks that feel otherworldly.", badge: "📺 MORNING SHOW", date: "Feb 2025" },
+    { name: "MSNBC", quote: "The brand changing how we think about streetwear.", badge: "📺 INTERVIEW", date: "Jan 2025" },
+    { name: "Vogue", quote: "OFF WHITE™ introduces celestial minimalism to the runway.", badge: "★ VOGUE APPROVED", date: "April 2025" },
+    { name: "GQ", quote: "The sneakers you didn't know you needed. Until now.", badge: "✧ GQ EDITOR'S CHOICE", date: "March 2025" },
+    { name: "Hypebeast", quote: "A seamless blend of space aesthetics and premium craftsmanship.", badge: "✦ HYPEBEAST 100", date: "Feb 2025" },
+    { name: "Complex", quote: "Pre-order drops that are breaking the internet.", badge: "🔥 COMPLEX PICK", date: "April 2025" },
+    { name: "Highsnobiety", quote: "The future of co-creation starts with OFF WHITE™.", badge: "★ HIGHSNOB SELECTS", date: "March 2025" },
+    { name: "Forbes", quote: "How a cosmic vision became a luxury empire.", badge: "💼 FORBES FEATURE", date: "Jan 2025" },
+    { name: "Bloomberg", quote: "Zero-waste production meets interstellar design.", badge: "📈 BLOOMBERG", date: "Dec 2024" },
+    { name: "Wall Street Journal", quote: "Handcrafted bags commanding premium prices.", badge: "📰 WSJ", date: "Feb 2025" },
+    { name: "Elle", quote: "The perfume that smells like stardust.", badge: "✨ ELLE BEAUTY", date: "April 2025" },
+    { name: "Harper's Bazaar", quote: "Cosmic sweatpants are the new loungewear essential.", badge: "★ BAZAAR STYLE", date: "March 2025" },
+    { name: "WWD", quote: "OFF WHITE™ redefines luxury with community-driven drops.", badge: "📊 WWD INSIGHT", date: "Jan 2025" },
+    { name: "The Guardian", quote: "Sustainable luxury that looks to the stars.", badge: "🌍 GUARDIAN SUSTAIN", date: "Feb 2025" },
+    { name: "Dazed", quote: "The cult brand taking over your feed.", badge: "✦ DAZED 100", date: "April 2025" },
+    { name: "i-D Magazine", quote: "Moon-kissed textures and cosmic energy.", badge: "★ i-D PICK", date: "March 2025" }
+  ];
+  
+  let visiblePressCount = 8;
   let cart = JSON.parse(localStorage.getItem('offWhiteCart') || '[]');
   let wishlist = JSON.parse(localStorage.getItem('offWhiteWishlist') || '[]');
   let currentUser = JSON.parse(localStorage.getItem('offWhiteUser') || 'null');
@@ -393,6 +387,30 @@
   
   function saveData() { localStorage.setItem('offWhiteCart', JSON.stringify(cart)); localStorage.setItem('offWhiteWishlist', JSON.stringify(wishlist)); if(currentUser) localStorage.setItem('offWhiteUser', JSON.stringify(currentUser)); else localStorage.removeItem('offWhiteUser'); }
   function showToast(msg) { const t = document.getElementById('toastMsg'); t.textContent = msg; t.style.opacity='1'; setTimeout(()=>t.style.opacity='0',2000); }
+  
+  function renderPress() {
+    const container = document.getElementById('pressGrid');
+    if(!container) return;
+    const visiblePress = allPressOutlets.slice(0, visiblePressCount);
+    container.innerHTML = visiblePress.map(p => `
+      <div class="press-card">
+        <div class="press-quote">"${p.quote}"</div>
+        <div class="press-source">${p.name} <span class="press-badge">${p.badge}</span></div>
+        <div class="press-date"><i class="far fa-calendar-alt"></i> ${p.date}</div>
+      </div>
+    `).join('');
+    const loadMoreBtn = document.getElementById('loadMorePressBtn');
+    if(loadMoreBtn) {
+      if(visiblePressCount >= allPressOutlets.length) loadMoreBtn.style.display = 'none';
+      else loadMoreBtn.style.display = 'block';
+    }
+  }
+  
+  function loadMorePress() {
+    visiblePressCount = Math.min(visiblePressCount + 6, allPressOutlets.length);
+    renderPress();
+    showToast(`Loaded ${visiblePressCount} of ${allPressOutlets.length} press mentions`);
+  }
   
   function updateAllCounters() {
     document.getElementById('cartCount').innerText = cart.reduce((s,i)=>s+i.quantity,0);
@@ -465,7 +483,6 @@
     document.querySelectorAll(`#${containerId} .wishlist-btn`).forEach(btn=>btn.addEventListener('click',()=>{ const id=parseInt(btn.dataset.id); const allP=[...storeProducts,...preorderProducts]; const prod=allP.find(p=>p.id===id); if(prod){ if(wishlist.find(w=>w.id===id)) removeFromWishlist(id); else addToWishlist(prod); renderProducts(containerId, list); } }));
   }
   
-  // Account Functions
   function updateAccountUI(){
     const loginView=document.getElementById('loginView'), registerView=document.getElementById('registerView'), profileView=document.getElementById('profileView');
     if(currentUser){
@@ -477,7 +494,6 @@
     }
   }
   
-  // Payment & Order
   function showShippingDetails(){
     const subtotal = cart.reduce((s,i)=>s+i.price*i.quantity,0);
     const itemsList = cart.map(i=>`${i.name} x${i.quantity}`).join(', ');
@@ -485,6 +501,7 @@
     if(grid) grid.innerHTML = `<div class="detail-card"><div class="detail-label">ORDER</div><div class="detail-value">#OW${Math.floor(Math.random()*100000)}</div></div><div class="detail-card"><div class="detail-label">DATE</div><div class="detail-value">${new Date().toLocaleString()}</div></div><div class="detail-card"><div class="detail-label">ITEMS</div><div class="detail-value">${itemsList}</div></div><div class="detail-card"><div class="detail-label">TOTAL</div><div class="detail-value">$${subtotal.toFixed(2)}</div></div><div class="detail-card"><div class="detail-label">SHIP TO</div><div class="detail-value">${currentUser?.address || 'Cosmic Hub'}</div></div><div class="detail-card"><div class="detail-label">TRACKING</div><div class="detail-value">OW-${Math.random().toString(36).substring(2,8).toUpperCase()}</div></div>`;
     switchPage('shipping');
   }
+  
   function processOrder(method){
     if(cart.length===0){ showToast("Cart empty"); return; }
     if(!currentUser){ showToast("Please login to complete purchase"); document.getElementById('openAccountBtn').click(); return; }
@@ -505,11 +522,11 @@
     document.getElementById('openAccountBtn').addEventListener('click',()=>{ updateAccountUI(); document.getElementById('accountSidebar').style.transform='translateX(0)'; });
     document.getElementById('closeAccountBtn').addEventListener('click',()=>{ document.getElementById('accountSidebar').style.transform='translateX(100%)'; });
     document.getElementById('backToShopBtn')?.addEventListener('click',()=>switchPage('home'));
+    document.getElementById('loadMorePressBtn')?.addEventListener('click',()=>loadMorePress());
     document.querySelectorAll('.payment-btn').forEach(btn=>btn.addEventListener('click',()=>{ const method=btn.dataset.method; if(method==='card'){ document.getElementById('cardDetails').style.display='block'; selectedMethod='card'; } else { document.getElementById('cardDetails').style.display='none'; selectedMethod=method; showToast(`Selected ${method}`); } }));
     document.getElementById('submitCardPayment')?.addEventListener('click',()=>{ const card=document.getElementById('cardNumber')?.value; if(!card||card.length<10) showToast("Enter valid card"); else processOrder('Credit Card'); });
     document.getElementById('checkoutBtn')?.addEventListener('click',()=>{ if(selectedMethod) processOrder(selectedMethod.toUpperCase()); else showToast("Select a payment method"); });
     
-    // Auth
     document.getElementById('doLoginBtn')?.addEventListener('click',()=>{ const email=document.getElementById('loginEmail').value; const pwd=document.getElementById('loginPassword').value; const stored = JSON.parse(localStorage.getItem('offWhiteUser')||'null'); if(stored && stored.email===email && stored.password===pwd){ currentUser=stored; saveData(); updateAccountUI(); showToast(`Welcome back ${currentUser.name}`); document.getElementById('accountSidebar').style.transform='translateX(100%)'; } else showToast("Invalid credentials"); });
     document.getElementById('doRegisterBtn')?.addEventListener('click',()=>{ const name=document.getElementById('regName').value; const email=document.getElementById('regEmail').value; const pwd=document.getElementById('regPassword').value; const addr=document.getElementById('regAddress').value; if(name&&email&&pwd){ currentUser={name,email,password:pwd,address:addr}; saveData(); updateAccountUI(); showToast(`Welcome ${name}!`); document.getElementById('accountSidebar').style.transform='translateX(100%)'; } else showToast("Fill all fields"); });
     document.getElementById('showRegisterBtn')?.addEventListener('click',()=>{ document.getElementById('loginView').style.display='none'; document.getElementById('registerView').style.display='block'; });
@@ -520,9 +537,9 @@
   function startCountdown(){ const target=new Date(); target.setDate(target.getDate()+14); const timer=setInterval(()=>{ const diff=target-new Date(); if(diff<=0){ document.getElementById('countdownTimer').innerHTML="LAUNCHED!"; clearInterval(timer); return; } const days=Math.floor(diff/(86400000)); const hours=Math.floor((diff%86400000)/3600000); const mins=Math.floor((diff%3600000)/60000); document.getElementById('countdownTimer').innerHTML=`${days}d ${hours.toString().padStart(2,'0')}h ${mins.toString().padStart(2,'0')}m`; },60000); }
   
   const missionGrid=document.getElementById('missionGrid');
-  if(missionGrid) missionGrid.innerHTML=`<div class="mission-card"><div class="mission-number">M01</div><div class="mission-title">HUMAN CRAFT</div><div class="mission-desc">Every stitch by hand. Zero machines.</div></div><div class="mission-card"><div class="mission-number">M02</div><div class="mission-title">ZERO WASTE</div><div class="mission-desc">Closed-loop production</div></div><div class="mission-card"><div class="mission-number">M03</div><div class="mission-title">CO-CREATION</div><div class="mission-desc">You design, we make</div></div>`;
+  if(missionGrid) missionGrid.innerHTML=`<div class="mission-card"><div class="mission-number">M01</div><div class="mission-title">HUMAN CRAFT</div><div class="mission-desc">Every stitch by hand. Zero machines.</div></div><div class="mission-card"><div class="mission-number">M02</div><div class="mission-title">ZERO WASTE</div><div class="mission-desc">Closed-loop production</div></div><div class="mission-card"><div class="mission-number">M03</div><div class="mission-title">CO-CREATION</div><div class="mission-desc">You design, we make</div></div><div class="mission-card"><div class="mission-number">M04</div><div class="mission-title">ETHICAL SOURCING</div><div class="mission-desc">100% certified materials</div></div>`;
   
-  document.getElementById('pressGrid').innerHTML = pressOutlets.map(p=>`<div class="press-card"><div class="press-quote">"${p.quote}"</div><div class="press-source">${p.name} <span class="press-badge">${p.badge}</span></div></div>`).join('');
+  renderPress();
   renderProducts('homeProductsGrid', storeProducts.slice(0,3));
   renderProducts('fullMenuGrid', storeProducts);
   renderProducts('teaserGrid', preorderProducts);
@@ -531,7 +548,6 @@
   startCountdown();
   switchPage('home');
   
-  // Cursor effects
   const cd=document.getElementById('cursorDot'), co=document.getElementById('cursorOutline');
   window.addEventListener('mousemove',(e)=>{ cd.style.left=e.clientX-2+'px'; cd.style.top=e.clientY-2+'px'; co.style.left=e.clientX-16+'px'; co.style.top=e.clientY-16+'px'; });
 </script>
