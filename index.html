@@ -10,82 +10,180 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Space Grotesk', 'Inter', sans-serif; background: #0A0A0F; color: #FFFFFF; scroll-behavior: smooth; overflow-x: hidden; }
-    .galaxy-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; background: radial-gradient(ellipse at 30% 40%, #0a0a1a, #050508); }
-    .gradient-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: floatSlow 20s infinite alternate ease-in-out; }
-    .orb-1 { width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(100, 50, 200, 0.4), transparent); top: -20%; left: -20%; }
-    .orb-2 { width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(0, 200, 255, 0.25), transparent); bottom: -10%; right: -10%; animation-duration: 25s; }
-    .orb-3 { width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255, 100, 200, 0.2), transparent); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-duration: 30s; }
-    @keyframes floatSlow { 0% { transform: translate(0, 0) scale(1); opacity: 0.3; } 100% { transform: translate(3%, 3%) scale(1.1); opacity: 0.5; } }
-    .cursor-dot { width: 4px; height: 4px; background: #00D4FF; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; }
+    
+    /* MODERN DYNAMIC GALAXY BACKGROUND WITH PARTICLES */
+    .galaxy-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      background: radial-gradient(ellipse at 30% 40%, #0a0a1a, #020205);
+    }
+    .gradient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.6;
+      animation: floatSlow 20s infinite alternate ease-in-out;
+    }
+    .orb-1 { width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(80, 60, 200, 0.5), transparent); top: -30%; left: -20%; }
+    .orb-2 { width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 180, 230, 0.4), transparent); bottom: -20%; right: -15%; animation-duration: 25s; }
+    .orb-3 { width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(255, 80, 180, 0.25), transparent); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-duration: 30s; }
+    @keyframes floatSlow { 0% { transform: translate(0, 0) scale(1); opacity: 0.4; } 100% { transform: translate(5%, 5%) scale(1.15); opacity: 0.6; } }
+    
+    /* Particle Stars */
+    .particle-star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinklePulse 3s infinite alternate;
+    }
+    @keyframes twinklePulse {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 0.8; transform: scale(1.2); }
+    }
+    
+    /* Dynamic Grid Lines (HUD Effect) */
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background-image: 
+        linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      animation: gridShift 30s linear infinite;
+    }
+    @keyframes gridShift {
+      0% { background-position: 0 0; }
+      100% { background-position: 50px 50px; }
+    }
+    
+    .cursor-dot { width: 4px; height: 4px; background: #00D4FF; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s; }
     .cursor-outline { width: 32px; height: 32px; border: 1.5px solid rgba(0, 212, 255, 0.6); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transition: all 0.2s ease; backdrop-filter: blur(2px); }
+    
     .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 10; }
-    .navbar { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; background: rgba(10, 10, 15, 0.6); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 212, 255, 0.2); border-radius: 0 0 40px 40px; margin-bottom: 20px; }
-    .logo { font-size: 1.6rem; font-weight: 600; cursor: pointer; background: linear-gradient(135deg, #FFFFFF, #00D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
-    .dashboard-nav { display: flex; gap: 12px; align-items: center; background: rgba(0, 0, 0, 0.4); padding: 6px 16px; border-radius: 60px; border: 1px solid rgba(0, 212, 255, 0.25); flex-wrap: wrap; }
-    .dashboard-btn { background: none; border: none; color: #E0E0E0; font-family: 'Space Grotesk', monospace; font-weight: 500; font-size: 0.85rem; padding: 8px 18px; cursor: pointer; transition: all 0.3s; border-radius: 40px; }
-    .dashboard-btn:hover { color: #00D4FF; background: rgba(0, 212, 255, 0.1); }
-    .cart-icon-btn, .wishlist-icon-btn, .account-icon-btn { background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.4); border-radius: 50px; padding: 8px 16px; font-size: 1rem; cursor: pointer; transition: all 0.3s; color: #00D4FF; }
-    .cart-icon-btn:hover, .wishlist-icon-btn:hover, .account-icon-btn:hover { background: rgba(0, 212, 255, 0.2); border-color: #00D4FF; }
+    
+    /* Glassmorphism Navbar */
+    .navbar { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; background: rgba(10, 10, 20, 0.5); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 212, 255, 0.3); border-radius: 0 0 40px 40px; margin-bottom: 20px; }
+    .logo { font-size: 1.8rem; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, #FFFFFF, #00D4FF, #9B59B6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; }
+    .dashboard-nav { display: flex; gap: 12px; align-items: center; background: rgba(0, 0, 0, 0.4); padding: 6px 20px; border-radius: 60px; border: 1px solid rgba(0, 212, 255, 0.3); backdrop-filter: blur(10px); flex-wrap: wrap; }
+    .dashboard-btn { background: none; border: none; color: #E0E0E0; font-weight: 500; font-size: 0.85rem; padding: 8px 18px; cursor: pointer; transition: all 0.3s; border-radius: 40px; }
+    .dashboard-btn:hover { color: #00D4FF; background: rgba(0, 212, 255, 0.15); box-shadow: 0 0 15px rgba(0,212,255,0.2); }
+    .cart-icon-btn, .wishlist-icon-btn, .account-icon-btn { background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.4); border-radius: 50px; padding: 8px 18px; font-size: 1rem; cursor: pointer; transition: all 0.3s; color: #00D4FF; }
     .cart-count, .wishlist-count { background: #00D4FF; color: #000; border-radius: 30px; padding: 2px 8px; margin-left: 8px; font-weight: 700; }
+    
     .page { display: none; animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
     .active-page { display: block; }
     @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    .hero { padding: 80px 0 100px; text-align: center; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); border-radius: 60px; border: 1px solid rgba(0, 212, 255, 0.2); margin: 20px 0 40px; }
-    .hero-badge { background: rgba(0, 212, 255, 0.15); color: #00D4FF; display: inline-block; padding: 6px 24px; border-radius: 60px; font-weight: 500; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 28px; border: 1px solid rgba(0,212,255,0.3); }
-    .hero h1 { font-size: 4.8rem; font-weight: 600; background: linear-gradient(135deg, #FFFFFF, #00D4FF, #7B2F9E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -2px; margin-bottom: 20px; }
-    .neon-btn { background: linear-gradient(135deg, #00D4FF, #0088AA); color: #000; border: none; padding: 14px 36px; border-radius: 60px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-    .neon-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3); }
+    
+    /* Modern Hero */
+    .hero { padding: 100px 0 120px; text-align: center; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(15px); border-radius: 70px; border: 1px solid rgba(0, 212, 255, 0.3); margin: 20px 0 50px; }
+    .hero-badge { background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(155,89,182,0.2)); color: #00D4FF; display: inline-block; padding: 8px 28px; border-radius: 60px; font-weight: 500; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 28px; border: 1px solid rgba(0,212,255,0.4); backdrop-filter: blur(5px); }
+    .hero h1 { font-size: 5rem; font-weight: 700; background: linear-gradient(135deg, #FFFFFF, #00D4FF, #9B59B6, #FF6B6B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -2px; margin-bottom: 20px; }
+    .neon-btn { background: linear-gradient(135deg, #00D4FF, #0088AA); color: #000; border: none; padding: 14px 38px; border-radius: 60px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-size: 1rem; }
+    .neon-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 212, 255, 0.4); }
+    
     .section { padding: 60px 0; margin: 30px 0; background: transparent; }
-    .section-title { font-size: 2.2rem; text-align: center; font-weight: 600; background: linear-gradient(135deg, #FFFFFF, #00D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 50px; }
+    .section-title { font-size: 2.5rem; text-align: center; font-weight: 700; background: linear-gradient(135deg, #FFFFFF, #00D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 50px; letter-spacing: -1px; }
+    
     .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
     .product-card { background: rgba(15, 15, 25, 0.7); backdrop-filter: blur(16px); border-radius: 32px; overflow: hidden; border: 1px solid rgba(0, 212, 255, 0.2); transition: all 0.4s; position: relative; }
-    .product-card:hover { transform: translateY(-8px); border-color: rgba(0, 212, 255, 0.6); box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1); }
+    .product-card:hover { transform: translateY(-8px); border-color: rgba(0, 212, 255, 0.6); box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15); }
     .product-img img { width: 100%; height: 260px; object-fit: cover; }
     .product-info { padding: 20px; }
     .product-title { font-size: 1.2rem; font-weight: 600; color: #00D4FF; }
-    .product-price { font-size: 1.4rem; font-weight: 700; margin: 8px 0; color: #FFD966; }
-    .wishlist-btn { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: #FF3366; font-size: 1.2rem; backdrop-filter: blur(5px); transition: all 0.2s; }
-    .wishlist-btn:hover { transform: scale(1.1); background: rgba(0,0,0,0.8); }
-    .add-to-cart { width: 100%; background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,136,170,0.1)); border: 1px solid rgba(0,212,255,0.4); padding: 12px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: all 0.3s; color: #00D4FF; margin-top: 8px; }
-    .add-to-cart:hover { background: rgba(0,212,255,0.25); border-color: #00D4FF; }
+    .product-price { font-size: 1.5rem; font-weight: 700; margin: 8px 0; color: #FFD966; }
+    .wishlist-btn { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: #FF3366; font-size: 1.2rem; backdrop-filter: blur(5px); }
+    .add-to-cart { width: 100%; background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,136,170,0.1)); border: 1px solid rgba(0,212,255,0.4); padding: 12px; border-radius: 40px; font-weight: 600; cursor: pointer; color: #00D4FF; margin-top: 8px; }
+    
+    /* Origins Section - Modern Timeline */
+    .origins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 20px; }
+    .origin-card { background: rgba(15, 15, 25, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(0,212,255,0.2); border-radius: 32px; padding: 32px; transition: all 0.3s; text-align: center; }
+    .origin-card:hover { border-color: #00D4FF; transform: translateY(-5px); background: rgba(0,212,255,0.05); }
+    .origin-icon { font-size: 2.5rem; color: #00D4FF; margin-bottom: 20px; }
+    .origin-year { font-size: 1.2rem; color: #FFD966; letter-spacing: 2px; margin-bottom: 10px; }
+    .origin-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 15px; }
+    
     .press-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-bottom: 30px; }
-    .press-card { background: rgba(15,15,25,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(0,212,255,0.2); border-radius: 28px; padding: 24px; transition: all 0.3s; }
-    .press-card:hover { border-color: rgba(0,212,255,0.5); transform: translateY(-4px); }
-    .press-quote { font-size: 0.95rem; line-height: 1.5; margin-bottom: 16px; color: #CCCCCC; }
-    .press-source { font-weight: 600; font-size: 0.75rem; color: #00D4FF; text-transform: uppercase; display: flex; justify-content: space-between; flex-wrap: wrap; }
-    .press-badge { background: rgba(0,212,255,0.15); padding: 3px 12px; border-radius: 30px; font-size: 0.65rem; color: #00D4FF; }
-    .load-more-btn { display: block; margin: 20px auto 0; background: transparent; border: 1px solid #00D4FF; color: #00D4FF; padding: 10px 28px; border-radius: 60px; font-weight: 600; cursor: pointer; }
+    .press-card { background: rgba(15,15,25,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(0,212,255,0.2); border-radius: 28px; padding: 24px; }
+    .load-more-btn { display: block; margin: 20px auto 0; background: transparent; border: 1px solid #00D4FF; color: #00D4FF; padding: 12px 32px; border-radius: 60px; font-weight: 600; cursor: pointer; }
     .mission-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
     .mission-card { background: rgba(15,15,25,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(0,212,255,0.2); border-radius: 28px; padding: 28px; }
-    .mission-number { font-size: 2.5rem; font-weight: 700; color: rgba(0,212,255,0.3); }
-    .mission-title { font-size: 1.3rem; font-weight: 600; color: #00D4FF; margin: 10px 0; }
-    .account-overlay, .wishlist-overlay, .cart-overlay { position: fixed; top: 0; right: 0; width: 100%; max-width: 450px; height: 100vh; background: rgba(8,8,12,0.98); backdrop-filter: blur(24px); border-left: 1px solid rgba(0,212,255,0.4); transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.2,0.9,0.4,1.1); display: flex; flex-direction: column; z-index: 1000; }
+    
+    /* PayPal Modal */
+    .paypal-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(20px);
+      z-index: 2000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .paypal-container {
+      background: linear-gradient(135deg, #0a0a1a, #050510);
+      border: 1px solid #00D4FF;
+      border-radius: 48px;
+      padding: 40px;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 0 60px rgba(0,212,255,0.3);
+      animation: modalPop 0.4s ease;
+    }
+    @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .paypal-logo { font-size: 3rem; color: #0070BA; margin-bottom: 20px; }
+    .paypal-input { width: 100%; padding: 14px; margin: 10px 0; background: rgba(255,255,255,0.1); border: 1px solid rgba(0,212,255,0.3); border-radius: 40px; color: white; font-size: 1rem; }
+    .paypal-btn { background: #0070BA; color: white; padding: 14px; border-radius: 40px; border: none; width: 100%; font-weight: 700; cursor: pointer; margin-top: 15px; }
+    
+    .account-overlay, .wishlist-overlay, .cart-overlay { position: fixed; top: 0; right: 0; width: 100%; max-width: 450px; height: 100vh; background: rgba(8,8,12,0.98); backdrop-filter: blur(24px); border-left: 1px solid #00D4FF; transform: translateX(100%); transition: transform 0.35s; display: flex; flex-direction: column; z-index: 1000; }
     .cart-overlay { max-width: 500px; }
-    .account-header { padding: 20px; border-bottom: 1px solid rgba(0,212,255,0.2); display: flex; justify-content: space-between; align-items: center; }
+    .account-header { padding: 20px; border-bottom: 1px solid rgba(0,212,255,0.2); display: flex; justify-content: space-between; }
     .account-content, .cart-items-scroll { padding: 20px; flex: 1; overflow-y: auto; }
-    .input-group { margin-bottom: 18px; }
-    .input-group label { display: block; margin-bottom: 6px; color: #00D4FF; font-size: 0.75rem; letter-spacing: 1px; }
-    .account-input { width: 100%; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(0,212,255,0.3); border-radius: 40px; color: white; font-family: inherit; }
+    .account-input { width: 100%; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(0,212,255,0.3); border-radius: 40px; color: white; margin: 8px 0; }
     .auth-btn { width: 100%; background: linear-gradient(135deg, #00D4FF, #0088AA); padding: 12px; border-radius: 60px; font-weight: 700; border: none; cursor: pointer; margin-top: 10px; color: #000; }
-    .logout-btn { background: rgba(255,51,102,0.2); border: 1px solid #FF3366; color: #FF3366; }
-    .wishlist-item, .cart-item { display: flex; gap: 12px; margin-bottom: 16px; background: rgba(0,212,255,0.05); padding: 12px; border-radius: 20px; border: 1px solid rgba(0,212,255,0.1); }
-    .countdown { font-size: 2.5rem; font-weight: 700; color: #00D4FF; letter-spacing: 4px; margin: 20px 0; font-family: monospace; }
-    .launch-stats { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 30px 0; }
-    .stat-card { background: rgba(0,212,255,0.1); padding: 15px 25px; border-radius: 40px; border: 1px solid rgba(0,212,255,0.3); text-align: center; }
-    .stat-value { font-size: 1.8rem; font-weight: 700; color: #00D4FF; }
-    .shipping-page { max-width: 900px; margin: 40px auto; padding: 30px; background: rgba(10,10,15,0.7); backdrop-filter: blur(24px); border-radius: 48px; border: 1px solid rgba(0,212,255,0.3); }
-    .shipping-details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin: 25px 0; }
-    .detail-card { background: rgba(0,212,255,0.05); border-radius: 24px; padding: 18px; border: 1px solid rgba(0,212,255,0.15); }
-    .detail-label { color: #00D4FF; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-    .toast-msg { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00D4FF; color: #000; padding: 10px 24px; border-radius: 60px; font-weight: 600; z-index: 1100; opacity: 0; transition: 0.2s; }
-    footer { text-align: center; padding: 30px 0; border-top: 1px solid rgba(0,212,255,0.15); margin-top: 40px; color: #666; font-size: 0.8rem; }
-    @media (max-width: 768px) { .container { padding: 0 20px; } .hero h1 { font-size: 2.8rem; } .dashboard-nav { gap: 6px; } .dashboard-btn { font-size: 0.7rem; padding: 5px 10px; } }
+    .shipping-page { max-width: 900px; margin: 40px auto; padding: 30px; background: rgba(10,10,15,0.7); backdrop-filter: blur(24px); border-radius: 48px; border: 1px solid #00D4FF; }
+    .shipping-details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .toast-msg { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00D4FF; color: #000; padding: 12px 28px; border-radius: 60px; font-weight: 600; z-index: 1100; opacity: 0; transition: 0.2s; }
+    footer { text-align: center; padding: 40px 0; border-top: 1px solid rgba(0,212,255,0.15); margin-top: 40px; color: #666; }
+    @media (max-width: 768px) { .container { padding: 0 20px; } .hero h1 { font-size: 2.8rem; } }
   </style>
 </head>
 <body>
 <div class="galaxy-bg"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div><div class="gradient-orb orb-3"></div></div>
+<div class="grid-overlay"></div>
+<div id="particleStars"></div>
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-outline" id="cursorOutline"></div>
+
+<!-- PayPal Modal -->
+<div id="paypalModal" class="paypal-modal">
+  <div class="paypal-container">
+    <div class="paypal-logo"><i class="fab fa-paypal"></i> PayPal</div>
+    <h3 style="color:#00D4FF; margin-bottom:10px;">Secure Checkout</h3>
+    <input type="email" id="paypalEmail" class="paypal-input" placeholder="your@email.com" value="cosmic@explorer.com">
+    <input type="password" id="paypalPassword" class="paypal-input" placeholder="Password">
+    <div style="display:flex; gap:10px; margin:10px 0;">
+      <div class="payment-btn" style="flex:1; background:#003366; padding:10px; border-radius:30px; cursor:pointer;" data-fund="bank">🏦 Bank Account</div>
+      <div class="payment-btn" style="flex:1; background:#003366; padding:10px; border-radius:30px; cursor:pointer;" data-fund="card">💳 Credit Card</div>
+      <div class="payment-btn" style="flex:1; background:#003366; padding:10px; border-radius:30px; cursor:pointer;" data-fund="balance">💰 PayPal Balance</div>
+    </div>
+    <button class="paypal-btn" id="confirmPaypalBtn"><i class="fab fa-paypal"></i> Pay Now</button>
+    <button class="paypal-btn" id="closePaypalBtn" style="background:#333; margin-top:10px;">Cancel</button>
+  </div>
+</div>
 
 <div class="container">
   <div class="navbar">
@@ -94,6 +192,7 @@
       <button class="dashboard-btn page-link" data-page="launch"><i class="fas fa-rocket"></i> LAUNCH</button>
       <button class="dashboard-btn page-link" data-page="home"><i class="fas fa-home"></i> HOME</button>
       <button class="dashboard-btn page-link" data-page="menu"><i class="fas fa-box-open"></i> CARGO</button>
+      <button class="dashboard-btn page-link" data-page="origins"><i class="fas fa-history"></i> ORIGINS</button>
       <button class="dashboard-btn page-link" data-page="press"><i class="fas fa-newspaper"></i> SIGNAL</button>
       <button class="dashboard-btn page-link" data-page="missions"><i class="fas fa-globe"></i> MISSIONS</button>
       <button class="wishlist-icon-btn" id="openWishlistBtn"><i class="fas fa-heart"></i><span class="wishlist-count" id="wishlistCount">0</span></button>
@@ -104,185 +203,100 @@
 </div>
 
 <!-- PAGES -->
-<div id="launchPage" class="page"><div class="container"><div class="hero"><div class="hero-badge"><i class="fas fa-rocket"></i> PRE-ORDER NOW LIVE</div><h1 style="font-size:2.8rem;">AIRSPACE COLLECTION</h1><div class="countdown" id="countdownTimer">14d 08h 32m</div><div class="launch-stats"><div class="stat-card"><div class="stat-value">500</div><div class="stat-label">Limited Pairs</div></div><div class="stat-card"><div class="stat-value">🌌</div><div class="stat-label">Cosmic Edition</div></div></div></div><section class="section"><h2 class="section-title">🚀 PRE-ORDER DROPS</h2><div class="products-grid" id="teaserGrid"></div></section></div></div>
+<div id="launchPage" class="page"><div class="container"><div class="hero"><div class="hero-badge"><i class="fas fa-rocket"></i> PRE-ORDER NOW LIVE</div><h1 style="font-size:3rem;">AIRSPACE COLLECTION</h1><div class="countdown" id="countdownTimer" style="font-size:2.5rem; color:#00D4FF; margin:20px;">14d 08h 32m</div><div class="launch-stats" style="display:flex; gap:30px; justify-content:center;"><div class="stat-card" style="background:rgba(0,212,255,0.1); padding:15px 25px; border-radius:40px;"><div class="stat-value">500</div><div class="stat-label">Limited</div></div></div></div><section class="section"><h2 class="section-title">🚀 PRE-ORDER DROPS</h2><div class="products-grid" id="teaserGrid"></div></section></div></div>
 
 <div id="homePage" class="page active-page"><div class="container"><div class="hero"><div class="hero-badge">✦ COSMIC COLLECTION 2025 ✦</div><h1>OFF WHITE™</h1><div class="hero-tagline" style="color:#AAA; margin:20px 0;">"Designed by you. Made by us. Under the stars."</div><button class="neon-btn page-link" data-page="menu">EXPLORE COLLECTION</button></div></div><section class="section"><div class="container"><h2 class="section-title">🌟 NEW ARRIVALS</h2><div class="products-grid" id="homeProductsGrid"></div></div></section></div>
 
 <div id="menuPage" class="page"><section class="section"><div class="container"><h2 class="section-title">✨ FULL COLLECTION</h2><div class="products-grid" id="fullMenuGrid"></div></div></section></div>
 
+<!-- ORIGINS PAGE - Expanded Storytelling -->
+<div id="originsPage" class="page">
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">🌌 THE COSMIC ORIGINS</h2>
+      <div class="origins-grid">
+        <div class="origin-card"><div class="origin-icon"><i class="fas fa-moon"></i></div><div class="origin-year">2020</div><div class="origin-title">LUNAR INSPIRATION</div><div class="origin-desc" style="color:#aaa;">Born under a blood moon eclipse, OFF WHITE™ started as a dream to merge celestial wonder with earthly craftsmanship.</div></div>
+        <div class="origin-card"><div class="origin-icon"><i class="fas fa-hand-sparkles"></i></div><div class="origin-year">2021</div><div class="origin-title">HANDCRAFTED REVOLUTION</div><div class="origin-desc" style="color:#aaa;">First artisan workshop opened in Florence, Italy. Zero machines, only human hands shaping leather and fabric.</div></div>
+        <div class="origin-card"><div class="origin-icon"><i class="fas fa-users"></i></div><div class="origin-year">2022</div><div class="origin-title">CO-CREATION MOVEMENT</div><div class="origin-desc" style="color:#aaa;">Launched the "Design By You" platform — community decides drops, we bring them to life.</div></div>
+        <div class="origin-card"><div class="origin-icon"><i class="fas fa-rocket"></i></div><div class="origin-year">2023</div><div class="origin-title">AIRSPACE COLLECTION</div><div class="origin-desc" style="color:#aaa;">First sneaker collaboration with NASA-inspired design. Sold out in 47 seconds.</div></div>
+        <div class="origin-card"><div class="origin-icon"><i class="fas fa-leaf"></i></div><div class="origin-year">2024</div><div class="origin-title">ZERO WASTE PLEDGE</div><div class="origin-desc" style="color:#aaa;">Achieved 98% closed-loop production. Every scrap repurposed into cosmic accessories.</div></div>
+        <div class="origin-card"><div class="origin-icon"><i class="fas fa-chart-line"></i></div><div class="origin-year">2025</div><div class="origin-title">GLOBAL EXPANSION</div><div class="origin-desc" style="color:#aaa;">Flagship stores in Tokyo, NYC, London. Still zero machines. Still 100% soul.</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
 <div id="pressPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🌍 INTERSTELLAR PRESS</h2><div class="press-grid" id="pressGrid"></div><button class="load-more-btn" id="loadMorePressBtn">LOAD MORE PRESS</button></div></section></div>
-
 <div id="missionsPage" class="page"><section class="section"><div class="container"><h2 class="section-title">🪐 EXPLORE OUR MISSIONS</h2><div class="mission-grid" id="missionGrid"></div></div></section></div>
-
-<div id="shippingPage" class="page"><div class="container"><div class="shipping-page"><div style="text-align:center;"><i class="fas fa-rocket" style="font-size:2rem; color:#00D4FF;"></i><h1 style="color:#00D4FF; margin:10px 0;">ORDER CONFIRMED</h1></div><div class="shipping-details-grid" id="shippingDetailsGrid"></div><div style="text-align:center;"><button class="neon-btn" id="backToShopBtn">CONTINUE EXPLORING</button></div></div></div></div>
+<div id="shippingPage" class="page"><div class="container"><div class="shipping-page"><div style="text-align:center;"><i class="fas fa-rocket" style="font-size:2rem; color:#00D4FF;"></i><h1 style="color:#00D4FF;">ORDER CONFIRMED</h1></div><div class="shipping-details-grid" id="shippingDetailsGrid"></div><div style="text-align:center;"><button class="neon-btn" id="backToShopBtn">CONTINUE EXPLORING</button></div></div></div></div>
 
 <!-- SIDEBARS -->
-<div id="accountSidebar" class="account-overlay"><div class="account-header"><h3 style="color:#00D4FF;"><i class="fas fa-user-astronaut"></i> COSMIC ACCOUNT</h3><button id="closeAccountBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF; cursor:pointer;">&times;</button></div><div class="account-content" id="accountContent"><div id="loginView"><div class="input-group"><label>EMAIL</label><input type="email" id="loginEmail" class="account-input" placeholder="cosmic@explorer.com"></div><div class="input-group"><label>PASSWORD</label><input type="password" id="loginPassword" class="account-input" placeholder="••••••"></div><button class="auth-btn" id="doLoginBtn">LOGIN</button><button class="auth-btn" id="showRegisterBtn" style="background:transparent; border:1px solid #00D4FF; color:#00D4FF;">CREATE ACCOUNT</button></div><div id="registerView" style="display:none;"><div class="input-group"><label>FULL NAME</label><input type="text" id="regName" class="account-input"></div><div class="input-group"><label>EMAIL</label><input type="email" id="regEmail" class="account-input"></div><div class="input-group"><label>PASSWORD</label><input type="password" id="regPassword" class="account-input"></div><div class="input-group"><label>ADDRESS</label><input type="text" id="regAddress" class="account-input"></div><button class="auth-btn" id="doRegisterBtn">REGISTER</button><button class="auth-btn" id="showLoginBtn" style="background:transparent; border:1px solid #00D4FF; color:#00D4FF;">BACK TO LOGIN</button></div><div id="profileView" style="display:none;"><div class="user-greeting" id="userGreeting" style="color:#00D4FF; margin-bottom:20px;"></div><div class="input-group"><label>SAVED ADDRESS</label><div id="savedAddress" style="background:rgba(0,212,255,0.1); padding:12px; border-radius:20px;"></div></div><button class="auth-btn logout-btn" id="logoutBtn">LOGOUT</button></div></div></div>
-
-<div id="wishlistSidebar" class="wishlist-overlay"><div class="account-header"><h3 style="color:#FF3366;"><i class="fas fa-heart"></i> MY WISHLIST</h3><button id="closeWishlistBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF; cursor:pointer;">&times;</button></div><div class="cart-items-scroll" id="wishlistItemsContainer"></div></div>
-
-<div id="cartSidebar" class="cart-overlay"><div class="account-header"><h3 style="color:#00D4FF;">✦ ORBIT CART ✦</h3><button id="closeCartBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF; cursor:pointer;">&times;</button></div><div class="cart-items-scroll" id="cartItemsContainer"></div><div class="cart-footer" style="padding:20px; border-top:1px solid rgba(0,212,255,0.2);"><div class="payment-section" style="padding:16px; background:rgba(0,212,255,0.05); border-radius:24px;"><div style="color:#00D4FF; margin-bottom:12px;">PAYMENT</div><div class="payment-btn" data-method="paypal" style="border:1px solid rgba(0,212,255,0.3); background:rgba(0,0,0,0.4); border-radius:60px; padding:10px 16px; margin:6px 0; display:flex; gap:12px; cursor:pointer;"><i class="fab fa-paypal"></i> PayPal</div><div class="payment-btn" data-method="apple" style="border:1px solid rgba(0,212,255,0.3); background:rgba(0,0,0,0.4); border-radius:60px; padding:10px 16px; margin:6px 0; display:flex; gap:12px; cursor:pointer;"><i class="fab fa-apple"></i> Apple Pay</div><div class="payment-btn" data-method="card" style="border:1px solid rgba(0,212,255,0.3); background:rgba(0,0,0,0.4); border-radius:60px; padding:10px 16px; margin:6px 0; display:flex; gap:12px; cursor:pointer;"><i class="far fa-credit-card"></i> Credit Card</div><div id="cardDetails" style="display:none;"><input type="text" id="cardNumber" class="account-input" placeholder="Card Number"><input type="text" id="cardExpiry" class="account-input" placeholder="MM/YY"><input type="text" id="cardCvc" class="account-input" placeholder="CVC"><button id="submitCardPayment" class="auth-btn" style="margin-top:8px;">PAY NOW</button></div></div><div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700; margin:16px 0;"><span>TOTAL</span><span id="cartTotalPrice">$0.00</span></div><button class="auth-btn" id="checkoutBtn" style="background:linear-gradient(135deg,#00D4FF,#0088AA);">COMPLETE PURCHASE →</button></div></div>
+<div id="accountSidebar" class="account-overlay"><div class="account-header"><h3><i class="fas fa-user-astronaut"></i> COSMIC ACCOUNT</h3><button id="closeAccountBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF;">&times;</button></div><div class="account-content" id="accountContent"><div id="loginView"><input type="email" id="loginEmail" class="account-input" placeholder="Email"><input type="password" id="loginPassword" class="account-input" placeholder="Password"><button class="auth-btn" id="doLoginBtn">LOGIN</button><button class="auth-btn" id="showRegisterBtn" style="background:transparent; border:1px solid #00D4FF;">CREATE ACCOUNT</button></div><div id="registerView" style="display:none;"><input type="text" id="regName" class="account-input" placeholder="Full Name"><input type="email" id="regEmail" class="account-input" placeholder="Email"><input type="password" id="regPassword" class="account-input" placeholder="Password"><input type="text" id="regAddress" class="account-input" placeholder="Address"><button class="auth-btn" id="doRegisterBtn">REGISTER</button><button class="auth-btn" id="showLoginBtn" style="background:transparent;">BACK</button></div><div id="profileView" style="display:none;"><div id="userGreeting" style="color:#00D4FF;"></div><div id="savedAddress" style="background:rgba(0,212,255,0.1); padding:12px; border-radius:20px; margin:15px 0;"></div><button class="auth-btn logout-btn" id="logoutBtn">LOGOUT</button></div></div></div>
+<div id="wishlistSidebar" class="wishlist-overlay"><div class="account-header"><h3><i class="fas fa-heart"></i> WISHLIST</h3><button id="closeWishlistBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF;">&times;</button></div><div class="cart-items-scroll" id="wishlistItemsContainer"></div></div>
+<div id="cartSidebar" class="cart-overlay"><div class="account-header"><h3>✦ ORBIT CART ✦</h3><button id="closeCartBtn" style="background:none; border:none; font-size:1.8rem; color:#00D4FF;">&times;</button></div><div class="cart-items-scroll" id="cartItemsContainer"></div><div class="cart-footer" style="padding:20px;"><div style="background:rgba(0,212,255,0.05); border-radius:24px; padding:16px;"><div style="color:#00D4FF;">PAYMENT</div><div class="payment-btn" data-method="paypal" style="border:1px solid rgba(0,212,255,0.3); padding:12px; margin:6px 0; border-radius:60px; cursor:pointer; display:flex; gap:10px;"><i class="fab fa-paypal"></i> PayPal</div><div class="payment-btn" data-method="apple" style="border:1px solid rgba(0,212,255,0.3); padding:12px; margin:6px 0; border-radius:60px; cursor:pointer;"><i class="fab fa-apple"></i> Apple Pay</div><div class="payment-btn" data-method="card" style="border:1px solid rgba(0,212,255,0.3); padding:12px; margin:6px 0; border-radius:60px; cursor:pointer;"><i class="far fa-credit-card"></i> Credit Card</div><div id="cardDetails" style="display:none;"><input type="text" id="cardNumber" class="account-input" placeholder="Card Number"><input type="text" id="cardExpiry" class="account-input" placeholder="MM/YY"><input type="text" id="cardCvc" class="account-input" placeholder="CVC"><button id="submitCardPayment" class="auth-btn">PAY NOW</button></div></div><div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700; margin:16px 0;"><span>TOTAL</span><span id="cartTotalPrice">$0.00</span></div><button class="auth-btn" id="checkoutBtn">COMPLETE PURCHASE →</button></div></div></div>
 <div id="toastMsg" class="toast-msg"></div>
 
 <script>
-// ========== UPDATED PRODUCTS: Lotion, Nike Slides, New Socks ==========
+// PRODUCTS (same as before with lotion, slides, socks)
 const storeProducts = [
-  { id: 1, name: "👕 OFF WHITE™ SIGNATURE TEE", price: 89, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop", desc: "Premium cotton, moon-kissed finish" },
-  { id: 2, name: "🧥 OFF WHITE™ HOODIE", price: 129, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "Nebula-dyed fleece, supernova warm" },
-  { id: 3, name: "🎒 HANDCRAFTED BACKPACK", price: 199, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop", desc: "Artisan leather, zero machines" },
-  { id: 4, name: "👖 COSMIC SWEATPANTS", price: 79, image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&h=600&fit=crop", desc: "Stretch celestial weave" },
-  { id: 5, name: "✨ NEBULA PERFUME", price: 65, image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=600&fit=crop", desc: "Galactic oud & stardust musk" },
-  { id: 6, name: "🧢 OFF WHITE™ CAP", price: 45, image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&h=600&fit=crop", desc: "Structured cosmic embroidery" },
-  { id: 7, name: "🩴 NIKE SLIDES", price: 49, image: "https://images.unsplash.com/photo-1605348532760-dec5e7f2e8d0?w=600&h=600&fit=crop", desc: "Cloudfoam comfort, cosmic straps" },
-  { id: 8, name: "🧦 GALAXY CREW SOCKS (3PK)", price: 28, image: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=600&h=600&fit=crop", desc: "Nebula pattern, cushioned footbed" },
-  { id: 9, name: "🧴 STARDUST LOTION", price: 42, image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=600&fit=crop", desc: "Hydrating meteor mineral formula" },
-  { id: 10, name: "🕶️ OFF WHITE™ SHADES", price: 119, image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=600&fit=crop", desc: "UV protection, celestial frame" }
+  { id: 1, name: "👕 OFF WHITE™ SIGNATURE TEE", price: 89, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop", desc: "Premium cotton" },
+  { id: 2, name: "🧥 OFF WHITE™ HOODIE", price: 129, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop", desc: "Nebula fleece" },
+  { id: 3, name: "🎒 HANDCRAFTED BACKPACK", price: 199, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop", desc: "Artisan leather" },
+  { id: 4, name: "👖 COSMIC SWEATPANTS", price: 79, image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&h=600&fit=crop", desc: "Celestial weave" },
+  { id: 5, name: "✨ NEBULA PERFUME", price: 65, image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=600&fit=crop", desc: "Galactic oud" },
+  { id: 6, name: "🧢 OFF WHITE™ CAP", price: 45, image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&h=600&fit=crop", desc: "Cosmic embroidery" },
+  { id: 7, name: "🩴 NIKE SLIDES", price: 49, image: "https://images.unsplash.com/photo-1605348532760-dec5e7f2e8d0?w=600&h=600&fit=crop", desc: "Cloudfoam comfort" },
+  { id: 8, name: "🧦 GALAXY CREW SOCKS", price: 28, image: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=600&h=600&fit=crop", desc: "3-pack nebula" },
+  { id: 9, name: "🧴 STARDUST LOTION", price: 42, image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=600&fit=crop", desc: "Meteor minerals" },
+  { id: 10, name: "🕶️ OFF WHITE™ SHADES", price: 119, image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=600&fit=crop", desc: "UV protection" }
 ];
-
 const preorderProducts = [
-  { id: 101, name: "👟 NIKE AIRSPACE 1s", price: 159, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop", desc: "Lunar sole, iridescent swoosh" },
-  { id: 102, name: "🪐 JORDAN 4s AIR", price: 179, image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600&h=600&fit=crop", desc: "Galaxy gradient upper" },
-  { id: 103, name: "💫 ASICS GEL-KAYANO 14", price: 139, image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop", desc: "NASA-inspired cushioning" },
-  { id: 104, name: "🧴 NEBULA PERFUME (Pre)", price: 65, image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=600&fit=crop", desc: "Limited batch pre-order" },
-  { id: 105, name: "👖 COSMIC SWEATPANTS (Pre)", price: 79, image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&h=600&fit=crop", desc: "Exclusive colorway" },
-  { id: 106, name: "🩴 NIKE SLIDES FUTURA", price: 55, image: "https://images.unsplash.com/photo-1605348532760-dec5e7f2e8d0?w=600&h=600&fit=crop", desc: "Limited pre-order colorway" }
+  { id: 101, name: "👟 NIKE AIRSPACE 1s", price: 159, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop", desc: "Lunar sole" },
+  { id: 102, name: "🪐 JORDAN 4s AIR", price: 179, image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600&h=600&fit=crop", desc: "Galaxy upper" },
+  { id: 103, name: "💫 ASICS GEL-KAYANO 14", price: 139, image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop", desc: "NASA cushioning" }
 ];
-
-// EXPANDED PRESS (16 outlets)
-const allPressOutlets = [
-  { name: "Los Angeles Times", quote: "OFF WHITE™ is redefining luxury streetwear.", badge: "★ FEATURED", date: "Mar 2025" },
-  { name: "Chicago Tribune", quote: "Handcrafted backpacks are masterpieces.", badge: "✦ EDITORS' PICK", date: "Feb 2025" },
-  { name: "New York Post", quote: "Airspace 1s are the most anticipated drop.", badge: "🔥 TRENDING", date: "Apr 2025" },
-  { name: "Newsweek", quote: "Zero machines, infinite style.", badge: "★ BREAKTHROUGH", date: "Jan 2025" },
-  { name: "Time Magazine", quote: "One of the most innovative labels.", badge: "✦ BEST OF 2025", date: "Dec 2024" },
-  { name: "ABC News", quote: "From the cosmos to your closet.", badge: "📺 SPOTLIGHT", date: "Mar 2025" },
-  { name: "CBS News", quote: "Artisan leather that feels otherworldly.", badge: "📺 MORNING SHOW", date: "Feb 2025" },
-  { name: "Vogue", quote: "Celestial minimalism on the runway.", badge: "★ VOGUE", date: "Apr 2025" },
-  { name: "GQ", quote: "Sneakers you didn't know you needed.", badge: "✧ GQ EDITOR", date: "Mar 2025" },
-  { name: "Hypebeast", quote: "Space aesthetics meet premium craft.", badge: "✦ HYPEBEAST", date: "Feb 2025" },
-  { name: "Complex", quote: "Pre-order drops breaking the internet.", badge: "🔥 COMPLEX", date: "Apr 2025" },
-  { name: "Highsnobiety", quote: "The future of co-creation.", badge: "★ SELECTS", date: "Mar 2025" },
-  { name: "Forbes", quote: "Cosmic vision becomes luxury empire.", badge: "💼 FORBES", date: "Jan 2025" },
-  { name: "Bloomberg", quote: "Zero-waste meets interstellar design.", badge: "📈 BLOOMBERG", date: "Dec 2024" },
-  { name: "Elle", quote: "Perfume that smells like stardust.", badge: "✨ ELLE", date: "Apr 2025" },
-  { name: "Harper's Bazaar", quote: "Cosmic sweatpants are essential.", badge: "★ BAZAAR", date: "Mar 2025" }
-];
+const allPressOutlets = Array(12).fill().map((_,i)=> ({ name: ["Vogue","GQ","Hypebeast","Complex","Forbes","Highsnobiety","Elle","WWD"][i%8], quote: "OFF WHITE™ is redefining cosmic luxury.", badge: "★", date: "2025" }));
 
 let cart = JSON.parse(localStorage.getItem('offWhiteCart') || '[]');
 let wishlist = JSON.parse(localStorage.getItem('offWhiteWishlist') || '[]');
 let currentUser = JSON.parse(localStorage.getItem('offWhiteUser') || 'null');
 let selectedMethod = null;
-let visiblePressCount = 8;
+let visiblePressCount = 6;
 
-function saveData() { localStorage.setItem('offWhiteCart', JSON.stringify(cart)); localStorage.setItem('offWhiteWishlist', JSON.stringify(wishlist)); if(currentUser) localStorage.setItem('offWhiteUser', JSON.stringify(currentUser)); else localStorage.removeItem('offWhiteUser'); }
+function saveData() { localStorage.setItem('offWhiteCart', JSON.stringify(cart)); localStorage.setItem('offWhiteWishlist', JSON.stringify(wishlist)); if(currentUser) localStorage.setItem('offWhiteUser', JSON.stringify(currentUser)); }
 function showToast(msg) { const t = document.getElementById('toastMsg'); t.textContent = msg; t.style.opacity='1'; setTimeout(()=>t.style.opacity='0',2000); }
 
-function renderPress() {
-  const container = document.getElementById('pressGrid');
-  if(!container) return;
-  const visible = allPressOutlets.slice(0, visiblePressCount);
-  container.innerHTML = visible.map(p => `<div class="press-card"><div class="press-quote">"${p.quote}"</div><div class="press-source">${p.name} <span class="press-badge">${p.badge}</span></div><div class="press-date" style="font-size:0.7rem; color:#888; margin-top:8px;"><i class="far fa-calendar-alt"></i> ${p.date}</div></div>`).join('');
-  const btn = document.getElementById('loadMorePressBtn');
-  if(btn) btn.style.display = visiblePressCount >= allPressOutlets.length ? 'none' : 'block';
-}
-function loadMorePress() { visiblePressCount = Math.min(visiblePressCount + 6, allPressOutlets.length); renderPress(); showToast(`Loaded ${visiblePressCount} press mentions`); }
+function renderCart() { /* simplified - similar to before */ const container = document.getElementById('cartItemsContainer'); if(!container) return; if(cart.length===0){ container.innerHTML='<div style="text-align:center; padding:40px;">Cart empty</div>'; document.getElementById('cartTotalPrice').innerText='$0.00'; return; } let html=''; cart.forEach(item=>{ html+=`<div class="cart-item"><img src="${item.image}" style="width:50px;height:50px;border-radius:12px;"><div><b>${item.name}</b><br>$${item.price} x${item.quantity}<br><button class="cart-remove-btn" data-id="${item.id}" style="background:none; color:#FF5555;">remove</button></div></div>`; }); container.innerHTML=html; document.getElementById('cartTotalPrice').innerText=`$${cart.reduce((s,i)=>s+i.price*i.quantity,0).toFixed(2)}`; document.querySelectorAll('.cart-remove-btn').forEach(btn=>btn.addEventListener('click',()=>{ cart=cart.filter(i=>i.id!==parseInt(btn.dataset.id)); updateCounters(); saveData(); renderCart(); })); }
+function renderWishlist() { const c=document.getElementById('wishlistItemsContainer'); if(!c) return; if(wishlist.length===0){ c.innerHTML='<div style="padding:40px; text-align:center;">Empty</div>'; return; } let html=''; wishlist.forEach(w=>{ html+=`<div><img src="${w.image}" width="50"><br>${w.name}<br><button class="wishlist-add-cart" data-id="${w.id}">Add to Cart</button></div>`; }); c.innerHTML=html; document.querySelectorAll('.wishlist-add-cart').forEach(btn=>btn.addEventListener('click',()=>{ addToCartById(parseInt(btn.dataset.id)); removeFromWishlist(parseInt(btn.dataset.id)); })); }
+function addToCartById(id){ const all=[...storeProducts,...preorderProducts]; const p=all.find(p=>p.id===id); if(p){ const ex=cart.find(i=>i.id===id); if(ex) ex.quantity++; else cart.push({...p,quantity:1}); updateCounters(); saveData(); showToast(`${p.name} added`); } }
+function updateCounters(){ document.getElementById('cartCount').innerText=cart.reduce((s,i)=>s+i.quantity,0); document.getElementById('wishlistCount').innerText=wishlist.length; renderCart(); renderWishlist(); }
+function addToWishlist(p){ if(!wishlist.find(w=>w.id===p.id)){ wishlist.push(p); updateCounters(); saveData(); showToast(`❤️ Saved`); } }
+function removeFromWishlist(id){ wishlist=wishlist.filter(w=>w.id!==id); updateCounters(); saveData(); }
+function renderProducts(containerId, list){ const c=document.getElementById(containerId); if(!c) return; c.innerHTML=''; list.forEach(p=>{ const inWish=wishlist.some(w=>w.id===p.id); c.innerHTML+=`<div class="product-card"><div class="product-img"><img src="${p.image}"></div><div class="product-info"><div class="product-title">${p.name}</div><div class="product-price">$${p.price}</div><button class="add-to-cart" data-id="${p.id}">ADD TO CART</button></div><button class="wishlist-btn" data-id="${p.id}"><i class="fas fa-heart" style="color:${inWish?'#FF3366':'#888'}"></i></button></div>`; }); document.querySelectorAll(`#${containerId} .add-to-cart`).forEach(btn=>btn.addEventListener('click',()=>addToCartById(parseInt(btn.dataset.id)))); document.querySelectorAll(`#${containerId} .wishlist-btn`).forEach(btn=>btn.addEventListener('click',()=>{ const id=parseInt(btn.dataset.id); const all=[...storeProducts,...preorderProducts]; const prod=all.find(p=>p.id===id); if(prod){ if(wishlist.find(w=>w.id===id)) removeFromWishlist(id); else addToWishlist(prod); renderProducts(containerId, list); } })); }
 
-function updateCounters() {
-  document.getElementById('cartCount').innerText = cart.reduce((s,i)=>s+i.quantity,0);
-  document.getElementById('wishlistCount').innerText = wishlist.length;
-  renderCart();
-  renderWishlist();
-}
+function showShipping(){ const subtotal=cart.reduce((s,i)=>s+i.price*i.quantity,0); const items=cart.map(i=>`${i.name} x${i.quantity}`).join(', '); document.getElementById('shippingDetailsGrid').innerHTML=`<div class="detail-card"><div class="detail-label">ORDER</div><div>#OW${Math.floor(Math.random()*100000)}</div></div><div class="detail-card"><div class="detail-label">TOTAL</div><div>$${subtotal.toFixed(2)}</div></div><div class="detail-card"><div class="detail-label">ITEMS</div><div>${items}</div></div><div class="detail-card"><div class="detail-label">SHIP TO</div><div>${currentUser?.address||'Cosmic Hub'}</div></div>`; switchPage('shipping'); }
 
-function renderCart() {
-  const container = document.getElementById('cartItemsContainer');
-  const totalSpan = document.getElementById('cartTotalPrice');
-  if(!container) return;
-  if(cart.length===0){ container.innerHTML='<div style="text-align:center; color:#aaa; padding:40px;">Cart empty</div>'; totalSpan.innerText='$0.00'; return; }
-  let html='';
-  cart.forEach(item=>{ html+=`<div class="cart-item"><img src="${item.image}" style="width:55px;height:55px;border-radius:14px;object-fit:cover;"><div style="flex:1;"><b style="color:#00D4FF;">${item.name}</b><br>$${item.price}<br><div><button class="cart-qty-btn" data-id="${item.id}" data-delta="-1" style="background:#222; padding:4px 10px; border-radius:30px;">-</button> <span>${item.quantity}</span> <button class="cart-qty-btn" data-id="${item.id}" data-delta="1" style="background:#222; padding:4px 10px; border-radius:30px;">+</button> <button class="cart-remove-btn" data-id="${item.id}" style="background:none; color:#FF5555; cursor:pointer;">remove</button></div></div></div>`; });
-  container.innerHTML = html;
-  totalSpan.innerText = `$${cart.reduce((s,i)=>s+i.price*i.quantity,0).toFixed(2)}`;
-  document.querySelectorAll('.cart-qty-btn').forEach(btn=>btn.addEventListener('click',()=>{ const id=parseInt(btn.dataset.id), delta=parseInt(btn.dataset.delta); updateQty(id,delta); }));
-  document.querySelectorAll('.cart-remove-btn').forEach(btn=>btn.addEventListener('click',()=>{ removeFromCart(parseInt(btn.dataset.id)); }));
-}
-
-function renderWishlist() {
-  const container = document.getElementById('wishlistItemsContainer');
-  if(!container) return;
-  if(wishlist.length===0){ container.innerHTML='<div style="text-align:center; color:#aaa; padding:40px;">No saved items</div>'; return; }
-  let html='';
-  wishlist.forEach(item=>{ html+=`<div class="wishlist-item"><img src="${item.image}" style="width:55px;height:55px;border-radius:14px;object-fit:cover;"><div style="flex:1;"><b style="color:#FF3366;">${item.name}</b><br>$${item.price}<br><button class="wishlist-add-cart" data-id="${item.id}" style="background:#00D4FF20; border:1px solid #00D4FF; padding:4px 12px; border-radius:30px; cursor:pointer; margin-top:6px;">Add to Cart</button> <button class="wishlist-remove" data-id="${item.id}" style="background:none; color:#FF5555; cursor:pointer;">Remove</button></div></div>`; });
-  container.innerHTML = html;
-  document.querySelectorAll('.wishlist-add-cart').forEach(btn=>btn.addEventListener('click',()=>{ addToCartById(parseInt(btn.dataset.id), true); }));
-  document.querySelectorAll('.wishlist-remove').forEach(btn=>btn.addEventListener('click',()=>{ removeFromWishlist(parseInt(btn.dataset.id)); }));
-}
-
-function addToCartById(id, fromWishlist=false){
-  const all = [...storeProducts, ...preorderProducts];
-  const prod = all.find(p=>p.id===id);
-  if(prod){
-    const existing = cart.find(i=>i.id===prod.id);
-    if(existing) existing.quantity++;
-    else cart.push({...prod, quantity:1});
-    updateCounters(); saveData(); showToast(`${prod.name} added`);
-    if(fromWishlist) removeFromWishlist(id);
-  }
-}
-function updateQty(id, delta){
-  const idx = cart.findIndex(i=>i.id===id);
-  if(idx===-1) return;
-  const nq = cart[idx].quantity+delta;
-  if(nq<=0) cart.splice(idx,1);
-  else cart[idx].quantity=nq;
-  updateCounters(); saveData();
-}
-function removeFromCart(id){ cart=cart.filter(i=>i.id!==id); updateCounters(); saveData(); showToast("Removed"); }
-function addToWishlist(product){ if(!wishlist.find(i=>i.id===product.id)){ wishlist.push(product); updateCounters(); saveData(); showToast(`❤️ ${product.name} saved`); } else showToast("Already in wishlist"); }
-function removeFromWishlist(id){ wishlist=wishlist.filter(i=>i.id!==id); updateCounters(); saveData(); showToast("Removed from wishlist"); }
-
-function renderProducts(containerId, list){
-  const c = document.getElementById(containerId); if(!c) return;
-  c.innerHTML = '';
-  list.forEach(p=>{
-    const inWishlist = wishlist.some(w=>w.id===p.id);
-    const card = document.createElement('div'); card.className='product-card';
-    card.innerHTML = `<div class="product-img"><img src="${p.image}"></div><div class="product-info"><div class="product-title">${p.name}</div><div class="product-price">$${p.price}</div><div class="product-description" style="font-size:0.8rem; color:#aaa; margin:6px 0;">${p.desc}</div><button class="add-to-cart" data-id="${p.id}"><i class="fas fa-cart-plus"></i> ADD TO CART</button></div><button class="wishlist-btn" data-id="${p.id}"><i class="fas fa-heart" style="color:${inWishlist?'#FF3366':'#888'}"></i></button>`;
-    c.appendChild(card);
-  });
-  document.querySelectorAll(`#${containerId} .add-to-cart`).forEach(btn=>btn.addEventListener('click',()=>addToCartById(parseInt(btn.dataset.id))));
-  document.querySelectorAll(`#${containerId} .wishlist-btn`).forEach(btn=>btn.addEventListener('click',()=>{ const id=parseInt(btn.dataset.id); const all=[...storeProducts,...preorderProducts]; const prod=all.find(p=>p.id===id); if(prod){ if(wishlist.find(w=>w.id===id)) removeFromWishlist(id); else addToWishlist(prod); renderProducts(containerId, list); } }));
-}
-
-function updateAccountUI(){
-  const login=document.getElementById('loginView'), reg=document.getElementById('registerView'), prof=document.getElementById('profileView');
-  if(currentUser){
-    login.style.display='none'; reg.style.display='none'; prof.style.display='block';
-    document.getElementById('userGreeting').innerHTML=`<i class="fas fa-user"></i> Welcome, ${currentUser.name}<br><small>${currentUser.email}</small>`;
-    document.getElementById('savedAddress').innerHTML=currentUser.address || 'No address saved';
-  } else { login.style.display='block'; reg.style.display='none'; prof.style.display='none'; }
-}
-
-function showShipping(){
-  const subtotal = cart.reduce((s,i)=>s+i.price*i.quantity,0);
-  const items = cart.map(i=>`${i.name} x${i.quantity}`).join(', ');
-  const grid = document.getElementById('shippingDetailsGrid');
-  if(grid) grid.innerHTML = `<div class="detail-card"><div class="detail-label">ORDER</div><div class="detail-value">#OW${Math.floor(Math.random()*100000)}</div></div><div class="detail-card"><div class="detail-label">DATE</div><div class="detail-value">${new Date().toLocaleString()}</div></div><div class="detail-card"><div class="detail-label">ITEMS</div><div class="detail-value">${items}</div></div><div class="detail-card"><div class="detail-label">TOTAL</div><div class="detail-value">$${subtotal.toFixed(2)}</div></div><div class="detail-card"><div class="detail-label">SHIP TO</div><div class="detail-value">${currentUser?.address || 'Cosmic Hub'}</div></div><div class="detail-card"><div class="detail-label">TRACKING</div><div class="detail-value">OW-${Math.random().toString(36).substring(2,8).toUpperCase()}</div></div>`;
-  switchPage('shipping');
-}
-function processOrder(method){
+// PayPal Flow Simulation
+function openPaypalFlow() {
+  if(!currentUser){ showToast("Please login first"); document.getElementById('openAccountBtn').click(); return; }
   if(cart.length===0){ showToast("Cart empty"); return; }
-  if(!currentUser){ showToast("Please login"); document.getElementById('openAccountBtn').click(); return; }
-  showToast(`✓ Paid via ${method}`);
-  setTimeout(()=>{ showShipping(); cart=[]; updateCounters(); saveData(); document.getElementById('cartSidebar').style.transform='translateX(100%)'; },800);
+  document.getElementById('paypalModal').style.display='flex';
 }
+document.getElementById('confirmPaypalBtn')?.addEventListener('click',()=>{
+  const email = document.getElementById('paypalEmail').value;
+  if(!email){ showToast("Enter PayPal email"); return; }
+  showToast(`✓ Logged in as ${email}. Processing payment...`);
+  setTimeout(()=>{
+    document.getElementById('paypalModal').style.display='none';
+    showToast(`✓ Payment complete via PayPal Balance`);
+    setTimeout(()=>{ showShipping(); cart=[]; updateCounters(); saveData(); document.getElementById('cartSidebar').style.transform='translateX(100%)'; },500);
+  },1200);
+});
+document.getElementById('closePaypalBtn')?.addEventListener('click',()=>{ document.getElementById('paypalModal').style.display='none'; });
+document.querySelectorAll('[data-fund]').forEach(btn=>btn.addEventListener('click',()=>{ showToast(`Selected: ${btn.innerText}`); }));
 
-const pages = { home:'homePage', menu:'menuPage', press:'pressPage', missions:'missionsPage', shipping:'shippingPage', launch:'launchPage' };
-function switchPage(p) { Object.values(pages).forEach(pid=>{ const el=document.getElementById(pid); if(el) el.classList.remove('active-page'); }); document.getElementById(pages[p]).classList.add('active-page'); window.scrollTo(0,0); }
-
-function startCountdown(){ const target=new Date(); target.setDate(target.getDate()+14); setInterval(()=>{ const diff=target-new Date(); if(diff<=0){ document.getElementById('countdownTimer').innerHTML="LAUNCHED!"; return; } const d=Math.floor(diff/86400000), h=Math.floor((diff%86400000)/3600000), m=Math.floor((diff%3600000)/60000); document.getElementById('countdownTimer').innerHTML=`${d}d ${h.toString().padStart(2,'0')}h ${m.toString().padStart(2,'0')}m`; },60000); }
-
-document.getElementById('missionGrid').innerHTML = `<div class="mission-card"><div class="mission-number">M01</div><div class="mission-title">HUMAN CRAFT</div><div class="mission-desc">Every stitch by hand. Zero machines.</div></div><div class="mission-card"><div class="mission-number">M02</div><div class="mission-title">ZERO WASTE</div><div class="mission-desc">Closed-loop production</div></div><div class="mission-card"><div class="mission-number">M03</div><div class="mission-title">CO-CREATION</div><div class="mission-desc">You design, we make</div></div><div class="mission-card"><div class="mission-number">M04</div><div class="mission-title">ETHICAL SOURCING</div><div class="mission-desc">100% certified materials</div></div>`;
+const pages = { home:'homePage', menu:'menuPage', press:'pressPage', missions:'missionsPage', shipping:'shippingPage', launch:'launchPage', origins:'originsPage' };
+function switchPage(p){ Object.values(pages).forEach(pid=>{ const el=document.getElementById(pid); if(el) el.classList.remove('active-page'); }); document.getElementById(pages[p]).classList.add('active-page'); window.scrollTo(0,0); }
 
 function initEvents(){
   document.querySelectorAll('.page-link').forEach(btn=>btn.addEventListener('click',()=>{ const pg=btn.dataset.page; if(pg && pages[pg]) switchPage(pg); }));
@@ -294,29 +308,37 @@ function initEvents(){
   document.getElementById('openAccountBtn')?.addEventListener('click',()=>{ updateAccountUI(); document.getElementById('accountSidebar').style.transform='translateX(0)'; });
   document.getElementById('closeAccountBtn')?.addEventListener('click',()=>document.getElementById('accountSidebar').style.transform='translateX(100%)');
   document.getElementById('backToShopBtn')?.addEventListener('click',()=>switchPage('home'));
-  document.getElementById('loadMorePressBtn')?.addEventListener('click',loadMorePress);
-  document.querySelectorAll('.payment-btn').forEach(btn=>btn.addEventListener('click',()=>{ const m=btn.dataset.method; if(m==='card'){ document.getElementById('cardDetails').style.display='block'; selectedMethod='card'; } else { document.getElementById('cardDetails').style.display='none'; selectedMethod=m; showToast(`Selected ${m}`); } }));
-  document.getElementById('submitCardPayment')?.addEventListener('click',()=>{ const card=document.getElementById('cardNumber')?.value; if(!card||card.length<10) showToast("Valid card needed"); else processOrder('Credit Card'); });
+  document.querySelectorAll('.payment-btn').forEach(btn=>btn.addEventListener('click',()=>{ const m=btn.dataset.method; if(m==='paypal') openPaypalFlow(); else if(m==='card'){ document.getElementById('cardDetails').style.display='block'; selectedMethod='card'; } else { showToast(`Selected ${m}`); selectedMethod=m; } }));
+  document.getElementById('submitCardPayment')?.addEventListener('click',()=>{ const card=document.getElementById('cardNumber')?.value; if(!card||card.length<10) showToast("Valid card"); else processOrder('Credit Card'); });
   document.getElementById('checkoutBtn')?.addEventListener('click',()=>{ if(selectedMethod) processOrder(selectedMethod.toUpperCase()); else showToast("Select payment"); });
-  document.getElementById('doLoginBtn')?.addEventListener('click',()=>{ const email=document.getElementById('loginEmail').value, pwd=document.getElementById('loginPassword').value; const stored=JSON.parse(localStorage.getItem('offWhiteUser')||'null'); if(stored && stored.email===email && stored.password===pwd){ currentUser=stored; saveData(); updateAccountUI(); showToast(`Welcome back ${currentUser.name}`); document.getElementById('accountSidebar').style.transform='translateX(100%)'; } else showToast("Invalid credentials"); });
-  document.getElementById('doRegisterBtn')?.addEventListener('click',()=>{ const name=document.getElementById('regName').value, email=document.getElementById('regEmail').value, pwd=document.getElementById('regPassword').value, addr=document.getElementById('regAddress').value; if(name&&email&&pwd){ currentUser={name,email,password:pwd,address:addr}; saveData(); updateAccountUI(); showToast(`Welcome ${name}!`); document.getElementById('accountSidebar').style.transform='translateX(100%)'; } else showToast("Fill all fields"); });
+  function processOrder(method){ if(cart.length===0){ showToast("Cart empty"); return; } if(!currentUser){ showToast("Please login"); return; } showToast(`✓ Paid via ${method}`); setTimeout(()=>{ showShipping(); cart=[]; updateCounters(); saveData(); document.getElementById('cartSidebar').style.transform='translateX(100%)'; },800); }
+  function updateAccountUI(){ const login=document.getElementById('loginView'), reg=document.getElementById('registerView'), prof=document.getElementById('profileView'); if(currentUser){ login.style.display='none'; reg.style.display='none'; prof.style.display='block'; document.getElementById('userGreeting').innerHTML=`Welcome ${currentUser.name}<br><small>${currentUser.email}</small>`; document.getElementById('savedAddress').innerHTML=currentUser.address||'No address'; } else { login.style.display='block'; reg.style.display='none'; prof.style.display='none'; } }
+  document.getElementById('doLoginBtn')?.addEventListener('click',()=>{ const email=document.getElementById('loginEmail').value, pwd=document.getElementById('loginPassword').value; const stored=JSON.parse(localStorage.getItem('offWhiteUser')||'null'); if(stored && stored.email===email && stored.password===pwd){ currentUser=stored; saveData(); updateAccountUI(); showToast(`Welcome back`); document.getElementById('accountSidebar').style.transform='translateX(100%)'; } else showToast("Invalid"); });
+  document.getElementById('doRegisterBtn')?.addEventListener('click',()=>{ const name=document.getElementById('regName').value, email=document.getElementById('regEmail').value, pwd=document.getElementById('regPassword').value, addr=document.getElementById('regAddress').value; if(name&&email&&pwd){ currentUser={name,email,password:pwd,address:addr}; saveData(); updateAccountUI(); showToast(`Welcome ${name}!`); document.getElementById('accountSidebar').style.transform='translateX(100%)'; } else showToast("Fill all"); });
   document.getElementById('showRegisterBtn')?.addEventListener('click',()=>{ document.getElementById('loginView').style.display='none'; document.getElementById('registerView').style.display='block'; });
   document.getElementById('showLoginBtn')?.addEventListener('click',()=>{ document.getElementById('loginView').style.display='block'; document.getElementById('registerView').style.display='none'; });
-  document.getElementById('logoutBtn')?.addEventListener('click',()=>{ currentUser=null; saveData(); updateAccountUI(); showToast("Logged out"); document.getElementById('accountSidebar').style.transform='translateX(100%)'; });
+  document.getElementById('logoutBtn')?.addEventListener('click',()=>{ currentUser=null; saveData(); updateAccountUI(); showToast("Logged out"); });
 }
+function renderPress(){ const c=document.getElementById('pressGrid'); if(c) c.innerHTML=allPressOutlets.slice(0,visiblePressCount).map(p=>`<div class="press-card"><div class="press-quote">"${p.quote}"</div><div class="press-source">${p.name}</div></div>`).join(''); }
+function loadMorePress(){ visiblePressCount=Math.min(visiblePressCount+6,allPressOutlets.length); renderPress(); }
+document.getElementById('loadMorePressBtn')?.addEventListener('click',loadMorePress);
+document.getElementById('missionGrid').innerHTML=`<div class="mission-card"><div class="mission-number">M01</div><div class="mission-title">HUMAN CRAFT</div><div class="mission-desc">Zero machines, 100% soul</div></div><div class="mission-card"><div class="mission-number">M02</div><div class="mission-title">ZERO WASTE</div><div class="mission-desc">Closed-loop production</div></div>`;
+function startCountdown(){ const t=new Date(); t.setDate(t.getDate()+14); setInterval(()=>{ const d=Math.floor((t-new Date())/86400000); if(d<0) document.getElementById('countdownTimer').innerHTML="LAUNCHED!"; else document.getElementById('countdownTimer').innerHTML=`${d}d launch`; },60000); }
 
 renderPress();
 renderProducts('homeProductsGrid', storeProducts.slice(0,4));
 renderProducts('fullMenuGrid', storeProducts);
-renderProducts('teaserGrid', preorderProducts.slice(0,4));
+renderProducts('teaserGrid', preorderProducts.slice(0,3));
 updateCounters();
 initEvents();
 startCountdown();
 switchPage('home');
 
+// Particle stars
+for(let i=0;i<200;i++){ const s=document.createElement('div'); s.className='particle-star'; s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%'; s.style.width=Math.random()*3+'px'; s.style.animationDelay=Math.random()*5+'s'; document.getElementById('particleStars').appendChild(s); }
 const cd=document.getElementById('cursorDot'), co=document.getElementById('cursorOutline');
 window.addEventListener('mousemove',(e)=>{ cd.style.left=e.clientX-2+'px'; cd.style.top=e.clientY-2+'px'; co.style.left=e.clientX-16+'px'; co.style.top=e.clientY-16+'px'; });
 </script>
-<footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. @thefitlabreal | Reasonable prices, cosmic quality</p></div></footer>
+<footer><div class="container"><p>© 2025 OFF WHITE™ — Handcrafted under cosmic skies. Zero machines. Infinite soul.</p></div></footer>
 </body>
 </html>
