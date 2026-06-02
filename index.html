@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>HARD MODE | Disciples, Christ, Prophecy, Evolution, Worldviews</title>
+    <title>HARD MODE | Disciples, Jesus, Prophecy, Evolution, Ellen G. White</title>
     <style>
         * {
             box-sizing: border-box;
@@ -28,7 +28,7 @@
             padding: 25px 30px 35px;
         }
         h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-top: 0;
             margin-bottom: 6px;
             color: #1f3b1a;
@@ -37,6 +37,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap;
         }
         .badge {
             background: #b1622c;
@@ -60,7 +61,6 @@
             margin-bottom: 24px;
             box-shadow: 0 6px 14px rgba(0,0,0,0.08);
             border: 1px solid #e2d4bc;
-            transition: 0.05s linear;
         }
         .question-text {
             font-size: 1.25rem;
@@ -71,7 +71,6 @@
             padding: 10px 18px;
             border-radius: 40px;
             display: inline-block;
-            width: auto;
         }
         .options {
             display: flex;
@@ -86,9 +85,9 @@
             font-size: 0.95rem;
             text-align: left;
             cursor: pointer;
-            transition: 0.08s linear;
             font-weight: 500;
             color: #2b3b26;
+            transition: 0.08s linear;
         }
         .option-btn:hover {
             background: #efe3cf;
@@ -133,7 +132,6 @@
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 12px;
-            letter-spacing: 1px;
         }
         button.reset-btn {
             background: #b67945;
@@ -159,10 +157,6 @@
             color: #aa986b;
             margin-top: 28px;
         }
-        hr {
-            margin: 15px 0;
-            border-color: #ddd0b0;
-        }
         @media (max-width: 600px) {
             .quiz-container { padding: 18px; }
             .question-text { font-size: 1.1rem; }
@@ -171,108 +165,158 @@
 </head>
 <body>
 <div class="quiz-container" id="quizApp">
-    <h1>⚡ HARD MODE ⚡ <span class="badge">EXPERT</span></h1>
-    <div class="sub">Disciples • Life/Death of Jesus • Emmaus • Prophecies • Evolution • Cambrian • Creationism vs Humanism</div>
+    <h1>⚡ HARD MODE ⚡ <span class="badge">+ ELLEN G. WHITE</span></h1>
+    <div class="sub">Disciples • Life/Death of Jesus • Emmaus • Prophecies • Evolution • Cambrian • Creationism vs Humanism • Ellen G. White</div>
     
     <div id="questionsArea"></div>
     
     <div class="score-area" id="scoreDisplay">SCORE: 0 / 0</div>
-    <button class="reset-btn" id="resetQuizBtn">⟳ RESTART QUIZ (HARD)</button>
-    <footer>🔍 no hand-holding — tricky distractors, theology & science depth | click any answer, instant feedback</footer>
+    <button class="reset-btn" id="resetQuizBtn">⟳ RESTART QUIZ (HARD + EGW)</button>
+    <footer>🔍 includes Seventh-day Adventist prophetess Ellen G. White — theology, history, and science worldview questions</footer>
 </div>
 
 <script>
-    // ----- HARDER QUESTIONS ------
+    // ----- HARDER QUESTIONS + ELLEN G. WHITE ------
     const questions = [
-        { // 1 - disciples tricky
+        // 1 - Disciples (Emmaus)
+        {
             text: "Which two disciples were on the road to Emmaus when the risen Jesus appeared to them? (Luke 24)",
             options: ["Peter and John", "Cleopas and another unnamed disciple", "James and Andrew", "Matthew and Thomas"],
             correct: "Cleopas and another unnamed disciple",
             hint: "Luke 24:18 — one named Cleopas, the other not named."
         },
-        { // 2 - Jesus death detail
+        // 2 - Jesus death (Matthew)
+        {
             text: "At the moment Jesus died on the cross, which three supernatural events occurred according to the Gospel of Matthew?",
             options: ["Darkness, earthquake, temple veil torn", "Thunder, fire from heaven, angelic choir", "The moon turned blood, stars fell, graves opened", "Darkness, resurrection of saints, veil torn"],
             correct: "Darkness, earthquake, temple veil torn",
-            hint: "Matthew 27:51-52: veil torn, earthquake, rocks split. Also saints raised but the question asks 'three events' — darkness, earthquake, veil torn are the primary triad."
+            hint: "Matthew 27:51-52: veil torn, earthquake, rocks split. Darkness was from the 6th hour."
         },
-        { // 3 - mark of a prophet (deeper)
+        // 3 - Mark of a prophet (Deut)
+        {
             text: "According to Deuteronomy 18:20-22, the ultimate test for a prophet speaking in the LORD's name is:",
             options: ["Their moral lifestyle", "The sign or wonder comes to pass", "The prediction comes true AND they don't lead to other gods", "They must perform at least three miracles"],
             correct: "The prediction comes true AND they don't lead to other gods",
-            hint: "Deut 13:1-5 + 18:22 — even if prediction happens, but they push idolatry → false prophet. The complete mark: fulfillment AND orthodoxy."
+            hint: "Deut 13:1-5 + 18:22 — even if prediction happens, but they push idolatry → false prophet."
         },
-        { // 4 - life of Jesus (obscure event)
-            text: "In the Gospel of John, before raising Lazarus, Jesus said 'I am the resurrection and the life. Whoever believes in me, though he die, yet shall he live.' Martha responded with a specific christological confession. What did she say?",
-            options: ["You are the Christ, the Son of God", "You are the Holy One of Israel", "Yes, Lord; I believe that you are the Christ, the Son of God, who is coming into the world", "My Lord and my God"],
-            correct: "Yes, Lord; I believe that you are the Christ, the Son of God, who is coming into the world",
-            hint: "John 11:25-27 — Martha's exact confession."
+        // 4 - Ellen G. White: her role
+        {
+            text: "Ellen G. White (1827-1915) is most accurately described as:",
+            options: ["The founder of the Seventh-day Adventist Church", "A prophetess whose writings are considered a continuing and authoritative source of truth alongside the Bible", "A New Testament apostle", "A Catholic mystic"],
+            correct: "A prophetess whose writings are considered a continuing and authoritative source of truth alongside the Bible",
+            hint: "Seventh-day Adventists believe she had the 'spirit of prophecy' (Rev 12:17; 19:10). She was not the founder (James White, Joseph Bates, etc.) but a prophetess."
         },
-        { // 5 - fulfilled prophecy (advanced)
+        // 5 - EGW and the Bible
+        {
+            text: "What did Ellen G. White teach about the relationship between her writings and the Bible?",
+            options: ["Her writings replace the Bible", "The Bible is outdated; her writings are the new canon", "The Bible is the standard, and her writings are a 'lesser light' leading to the 'greater light'", "Only her writings are inspired, not the Bible"],
+            correct: "The Bible is the standard, and her writings are a 'lesser light' leading to the 'greater light'",
+            hint: "EGW wrote in 'Colporteur Ministry' p. 125: 'The Lord has seen fit to give me a lesser light to lead men and women to the greater light.'"
+        },
+        // 6 - EGW health message
+        {
+            text: "Ellen G. White's health reform writings (later part of Adventist health message) advocated for all of the following EXCEPT:",
+            options: ["Vegetarianism", "Abstinence from alcohol and tobacco", "Regular exercise and sunlight", "Mandatory veganism for salvation"],
+            correct: "Mandatory veganism for salvation",
+            hint: "EGW promoted plant-based diet but did not make it a salvation issue. She wrote 'It is no sin to eat meat' (Counsels on Diet and Foods, p. 394) in certain circumstances."
+        },
+        // 7 - EGW and creation
+        {
+            text: "Regarding the creation account in Genesis, Ellen G. White taught:",
+            options: ["Theistic evolution over millions of years", "Literal six-day, recent creation (young earth) with each day being a 24-hour evening/morning", "The days are symbolic ages", "Creation is just a myth"],
+            correct: "Literal six-day, recent creation (young earth) with each day being a 24-hour evening/morning",
+            hint: "Patriarchs and Prophets, p. 112: 'God took six days to create the earth... made in six literal days.' She rejected evolution."
+        },
+        // 8 - EGW and the Cambrian Explosion
+        {
+            text: "If Ellen G. White were asked about the Cambrian Explosion (sudden appearance of complex animal fossils), what would she most likely say based on her writings?",
+            options: ["It proves evolution", "It matches the sudden creative acts of God during creation week", "It's a hoax", "It happened millions of years before Adam"],
+            correct: "It matches the sudden creative acts of God during creation week",
+            hint: "EGW described God calling forth life suddenly, not gradually. 'Spirit of Prophecy' vol. 1, p. 70: 'He spoke... and they were created.'"
+        },
+        // 9 - Prophecy about Jesus (Zechariah)
+        {
             text: "Which specific prophecy about the Messiah's betrayal for 30 pieces of silver, and the potter's field, is cited in Matthew 27:9-10?",
             options: ["Isaiah 53", "Psalm 41", "Zechariah 11:12-13", "Jeremiah 19"],
             correct: "Zechariah 11:12-13",
-            hint: "Matthew explicitly says 'then was fulfilled what was spoken by Jeremiah the prophet' but the content matches Zechariah 11; textual scholars note Jeremiah-Zechariah composite or Jeremiah scroll order. The correct prophetic origin is Zechariah 11:12-13."
+            hint: "Matthew attributes to Jeremiah but content matches Zechariah 11:12-13."
         },
-        { // 6 - darwin & cambrian (hard nuance)
-            text: "One of the key challenges the Cambrian Explosion poses to strict Darwinian gradualism (as originally emphasized by Darwin himself in 'On the Origin of Species') is:",
-            options: ["Lack of volcanic activity", "The sudden appearance of diverse animal phyla without clear transitional precursors in older layers", "Too many transitional fossils", "The complete absence of soft-bodied organisms"],
-            correct: "The sudden appearance of diverse animal phyla without clear transitional precursors in older layers",
-            hint: "Darwin acknowledged in Chapter 9 that the abrupt appearance of major groups in the Cambrian was a difficulty for his theory."
+        // 10 - Darwin & Cambrian
+        {
+            text: "One of the key challenges the Cambrian Explosion poses to strict Darwinian gradualism is:",
+            options: ["Lack of volcanic activity", "Sudden appearance of diverse animal phyla without clear transitional precursors", "Too many transitional fossils", "Absence of soft-bodied organisms"],
+            correct: "Sudden appearance of diverse animal phyla without clear transitional precursors",
+            hint: "Darwin acknowledged in Chapter 9 that abrupt appearance of major groups was a difficulty."
         },
-        { // 7 - creationist vs humanist (worldview clash)
-            text: "A young-earth creationist and a secular humanist would disagree most fundamentally about:",
-            options: ["The age of the earth", "The mechanism of natural selection", "Whether morality is objective", "The ultimate source of reality and purpose (God vs. matter/chance)"],
-            correct: "The ultimate source of reality and purpose (God vs. matter/chance)",
-            hint: "While age & mechanism are disagreements, the root presupposition is the source of existence and meaning."
+        // 11 - EGW and evolution
+        {
+            text: "Ellen G. White explicitly rejected which of the following ideas in her writings?",
+            options: ["Natural selection within species", "The geological column", "Evolution from simple to complex over millions of years (theistic or atheistic)", "Microevolution"],
+            correct: "Evolution from simple to complex over millions of years (theistic or atheistic)",
+            hint: "EGW wrote in 'Spirit of Prophecy' vol. 3, p. 178: 'The theory of evolution is one of the fables of which Peter speaks.'"
         },
-        { // 8 - resurrection of Jesus (legal/critical)
-            text: "Which early non-Christian source (ca. 52-112 AD) mentions Jesus' execution under Pontius Pilate AND the fact that his followers worshipped him as a god 'still to this day'?",
-            options: ["Josephus (Antiquities 18.3.3)", "Tacitus (Annals 15.44)", "Pliny the Younger (Letters 10.96)", "Suetonius (Life of Claudius)"],
-            correct: "Pliny the Younger (Letters 10.96)",
-            hint: "Pliny to Trajan: Christians sing to Christ as to a god. Tacitus mentions execution but not ongoing worship. Josephus has the Testimonium Flavianum (interpolated but mentions resurrection). Pliny confirms worship 'still to this day'."
+        // 12 - EGW prophetic testing
+        {
+            text: "Which biblical test for a prophet would critics of Ellen G. White most commonly point to as problematic?",
+            options: ["Deuteronomy 18:22 — some predictions appeared to fail (e.g., some people would live to see certain events)", "Deuteronomy 13 — she led people to other gods", "She never performed miracles", "She didn't speak in first-person 'Thus says the LORD'"],
+            correct: "Deuteronomy 18:22 — some predictions appeared to fail (e.g., some people would live to see certain events)",
+            hint: "Example: she predicted some living in 1856 would not die before certain end-time events. Critics say some died before fulfillment; defenders argue conditional prophecy or time statements."
         },
-        { // 9 - disciples death tradition
-            text: "According to early church tradition (Eusebius, Tertullian), which apostle was crucified upside-down in Rome because he felt unworthy to die the same way as Jesus?",
-            options: ["Andrew", "Peter", "Philip", "Bartholomew"],
-            correct: "Peter",
-            hint: "Acts of Peter, Origen quoted by Eusebius: Peter crucified head downward."
+        // 13 - Martha's confession
+        {
+            text: "In John 11, before raising Lazarus, Martha said to Jesus:",
+            options: ["You are the Christ, the Son of God", "You are the Holy One of Israel", "Yes, Lord; I believe that you are the Christ, the Son of God, who is coming into the world", "My Lord and my God"],
+            correct: "Yes, Lord; I believe that you are the Christ, the Son of God, who is coming into the world",
+            hint: "John 11:25-27 — exact wording."
         },
-        { // 10 - Jesus' life (temple prophecy)
-            text: "Jesus prophesied the destruction of the Jerusalem temple. What did He say would happen to 'not one stone upon another'?",
-            options: ["It will be thrown down within one generation", "It will be burned by foreign armies", "It will be desecrated by the abomination of desolation", "Every stone will be toppled, not left standing"],
-            correct: "Every stone will be toppled, not left standing",
-            hint: "Mark 13:2: 'There will not be left here one stone upon another that will not be thrown down.' Fulfilled in AD 70."
+        // 14 - EGW great controversy theme
+        {
+            text: "The central theme of Ellen G. White's book 'The Great Controversy' is:",
+            options: ["The conflict between science and religion", "The cosmic battle between Christ and Satan over God's character and law", "The Protestant Reformation only", "The history of the Roman Empire"],
+            correct: "The cosmic battle between Christ and Satan over God's character and law",
+            hint: "Preface to 'The Great Controversy' describes the conflict between good and evil from heaven to earth's final restoration."
         },
-        { // 11 - cambrian & evolution (hard)
-            text: "The 'Cambrian Explosion' is problematic for strict neo-Darwinian synthesis partly because:",
-            options: ["Fossils appear in the 'wrong' order geologically", "The rate of morphological innovation required far exceeds observed rates of evolution", "DNA didn't exist yet", "It proves punctuated equilibrium wrong"],
-            correct: "The rate of morphological innovation required far exceeds observed rates of evolution",
-            hint: "Evolutionary biologists like Valentine & Erwin noted that to generate all body plans in 5-10 million years requires faster change than typically seen later."
-        },
-        { // 12 - humanism core tenet
+        // 15 - Humanism core tenet
+        {
             text: "The 1933 Humanist Manifesto I explicitly rejects which of the following?",
             options: ["Evolution", "Reason and science", "Traditional theistic supernaturalism", "Democracy"],
             correct: "Traditional theistic supernaturalism",
             hint: "Humanist Manifesto I: 'the universe is self-existing and not created' – rejects supernatural theism."
         },
-        { // 13 - emmaus deeper
+        // 16 - EGW and the sanctuary doctrine
+        {
+            text: "Ellen G. White supported the Seventh-day Adventist understanding that after 1844, Jesus began a new phase of ministry in heaven. What is that phase called?",
+            options: ["The atonement", "The cleansing of the heavenly sanctuary (Investigative Judgment)", "The outpouring of the Holy Spirit", "The sealing of the 144,000"],
+            correct: "The cleansing of the heavenly sanctuary (Investigative Judgment)",
+            hint: "Based on Daniel 8:14 and the Day of Atonement typology. EGW in 'Early Writings' and 'The Great Controversy' affirms the Investigative Judgment."
+        },
+        // 17 - Road to Emmaus
+        {
             text: "On the road to Emmaus, after Jesus explained the Scriptures, their hearts 'burned within them.' What specific Old Testament theme did Jesus likely emphasize?",
             options: ["The monarchy of David", "That the Messiah had to suffer and then enter glory", "The building of the tabernacle", "The Babylonian exile"],
             correct: "That the Messiah had to suffer and then enter glory",
             hint: "Luke 24:26: 'Ought not the Christ to have suffered these things and to enter into His glory?'"
         },
-        { // 14 - darwin himself
-            text: "In the first edition of 'On the Origin of Species', Darwin did NOT use the phrase 'survival of the fittest' (that came later from Herbert Spencer). Which phrase did he originally use?",
+        // 18 - EGW and the Sabbath
+        {
+            text: "Ellen G. White taught that the seventh-day Sabbath (Saturday) would be a final test issue. According to her, the mark of the beast (Revelation 13) is ultimately about:",
+            options: ["666", "Worshipping on Sunday instead of the biblical Sabbath", "A microchip", "The Pope's crown"],
+            correct: "Worshipping on Sunday instead of the biblical Sabbath",
+            hint: "'The Great Controversy,' chapter 25: the Sabbath vs. Sunday is the final conflict. The mark of the beast is enforced Sunday observance."
+        },
+        // 19 - Creationist vs Humanist root difference
+        {
+            text: "A young-earth creationist and a secular humanist would disagree most fundamentally about:",
+            options: ["The age of the earth", "The mechanism of natural selection", "Whether morality is objective", "The ultimate source of reality and purpose (God vs. matter/chance)"],
+            correct: "The ultimate source of reality and purpose (God vs. matter/chance)",
+            hint: "While age & mechanism are disagreements, the root presupposition is the source of existence and meaning."
+        },
+        // 20 - Darwin's original phrase
+        {
+            text: "In the first edition of 'On the Origin of Species', Darwin did NOT use the phrase 'survival of the fittest'. Which phrase did he originally use?",
             options: ["Struggle for existence", "Natural preservation", "Nature's selection", "Descent with modification"],
             correct: "Struggle for existence",
             hint: "Darwin wrote 'struggle for existence' as the driver; Spencer coined 'survival of the fittest' later."
-        },
-        { // 15 - creationist critique of cambrian
-            text: "Young-Earth creationists often point to the Cambrian Explosion as evidence for:",
-            options: ["The geologic column is completely inverted", "Life appears suddenly in a 'creation event' rather than slow gradual transformation from a single common ancestor", "All Cambrian fossils are modern animals", "Evolution requires millions of years but the Cambrian shows stasis"],
-            correct: "Life appears suddenly in a 'creation event' rather than slow gradual transformation from a single common ancestor",
-            hint: "Creationists like Stephen Meyer (intelligent design) argue the abrupt appearance fits a model of separate creative acts."
         }
     ];
 
@@ -297,11 +341,11 @@
             const status = answerStatus[i];
             let feedbackHtml = '';
             if (status === true) {
-                feedbackHtml = `<div class="correct-feedback">✅ HARDCORE CORRECT! ${q.correct} is right.<br><span style="font-size:0.8rem;">💡 ${q.hint}</span></div>`;
+                feedbackHtml = `<div class="correct-feedback">✅ CORRECT! ${q.correct}<br><span style="font-size:0.8rem;">💡 ${q.hint}</span></div>`;
             } else if (status === false) {
-                feedbackHtml = `<div class="wrong-feedback">❌ WRONG. Correct answer: <strong>${q.correct}</strong><br><span style="font-size:0.8rem;">📖 ${q.hint}</span></div>`;
+                feedbackHtml = `<div class="wrong-feedback">❌ WRONG. Correct: <strong>${q.correct}</strong><br><span style="font-size:0.8rem;">📖 ${q.hint}</span></div>`;
             } else {
-                feedbackHtml = `<div class="neutral-feedback">⚡ Click an answer — only the sharp survive</div>`;
+                feedbackHtml = `<div class="neutral-feedback">⚡ Click an answer</div>`;
             }
 
             let optionsHtml = '';
