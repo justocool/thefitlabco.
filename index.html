@@ -2,486 +2,304 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ULTIMATE EXPERT | Temptations • Herods • Birth • Baptism • Life • Death • EGW • Cambrian</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literary Terms Quiz</title>
     <style>
         * {
             box-sizing: border-box;
-            font-family: system-ui, 'Segoe UI', 'Roboto', monospace;
+            font-family: system-ui, 'Segoe UI', 'Georgia', 'Times New Roman', serif;
         }
         body {
-            background: linear-gradient(135deg, #0a1208 0%, #050a04 100%);
-            margin: 0;
-            padding: 20px;
+            background: linear-gradient(145deg, #1e2a3a 0%, #0f1a24 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            padding: 2rem 1rem;
+            margin: 0;
         }
         .quiz-container {
-            max-width: 1050px;
+            max-width: 950px;
             width: 100%;
-            background: #fef9ef;
-            border-radius: 40px;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.6);
+            background: #fef9e8;
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.3);
             overflow: hidden;
-            padding: 25px 30px 35px;
+            transition: all 0.2s;
         }
-        h1 {
-            font-size: 1.6rem;
-            margin-top: 0;
-            margin-bottom: 6px;
-            color: #1f3b1a;
-            border-left: 8px solid #b1622c;
-            padding-left: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+        .quiz-header {
+            background: #2c3e2f;
+            padding: 1.5rem 2rem;
+            color: #f7eac5;
+            border-bottom: 5px solid #e6b422;
         }
-        .badge {
-            background: #b1622c;
-            color: white;
-            font-size: 0.7rem;
-            padding: 5px 12px;
-            border-radius: 30px;
-            letter-spacing: 1px;
+        .quiz-header h1 {
+            margin: 0;
+            font-size: 1.9rem;
+            letter-spacing: -0.5px;
+            font-weight: 700;
         }
-        .sub {
-            color: #5a4a2e;
-            margin-bottom: 28px;
-            border-bottom: 2px dashed #c9b68b;
-            padding-bottom: 14px;
-            font-weight: 500;
-            font-size: 0.8rem;
+        .quiz-header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.85;
+            font-style: italic;
         }
-        .question-card {
-            background: #fffbf3;
-            border-radius: 28px;
-            padding: 18px 22px;
-            margin-bottom: 24px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-            border: 1px solid #e2d4bc;
+        .quiz-card {
+            padding: 2rem 2rem 1.5rem;
         }
         .question-text {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #2c3e2f;
-            margin-bottom: 18px;
-            background: #e9e0cf;
-            padding: 10px 18px;
-            border-radius: 40px;
-            display: inline-block;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.8rem;
+            color: #1e2f2c;
+            border-left: 6px solid #e6b422;
+            padding-left: 1rem;
         }
         .options {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 0.9rem;
+            margin-bottom: 2rem;
         }
-        .option-btn {
+        .option {
             background: #ffffff;
-            border: 2px solid #cbbf9a;
-            border-radius: 50px;
-            padding: 12px 20px;
-            font-size: 0.9rem;
-            text-align: left;
+            border: 2px solid #ddd2b0;
+            border-radius: 60px;
+            padding: 0.8rem 1.2rem;
             cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
             font-weight: 500;
-            color: #2b3b26;
-            transition: 0.08s linear;
+            color: #2c3a2b;
         }
-        .option-btn:hover {
-            background: #efe3cf;
-            border-color: #9b7a4b;
+        .option:hover {
+            background: #fff3df;
+            border-color: #c49a2b;
             transform: scale(0.99);
         }
+        .option.disabled-opt {
+            pointer-events: none;
+            opacity: 0.7;
+        }
         .correct-feedback {
-            background: #cfe8cf;
-            border-left: 8px solid #236b23;
-            color: #1b461b;
-            padding: 12px 18px;
-            margin-top: 14px;
-            border-radius: 24px;
-            font-weight: 500;
-            font-size: 0.85rem;
+            background: #ccf0d6;
+            border-left: 10px solid #2b7a3e;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            margin: 1rem 0;
+            color: #1b4d2b;
+            font-weight: bold;
         }
         .wrong-feedback {
-            background: #f4dbd6;
-            border-left: 8px solid #c23d22;
-            color: #781f0a;
-            padding: 12px 18px;
-            margin-top: 14px;
-            border-radius: 24px;
-            font-weight: 500;
-            font-size: 0.85rem;
+            background: #ffe0db;
+            border-left: 10px solid #c23b22;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            margin: 1rem 0;
+            color: #8b2c1a;
         }
-        .neutral-feedback {
-            background: #f2efdf;
-            color: #7a6233;
-            padding: 8px 18px;
-            margin-top: 12px;
-            border-radius: 24px;
-            font-size: 0.8rem;
-            font-style: italic;
-        }
-        .score-area {
-            background: #1f3b1a;
-            color: #faf0cf;
-            padding: 16px 24px;
-            border-radius: 60px;
-            text-align: center;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 12px;
-        }
-        button.reset-btn {
-            background: #b67945;
-            border: none;
+        .next-btn {
+            background: #2c3e2f;
             color: white;
-            font-size: 1rem;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            padding: 14px 28px;
-            border-radius: 44px;
+            border-radius: 60px;
             cursor: pointer;
-            width: 100%;
-            transition: 0.1s;
-            font-family: inherit;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            margin-top: 0.5rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        button.reset-btn:hover {
-            background: #925f34;
+        .next-btn:hover {
+            background: #1f2e21;
             transform: scale(0.98);
         }
-        footer {
-            font-size: 0.6rem;
-            text-align: center;
-            color: #aa986b;
-            margin-top: 28px;
+        .score-area {
+            text-align: right;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: #ece3d0;
+            padding: 0.7rem 2rem;
+            border-top: 1px solid #d8caa3;
+            color: #2c3e2f;
+        }
+        .reset-btn {
+            background: #b4652a;
+            margin-left: 1rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
         @media (max-width: 600px) {
-            .quiz-container { padding: 18px; }
-            .question-text { font-size: 1rem; }
-            .option-btn { font-size: 0.75rem; padding: 10px 12px; }
+            .quiz-card { padding: 1.5rem; }
+            .question-text { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
-<div class="quiz-container" id="quizApp">
-    <h1>🏆 ULTIMATE EXPERT 🏆 <span class="badge">COMPREHENSIVE</span></h1>
-    <div class="sub">Temptations of Jesus • The Herods • Birth • Baptism • Life • Death • Prophecy • EGW • Creation Days • Cambrian • Evolution • Worldviews</div>
-    
-    <div id="questionsArea"></div>
-    
-    <div class="score-area" id="scoreDisplay">SCORE: 0 / 0</div>
-    <button class="reset-btn" id="resetQuizBtn">⟳ RESTART QUIZ (ULTIMATE)</button>
-    <footer>📖 36 questions — temptations, Herods, birth, baptism, life, death, prophecy, EGW, creation, Cambrian, Darwin, worldviews</footer>
+<div class="quiz-container" id="quizRoot">
+    <div class="quiz-header">
+        <h1>📖 Literary Terms Challenge</h1>
+        <p>protagonist · antagonist · blank verse · iambic pentameter · aside · monologue · soliloquy · dramatic foil · dramatic irony · tragedy · theme · dramatic tragedy · tragic hero · symbol · narrative poem · repetition · refrain · rhythm</p>
+    </div>
+    <div id="quizDynamic"></div>
 </div>
 
 <script>
-    // ========== ULTIMATE EXPERT — 36 QUESTIONS ==========
+    // ----- QUIZ DATA (all requested terms included) -----
     const questions = [
-        // --- THE 3 TEMPTATIONS OF JESUS (Matthew 4 / Luke 4) ---
-        {
-            text: "In the first temptation, Satan told Jesus to turn stones into bread. How did Jesus respond?",
-            options: ["'Man shall not live by bread alone, but by every word of God'", "'Get behind me, Satan'", "'It is written again, You shall not tempt the Lord your God'", "'Worship the Lord your God, and serve Him only'"],
-            correct: "'Man shall not live by bread alone, but by every word of God'",
-            hint: "Matthew 4:4 — quoting Deuteronomy 8:3."
-        },
-        {
-            text: "In the second temptation, Satan took Jesus to the pinnacle of the temple and told Him to throw Himself down, quoting Psalm 91. Jesus responded:",
-            options: ["'Man shall not live by bread alone'", "'It is written again, You shall not tempt the Lord your God'", "'Get behind me, Satan'", "'Worship the Lord your God, and serve Him only'"],
-            correct: "'It is written again, You shall not tempt the Lord your God'",
-            hint: "Matthew 4:7 — quoting Deuteronomy 6:16."
-        },
-        {
-            text: "In the third temptation, Satan showed Jesus all the kingdoms of the world and offered them if Jesus would worship him. Jesus replied:",
-            options: ["'Man shall not live by bread alone'", "'It is written again, You shall not tempt the Lord your God'", "'Get behind me, Satan: for it is written, You shall worship the Lord your God, and Him only you shall serve'", "'Away with you, deceiver'"],
-            correct: "'Get behind me, Satan: for it is written, You shall worship the Lord your God, and Him only you shall serve'",
-            hint: "Matthew 4:10 — quoting Deuteronomy 6:13 and 10:20."
-        },
-        // --- THE HERODS IN THE BIBLE ---
-        {
-            text: "Which Herod ordered the massacre of the innocents (killing all male infants in Bethlehem) after the wise men visited?",
-            options: ["Herod Antipas", "Herod Agrippa I", "Herod the Great", "Herod Philip"],
-            correct: "Herod the Great",
-            hint: "Matthew 2:16 — Herod the Great reigned 37–4 BC. He died shortly after."
-        },
-        {
-            text: "Which Herod executed John the Baptist (beheaded him) after a dance by Herodias' daughter?",
-            options: ["Herod the Great", "Herod Archelaus", "Herod Antipas (the tetrarch)", "Herod Agrippa II"],
-            correct: "Herod Antipas (the tetrarch)",
-            hint: "Matthew 14:1-12; Mark 6:14-29. Herod Antipas ruled Galilee and Perea (4 BC – AD 39)."
-        },
-        {
-            text: "Which Herod killed the apostle James (son of Zebedee) with the sword and was later eaten by worms and died (Acts 12)?",
-            options: ["Herod Agrippa I", "Herod Antipas", "Herod the Great", "Herod Agrippa II"],
-            correct: "Herod Agrippa I",
-            hint: "Acts 12:1-23 — Herod Agrippa I (grandson of Herod the Great) killed James, imprisoned Peter, then was struck by an angel and eaten by worms."
-        },
-        {
-            text: "Which Herod heard Paul's defense in Acts 26 and said, 'You almost persuade me to become a Christian'?",
-            options: ["Herod Antipas", "Herod Agrippa I", "Herod the Great", "Herod Agrippa II"],
-            correct: "Herod Agrippa II",
-            hint: "Acts 25:13 – 26:32. Herod Agrippa II (son of Herod Agrippa I) ruled with his sister Bernice."
-        },
-        {
-            text: "Which Herodias (the wife of Herod Antipas) had previously been married to his half-brother, whom John the Baptist said was unlawful to marry?",
-            options: ["Herod the Great", "Herod Boethus", "Herod Philip (Herod II)", "Herod Archelaus"],
-            correct: "Herod Philip (Herod II)",
-            hint: "Mark 6:17 — Herodias had been married to Herod Philip (not the tetrarch of Iturea, but a half-brother)."
-        },
-        // --- BIRTH OF JESUS ---
-        {
-            text: "According to Luke 2, which Roman emperor issued the decree that a census should be taken, causing Joseph and Mary to travel to Bethlehem?",
-            options: ["Tiberius Caesar", "Augustus Caesar", "Claudius Caesar", "Nero Caesar"],
-            correct: "Augustus Caesar",
-            hint: "Luke 2:1 — 'In those days a decree went out from Caesar Augustus that all the world should be registered.'"
-        },
-        {
-            text: "Who was the governor of Syria at the time of Jesus' birth (during the census mentioned in Luke 2)?",
-            options: ["Pontius Pilate", "Cyrenius (Quirinius)", "Felix", "Festus"],
-            correct: "Cyrenius (Quirinius)",
-            hint: "Luke 2:2 — 'This was the first registration when Quirinius was governor of Syria.'"
-        },
-        {
-            text: "What specific sign did the angel give to the shepherds in the field to identify the newborn Messiah?",
-            options: ["A star over the house", "A child born in a palace", "A baby wrapped in swaddling cloths and lying in a manger", "A choir of angels singing"],
-            correct: "A baby wrapped in swaddling cloths and lying in a manger",
-            hint: "Luke 2:12 — 'You will find a baby wrapped in swaddling cloths and lying in a manger.'"
-        },
-        {
-            text: "According to Matthew 2, how many gifts did the wise men (Magi) bring to Jesus, and what were they?",
-            options: ["3 gifts: gold, frankincense, and myrrh", "2 gifts: gold and silver", "1 gift: a lamb", "4 gifts: gold, silver, spices, and cloth"],
-            correct: "3 gifts: gold, frankincense, and myrrh",
-            hint: "Matthew 2:11 — 'They offered him gifts of gold, frankincense, and myrrh.' Tradition says three wise men because of three gifts."
-        },
-        {
-            text: "Which Old Testament prophecy specifically stated that the Messiah would be born in Bethlehem (quoted in Matthew 2:6)?",
-            options: ["Isaiah 7:14", "Micah 5:2", "Jeremiah 23:5", "Zechariah 9:9"],
-            correct: "Micah 5:2",
-            hint: "Micah 5:2 — 'But you, Bethlehem Ephrathah... out of you will come one who will be ruler over Israel.' Matthew 2:6 quotes it directly."
-        },
-        // --- BAPTISM OF JESUS ---
-        {
-            text: "Who baptized Jesus in the Jordan River?",
-            options: ["John the Apostle", "John the Baptist (John the son of Zechariah)", "Philip the Evangelist", "Andrew"],
-            correct: "John the Baptist (John the son of Zechariah)",
-            hint: "Matthew 3:13-17; Mark 1:9-11; Luke 3:21-22; John 1:29-34."
-        },
-        {
-            text: "At Jesus' baptism, what specific audible event happened from heaven?",
-            options: ["Thunder and lightning", "A voice said, 'You are my beloved Son; with you I am well pleased'", "Angels sang", "A trumpet sounded"],
-            correct: "A voice said, 'You are my beloved Son; with you I am well pleased'",
-            hint: "Luke 3:22 — 'And the Holy Spirit descended... and a voice came from heaven: You are my beloved Son; with you I am well pleased.'"
-        },
-        {
-            text: "At Jesus' baptism, what visible sign accompanied the Holy Spirit's descent?",
-            options: ["A dove", "A flame of fire", "A bright cloud", "A rainbow"],
-            correct: "A dove",
-            hint: "Matthew 3:16 — 'He saw the Spirit of God descending like a dove and coming to rest on him.'"
-        },
-        {
-            text: "When John the Baptist saw Jesus coming to him, what specific words did he say? (John 1:29)",
-            options: ["'Repent, for the kingdom of heaven is at hand'", "'Behold the Lamb of God, who takes away the sin of the world'", "'Prepare the way of the Lord'", "'He must increase, I must decrease'"],
-            correct: "'Behold the Lamb of God, who takes away the sin of the world'",
-            hint: "John 1:29 — The next day John saw Jesus coming and said exactly that."
-        },
-        // --- LIFE OF JESUS (key events) ---
-        {
-            text: "At the wedding in Cana, Jesus performed His first recorded miracle. What was it?",
-            options: ["Healed a blind man", "Turned water into wine", "Multiplied loaves and fish", "Walked on water"],
-            correct: "Turned water into wine",
-            hint: "John 2:1-11 — Cana of Galilee, water turned to wine."
-        },
-        {
-            text: "Jesus famously said, 'I am the way, the truth, and the life. No one comes to the Father except through me.' In which Gospel and chapter is this found?",
-            options: ["Matthew 5", "Mark 10", "Luke 14", "John 14"],
-            correct: "John 14",
-            hint: "John 14:6 — Jesus speaking to Thomas at the Last Supper."
-        },
-        {
-            text: "Which specific miracle did Jesus perform immediately before raising Lazarus from the dead (as a sign of His power over death)?",
-            options: ["Healing the man born blind (John 9)", "Feeding the 5000", "Walking on water", "Healing the centurion's servant"],
-            correct: "Healing the man born blind (John 9)",
-            hint: "John 11 follows John 9 and 10. The blind man's healing set the stage for Lazarus."
-        },
-        {
-            text: "Jesus taught the Sermon on the Mount (Matthew 5-7). Which of these is the FIRST beatitude?",
-            options: ["Blessed are the meek", "Blessed are the poor in spirit", "Blessed are the merciful", "Blessed are the peacemakers"],
-            correct: "Blessed are the poor in spirit",
-            hint: "Matthew 5:3 — 'Blessed are the poor in spirit, for theirs is the kingdom of heaven.'"
-        },
-        // --- DEATH OF JESUS (additional detail) ---
-        {
-            text: "At the moment Jesus died, the temple veil was torn. How many layers/curtains were torn, and from which direction?",
-            options: ["The inner veil torn from top to bottom", "The outer curtain torn from bottom to top", "Both veils torn in half", "The veil remained intact"],
-            correct: "The inner veil torn from top to bottom",
-            hint: "Matthew 27:51 — 'The veil of the temple was torn in two from top to bottom.' Showing God's action, not man's."
-        },
-        {
-            text: "Which two criminals were crucified alongside Jesus (one on each side), and which one was promised paradise that day?",
-            options: ["Both were thieves; the one on the right was promised paradise", "Barabbas on one side; the repentant thief", "Two robbers; the repentant one (traditionally named Dismas) was told 'Today you will be with me in paradise'", "Two zealots; neither repented"],
-            correct: "Two robbers; the repentant one (traditionally named Dismas) was told 'Today you will be with me in paradise'",
-            hint: "Luke 23:39-43 — One thief mocked, the other said 'Remember me.' Jesus replied, 'Truly I say to you, today you will be with me in paradise.'"
-        },
-        // --- DAYS OF CREATION (continued) ---
-        {
-            text: "According to Genesis 1, what was created on Day 1?",
-            options: ["Sun and moon", "Light and the separation of light from darkness (day and night)", "Heaven and earth (the raw material)", "Dry land"],
-            correct: "Light and the separation of light from darkness (day and night)",
-            hint: "Genesis 1:3-5 — 'Let there be light... God separated the light from the darkness. God called the light Day, and the darkness Night.'"
-        },
-        {
-            text: "On Day 7 of creation week, God did what?",
-            options: ["Created fish", "Created birds", "Rested (ceased creative work) and blessed the seventh day", "Created man"],
-            correct: "Rested (ceased creative work) and blessed the seventh day",
-            hint: "Genesis 2:2-3 — 'On the seventh day God ended His work... and He rested... and blessed the seventh day and sanctified it.'"
-        },
-        // --- ELLEN G. WHITE (added detailed) ---
-        {
-            text: "Ellen G. White's first vision (December 1844) included seeing a 'straight and narrow path' leading to the New Jerusalem. What did she see on either side of the path?",
-            options: ["Angels", "A chasm or gulf", "A wall of fire", "Beautiful flowers"],
-            correct: "A chasm or gulf",
-            hint: "Early Writings, p. 14 — 'On either side of this path was a high wall of that which is called the 'straight and narrow way' ... but many were 'turning off' into the chasm.'"
-        },
-        {
-            text: "Which prominent Adventist pioneer was present when Ellen White received her first vision, who later became her husband?",
-            options: ["Joseph Bates", "James White", "Hiram Edson", "J.N. Andrews"],
-            correct: "James White",
-            hint: "James White was present in the December 1844 meeting. They married in 1846."
-        },
-        // --- CAMBRIAN & DARWIN (advanced) ---
-        {
-            text: "The Burgess Shale (in British Columbia) is a famous Cambrian fossil site known for:",
-            options: ["Dinosaur bones", "Soft-bodied preservation of bizarre creatures like Hallucigenia, Opabinia, and Anomalocaris", "The first fish", "Human footprints"],
-            correct: "Soft-bodied preservation of bizarre creatures like Hallucigenia, Opabinia, and Anomalocaris",
-            hint: "The Burgess Shale (508 million years ago) preserved soft parts, revealing the diversity of Cambrian life."
-        },
-        {
-            text: "Stephen Jay Gould's book 'Wonderful Life' (1989) argued that the Cambrian Explosion shows:",
-            options: ["Evolution is always slow and gradual", "Contingency — if you rewound the tape of life, humans would not necessarily evolve", "That creationism is correct", "That Darwin was completely wrong about everything"],
-            correct: "Contingency — if you rewound the tape of life, humans would not necessarily evolve",
-            hint: "Gould's key thesis: the Burgess Shale shows many body plans that went extinct. Replaying evolution would produce different outcomes."
-        },
-        // --- PROPHECY FULFILLED (more detail) ---
-        {
-            text: "Psalm 34:20 says 'He keeps all his bones; not one of them is broken.' Which Gospel explicitly notes that Jesus' legs were NOT broken at the crucifixion, fulfilling this prophecy?",
-            options: ["Matthew", "Mark", "Luke", "John"],
-            correct: "John",
-            hint: "John 19:31-37 — The soldiers broke the legs of the two thieves but when they came to Jesus, He was already dead, so they did not break His legs. 'These things happened so that the scripture would be fulfilled: 'Not one of his bones will be broken.'"
-        },
-        {
-            text: "Zechariah 12:10 says 'They will look on me whom they have pierced.' Which Gospel records the soldier piercing Jesus' side with a spear, fulfilling this?",
-            options: ["Matthew", "Mark", "Luke", "John"],
-            correct: "John",
-            hint: "John 19:34-37 — 'One of the soldiers pierced his side with a spear... These things happened so that the scripture would be fulfilled...'"
-        },
-        // --- WORLDVIEWS (detailed) ---
-        {
-            text: "Theistic evolution (evolutionary creation) holds that:",
-            options: ["God created in six 24-hour days", "God used evolutionary processes over millions of years to create life, guiding the process", "There is no God", "Evolution is false"],
-            correct: "God used evolutionary processes over millions of years to create life, guiding the process",
-            hint: "Theistic evolution accepts common descent and deep time but sees God as the originator and sustainer of the process."
-        },
-        {
-            text: "Old-Earth Creationism (progressive creation) differs from Young-Earth Creationism primarily by:",
-            options: ["Rejecting the Bible entirely", "Accepting billions of years for Earth's history but rejecting common descent; God created in 'days' that represent long ages or created progressively", "Believing in reincarnation", "Following Darwin completely"],
-            correct: "Accepting billions of years for Earth's history but rejecting common descent; God created in 'days' that represent long ages or created progressively",
-            hint: "Old-earth creationists (e.g., Hugh Ross) accept deep time but reject macroevolution. Days of Genesis are long periods or God created in stages."
-        },
-        // --- EXTRA: Jesus' life events ---
-        {
-            text: "At the Transfiguration, which two Old Testament figures appeared with Jesus?",
-            options: ["Abraham and Isaac", "Moses and Elijah", "David and Solomon", "Isaiah and Jeremiah"],
-            correct: "Moses and Elijah",
-            hint: "Matthew 17:3 — 'Moses and Elijah appeared to them, talking with Jesus.'"
-        },
-        {
-            text: "Jesus cleansed the temple twice. The second cleansing (during Passion Week) included Him saying:",
-            options: ["'My house shall be called a house of prayer, but you have made it a den of thieves'", "'Destroy this temple and in three days I will raise it'", "'It is finished'", "'I am the good shepherd'"],
-            correct: "'My house shall be called a house of prayer, but you have made it a den of thieves'",
-            hint: "Matthew 21:12-13 — quoting Isaiah 56:7 and Jeremiah 7:11."
-        }
+        { text: "Which term refers to the main character or leading figure in a story?", options: ["Antagonist", "Protagonist", "Tragic hero", "Dramatic foil"], correct: "Protagonist" },
+        { text: "What do we call a character who actively opposes or conflicts with the protagonist?", options: ["Foil", "Antagonist", "Villain", "Narrator"], correct: "Antagonist" },
+        { text: "Unrhymed poetry written in iambic pentameter is known as:", options: ["Free verse", "Blank verse", "Narrative poem", "Refrain"], correct: "Blank verse" },
+        { text: "What metrical pattern consists of five iambic feet (da-DUM da-DUM da-DUM da-DUM da-DUM)?", options: ["Trochaic tetrameter", "Anapestic trimeter", "Iambic pentameter", "Dactylic hexameter"], correct: "Iambic pentameter" },
+        { text: "A metrical foot with an unstressed syllable followed by a stressed syllable (da-DUM) is called an:", options: ["Trochee", "Spondee", "Anapest", "Iamb"], correct: "Iamb" },
+        { text: "In drama, a short remark spoken by a character to the audience, unheard by other characters, is an:", options: ["Aside", "Monologue", "Soliloquy", "Dialogue"], correct: "Aside" },
+        { text: "A long speech by one character addressing other characters on stage is a:", options: ["Soliloquy", "Monologue", "Aside", "Repetition"], correct: "Monologue" },
+        { text: "A speech given by a character alone on stage, revealing inner thoughts, is a:", options: ["Monologue", "Soliloquy", "Dramatic irony", "Refrain"], correct: "Soliloquy" },
+        { text: "What is a 'dramatic foil'?", options: ["A character whose traits contrast with another to highlight qualities", "A repeated line in a poem", "A type of tragic hero", "A symbolic object"], correct: "A character whose traits contrast with another to highlight qualities" },
+        { text: "When the audience knows more than the characters, creating tension or humor, it’s called:", options: ["Tragedy", "Symbolism", "Dramatic irony", "Rhythm"], correct: "Dramatic irony" },
+        { text: "A genre where the protagonist suffers a catastrophic downfall (often due to a flaw) is a:", options: ["Comedy", "Narrative poem", "Tragedy", "Dramatic foil"], correct: "Tragedy" },
+        { text: "The central idea, message, or insight about life in a literary work is its:", options: ["Theme", "Plot", "Symbol", "Rhythm"], correct: "Theme" },
+        { text: "What term describes a type of tragedy that focuses on serious, somber themes and an unhappy ending?", options: ["Dramatic tragedy", "Comic relief", "Satire", "Narrative poem"], correct: "Dramatic tragedy" },
+        { text: "A character of noble stature with a fatal flaw (hamartia) leading to their downfall is a:", options: ["Symbol", "Protagonist only", "Tragic hero", "Antagonist"], correct: "Tragic hero" },
+        { text: "An object, person, or event that represents a larger abstract idea is a:", options: ["Theme", "Symbol", "Refrain", "Iamb"], correct: "Symbol" },
+        { text: "A poem that tells a story (with plot, characters) is called a:", options: ["Blank verse", "Narrative poem", "Soliloquy", "Lyric"], correct: "Narrative poem" },
+        { text: "Repeating a word, phrase, or line for emphasis or effect is known as:", options: ["Refrain", "Repetition", "Rhythm", "Allusion"], correct: "Repetition" },
+        { text: "A repeated line, phrase, or stanza (like a chorus) in a poem or song is a:", options: ["Refrain", "Monologue", "Symbol", "Iamb"], correct: "Refrain" },
+        { text: "The pattern of stressed and unstressed syllables in a line of poetry is its:", options: ["Rhythm", "Meter specifically", "Rhythm (general term)", "Blank verse"], correct: "Rhythm" }
     ];
 
-    let answerStatus = new Array(questions.length).fill(null);
-    let selectedAnswers = new Array(questions.length).fill(null);
+    let currentIndex = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+    let quizFinished = false;
 
-    const questionsArea = document.getElementById("questionsArea");
-    const scoreDisplay = document.getElementById("scoreDisplay");
+    const quizContainer = document.getElementById("quizDynamic");
 
-    function updateScore() {
-        let correctCount = 0;
-        for (let i = 0; i < answerStatus.length; i++) {
-            if (answerStatus[i] === true) correctCount++;
-        }
-        scoreDisplay.innerText = `SCORE: ${correctCount} / ${questions.length}`;
+    function saveAnswer(questionIdx, selectedAnswer) {
+        if (quizFinished) return;
+        userAnswers[questionIdx] = selectedAnswer;
+        renderCurrentQuestion();   // re-render to show feedback immediately
     }
 
-    function renderQuestions() {
-        let html = '';
+    function goToNext() {
+        if (quizFinished) return;
+        // check if current question has been answered
+        if (userAnswers[currentIndex] === null) {
+            alert("Please select an answer before moving to the next question.");
+            return;
+        }
+        if (currentIndex + 1 < questions.length) {
+            currentIndex++;
+            renderCurrentQuestion();
+        } else {
+            // quiz completed
+            quizFinished = true;
+            renderResults();
+        }
+    }
+
+    function renderResults() {
+        let score = 0;
         for (let i = 0; i < questions.length; i++) {
-            const q = questions[i];
-            const status = answerStatus[i];
-            let feedbackHtml = '';
-            if (status === true) {
-                feedbackHtml = `<div class="correct-feedback">✅ ULTIMATE CORRECT! — ${q.correct}<br><span style="font-size:0.7rem;">📖 ${q.hint}</span></div>`;
-            } else if (status === false) {
-                feedbackHtml = `<div class="wrong-feedback">❌ INCORRECT. Answer: <strong>${q.correct}</strong><br><span style="font-size:0.7rem;">📚 ${q.hint}</span></div>`;
-            } else {
-                feedbackHtml = `<div class="neutral-feedback">🏆 Click an answer — master level</div>`;
-            }
-
-            let optionsHtml = '';
-            for (let opt of q.options) {
-                optionsHtml += `<button class="option-btn" data-qidx="${i}" data-opt="${opt.replace(/"/g, '&quot;')}">${opt}</button>`;
-            }
-
-            html += `
-                <div class="question-card">
-                    <div class="question-text">📌 ${i+1}. ${q.text}</div>
-                    <div class="options" id="options-${i}">
-                        ${optionsHtml}
-                    </div>
-                    <div id="feedback-${i}">
-                        ${feedbackHtml}
-                    </div>
+            if (userAnswers[i] === questions[i].correct) score++;
+        }
+        const percent = Math.round((score / questions.length) * 100);
+        let resultHtml = `
+            <div class="quiz-card">
+                <div class="question-text">🎉 Quiz Completed! 🎉</div>
+                <div style="background:#e9e0cb; padding:1.5rem; border-radius:2rem; text-align:center;">
+                    <p style="font-size:2rem; font-weight:bold; margin:0;">${score} / ${questions.length}</p>
+                    <p style="font-size:1.2rem;">Score: ${percent}%</p>
+                    <p style="margin-top:1rem;">✨ You’ve tested your knowledge on: protagonist, antagonist, blank verse, iambic pentameter, iamb, aside, monologue, soliloquy, dramatic foil, dramatic irony, tragedy, theme, dramatic tragedy, tragic hero, symbol, narrative poem, repetition, refrain, rhythm ✨</p>
+                    <button class="next-btn reset-btn" id="resetQuizBtn" style="background:#2c3e2f; margin-top:1rem;">⟳ Take Quiz Again</button>
                 </div>
-            `;
-        }
-        questionsArea.innerHTML = html;
-
-        for (let i = 0; i < questions.length; i++) {
-            const btns = document.querySelectorAll(`.option-btn[data-qidx="${i}"]`);
-            btns.forEach(btn => {
-                btn.removeEventListener('click', clickHandler);
-                btn.addEventListener('click', clickHandler);
-            });
-        }
-    }
-
-    function clickHandler(e) {
-        const btn = e.currentTarget;
-        const qidx = parseInt(btn.getAttribute('data-qidx'));
-        const selected = btn.getAttribute('data-opt');
-        const isCorrect = (selected === questions[qidx].correct);
-        answerStatus[qidx] = isCorrect;
-        selectedAnswers[qidx] = selected;
-        renderQuestions();
-        updateScore();
+            </div>
+            <div class="score-area">🏆 Final result</div>
+        `;
+        quizContainer.innerHTML = resultHtml;
+        document.getElementById("resetQuizBtn")?.addEventListener("click", () => resetQuiz());
     }
 
     function resetQuiz() {
-        answerStatus.fill(null);
-        selectedAnswers.fill(null);
-        renderQuestions();
-        updateScore();
+        currentIndex = 0;
+        userAnswers = new Array(questions.length).fill(null);
+        quizFinished = false;
+        renderCurrentQuestion();
     }
 
-    renderQuestions();
-    updateScore();
-    document.getElementById("resetQuizBtn").addEventListener("click", resetQuiz);
+    function renderCurrentQuestion() {
+        if (quizFinished) return;
+        const q = questions[currentIndex];
+        const selected = userAnswers[currentIndex];
+        const isAnswered = selected !== null;
+        const isCorrect = isAnswered && (selected === q.correct);
+
+        let feedbackHtml = "";
+        if (isAnswered) {
+            if (isCorrect) {
+                feedbackHtml = `<div class="correct-feedback">✅ Correct! ${q.correct} is right.</div>`;
+            } else {
+                feedbackHtml = `<div class="wrong-feedback">❌ Oops! The correct answer is: ${q.correct}.<br> <span style="font-size:0.9rem;">Review: ${q.text}</span></div>`;
+            }
+        }
+
+        let optionsHtml = "";
+        q.options.forEach(opt => {
+            let additionalClass = "";
+            let styleMod = "";
+            if (isAnswered) {
+                additionalClass = "disabled-opt";
+                if (opt === q.correct) {
+                    styleMod = 'style="background:#cbe6d0; border-color:#2b7a3e;"';
+                } else if (opt === selected && opt !== q.correct) {
+                    styleMod = 'style="background:#ffdad2; border-color:#c23b22;"';
+                } else {
+                    styleMod = 'style="opacity:0.8;"';
+                }
+            }
+            optionsHtml += `<div class="option ${additionalClass}" ${styleMod} onclick="${!isAnswered ? `saveAnswer(${currentIndex}, '${opt.replace(/'/g, "\\'")}')` : ''}">${opt}</div>`;
+        });
+
+        const total = questions.length;
+        const progress = `${currentIndex+1} / ${total}`;
+
+        const fullHtml = `
+            <div class="quiz-card">
+                <div class="question-text">${currentIndex+1}. ${q.text}</div>
+                <div class="options" id="optionsArea">
+                    ${optionsHtml}
+                </div>
+                ${feedbackHtml}
+                <div class="footer">
+                    <span style="font-weight:500;">📌 Progress: ${progress}</span>
+                    <button class="next-btn" id="nextQuestionBtn">${currentIndex+1 === total ? "Finish Quiz" : "Next →"}</button>
+                </div>
+            </div>
+            <div class="score-area">
+                ✅ answered: ${userAnswers.filter(a => a !== null).length} / ${total}
+                ${userAnswers.every(a => a !== null) && !quizFinished ? ' <button class="reset-btn" id="earlyResetBtn" style="background:#6f4f2e;">Reset</button>' : ''}
+            </div>
+        `;
+
+        quizContainer.innerHTML = fullHtml;
+
+        document.getElementById("nextQuestionBtn")?.addEventListener("click", goToNext);
+        const earlyReset = document.getElementById("earlyResetBtn");
+        if (earlyReset) earlyReset.addEventListener("click", () => resetQuiz());
+    }
+
+    // initial render
+    renderCurrentQuestion();
 </script>
 </body>
 </html>
