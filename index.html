@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Literary Terms: Master Level Challenge</title>
+    <title>Literary Terms: Definition Match (Hard Mode)</title>
     <style>
         * {
             margin: 0;
@@ -12,78 +12,75 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0b1a2e 0%, #1a2f3f 100%);
+            background: linear-gradient(145deg, #0c1a24 0%, #142830 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 2rem 1rem;
-            font-family: 'Inter', system-ui, 'Segoe UI', 'Garamond', serif;
+            font-family: 'Inter', system-ui, 'Segoe UI', 'Georgia', serif;
         }
 
-        /* Main quiz card */
-        .quiz-master {
-            max-width: 1000px;
+        .quiz-arena {
+            max-width: 1100px;
             width: 100%;
-            background: #fef7e8;
-            background-image: radial-gradient(circle at 10% 20%, rgba(230, 180, 70, 0.05) 2%, transparent 2.5%);
-            background-size: 28px 28px;
+            background: #fef7ec;
+            background-image: radial-gradient(circle at 15% 30%, rgba(200, 160, 80, 0.04) 2%, transparent 2.5%);
+            background-size: 32px 32px;
             border-radius: 2.5rem;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.45), inset 0 1px 2px rgba(255, 255, 245, 0.3);
             overflow: hidden;
-            transition: all 0.2s;
         }
 
         .quiz-header {
             background: #1e2f2c;
             padding: 1.5rem 2rem;
             border-bottom: 4px solid #e6b422;
-            color: #fef0c0;
+            color: #fffbee;
         }
 
         .quiz-header h1 {
-            font-size: 2rem;
+            font-size: 1.9rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
             display: flex;
-            align-items: center;
-            gap: 12px;
+            align-items: baseline;
             flex-wrap: wrap;
+            justify-content: space-between;
         }
 
-        .quiz-header h1 span {
-            background: #e6b422;
-            color: #1e2f2c;
-            font-size: 0.9rem;
-            padding: 0.2rem 0.9rem;
-            border-radius: 40px;
+        .badge-hard {
+            background: #b4652a;
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            font-size: 0.8rem;
             font-weight: 600;
+            color: #fae67a;
         }
 
-        .term-badge {
+        .term-strip {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.8rem;
+            gap: 0.6rem;
+            margin-top: 1rem;
             font-size: 0.7rem;
-            font-weight: 500;
-            opacity: 0.8;
-        }
-
-        .term-badge span {
-            background: #2e4a3e;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
             font-family: monospace;
         }
 
-        /* question area */
-        .quiz-body {
+        .term-strip span {
+            background: #2e4a3e;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .quiz-core {
             padding: 2rem 2rem 1.5rem;
         }
 
-        .progress-bar-container {
-            background: #e5dccb;
+        .progress-bar {
+            background: #e2d8c2;
             border-radius: 40px;
             height: 8px;
             margin-bottom: 1.8rem;
@@ -95,188 +92,171 @@
             width: 0%;
             height: 100%;
             border-radius: 40px;
-            transition: width 0.25s ease;
+            transition: width 0.2s ease;
         }
 
         .question-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.6rem;
         }
 
         .q-counter {
-            font-size: 0.8rem;
-            background: #e9e0ce;
-            padding: 0.2rem 1rem;
-            border-radius: 30px;
-            font-weight: 600;
-            color: #4a3b1c;
-        }
-
-        .difficulty {
-            font-size: 0.7rem;
-            background: #2c3e2f;
-            color: #f5e2a8;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
-        }
-
-        .question-text {
-            font-size: 1.7rem;
+            background: #e3d7bf;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
             font-weight: 700;
-            line-height: 1.3;
+            font-size: 0.85rem;
+            color: #2f412a;
+        }
+
+        .def-box {
+            background: #f3efdf;
+            border-radius: 2rem;
+            padding: 1.6rem;
             margin-bottom: 2rem;
+            border: 1px solid #e7dbbc;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02), 0 6px 12px rgba(0,0,0,0.05);
+        }
+
+        .definition-text {
+            font-size: 1.45rem;
+            font-weight: 600;
+            line-height: 1.4;
             color: #1f2e25;
-            border-left: 6px solid #e6b422;
+            font-style: normal;
+            border-left: 5px solid #e6b422;
             padding-left: 1.2rem;
         }
 
-        .options {
+        .options-grid {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin: 1.8rem 0 1.5rem;
         }
 
-        .option {
+        .opt-btn {
             background: white;
-            border: 2px solid #e2d5b6;
+            border: 2px solid #ddcfaa;
             border-radius: 60px;
-            padding: 0.9rem 1.4rem;
+            padding: 0.9rem 1.3rem;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
+            font-family: monospace;
+            letter-spacing: 0.2px;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            color: #2c3a2b;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            transition: all 0.2s;
+            color: #2b3927;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
 
-        .option:hover:not(.disabled-opt) {
-            background: #fff3e0;
-            border-color: #c68e2e;
+        .opt-btn:hover:not(.disabled-opt) {
+            background: #fff6e8;
+            border-color: #c49a2b;
             transform: scale(0.99);
         }
 
         .disabled-opt {
             cursor: default;
-            opacity: 0.85;
             pointer-events: none;
+            opacity: 0.85;
         }
 
-        .correct-highlight {
-            background: #c9f0d1 !important;
-            border-color: #2a7a3e !important;
-            position: relative;
+        .correct-opt {
+            background: #ccf0d6 !important;
+            border-color: #2b7a3e !important;
+            box-shadow: 0 0 0 1px #2b7a3e inset;
         }
 
-        .wrong-highlight {
-            background: #ffe1da !important;
-            border-color: #c23b22 !important;
+        .wrong-opt {
+            background: #ffe0d9 !important;
+            border-color: #bc3f26 !important;
             text-decoration: line-through;
             text-decoration-thickness: 1.5px;
         }
 
-        .feedback {
-            margin: 1rem 0 1.2rem;
-            padding: 1rem 1.4rem;
-            border-radius: 28px;
+        .feedback-panel {
+            background: #ede3cf;
+            border-radius: 1.5rem;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0 1rem;
             font-weight: 500;
-            line-height: 1.4;
-            font-size: 0.95rem;
         }
 
         .feedback-correct {
             background: #dff0e3;
             border-left: 8px solid #2e7d32;
-            color: #1e4a2a;
+            color: #1b4d2b;
         }
 
         .feedback-wrong {
-            background: #ffeae5;
-            border-left: 8px solid #c23b22;
-            color: #8b2c1a;
+            background: #fee9e4;
+            border-left: 8px solid #bc3f26;
+            color: #842e1a;
         }
 
-        .extra-insight {
-            font-size: 0.85rem;
-            margin-top: 0.6rem;
-            opacity: 0.8;
-            font-style: italic;
-        }
-
-        .action-buttons {
+        .action-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 0.5rem;
             flex-wrap: wrap;
             gap: 1rem;
+            margin-top: 0.5rem;
         }
 
-        .next-btn {
+        .next-button {
             background: #2c3e2f;
             border: none;
-            padding: 0.8rem 2rem;
-            font-size: 1.1rem;
+            padding: 0.8rem 2.2rem;
+            font-size: 1rem;
             font-weight: bold;
             border-radius: 60px;
             color: white;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .next-btn:hover {
+        .next-button:hover {
             background: #1f2e21;
             transform: scale(0.97);
         }
 
-        .reset-btn {
-            background: #6b4c2c;
-            padding: 0.6rem 1.5rem;
-            font-size: 0.9rem;
+        .reset-sm {
+            background: #785f3c;
+            padding: 0.5rem 1.4rem;
+            font-size: 0.85rem;
         }
 
         .score-footer {
-            background: #e7ddc6;
+            background: #e4d8be;
             padding: 0.8rem 2rem;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             font-weight: 600;
-            color: #2f3e2e;
-            border-top: 1px solid #d6c8a8;
-            font-size: 0.9rem;
-            flex-wrap: wrap;
+            color: #2f402a;
+            font-size: 0.85rem;
+            border-top: 1px solid #d4c5a2;
         }
 
         @media (max-width: 650px) {
-            .quiz-body {
-                padding: 1.5rem;
-            }
-            .question-text {
-                font-size: 1.3rem;
-            }
-            .option {
-                padding: 0.7rem 1rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        button {
-            font-family: inherit;
+            .quiz-core { padding: 1.5rem; }
+            .definition-text { font-size: 1.2rem; }
+            .opt-btn { font-size: 0.85rem; padding: 0.7rem 1rem; }
         }
     </style>
 </head>
 <body>
-<div class="quiz-master" id="masterQuiz">
+<div class="quiz-arena" id="quizApp">
     <div class="quiz-header">
-        <h1>📜 LITERARY ARSENAL <span>HARD MODE</span></h1>
-        <div class="term-badge">
+        <h1>📖 DEFINE & CONQUER <span class="badge-hard">⚡ definition → term</span></h1>
+        <div class="term-strip">
             <span>protagonist</span> <span>antagonist</span> <span>blank verse</span> <span>iambic pentameter</span>
             <span>iamb</span> <span>aside</span> <span>monologue</span> <span>soliloquy</span> <span>dramatic foil</span>
             <span>dramatic irony</span> <span>tragedy</span> <span>theme</span> <span>dramatic tragedy</span>
@@ -288,51 +268,67 @@
 </div>
 
 <script>
-    // ----- HARDER, MORE NUANCED QUESTIONS -----
+    // ----- HARD MODE: DEFINITION first, then pick correct literary term -----
     const questions = [
-        { text: "In classical drama, which character directly opposes the protagonist but may also possess noble or sympathetic qualities, making the conflict morally complex?", options: ["Villain", "Antagonist", "Dramatic foil", "Tragic figure"], correct: "Antagonist", explanation: "An antagonist opposes the protagonist, but not necessarily evil — complexity deepens the conflict." },
-        { text: "Which poetic form consists of unrhymed lines, each typically written in iambic pentameter, and is often used in Shakespeare's later plays and Milton's epics?", options: ["Free verse", "Blank verse", "Heroic couplet", "Terza rima"], correct: "Blank verse", explanation: "Blank verse = unrhymed iambic pentameter. Major dramatic & epic tool." },
-        { text: "Identify the term: a metrical foot (˘ ′) where an unstressed syllable is followed by a stressed syllable, and when repeated five times creates the most common English meter.", options: ["Trochee", "Anapest", "Iamb", "Dactyl"], correct: "Iamb", explanation: "The iamb (da-DUM) is the building block of iambic pentameter." },
-        { text: "If a character in a crowded ballroom turns toward the audience and whispers 'He will never know my true name,' while other characters keep dancing, this device is a(n):", options: ["Soliloquy", "Monologue", "Aside", "Dramatic irony"], correct: "Aside", explanation: "An aside is brief, directed to the audience, unheard by others on stage." },
-        { text: "What differentiates a soliloquy from a monologue in strict dramatic terms?", options: ["Length: soliloquy is always longer", "Presence of other characters: monologue addresses others on stage; soliloquy is spoken alone", "Soliloquy is always in verse, monologue in prose", "Monologue reveals inner thoughts; soliloquy advances plot only"], correct: "Presence of other characters: monologue addresses others on stage; soliloquy is spoken alone", explanation: "Monologue = speech to other characters. Soliloquy = alone, inner thoughts." },
-        { text: "In Othello, Iago’s cynical and manipulative nature sharply contrasts with Othello’s nobility, making Iago a classic example of a:", options: ["Tragic hero", "Symbolic antagonist", "Dramatic foil", "Narrator"], correct: "Dramatic foil", explanation: "A dramatic foil highlights traits of another character by contrast." },
-        { text: "When the audience knows that Juliet is not dead, but Romeo believes she is — creating unbearable tension — this is the essence of:", options: ["Tragic flaw", "Dramatic irony", "Foreshadowed tragedy", "Rhythm shift"], correct: "Dramatic irony", explanation: "Dramatic irony = audience knows more than the character, leading to suspense or sorrow." },
-        { text: "Aristotle's Poetics defines a genre where a noble protagonist falls from grace due to hamartia (error or flaw), evoking pity and fear. That genre is:", options: ["Epic tragedy", "Dramatic satire", "Tragedy", "Melodrama"], correct: "Tragedy", explanation: "Classical tragedy focuses on a protagonist’s downfall & catharsis." },
-        { text: "Which term describes the central, unifying idea or underlying message about life/human nature that a literary work conveys implicitly?", options: ["Motif", "Theme", "Symbolic premise", "Plot nucleus"], correct: "Theme", explanation: "Theme = abstract central insight, not just topic." },
-        { text: "A character like Macbeth — brave yet ambitious, morally conflicted, destined for destruction due to a fatal character flaw — is known as a:", options: ["Fallen protagonist", "Tragic hero", "Dramatic villain", "Heroic foil"], correct: "Tragic hero", explanation: "Tragic hero: noble stature + hamartia + catastrophic recognition." },
-        { text: "In The Great Gatsby, the green light at the end of Daisy’s dock represents Gatsby’s hopes and dreams. This recurring object is a powerful example of:", options: ["Allegory", "Symbol", "Metaphysical conceit", "Refrain"], correct: "Symbol", explanation: "Symbol = concrete object representing an abstract idea." },
-        { text: "A long poem that relates a sequence of events, such as Homer’s Odyssey or Robert Frost’s 'The Death of the Hired Man,' falls under the category of:", options: ["Lyric poetry", "Narrative poem", "Dramatic monologue", "Blank verse epic"], correct: "Narrative poem", explanation: "Narrative poems tell a story with plot and characters." },
-        { text: "The deliberate reuse of a word, phrase, or structure ('Never, never, never, never, never!' — King Lear) to create rhetorical emphasis is called:", options: ["Anaphora", "Repetition", "Refrain", "Rhyme scheme"], correct: "Repetition", explanation: "Repetition is the broad term for repeating elements for effect." },
-        { text: "In poetry, a 'refrain' is specifically defined as:", options: ["Any repeated consonant sound", "A line or stanza that repeats regularly, often at the end of stanzas", "The pattern of beats", "A sudden shift in meter"], correct: "A line or stanza that repeats regularly, often at the end of stanzas", explanation: "Refrain is a recurring phrase/line — like a chorus." },
-        { text: "The pattern of stressed and unstressed syllables that gives a poem its flow and cadence — distinct from meter which measures specific feet — is its:", options: ["Rhythm", "Prosody", "Rising meter", "Iambic flow"], correct: "Rhythm", explanation: "Rhythm = overall pattern of beats; meter = measured foot repetition." },
-        { text: "What term best describes a subgenre of tragic drama where the protagonist’s downfall results from a combination of fate, societal pressure, and personal error, usually ending in utter catastrophe?", options: ["Comedy of manners", "Domestic tragedy", "Dramatic tragedy", "Revenge tragedy"], correct: "Dramatic tragedy", explanation: "'Dramatic tragedy' is a broad term for serious plays with unhappy endings; it emphasizes stage representation of tragic events." },
-        { text: "Which literary device uses a character whose primary purpose is to highlight, through direct contrast, the distinctive qualities of another character (e.g., Laertes to Hamlet)?", options: ["Alter ego", "Dramatic foil", "Parallel protagonist", "Shadow archetype"], correct: "Dramatic foil", explanation: "Dramatic foil contrasts traits to emphasize the main character's attributes." },
-        { text: "Identify the line written in iambic pentameter: a) 'The woods decay, the woods decay and fall' b) 'Tell me not, sweet, I am unkind' c) 'Was this the face that launched a thousand ships?'", options: ["A only", "A and C", "B only", "All three"], correct: "A and C", explanation: "Both a) and c) follow da-DUM pattern five times; b) has irregular meter." },
-        { text: "In a play, when a character delivers a lengthy, emotional speech expressing inner turmoil while completely alone on stage, the correct term is:", options: ["Monologue", "Dramatic speech", "Soliloquy", "Zenith"], correct: "Soliloquy", explanation: "Soliloquy = alone on stage, voicing internal conflict." },
-        { text: "Which answer best captures the relationship between 'rhythm' and 'meter' in poetry?", options: ["They are identical concepts", "Meter is the measured pattern of feet; rhythm is the actual flow and variation", "Rhythm is only for song lyrics", "Meter is free, rhythm is strict"], correct: "Meter is the measured pattern of feet; rhythm is the actual flow and variation", explanation: "Meter is the abstract pattern; rhythm is the living performance of stresses." }
+        { definition: "The main character in a story, often the central figure who drives the action and faces conflict.", correctTerm: "Protagonist", distractors: ["Antagonist", "Tragic hero", "Dramatic foil"] },
+        { definition: "A character or force that actively opposes the main character, creating central conflict.", correctTerm: "Antagonist", distractors: ["Villain", "Foil", "Catalyst"] },
+        { definition: "Unrhymed poetry written in iambic pentameter; commonly used in Shakespeare and Milton.", correctTerm: "Blank verse", distractors: ["Free verse", "Iambic trimeter", "Heroic couplet"] },
+        { definition: "A metrical line consisting of five iambic feet (da-DUM repeated five times), the most common meter in English verse.", correctTerm: "Iambic pentameter", distractors: ["Trochaic pentameter", "Anapestic tetrameter", "Dactylic hexameter"] },
+        { definition: "A metrical foot with an unstressed syllable followed by a stressed syllable (˘ ′).", correctTerm: "Iamb", distractors: ["Trochee", "Spondee", "Anapest"] },
+        { definition: "A short remark or comment made by a character to the audience, unheard by other characters on stage.", correctTerm: "Aside", distractors: ["Soliloquy", "Monologue", "Choral interjection"] },
+        { definition: "A long speech by one character addressing other characters on stage.", correctTerm: "Monologue", distractors: ["Soliloquy", "Dialogue", "Aside"] },
+        { definition: "A speech delivered by a character alone on stage, revealing innermost thoughts and feelings to the audience.", correctTerm: "Soliloquy", distractors: ["Monologue", "Dramatic address", "Eulogy"] },
+        { definition: "A character whose traits directly contrast with those of another character, highlighting specific qualities of the protagonist.", correctTerm: "Dramatic foil", distractors: ["Alter ego", "Antagonist", "Symbolic double"] },
+        { definition: "A situation where the audience or reader knows something that a character does not, creating tension or irony.", correctTerm: "Dramatic irony", distractors: ["Situational irony", "Verbal irony", "Tragic flaw"] },
+        { definition: "A genre of drama where the protagonist suffers a catastrophic downfall, often due to a fatal flaw or external forces, evoking pity and fear.", correctTerm: "Tragedy", distractors: ["Comedy", "Tragicomedy", "Melodrama"] },
+        { definition: "The central, unifying idea or underlying message about life or human nature conveyed by a literary work.", correctTerm: "Theme", distractors: ["Motif", "Plot", "Symbolic meaning"] },
+        { definition: "A serious play or literary work that depicts the ruin or extreme suffering of the main character (a subset of tragedy, often focusing on stage representation).", correctTerm: "Dramatic tragedy", distractors: ["Revenge tragedy", "Domestic tragedy", "Aristotelian tragedy"] },
+        { definition: "A noble or virtuous character who experiences a downfall due to a tragic flaw (hamartia), fate, or both, evoking catharsis.", correctTerm: "Tragic hero", distractors: ["Byronic hero", "Fallen protagonist", "Anti-hero"] },
+        { definition: "An object, person, or event that represents a larger abstract idea or concept within a literary work.", correctTerm: "Symbol", distractors: ["Allegory", "Metaphor", "Image"] },
+        { definition: "A form of poetry that tells a story, complete with plot, characters, and setting (e.g., epics, ballads).", correctTerm: "Narrative poem", distractors: ["Lyric poem", "Ode", "Elegy"] },
+        { definition: "The repeated use of a word, phrase, sound, or structure for rhetorical effect and emphasis.", correctTerm: "Repetition", distractors: ["Anaphora", "Refrain", "Epanalepsis"] },
+        { definition: "A regularly recurring line, phrase, or stanza (like a chorus) in a poem or song.", correctTerm: "Refrain", distractors: ["Repetition", "Rhyme scheme", "Stanza break"] },
+        { definition: "The pattern of stressed and unstressed syllables in a line of poetry, creating flow and cadence; broader than strict meter.", correctTerm: "Rhythm", distractors: ["Meter", "Prosody", "Cadence"] }
     ];
 
-    let currentQIndex = 0;
-    let userSelections = new Array(questions.length).fill(null);
-    let quizCompleted = false;
+    // SHUFFLE OPTIONS for each question (distractors + correct term, random order)
+    function buildShuffledOptions(q) {
+        let opts = [q.correctTerm, ...q.distractors];
+        for (let i = opts.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [opts[i], opts[j]] = [opts[j], opts[i]];
+        }
+        return opts;
+    }
+
+    // Precompute randomized options for each question (keep consistent across renders, but reset on restart)
+    let randomizedOptions = [];
+
+    function initRandomizedOptions() {
+        randomizedOptions = questions.map(q => buildShuffledOptions(q));
+    }
+
+    let currentIndex = 0;
+    let userAnswers = new Array(questions.length).fill(null);   // stores the selected term string
+    let quizFinished = false;
 
     const container = document.getElementById("quizDynamicContent");
 
-    function saveAnswer(idx, selectedOpt) {
-        if (quizCompleted) return;
-        if (userSelections[idx] !== null) return; // already answered, no changes
-        userSelections[idx] = selectedOpt;
+    function saveAnswer(questionIdx, selectedTerm) {
+        if (quizFinished) return;
+        if (userAnswers[questionIdx] !== null) return; // already answered, keep locked
+        userAnswers[questionIdx] = selectedTerm;
         renderCurrentQuestion();
     }
 
     function goToNext() {
-        if (quizCompleted) return;
-        if (userSelections[currentQIndex] === null) {
-            alert("⚡ HARD MODE demands an answer! Select an option before proceeding.");
+        if (quizFinished) return;
+        if (userAnswers[currentIndex] === null) {
+            alert("⚠️ You must select a literary term that matches the definition before moving on.");
             return;
         }
-        if (currentQIndex + 1 < questions.length) {
-            currentQIndex++;
+        if (currentIndex + 1 < questions.length) {
+            currentIndex++;
             renderCurrentQuestion();
         } else {
             finishQuiz();
@@ -340,111 +336,120 @@
     }
 
     function finishQuiz() {
-        quizCompleted = true;
+        quizFinished = true;
         let score = 0;
         for (let i = 0; i < questions.length; i++) {
-            if (userSelections[i] === questions[i].correct) score++;
+            if (userAnswers[i] && userAnswers[i].toLowerCase() === questions[i].correctTerm.toLowerCase()) {
+                score++;
+            }
         }
-        const percentage = Math.round((score / questions.length) * 100);
-        let feedbackColor = percentage >= 80 ? "🎓 Scholarly!" : (percentage >= 60 ? "📘 Solid" : "⚔️ Retrain");
-        let resultHTML = `
-            <div class="quiz-body">
-                <div class="progress-bar-container"><div class="progress-fill" style="width:100%"></div></div>
-                <div style="background:#e9e0cb; border-radius: 2rem; padding: 2rem; text-align: center;">
-                    <h2 style="font-size:2rem;">🏆 FINAL SCORE: ${score} / ${questions.length}</h2>
-                    <p style="font-size:1.2rem; margin: 0.5rem 0;">Accuracy: ${percentage}% — ${feedbackColor}</p>
-                    <p style="margin: 1rem 0 0.5rem; font-weight:500;">✦ Tested on: protagonist, antagonist, blank verse, iambic pentameter, iamb, aside, monologue, soliloquy, dramatic foil, dramatic irony, tragedy, theme, dramatic tragedy, tragic hero, symbol, narrative poem, repetition, refrain, rhythm ✦</p>
-                    <button class="next-btn reset-btn" id="hardReset" style="background:#4a3922; margin-top:1.5rem;">⟳ RESTART MASTER QUIZ</button>
+        const percent = Math.round((score / questions.length) * 100);
+        let verdict = percent >= 85 ? "🏅 LITERARY MASTER" : (percent >= 65 ? "📘 SCHOLAR" : "⚔️ NEEDS REVISION");
+        let resultHtml = `
+            <div class="quiz-core">
+                <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+                <div style="background:#ece1cb; border-radius: 2rem; padding: 2rem; text-align: center;">
+                    <h2 style="font-size:2rem; letter-spacing:-0.5px;">${score} / ${questions.length}</h2>
+                    <p style="font-size:1.3rem; font-weight:600;">Accuracy: ${percent}% — ${verdict}</p>
+                    <p style="margin-top:1rem; background:#dacdae; display:inline-block; padding:0.4rem 1.2rem; border-radius:40px;">✅ all terms: protagonist, aside, blank verse, iambic pentameter, soliloquy, dramatic foil, symbol, refrain, rhythm ...</p>
+                    <div style="margin-top: 1.8rem;">
+                        <button class="next-button reset-sm" id="fullResetBtn" style="background:#4f3a24;">⟳ RESTART QUIZ (DEFINITION MODE)</button>
+                    </div>
                 </div>
             </div>
-            <div class="score-footer">🔥 Hard Mode conquered — literary arsenal ready</div>
+            <div class="score-footer">🎯 hard mode: definition → literary term | mastery challenge</div>
         `;
-        container.innerHTML = resultHTML;
-        document.getElementById("hardReset")?.addEventListener("click", () => resetQuiz());
+        container.innerHTML = resultHtml;
+        document.getElementById("fullResetBtn")?.addEventListener("click", () => resetQuiz());
     }
 
     function resetQuiz() {
-        currentQIndex = 0;
-        userSelections = new Array(questions.length).fill(null);
-        quizCompleted = false;
+        currentIndex = 0;
+        userAnswers = new Array(questions.length).fill(null);
+        quizFinished = false;
+        initRandomizedOptions();   // reshuffle options for new attempt (harder!)
         renderCurrentQuestion();
     }
 
     function renderCurrentQuestion() {
-        if (quizCompleted) return;
-        const q = questions[currentQIndex];
-        const selected = userSelections[currentQIndex];
+        if (quizFinished) return;
+        const q = questions[currentIndex];
+        const currentOptions = randomizedOptions[currentIndex];
+        const selected = userAnswers[currentIndex];
         const isAnswered = selected !== null;
-        const isCorrect = isAnswered && (selected === q.correct);
+        const isCorrect = isAnswered && (selected.toLowerCase() === q.correctTerm.toLowerCase());
 
         let feedbackHtml = "";
         if (isAnswered) {
             if (isCorrect) {
-                feedbackHtml = `<div class="feedback feedback-correct">✅ CORRECT. ${q.explanation || "Excellent grasp."}</div>`;
+                feedbackHtml = `<div class="feedback-panel feedback-correct">✅ CORRECT. "${q.correctTerm}" precisely matches the definition.</div>`;
             } else {
-                feedbackHtml = `<div class="feedback feedback-wrong">❌ INCORRECT. Correct term: <strong>${q.correct}</strong>.<br><span class="extra-insight">📖 ${q.explanation || "Review this concept."}</span></div>`;
+                feedbackHtml = `<div class="feedback-panel feedback-wrong">❌ INCORRECT. The definition belongs to <strong>${q.correctTerm}</strong>.<br><span style="font-size:0.85rem; display:inline-block; margin-top:0.4rem;">✏️ Review: ${q.definition}</span></div>`;
             }
         }
 
         let optionsHtml = "";
-        q.options.forEach(opt => {
-            let extraClass = "";
-            let inlineStyle = "";
+        currentOptions.forEach(optTerm => {
+            let additionalClasses = "";
+            let clickHandler = "";
             if (isAnswered) {
-                extraClass = "disabled-opt";
-                if (opt === q.correct) {
-                    extraClass += " correct-highlight";
+                additionalClasses = "disabled-opt";
+                if (optTerm.toLowerCase() === q.correctTerm.toLowerCase()) {
+                    additionalClasses += " correct-opt";
                 }
-                if (opt === selected && opt !== q.correct) {
-                    extraClass += " wrong-highlight";
+                if (selected === optTerm && optTerm !== q.correctTerm) {
+                    additionalClasses += " wrong-opt";
                 }
+                clickHandler = ""; // no click
+            } else {
+                clickHandler = `onclick="saveAnswer(${currentIndex}, '${optTerm.replace(/'/g, "\\'")}')"`;
             }
-            optionsHtml += `<div class="option ${extraClass}" style="${inlineStyle}" onclick="${!isAnswered ? `saveAnswer(${currentQIndex}, '${opt.replace(/'/g, "\\'")}')` : ''}">${opt}</div>`;
+            optionsHtml += `<div class="opt-btn ${additionalClasses}" ${clickHandler}>📖 ${optTerm}</div>`;
         });
 
-        const totalQuestions = questions.length;
-        const answeredCount = userSelections.filter(v => v !== null).length;
-        const progressPercent = ((currentQIndex) / totalQuestions) * 100;
-
-        // Additional subtle nuance: sometimes present dramatic irony fact
-        const isLast = currentQIndex + 1 === totalQuestions;
+        const total = questions.length;
+        const answeredCount = userAnswers.filter(v => v !== null).length;
+        const progressPercent = ((currentIndex) / total) * 100;
 
         const mainHtml = `
-            <div class="quiz-body">
-                <div class="progress-bar-container">
+            <div class="quiz-core">
+                <div class="progress-bar">
                     <div class="progress-fill" style="width: ${progressPercent}%"></div>
                 </div>
                 <div class="question-header">
-                    <span class="q-counter">Q${currentQIndex+1}/${totalQuestions}</span>
-                    <span class="difficulty">⚡ hard • nuance</span>
+                    <span class="q-counter">🔖 term ${currentIndex+1} of ${total}</span>
+                    <span style="font-size:0.7rem; background:#d8cbad; padding:0.2rem 0.8rem; border-radius:30px;">match definition → term</span>
                 </div>
-                <div class="question-text">${q.text}</div>
-                <div class="options" id="optionsGrid">
+                <div class="def-box">
+                    <div class="definition-text">“${q.definition}”</div>
+                </div>
+                <div class="options-grid" id="optionsContainer">
                     ${optionsHtml}
                 </div>
                 ${feedbackHtml}
-                <div class="action-buttons">
-                    <span style="font-size:0.85rem; background:#e7dbc4; padding:0.3rem 1rem; border-radius:20px;">📌 answered: ${answeredCount}/${totalQuestions}</span>
-                    <button class="next-btn" id="nextActionBtn">${isLast ? "✔ FINISH & SCORE" : "NEXT →"}</button>
+                <div class="action-bar">
+                    <span style="background:#e9deca; padding:0.2rem 1rem; border-radius:40px;">📌 answered: ${answeredCount}/${total}</span>
+                    <button class="next-button" id="nextBtnAction">${currentIndex+1 === total ? "🏁 SUBMIT QUIZ" : "NEXT →"}</button>
                 </div>
                 <div style="margin-top: 1rem; text-align: right;">
-                    <button class="next-btn reset-btn" id="resetDuringQuiz" style="background:#79553a; font-size:0.8rem; padding:0.4rem 1.2rem;">⟳ Reset Quiz</button>
+                    <button class="next-button reset-sm" id="resetMidQuiz" style="background:#755f3a;">⟳ Reset All</button>
                 </div>
             </div>
             <div class="score-footer">
-                <span>🎭 dramatic irony • tragic hero • symbol • rhythm • refrain</span>
-                <span>🏅 ${answeredCount} completed</span>
+                <span>⚡ protagonist · aside · soliloquy · blank verse · tragic hero · dramatic irony · refrain</span>
+                <span>🔍 ${answeredCount} definitions matched</span>
             </div>
         `;
 
         container.innerHTML = mainHtml;
-        const nextBtn = document.getElementById("nextActionBtn");
+        const nextBtn = document.getElementById("nextBtnAction");
         if (nextBtn) nextBtn.addEventListener("click", goToNext);
-        const resetBtn = document.getElementById("resetDuringQuiz");
-        if (resetBtn) resetBtn.addEventListener("click", () => resetQuiz());
+        const resetMid = document.getElementById("resetMidQuiz");
+        if (resetMid) resetMid.addEventListener("click", () => resetQuiz());
     }
 
-    // initial render
+    // initial shuffle and render
+    initRandomizedOptions();
     renderCurrentQuestion();
 </script>
 </body>
