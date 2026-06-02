@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Faith & Science Quiz | Disciples, Jesus, Prophecy, Evolution</title>
+    <title>HARD MODE | Disciples, Christ, Prophecy, Evolution, Worldviews</title>
     <style>
         * {
             box-sizing: border-box;
-            font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+            font-family: system-ui, 'Segoe UI', 'Roboto', monospace;
         }
         body {
-            background: linear-gradient(145deg, #f5f2e8 0%, #e8e2d0 100%);
+            background: linear-gradient(135deg, #1a2a1f 0%, #0f1a0e 100%);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -19,235 +19,263 @@
             min-height: 100vh;
         }
         .quiz-container {
-            max-width: 850px;
+            max-width: 950px;
             width: 100%;
-            background: #fffef7;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.2), 0 5px 12px rgba(0,0,0,0.1);
+            background: #fef9ef;
+            border-radius: 40px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.4);
             overflow: hidden;
-            padding: 25px 28px 35px;
-            transition: 0.2s;
+            padding: 25px 30px 35px;
         }
         h1 {
             font-size: 2rem;
             margin-top: 0;
-            margin-bottom: 0.25rem;
-            color: #2c3e2f;
-            border-left: 8px solid #c49a6c;
+            margin-bottom: 6px;
+            color: #1f3b1a;
+            border-left: 8px solid #b1622c;
             padding-left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .badge {
+            background: #b1622c;
+            color: white;
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 30px;
+            letter-spacing: 1px;
         }
         .sub {
-            color: #5e5a4c;
+            color: #5a4a2e;
             margin-bottom: 28px;
-            font-style: italic;
-            border-bottom: 1px solid #ddd8c8;
-            padding-bottom: 12px;
+            border-bottom: 2px dashed #c9b68b;
+            padding-bottom: 14px;
+            font-weight: 500;
         }
         .question-card {
-            background: #fefaf2;
-            border-radius: 32px;
-            padding: 20px 24px;
-            margin-bottom: 28px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.03);
-            border: 1px solid #e7dfcf;
+            background: #fffbf3;
+            border-radius: 28px;
+            padding: 18px 22px;
+            margin-bottom: 24px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+            border: 1px solid #e2d4bc;
+            transition: 0.05s linear;
         }
         .question-text {
-            font-size: 1.35rem;
-            font-weight: 600;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: #2c3e2f;
-            margin-bottom: 20px;
-            background: #fff2e0;
-            padding: 12px 18px;
-            border-radius: 60px;
+            margin-bottom: 18px;
+            background: #e9e0cf;
+            padding: 10px 18px;
+            border-radius: 40px;
             display: inline-block;
             width: auto;
         }
         .options {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
         .option-btn {
             background: #ffffff;
-            border: 2px solid #d6ccb2;
-            border-radius: 60px;
+            border: 2px solid #cbbf9a;
+            border-radius: 50px;
             padding: 12px 20px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-align: left;
             cursor: pointer;
-            transition: 0.1s linear;
+            transition: 0.08s linear;
             font-weight: 500;
-            color: #2c3e2f;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            color: #2b3b26;
         }
         .option-btn:hover {
-            background: #f5efe2;
-            border-color: #b28b5e;
+            background: #efe3cf;
+            border-color: #9b7a4b;
             transform: scale(0.99);
         }
         .correct-feedback {
-            background: #d4e6d1;
-            border-left: 8px solid #2f6b2f;
-            color: #1e4a1e;
+            background: #cfe8cf;
+            border-left: 8px solid #236b23;
+            color: #1b461b;
             padding: 12px 18px;
-            margin-top: 16px;
-            border-radius: 28px;
+            margin-top: 14px;
+            border-radius: 24px;
             font-weight: 500;
-        }
-        .wrong-feedback {
-            background: #ffe1de;
-            border-left: 8px solid #bc5a4c;
-            color: #8b2c1e;
-            padding: 12px 18px;
-            margin-top: 16px;
-            border-radius: 28px;
-        }
-        .neutral-feedback {
-            background: #f0efea;
-            color: #6b5a3e;
-            padding: 8px 18px;
-            margin-top: 10px;
-            border-radius: 28px;
             font-size: 0.9rem;
         }
-        hr {
-            margin: 20px 0;
-            border-color: #e2d8c4;
+        .wrong-feedback {
+            background: #f4dbd6;
+            border-left: 8px solid #c23d22;
+            color: #781f0a;
+            padding: 12px 18px;
+            margin-top: 14px;
+            border-radius: 24px;
+            font-weight: 500;
+        }
+        .neutral-feedback {
+            background: #f2efdf;
+            color: #7a6233;
+            padding: 8px 18px;
+            margin-top: 12px;
+            border-radius: 24px;
+            font-size: 0.85rem;
+            font-style: italic;
         }
         .score-area {
-            background: #2c3e2f;
-            color: #fef5e6;
-            padding: 15px 24px;
-            border-radius: 100px;
+            background: #1f3b1a;
+            color: #faf0cf;
+            padding: 16px 24px;
+            border-radius: 60px;
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
-            margin-top: 15px;
-            margin-bottom: 10px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
         }
         button.reset-btn {
-            background: #c49a6c;
+            background: #b67945;
             border: none;
             color: white;
             font-size: 1.1rem;
             font-weight: bold;
-            padding: 12px 28px;
-            border-radius: 40px;
+            padding: 14px 28px;
+            border-radius: 44px;
             cursor: pointer;
             width: 100%;
             transition: 0.1s;
-            margin-top: 10px;
             font-family: inherit;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         button.reset-btn:hover {
-            background: #a57c52;
+            background: #925f34;
             transform: scale(0.98);
         }
         footer {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-align: center;
-            color: #8f886c;
-            margin-top: 30px;
+            color: #aa986b;
+            margin-top: 28px;
         }
-        @media (max-width: 550px) {
+        hr {
+            margin: 15px 0;
+            border-color: #ddd0b0;
+        }
+        @media (max-width: 600px) {
             .quiz-container { padding: 18px; }
-            .question-text { font-size: 1.2rem; }
+            .question-text { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
 <div class="quiz-container" id="quizApp">
-    <h1>✝️ + 🔬 Quiz Challenge</h1>
-    <div class="sub">Disciples • Jesus' life & death • Emmaus • Prophecies • Evolution & Worldviews</div>
+    <h1>⚡ HARD MODE ⚡ <span class="badge">EXPERT</span></h1>
+    <div class="sub">Disciples • Life/Death of Jesus • Emmaus • Prophecies • Evolution • Cambrian • Creationism vs Humanism</div>
     
     <div id="questionsArea"></div>
     
-    <div class="score-area" id="scoreDisplay">Score: 0 / 0</div>
-    <button class="reset-btn" id="resetQuizBtn">⟳ Restart Quiz</button>
-    <footer>click any option → instant right/wrong feedback. no limits, learn as you go.</footer>
+    <div class="score-area" id="scoreDisplay">SCORE: 0 / 0</div>
+    <button class="reset-btn" id="resetQuizBtn">⟳ RESTART QUIZ (HARD)</button>
+    <footer>🔍 no hand-holding — tricky distractors, theology & science depth | click any answer, instant feedback</footer>
 </div>
 
 <script>
-    // ---------- QUIZ DATA ----------
+    // ----- HARDER QUESTIONS ------
     const questions = [
-        { // 1
-            text: "Which disciple is known for denying Jesus three times before the rooster crowed?",
-            options: ["Judas Iscariot", "Thomas", "Peter", "John"],
-            correct: "Peter"
+        { // 1 - disciples tricky
+            text: "Which two disciples were on the road to Emmaus when the risen Jesus appeared to them? (Luke 24)",
+            options: ["Peter and John", "Cleopas and another unnamed disciple", "James and Andrew", "Matthew and Thomas"],
+            correct: "Cleopas and another unnamed disciple",
+            hint: "Luke 24:18 — one named Cleopas, the other not named."
         },
-        { // 2
-            text: "What did Jesus say on the cross that is recorded as 'It is finished'? (tetelestai)",
-            options: ["My God, my God, why have you forsaken me?", "Father forgive them", "Truly I say to you, today you will be with me in Paradise", "It is finished"],
-            correct: "It is finished"
+        { // 2 - Jesus death detail
+            text: "At the moment Jesus died on the cross, which three supernatural events occurred according to the Gospel of Matthew?",
+            options: ["Darkness, earthquake, temple veil torn", "Thunder, fire from heaven, angelic choir", "The moon turned blood, stars fell, graves opened", "Darkness, resurrection of saints, veil torn"],
+            correct: "Darkness, earthquake, temple veil torn",
+            hint: "Matthew 27:51-52: veil torn, earthquake, rocks split. Also saints raised but the question asks 'three events' — darkness, earthquake, veil torn are the primary triad."
         },
-        { // 3
-            text: "On the road to Emmaus, who walked with the two disciples but was unrecognized at first?",
-            options: ["An angel", "The Holy Spirit", "The risen Jesus", "Moses"],
-            correct: "The risen Jesus"
+        { // 3 - mark of a prophet (deeper)
+            text: "According to Deuteronomy 18:20-22, the ultimate test for a prophet speaking in the LORD's name is:",
+            options: ["Their moral lifestyle", "The sign or wonder comes to pass", "The prediction comes true AND they don't lead to other gods", "They must perform at least three miracles"],
+            correct: "The prediction comes true AND they don't lead to other gods",
+            hint: "Deut 13:1-5 + 18:22 — even if prediction happens, but they push idolatry → false prophet. The complete mark: fulfillment AND orthodoxy."
         },
-        { // 4
-            text: "Which of these is a MARK of a TRUE prophet according to the Bible (Deuteronomy 18:22)?",
-            options: ["Always performs miracles", "Speaks in poetry only", "Predictions come true 100%", "Is wealthy and powerful"],
-            correct: "Predictions come true 100%"
+        { // 4 - life of Jesus (obscure event)
+            text: "In the Gospel of John, before raising Lazarus, Jesus said 'I am the resurrection and the life. Whoever believes in me, though he die, yet shall he live.' Martha responded with a specific christological confession. What did she say?",
+            options: ["You are the Christ, the Son of God", "You are the Holy One of Israel", "Yes, Lord; I believe that you are the Christ, the Son of God, who is coming into the world", "My Lord and my God"],
+            correct: "Yes, Lord; I believe that you are the Christ, the Son of God, who is coming into the world",
+            hint: "John 11:25-27 — Martha's exact confession."
         },
-        { // 5
-            text: "Fulfilled prophecy: 'He was pierced for our transgressions...' (Isaiah 53) points to which event in Jesus’ life?",
-            options: ["His birth in Bethlehem", "His crucifixion / suffering", "His resurrection", "The Last Supper"],
-            correct: "His crucifixion / suffering"
+        { // 5 - fulfilled prophecy (advanced)
+            text: "Which specific prophecy about the Messiah's betrayal for 30 pieces of silver, and the potter's field, is cited in Matthew 27:9-10?",
+            options: ["Isaiah 53", "Psalm 41", "Zechariah 11:12-13", "Jeremiah 19"],
+            correct: "Zechariah 11:12-13",
+            hint: "Matthew explicitly says 'then was fulfilled what was spoken by Jeremiah the prophet' but the content matches Zechariah 11; textual scholars note Jeremiah-Zechariah composite or Jeremiah scroll order. The correct prophetic origin is Zechariah 11:12-13."
         },
-        { // 6
-            text: "According to the Gospels, which Old Testament prophet said the Messiah would be born in Bethlehem (Micah 5:2)?",
-            options: ["Jeremiah", "Micah", "Zechariah", "Ezekiel"],
-            correct: "Micah"
+        { // 6 - darwin & cambrian (hard nuance)
+            text: "One of the key challenges the Cambrian Explosion poses to strict Darwinian gradualism (as originally emphasized by Darwin himself in 'On the Origin of Species') is:",
+            options: ["Lack of volcanic activity", "The sudden appearance of diverse animal phyla without clear transitional precursors in older layers", "Too many transitional fossils", "The complete absence of soft-bodied organisms"],
+            correct: "The sudden appearance of diverse animal phyla without clear transitional precursors in older layers",
+            hint: "Darwin acknowledged in Chapter 9 that the abrupt appearance of major groups in the Cambrian was a difficulty for his theory."
         },
-        { // 7
-            text: "Darwin’s theory of evolution by natural selection suggests that new species arise through...",
-            options: ["sudden divine acts in one day", "gradual variation and differential survival", "inheritance of acquired traits only", "spontaneous generation every spring"],
-            correct: "gradual variation and differential survival"
+        { // 7 - creationist vs humanist (worldview clash)
+            text: "A young-earth creationist and a secular humanist would disagree most fundamentally about:",
+            options: ["The age of the earth", "The mechanism of natural selection", "Whether morality is objective", "The ultimate source of reality and purpose (God vs. matter/chance)"],
+            correct: "The ultimate source of reality and purpose (God vs. matter/chance)",
+            hint: "While age & mechanism are disagreements, the root presupposition is the source of existence and meaning."
         },
-        { // 8
-            text: "The Cambrian Explosion refers to:",
-            options: ["A massive asteroid impact killing dinosaurs", "The first appearance of flowering plants", "A rapid diversification of most major animal groups ~541 million years ago", "The moment oxygen first appeared in oceans"],
-            correct: "A rapid diversification of most major animal groups ~541 million years ago"
+        { // 8 - resurrection of Jesus (legal/critical)
+            text: "Which early non-Christian source (ca. 52-112 AD) mentions Jesus' execution under Pontius Pilate AND the fact that his followers worshipped him as a god 'still to this day'?",
+            options: ["Josephus (Antiquities 18.3.3)", "Tacitus (Annals 15.44)", "Pliny the Younger (Letters 10.96)", "Suetonius (Life of Claudius)"],
+            correct: "Pliny the Younger (Letters 10.96)",
+            hint: "Pliny to Trajan: Christians sing to Christ as to a god. Tacitus mentions execution but not ongoing worship. Josephus has the Testimonium Flavianum (interpolated but mentions resurrection). Pliny confirms worship 'still to this day'."
         },
-        { // 9
-            text: "Which worldview holds that God created the universe and life in distinct, completed kinds, often within a recent timeframe?",
-            options: ["Young-Earth Creationism", "Theistic evolution", "Deism", "Materialistic humanism"],
-            correct: "Young-Earth Creationism"
+        { // 9 - disciples death tradition
+            text: "According to early church tradition (Eusebius, Tertullian), which apostle was crucified upside-down in Rome because he felt unworthy to die the same way as Jesus?",
+            options: ["Andrew", "Peter", "Philip", "Bartholomew"],
+            correct: "Peter",
+            hint: "Acts of Peter, Origen quoted by Eusebius: Peter crucified head downward."
         },
-        { // 10
-            text: "A Humanistic worldview (secular humanism) generally believes that:",
-            options: ["Humans are created in God's image with a divine purpose", "Morality and meaning come from reason, science, and human flourishing without supernatural guidance", "Only the Bible provides absolute truth", "Karma decides your next life"],
-            correct: "Morality and meaning come from reason, science, and human flourishing without supernatural guidance"
+        { // 10 - Jesus' life (temple prophecy)
+            text: "Jesus prophesied the destruction of the Jerusalem temple. What did He say would happen to 'not one stone upon another'?",
+            options: ["It will be thrown down within one generation", "It will be burned by foreign armies", "It will be desecrated by the abomination of desolation", "Every stone will be toppled, not left standing"],
+            correct: "Every stone will be toppled, not left standing",
+            hint: "Mark 13:2: 'There will not be left here one stone upon another that will not be thrown down.' Fulfilled in AD 70."
         },
-        { // 11
-            text: "Which disciple doubted Jesus' resurrection until he saw the nail marks?",
-            options: ["Philip", "Bartholomew", "Thomas (Didymus)", "James the Less"],
-            correct: "Thomas (Didymus)"
+        { // 11 - cambrian & evolution (hard)
+            text: "The 'Cambrian Explosion' is problematic for strict neo-Darwinian synthesis partly because:",
+            options: ["Fossils appear in the 'wrong' order geologically", "The rate of morphological innovation required far exceeds observed rates of evolution", "DNA didn't exist yet", "It proves punctuated equilibrium wrong"],
+            correct: "The rate of morphological innovation required far exceeds observed rates of evolution",
+            hint: "Evolutionary biologists like Valentine & Erwin noted that to generate all body plans in 5-10 million years requires faster change than typically seen later."
         },
-        { // 12
-            text: "Jesus’ death and resurrection was prophesied in Psalm 22, which includes: 'They pierced my hands and my feet.' This is a prophecy about:",
-            options: ["King David's own death", "The suffering Messiah", "The destruction of the temple", "The flood of Noah"],
-            correct: "The suffering Messiah"
+        { // 12 - humanism core tenet
+            text: "The 1933 Humanist Manifesto I explicitly rejects which of the following?",
+            options: ["Evolution", "Reason and science", "Traditional theistic supernaturalism", "Democracy"],
+            correct: "Traditional theistic supernaturalism",
+            hint: "Humanist Manifesto I: 'the universe is self-existing and not created' – rejects supernatural theism."
         },
-        { // 13
-            text: "What happened to Jesus’ body according to the New Testament?",
-            options: ["Remained in the tomb", "Stolen by disciples", "Resurrected on the third day", "Taken to Rome"],
-            correct: "Resurrected on the third day"
+        { // 13 - emmaus deeper
+            text: "On the road to Emmaus, after Jesus explained the Scriptures, their hearts 'burned within them.' What specific Old Testament theme did Jesus likely emphasize?",
+            options: ["The monarchy of David", "That the Messiah had to suffer and then enter glory", "The building of the tabernacle", "The Babylonian exile"],
+            correct: "That the Messiah had to suffer and then enter glory",
+            hint: "Luke 24:26: 'Ought not the Christ to have suffered these things and to enter into His glory?'"
         },
-        { // 14
-            text: "In the road to Emmaus account (Luke 24), after Jesus explained the Scriptures, how did the disciples recognize Him?",
-            options: ["By His sandals", "When He gave a sign from heaven", "When He broke the bread and blessed it", "When the cloud lifted"],
-            correct: "When He broke the bread and blessed it"
+        { // 14 - darwin himself
+            text: "In the first edition of 'On the Origin of Species', Darwin did NOT use the phrase 'survival of the fittest' (that came later from Herbert Spencer). Which phrase did he originally use?",
+            options: ["Struggle for existence", "Natural preservation", "Nature's selection", "Descent with modification"],
+            correct: "Struggle for existence",
+            hint: "Darwin wrote 'struggle for existence' as the driver; Spencer coined 'survival of the fittest' later."
         },
-        { // 15
-            text: "The fossil record's 'Cambrian Explosion' is sometimes highlighted by creationists as evidence for:",
-            options: ["Slow, imperceptible transitions", "Sudden appearance of complex life, consistent with creative acts", "Darwin's original predictions", "The earth being billions of years older"],
-            correct: "Sudden appearance of complex life, consistent with creative acts"
+        { // 15 - creationist critique of cambrian
+            text: "Young-Earth creationists often point to the Cambrian Explosion as evidence for:",
+            options: ["The geologic column is completely inverted", "Life appears suddenly in a 'creation event' rather than slow gradual transformation from a single common ancestor", "All Cambrian fossils are modern animals", "Evolution requires millions of years but the Cambrian shows stasis"],
+            correct: "Life appears suddenly in a 'creation event' rather than slow gradual transformation from a single common ancestor",
+            hint: "Creationists like Stephen Meyer (intelligent design) argue the abrupt appearance fits a model of separate creative acts."
         }
     ];
 
-    // answer status: null = not answered, true = correct, false = wrong
     let answerStatus = new Array(questions.length).fill(null);
     let selectedAnswers = new Array(questions.length).fill(null);
 
@@ -259,61 +287,35 @@
         for (let i = 0; i < answerStatus.length; i++) {
             if (answerStatus[i] === true) correctCount++;
         }
-        scoreDisplay.innerText = `Score: ${correctCount} / ${questions.length}`;
-    }
-
-    function saveAndRender() {
-        renderQuestions();
-        updateScore();
-    }
-
-    function handleAnswer(questionIdx, selectedOption) {
-        const isCorrect = (selectedOption === questions[questionIdx].correct);
-        answerStatus[questionIdx] = isCorrect;
-        selectedAnswers[questionIdx] = selectedOption;
-        saveAndRender();
-    }
-
-    function resetQuiz() {
-        answerStatus.fill(null);
-        selectedAnswers.fill(null);
-        saveAndRender();
+        scoreDisplay.innerText = `SCORE: ${correctCount} / ${questions.length}`;
     }
 
     function renderQuestions() {
         let html = '';
         for (let i = 0; i < questions.length; i++) {
             const q = questions[i];
-            const userAnswer = selectedAnswers[i];
-            const status = answerStatus[i]; // true / false / null
+            const status = answerStatus[i];
             let feedbackHtml = '';
-            if (status !== null) {
-                if (status === true) {
-                    feedbackHtml = `<div class="correct-feedback">✅ Correct! ${q.correct} is right.</div>`;
-                } else {
-                    feedbackHtml = `<div class="wrong-feedback">❌ Wrong. Correct answer: <strong>${q.correct}</strong><br> <span style="font-size:0.9rem;">${getShortExplanation(i)}</span></div>`;
-                }
+            if (status === true) {
+                feedbackHtml = `<div class="correct-feedback">✅ HARDCORE CORRECT! ${q.correct} is right.<br><span style="font-size:0.8rem;">💡 ${q.hint}</span></div>`;
+            } else if (status === false) {
+                feedbackHtml = `<div class="wrong-feedback">❌ WRONG. Correct answer: <strong>${q.correct}</strong><br><span style="font-size:0.8rem;">📖 ${q.hint}</span></div>`;
             } else {
-                feedbackHtml = `<div class="neutral-feedback">📌 Click an option above</div>`;
+                feedbackHtml = `<div class="neutral-feedback">⚡ Click an answer — only the sharp survive</div>`;
             }
 
-            // generate clickable options
             let optionsHtml = '';
             for (let opt of q.options) {
-                let extraClass = '';
-                let disabledAttr = '';
-                // No real disable, but we can show style if already answered? better to keep clickable but if already answered we let them change answer.
-                // we allow re-answering (overwrites). That's fine.
                 optionsHtml += `<button class="option-btn" data-qidx="${i}" data-opt="${opt.replace(/"/g, '&quot;')}">${opt}</button>`;
             }
 
             html += `
-                <div class="question-card" data-qid="${i}">
-                    <div class="question-text">${i+1}. ${q.text}</div>
+                <div class="question-card">
+                    <div class="question-text">❓ ${i+1}. ${q.text}</div>
                     <div class="options" id="options-${i}">
                         ${optionsHtml}
                     </div>
-                    <div class="feedback-area" id="feedback-${i}">
+                    <div id="feedback-${i}">
                         ${feedbackHtml}
                     </div>
                 </div>
@@ -321,10 +323,9 @@
         }
         questionsArea.innerHTML = html;
 
-        // Attach event listeners dynamically
         for (let i = 0; i < questions.length; i++) {
-            const optButtons = document.querySelectorAll(`.option-btn[data-qidx="${i}"]`);
-            optButtons.forEach(btn => {
+            const btns = document.querySelectorAll(`.option-btn[data-qidx="${i}"]`);
+            btns.forEach(btn => {
                 btn.removeEventListener('click', clickHandler);
                 btn.addEventListener('click', clickHandler);
             });
@@ -335,34 +336,22 @@
         const btn = e.currentTarget;
         const qidx = parseInt(btn.getAttribute('data-qidx'));
         const selected = btn.getAttribute('data-opt');
-        handleAnswer(qidx, selected);
+        const isCorrect = (selected === questions[qidx].correct);
+        answerStatus[qidx] = isCorrect;
+        selectedAnswers[qidx] = selected;
+        renderQuestions();
+        updateScore();
     }
 
-    function getShortExplanation(idx) {
-        const explanations = {
-            0: "Peter denied Jesus three times (Luke 22:54-62).",
-            1: "Jesus’ final word 'Tetelestai' means debt paid (John 19:30).",
-            2: "Resurrected Jesus revealed Himself in Emmaus (Luke 24).",
-            3: "Deut 18:22: 100% accurate prediction marks a true prophet.",
-            4: "Isaiah 53 describes suffering servant crucified.",
-            5: "Micah 5:2 – 'But you, Bethlehem Ephrathah...'",
-            6: "Darwin's On the Origin of Species (1859) proposed natural selection.",
-            7: "Most animal phyla appear suddenly in Cambrian strata.",
-            8: "Young-earth creationists interpret Genesis literally, 6-day creation.",
-            9: "Secular humanism = ethics without supernatural.",
-            10: "Thomas insisted on touching wounds (John 20:24-29).",
-            11: "Psalm 22:16 – they pierce my hands and feet.",
-            12: "Jesus rose bodily on third day (1 Cor 15:4).",
-            13: "Luke 24:30-31 – bread breaking opened their eyes.",
-            14: "Creationists see Cambrian Explosion as evidence of intelligent design / sudden creation."
-        };
-        return explanations[idx] || "Review scripture / science notes.";
+    function resetQuiz() {
+        answerStatus.fill(null);
+        selectedAnswers.fill(null);
+        renderQuestions();
+        updateScore();
     }
 
-    // initial render
     renderQuestions();
     updateScore();
-
     document.getElementById("resetQuizBtn").addEventListener("click", resetQuiz);
 </script>
 </body>
