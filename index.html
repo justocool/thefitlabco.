@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>HARD MODE | Disciples, Jesus, Prophecy, Evolution, Ellen G. White</title>
+    <title>ULTIMATE EXPERT | Temptations • Herods • Birth • Baptism • Life • Death • EGW • Cambrian</title>
     <style>
         * {
             box-sizing: border-box;
             font-family: system-ui, 'Segoe UI', 'Roboto', monospace;
         }
         body {
-            background: linear-gradient(135deg, #1a2a1f 0%, #0f1a0e 100%);
+            background: linear-gradient(135deg, #0a1208 0%, #050a04 100%);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -19,16 +19,16 @@
             min-height: 100vh;
         }
         .quiz-container {
-            max-width: 950px;
+            max-width: 1050px;
             width: 100%;
             background: #fef9ef;
             border-radius: 40px;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.4);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.6);
             overflow: hidden;
             padding: 25px 30px 35px;
         }
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-top: 0;
             margin-bottom: 6px;
             color: #1f3b1a;
@@ -42,7 +42,7 @@
         .badge {
             background: #b1622c;
             color: white;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             padding: 5px 12px;
             border-radius: 30px;
             letter-spacing: 1px;
@@ -53,6 +53,7 @@
             border-bottom: 2px dashed #c9b68b;
             padding-bottom: 14px;
             font-weight: 500;
+            font-size: 0.8rem;
         }
         .question-card {
             background: #fffbf3;
@@ -63,7 +64,7 @@
             border: 1px solid #e2d4bc;
         }
         .question-text {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: #2c3e2f;
             margin-bottom: 18px;
@@ -82,7 +83,7 @@
             border: 2px solid #cbbf9a;
             border-radius: 50px;
             padding: 12px 20px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             text-align: left;
             cursor: pointer;
             font-weight: 500;
@@ -102,7 +103,7 @@
             margin-top: 14px;
             border-radius: 24px;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         .wrong-feedback {
             background: #f4dbd6;
@@ -112,6 +113,7 @@
             margin-top: 14px;
             border-radius: 24px;
             font-weight: 500;
+            font-size: 0.85rem;
         }
         .neutral-feedback {
             background: #f2efdf;
@@ -119,7 +121,7 @@
             padding: 8px 18px;
             margin-top: 12px;
             border-radius: 24px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-style: italic;
         }
         .score-area {
@@ -128,7 +130,7 @@
             padding: 16px 24px;
             border-radius: 60px;
             text-align: center;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 12px;
@@ -137,7 +139,7 @@
             background: #b67945;
             border: none;
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             padding: 14px 28px;
             border-radius: 44px;
@@ -152,171 +154,254 @@
             transform: scale(0.98);
         }
         footer {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             text-align: center;
             color: #aa986b;
             margin-top: 28px;
         }
         @media (max-width: 600px) {
             .quiz-container { padding: 18px; }
-            .question-text { font-size: 1.1rem; }
+            .question-text { font-size: 1rem; }
+            .option-btn { font-size: 0.75rem; padding: 10px 12px; }
         }
     </style>
 </head>
 <body>
 <div class="quiz-container" id="quizApp">
-    <h1>⚡ HARD MODE ⚡ <span class="badge">+ ELLEN G. WHITE</span></h1>
-    <div class="sub">Disciples • Life/Death of Jesus • Emmaus • Prophecies • Evolution • Cambrian • Creationism vs Humanism • Ellen G. White</div>
+    <h1>🏆 ULTIMATE EXPERT 🏆 <span class="badge">COMPREHENSIVE</span></h1>
+    <div class="sub">Temptations of Jesus • The Herods • Birth • Baptism • Life • Death • Prophecy • EGW • Creation Days • Cambrian • Evolution • Worldviews</div>
     
     <div id="questionsArea"></div>
     
     <div class="score-area" id="scoreDisplay">SCORE: 0 / 0</div>
-    <button class="reset-btn" id="resetQuizBtn">⟳ RESTART QUIZ (HARD + EGW)</button>
-    <footer>🔍 includes Seventh-day Adventist prophetess Ellen G. White — theology, history, and science worldview questions</footer>
+    <button class="reset-btn" id="resetQuizBtn">⟳ RESTART QUIZ (ULTIMATE)</button>
+    <footer>📖 36 questions — temptations, Herods, birth, baptism, life, death, prophecy, EGW, creation, Cambrian, Darwin, worldviews</footer>
 </div>
 
 <script>
-    // ----- HARDER QUESTIONS + ELLEN G. WHITE ------
+    // ========== ULTIMATE EXPERT — 36 QUESTIONS ==========
     const questions = [
-        // 1 - Disciples (Emmaus)
+        // --- THE 3 TEMPTATIONS OF JESUS (Matthew 4 / Luke 4) ---
         {
-            text: "Which two disciples were on the road to Emmaus when the risen Jesus appeared to them? (Luke 24)",
-            options: ["Peter and John", "Cleopas and another unnamed disciple", "James and Andrew", "Matthew and Thomas"],
-            correct: "Cleopas and another unnamed disciple",
-            hint: "Luke 24:18 — one named Cleopas, the other not named."
+            text: "In the first temptation, Satan told Jesus to turn stones into bread. How did Jesus respond?",
+            options: ["'Man shall not live by bread alone, but by every word of God'", "'Get behind me, Satan'", "'It is written again, You shall not tempt the Lord your God'", "'Worship the Lord your God, and serve Him only'"],
+            correct: "'Man shall not live by bread alone, but by every word of God'",
+            hint: "Matthew 4:4 — quoting Deuteronomy 8:3."
         },
-        // 2 - Jesus death (Matthew)
         {
-            text: "At the moment Jesus died on the cross, which three supernatural events occurred according to the Gospel of Matthew?",
-            options: ["Darkness, earthquake, temple veil torn", "Thunder, fire from heaven, angelic choir", "The moon turned blood, stars fell, graves opened", "Darkness, resurrection of saints, veil torn"],
-            correct: "Darkness, earthquake, temple veil torn",
-            hint: "Matthew 27:51-52: veil torn, earthquake, rocks split. Darkness was from the 6th hour."
+            text: "In the second temptation, Satan took Jesus to the pinnacle of the temple and told Him to throw Himself down, quoting Psalm 91. Jesus responded:",
+            options: ["'Man shall not live by bread alone'", "'It is written again, You shall not tempt the Lord your God'", "'Get behind me, Satan'", "'Worship the Lord your God, and serve Him only'"],
+            correct: "'It is written again, You shall not tempt the Lord your God'",
+            hint: "Matthew 4:7 — quoting Deuteronomy 6:16."
         },
-        // 3 - Mark of a prophet (Deut)
         {
-            text: "According to Deuteronomy 18:20-22, the ultimate test for a prophet speaking in the LORD's name is:",
-            options: ["Their moral lifestyle", "The sign or wonder comes to pass", "The prediction comes true AND they don't lead to other gods", "They must perform at least three miracles"],
-            correct: "The prediction comes true AND they don't lead to other gods",
-            hint: "Deut 13:1-5 + 18:22 — even if prediction happens, but they push idolatry → false prophet."
+            text: "In the third temptation, Satan showed Jesus all the kingdoms of the world and offered them if Jesus would worship him. Jesus replied:",
+            options: ["'Man shall not live by bread alone'", "'It is written again, You shall not tempt the Lord your God'", "'Get behind me, Satan: for it is written, You shall worship the Lord your God, and Him only you shall serve'", "'Away with you, deceiver'"],
+            correct: "'Get behind me, Satan: for it is written, You shall worship the Lord your God, and Him only you shall serve'",
+            hint: "Matthew 4:10 — quoting Deuteronomy 6:13 and 10:20."
         },
-        // 4 - Ellen G. White: her role
+        // --- THE HERODS IN THE BIBLE ---
         {
-            text: "Ellen G. White (1827-1915) is most accurately described as:",
-            options: ["The founder of the Seventh-day Adventist Church", "A prophetess whose writings are considered a continuing and authoritative source of truth alongside the Bible", "A New Testament apostle", "A Catholic mystic"],
-            correct: "A prophetess whose writings are considered a continuing and authoritative source of truth alongside the Bible",
-            hint: "Seventh-day Adventists believe she had the 'spirit of prophecy' (Rev 12:17; 19:10). She was not the founder (James White, Joseph Bates, etc.) but a prophetess."
+            text: "Which Herod ordered the massacre of the innocents (killing all male infants in Bethlehem) after the wise men visited?",
+            options: ["Herod Antipas", "Herod Agrippa I", "Herod the Great", "Herod Philip"],
+            correct: "Herod the Great",
+            hint: "Matthew 2:16 — Herod the Great reigned 37–4 BC. He died shortly after."
         },
-        // 5 - EGW and the Bible
         {
-            text: "What did Ellen G. White teach about the relationship between her writings and the Bible?",
-            options: ["Her writings replace the Bible", "The Bible is outdated; her writings are the new canon", "The Bible is the standard, and her writings are a 'lesser light' leading to the 'greater light'", "Only her writings are inspired, not the Bible"],
-            correct: "The Bible is the standard, and her writings are a 'lesser light' leading to the 'greater light'",
-            hint: "EGW wrote in 'Colporteur Ministry' p. 125: 'The Lord has seen fit to give me a lesser light to lead men and women to the greater light.'"
+            text: "Which Herod executed John the Baptist (beheaded him) after a dance by Herodias' daughter?",
+            options: ["Herod the Great", "Herod Archelaus", "Herod Antipas (the tetrarch)", "Herod Agrippa II"],
+            correct: "Herod Antipas (the tetrarch)",
+            hint: "Matthew 14:1-12; Mark 6:14-29. Herod Antipas ruled Galilee and Perea (4 BC – AD 39)."
         },
-        // 6 - EGW health message
         {
-            text: "Ellen G. White's health reform writings (later part of Adventist health message) advocated for all of the following EXCEPT:",
-            options: ["Vegetarianism", "Abstinence from alcohol and tobacco", "Regular exercise and sunlight", "Mandatory veganism for salvation"],
-            correct: "Mandatory veganism for salvation",
-            hint: "EGW promoted plant-based diet but did not make it a salvation issue. She wrote 'It is no sin to eat meat' (Counsels on Diet and Foods, p. 394) in certain circumstances."
+            text: "Which Herod killed the apostle James (son of Zebedee) with the sword and was later eaten by worms and died (Acts 12)?",
+            options: ["Herod Agrippa I", "Herod Antipas", "Herod the Great", "Herod Agrippa II"],
+            correct: "Herod Agrippa I",
+            hint: "Acts 12:1-23 — Herod Agrippa I (grandson of Herod the Great) killed James, imprisoned Peter, then was struck by an angel and eaten by worms."
         },
-        // 7 - EGW and creation
         {
-            text: "Regarding the creation account in Genesis, Ellen G. White taught:",
-            options: ["Theistic evolution over millions of years", "Literal six-day, recent creation (young earth) with each day being a 24-hour evening/morning", "The days are symbolic ages", "Creation is just a myth"],
-            correct: "Literal six-day, recent creation (young earth) with each day being a 24-hour evening/morning",
-            hint: "Patriarchs and Prophets, p. 112: 'God took six days to create the earth... made in six literal days.' She rejected evolution."
+            text: "Which Herod heard Paul's defense in Acts 26 and said, 'You almost persuade me to become a Christian'?",
+            options: ["Herod Antipas", "Herod Agrippa I", "Herod the Great", "Herod Agrippa II"],
+            correct: "Herod Agrippa II",
+            hint: "Acts 25:13 – 26:32. Herod Agrippa II (son of Herod Agrippa I) ruled with his sister Bernice."
         },
-        // 8 - EGW and the Cambrian Explosion
         {
-            text: "If Ellen G. White were asked about the Cambrian Explosion (sudden appearance of complex animal fossils), what would she most likely say based on her writings?",
-            options: ["It proves evolution", "It matches the sudden creative acts of God during creation week", "It's a hoax", "It happened millions of years before Adam"],
-            correct: "It matches the sudden creative acts of God during creation week",
-            hint: "EGW described God calling forth life suddenly, not gradually. 'Spirit of Prophecy' vol. 1, p. 70: 'He spoke... and they were created.'"
+            text: "Which Herodias (the wife of Herod Antipas) had previously been married to his half-brother, whom John the Baptist said was unlawful to marry?",
+            options: ["Herod the Great", "Herod Boethus", "Herod Philip (Herod II)", "Herod Archelaus"],
+            correct: "Herod Philip (Herod II)",
+            hint: "Mark 6:17 — Herodias had been married to Herod Philip (not the tetrarch of Iturea, but a half-brother)."
         },
-        // 9 - Prophecy about Jesus (Zechariah)
+        // --- BIRTH OF JESUS ---
         {
-            text: "Which specific prophecy about the Messiah's betrayal for 30 pieces of silver, and the potter's field, is cited in Matthew 27:9-10?",
-            options: ["Isaiah 53", "Psalm 41", "Zechariah 11:12-13", "Jeremiah 19"],
-            correct: "Zechariah 11:12-13",
-            hint: "Matthew attributes to Jeremiah but content matches Zechariah 11:12-13."
+            text: "According to Luke 2, which Roman emperor issued the decree that a census should be taken, causing Joseph and Mary to travel to Bethlehem?",
+            options: ["Tiberius Caesar", "Augustus Caesar", "Claudius Caesar", "Nero Caesar"],
+            correct: "Augustus Caesar",
+            hint: "Luke 2:1 — 'In those days a decree went out from Caesar Augustus that all the world should be registered.'"
         },
-        // 10 - Darwin & Cambrian
         {
-            text: "One of the key challenges the Cambrian Explosion poses to strict Darwinian gradualism is:",
-            options: ["Lack of volcanic activity", "Sudden appearance of diverse animal phyla without clear transitional precursors", "Too many transitional fossils", "Absence of soft-bodied organisms"],
-            correct: "Sudden appearance of diverse animal phyla without clear transitional precursors",
-            hint: "Darwin acknowledged in Chapter 9 that abrupt appearance of major groups was a difficulty."
+            text: "Who was the governor of Syria at the time of Jesus' birth (during the census mentioned in Luke 2)?",
+            options: ["Pontius Pilate", "Cyrenius (Quirinius)", "Felix", "Festus"],
+            correct: "Cyrenius (Quirinius)",
+            hint: "Luke 2:2 — 'This was the first registration when Quirinius was governor of Syria.'"
         },
-        // 11 - EGW and evolution
         {
-            text: "Ellen G. White explicitly rejected which of the following ideas in her writings?",
-            options: ["Natural selection within species", "The geological column", "Evolution from simple to complex over millions of years (theistic or atheistic)", "Microevolution"],
-            correct: "Evolution from simple to complex over millions of years (theistic or atheistic)",
-            hint: "EGW wrote in 'Spirit of Prophecy' vol. 3, p. 178: 'The theory of evolution is one of the fables of which Peter speaks.'"
+            text: "What specific sign did the angel give to the shepherds in the field to identify the newborn Messiah?",
+            options: ["A star over the house", "A child born in a palace", "A baby wrapped in swaddling cloths and lying in a manger", "A choir of angels singing"],
+            correct: "A baby wrapped in swaddling cloths and lying in a manger",
+            hint: "Luke 2:12 — 'You will find a baby wrapped in swaddling cloths and lying in a manger.'"
         },
-        // 12 - EGW prophetic testing
         {
-            text: "Which biblical test for a prophet would critics of Ellen G. White most commonly point to as problematic?",
-            options: ["Deuteronomy 18:22 — some predictions appeared to fail (e.g., some people would live to see certain events)", "Deuteronomy 13 — she led people to other gods", "She never performed miracles", "She didn't speak in first-person 'Thus says the LORD'"],
-            correct: "Deuteronomy 18:22 — some predictions appeared to fail (e.g., some people would live to see certain events)",
-            hint: "Example: she predicted some living in 1856 would not die before certain end-time events. Critics say some died before fulfillment; defenders argue conditional prophecy or time statements."
+            text: "According to Matthew 2, how many gifts did the wise men (Magi) bring to Jesus, and what were they?",
+            options: ["3 gifts: gold, frankincense, and myrrh", "2 gifts: gold and silver", "1 gift: a lamb", "4 gifts: gold, silver, spices, and cloth"],
+            correct: "3 gifts: gold, frankincense, and myrrh",
+            hint: "Matthew 2:11 — 'They offered him gifts of gold, frankincense, and myrrh.' Tradition says three wise men because of three gifts."
         },
-        // 13 - Martha's confession
         {
-            text: "In John 11, before raising Lazarus, Martha said to Jesus:",
-            options: ["You are the Christ, the Son of God", "You are the Holy One of Israel", "Yes, Lord; I believe that you are the Christ, the Son of God, who is coming into the world", "My Lord and my God"],
-            correct: "Yes, Lord; I believe that you are the Christ, the Son of God, who is coming into the world",
-            hint: "John 11:25-27 — exact wording."
+            text: "Which Old Testament prophecy specifically stated that the Messiah would be born in Bethlehem (quoted in Matthew 2:6)?",
+            options: ["Isaiah 7:14", "Micah 5:2", "Jeremiah 23:5", "Zechariah 9:9"],
+            correct: "Micah 5:2",
+            hint: "Micah 5:2 — 'But you, Bethlehem Ephrathah... out of you will come one who will be ruler over Israel.' Matthew 2:6 quotes it directly."
         },
-        // 14 - EGW great controversy theme
+        // --- BAPTISM OF JESUS ---
         {
-            text: "The central theme of Ellen G. White's book 'The Great Controversy' is:",
-            options: ["The conflict between science and religion", "The cosmic battle between Christ and Satan over God's character and law", "The Protestant Reformation only", "The history of the Roman Empire"],
-            correct: "The cosmic battle between Christ and Satan over God's character and law",
-            hint: "Preface to 'The Great Controversy' describes the conflict between good and evil from heaven to earth's final restoration."
+            text: "Who baptized Jesus in the Jordan River?",
+            options: ["John the Apostle", "John the Baptist (John the son of Zechariah)", "Philip the Evangelist", "Andrew"],
+            correct: "John the Baptist (John the son of Zechariah)",
+            hint: "Matthew 3:13-17; Mark 1:9-11; Luke 3:21-22; John 1:29-34."
         },
-        // 15 - Humanism core tenet
         {
-            text: "The 1933 Humanist Manifesto I explicitly rejects which of the following?",
-            options: ["Evolution", "Reason and science", "Traditional theistic supernaturalism", "Democracy"],
-            correct: "Traditional theistic supernaturalism",
-            hint: "Humanist Manifesto I: 'the universe is self-existing and not created' – rejects supernatural theism."
+            text: "At Jesus' baptism, what specific audible event happened from heaven?",
+            options: ["Thunder and lightning", "A voice said, 'You are my beloved Son; with you I am well pleased'", "Angels sang", "A trumpet sounded"],
+            correct: "A voice said, 'You are my beloved Son; with you I am well pleased'",
+            hint: "Luke 3:22 — 'And the Holy Spirit descended... and a voice came from heaven: You are my beloved Son; with you I am well pleased.'"
         },
-        // 16 - EGW and the sanctuary doctrine
         {
-            text: "Ellen G. White supported the Seventh-day Adventist understanding that after 1844, Jesus began a new phase of ministry in heaven. What is that phase called?",
-            options: ["The atonement", "The cleansing of the heavenly sanctuary (Investigative Judgment)", "The outpouring of the Holy Spirit", "The sealing of the 144,000"],
-            correct: "The cleansing of the heavenly sanctuary (Investigative Judgment)",
-            hint: "Based on Daniel 8:14 and the Day of Atonement typology. EGW in 'Early Writings' and 'The Great Controversy' affirms the Investigative Judgment."
+            text: "At Jesus' baptism, what visible sign accompanied the Holy Spirit's descent?",
+            options: ["A dove", "A flame of fire", "A bright cloud", "A rainbow"],
+            correct: "A dove",
+            hint: "Matthew 3:16 — 'He saw the Spirit of God descending like a dove and coming to rest on him.'"
         },
-        // 17 - Road to Emmaus
         {
-            text: "On the road to Emmaus, after Jesus explained the Scriptures, their hearts 'burned within them.' What specific Old Testament theme did Jesus likely emphasize?",
-            options: ["The monarchy of David", "That the Messiah had to suffer and then enter glory", "The building of the tabernacle", "The Babylonian exile"],
-            correct: "That the Messiah had to suffer and then enter glory",
-            hint: "Luke 24:26: 'Ought not the Christ to have suffered these things and to enter into His glory?'"
+            text: "When John the Baptist saw Jesus coming to him, what specific words did he say? (John 1:29)",
+            options: ["'Repent, for the kingdom of heaven is at hand'", "'Behold the Lamb of God, who takes away the sin of the world'", "'Prepare the way of the Lord'", "'He must increase, I must decrease'"],
+            correct: "'Behold the Lamb of God, who takes away the sin of the world'",
+            hint: "John 1:29 — The next day John saw Jesus coming and said exactly that."
         },
-        // 18 - EGW and the Sabbath
+        // --- LIFE OF JESUS (key events) ---
         {
-            text: "Ellen G. White taught that the seventh-day Sabbath (Saturday) would be a final test issue. According to her, the mark of the beast (Revelation 13) is ultimately about:",
-            options: ["666", "Worshipping on Sunday instead of the biblical Sabbath", "A microchip", "The Pope's crown"],
-            correct: "Worshipping on Sunday instead of the biblical Sabbath",
-            hint: "'The Great Controversy,' chapter 25: the Sabbath vs. Sunday is the final conflict. The mark of the beast is enforced Sunday observance."
+            text: "At the wedding in Cana, Jesus performed His first recorded miracle. What was it?",
+            options: ["Healed a blind man", "Turned water into wine", "Multiplied loaves and fish", "Walked on water"],
+            correct: "Turned water into wine",
+            hint: "John 2:1-11 — Cana of Galilee, water turned to wine."
         },
-        // 19 - Creationist vs Humanist root difference
         {
-            text: "A young-earth creationist and a secular humanist would disagree most fundamentally about:",
-            options: ["The age of the earth", "The mechanism of natural selection", "Whether morality is objective", "The ultimate source of reality and purpose (God vs. matter/chance)"],
-            correct: "The ultimate source of reality and purpose (God vs. matter/chance)",
-            hint: "While age & mechanism are disagreements, the root presupposition is the source of existence and meaning."
+            text: "Jesus famously said, 'I am the way, the truth, and the life. No one comes to the Father except through me.' In which Gospel and chapter is this found?",
+            options: ["Matthew 5", "Mark 10", "Luke 14", "John 14"],
+            correct: "John 14",
+            hint: "John 14:6 — Jesus speaking to Thomas at the Last Supper."
         },
-        // 20 - Darwin's original phrase
         {
-            text: "In the first edition of 'On the Origin of Species', Darwin did NOT use the phrase 'survival of the fittest'. Which phrase did he originally use?",
-            options: ["Struggle for existence", "Natural preservation", "Nature's selection", "Descent with modification"],
-            correct: "Struggle for existence",
-            hint: "Darwin wrote 'struggle for existence' as the driver; Spencer coined 'survival of the fittest' later."
+            text: "Which specific miracle did Jesus perform immediately before raising Lazarus from the dead (as a sign of His power over death)?",
+            options: ["Healing the man born blind (John 9)", "Feeding the 5000", "Walking on water", "Healing the centurion's servant"],
+            correct: "Healing the man born blind (John 9)",
+            hint: "John 11 follows John 9 and 10. The blind man's healing set the stage for Lazarus."
+        },
+        {
+            text: "Jesus taught the Sermon on the Mount (Matthew 5-7). Which of these is the FIRST beatitude?",
+            options: ["Blessed are the meek", "Blessed are the poor in spirit", "Blessed are the merciful", "Blessed are the peacemakers"],
+            correct: "Blessed are the poor in spirit",
+            hint: "Matthew 5:3 — 'Blessed are the poor in spirit, for theirs is the kingdom of heaven.'"
+        },
+        // --- DEATH OF JESUS (additional detail) ---
+        {
+            text: "At the moment Jesus died, the temple veil was torn. How many layers/curtains were torn, and from which direction?",
+            options: ["The inner veil torn from top to bottom", "The outer curtain torn from bottom to top", "Both veils torn in half", "The veil remained intact"],
+            correct: "The inner veil torn from top to bottom",
+            hint: "Matthew 27:51 — 'The veil of the temple was torn in two from top to bottom.' Showing God's action, not man's."
+        },
+        {
+            text: "Which two criminals were crucified alongside Jesus (one on each side), and which one was promised paradise that day?",
+            options: ["Both were thieves; the one on the right was promised paradise", "Barabbas on one side; the repentant thief", "Two robbers; the repentant one (traditionally named Dismas) was told 'Today you will be with me in paradise'", "Two zealots; neither repented"],
+            correct: "Two robbers; the repentant one (traditionally named Dismas) was told 'Today you will be with me in paradise'",
+            hint: "Luke 23:39-43 — One thief mocked, the other said 'Remember me.' Jesus replied, 'Truly I say to you, today you will be with me in paradise.'"
+        },
+        // --- DAYS OF CREATION (continued) ---
+        {
+            text: "According to Genesis 1, what was created on Day 1?",
+            options: ["Sun and moon", "Light and the separation of light from darkness (day and night)", "Heaven and earth (the raw material)", "Dry land"],
+            correct: "Light and the separation of light from darkness (day and night)",
+            hint: "Genesis 1:3-5 — 'Let there be light... God separated the light from the darkness. God called the light Day, and the darkness Night.'"
+        },
+        {
+            text: "On Day 7 of creation week, God did what?",
+            options: ["Created fish", "Created birds", "Rested (ceased creative work) and blessed the seventh day", "Created man"],
+            correct: "Rested (ceased creative work) and blessed the seventh day",
+            hint: "Genesis 2:2-3 — 'On the seventh day God ended His work... and He rested... and blessed the seventh day and sanctified it.'"
+        },
+        // --- ELLEN G. WHITE (added detailed) ---
+        {
+            text: "Ellen G. White's first vision (December 1844) included seeing a 'straight and narrow path' leading to the New Jerusalem. What did she see on either side of the path?",
+            options: ["Angels", "A chasm or gulf", "A wall of fire", "Beautiful flowers"],
+            correct: "A chasm or gulf",
+            hint: "Early Writings, p. 14 — 'On either side of this path was a high wall of that which is called the 'straight and narrow way' ... but many were 'turning off' into the chasm.'"
+        },
+        {
+            text: "Which prominent Adventist pioneer was present when Ellen White received her first vision, who later became her husband?",
+            options: ["Joseph Bates", "James White", "Hiram Edson", "J.N. Andrews"],
+            correct: "James White",
+            hint: "James White was present in the December 1844 meeting. They married in 1846."
+        },
+        // --- CAMBRIAN & DARWIN (advanced) ---
+        {
+            text: "The Burgess Shale (in British Columbia) is a famous Cambrian fossil site known for:",
+            options: ["Dinosaur bones", "Soft-bodied preservation of bizarre creatures like Hallucigenia, Opabinia, and Anomalocaris", "The first fish", "Human footprints"],
+            correct: "Soft-bodied preservation of bizarre creatures like Hallucigenia, Opabinia, and Anomalocaris",
+            hint: "The Burgess Shale (508 million years ago) preserved soft parts, revealing the diversity of Cambrian life."
+        },
+        {
+            text: "Stephen Jay Gould's book 'Wonderful Life' (1989) argued that the Cambrian Explosion shows:",
+            options: ["Evolution is always slow and gradual", "Contingency — if you rewound the tape of life, humans would not necessarily evolve", "That creationism is correct", "That Darwin was completely wrong about everything"],
+            correct: "Contingency — if you rewound the tape of life, humans would not necessarily evolve",
+            hint: "Gould's key thesis: the Burgess Shale shows many body plans that went extinct. Replaying evolution would produce different outcomes."
+        },
+        // --- PROPHECY FULFILLED (more detail) ---
+        {
+            text: "Psalm 34:20 says 'He keeps all his bones; not one of them is broken.' Which Gospel explicitly notes that Jesus' legs were NOT broken at the crucifixion, fulfilling this prophecy?",
+            options: ["Matthew", "Mark", "Luke", "John"],
+            correct: "John",
+            hint: "John 19:31-37 — The soldiers broke the legs of the two thieves but when they came to Jesus, He was already dead, so they did not break His legs. 'These things happened so that the scripture would be fulfilled: 'Not one of his bones will be broken.'"
+        },
+        {
+            text: "Zechariah 12:10 says 'They will look on me whom they have pierced.' Which Gospel records the soldier piercing Jesus' side with a spear, fulfilling this?",
+            options: ["Matthew", "Mark", "Luke", "John"],
+            correct: "John",
+            hint: "John 19:34-37 — 'One of the soldiers pierced his side with a spear... These things happened so that the scripture would be fulfilled...'"
+        },
+        // --- WORLDVIEWS (detailed) ---
+        {
+            text: "Theistic evolution (evolutionary creation) holds that:",
+            options: ["God created in six 24-hour days", "God used evolutionary processes over millions of years to create life, guiding the process", "There is no God", "Evolution is false"],
+            correct: "God used evolutionary processes over millions of years to create life, guiding the process",
+            hint: "Theistic evolution accepts common descent and deep time but sees God as the originator and sustainer of the process."
+        },
+        {
+            text: "Old-Earth Creationism (progressive creation) differs from Young-Earth Creationism primarily by:",
+            options: ["Rejecting the Bible entirely", "Accepting billions of years for Earth's history but rejecting common descent; God created in 'days' that represent long ages or created progressively", "Believing in reincarnation", "Following Darwin completely"],
+            correct: "Accepting billions of years for Earth's history but rejecting common descent; God created in 'days' that represent long ages or created progressively",
+            hint: "Old-earth creationists (e.g., Hugh Ross) accept deep time but reject macroevolution. Days of Genesis are long periods or God created in stages."
+        },
+        // --- EXTRA: Jesus' life events ---
+        {
+            text: "At the Transfiguration, which two Old Testament figures appeared with Jesus?",
+            options: ["Abraham and Isaac", "Moses and Elijah", "David and Solomon", "Isaiah and Jeremiah"],
+            correct: "Moses and Elijah",
+            hint: "Matthew 17:3 — 'Moses and Elijah appeared to them, talking with Jesus.'"
+        },
+        {
+            text: "Jesus cleansed the temple twice. The second cleansing (during Passion Week) included Him saying:",
+            options: ["'My house shall be called a house of prayer, but you have made it a den of thieves'", "'Destroy this temple and in three days I will raise it'", "'It is finished'", "'I am the good shepherd'"],
+            correct: "'My house shall be called a house of prayer, but you have made it a den of thieves'",
+            hint: "Matthew 21:12-13 — quoting Isaiah 56:7 and Jeremiah 7:11."
         }
     ];
 
@@ -341,11 +426,11 @@
             const status = answerStatus[i];
             let feedbackHtml = '';
             if (status === true) {
-                feedbackHtml = `<div class="correct-feedback">✅ CORRECT! ${q.correct}<br><span style="font-size:0.8rem;">💡 ${q.hint}</span></div>`;
+                feedbackHtml = `<div class="correct-feedback">✅ ULTIMATE CORRECT! — ${q.correct}<br><span style="font-size:0.7rem;">📖 ${q.hint}</span></div>`;
             } else if (status === false) {
-                feedbackHtml = `<div class="wrong-feedback">❌ WRONG. Correct: <strong>${q.correct}</strong><br><span style="font-size:0.8rem;">📖 ${q.hint}</span></div>`;
+                feedbackHtml = `<div class="wrong-feedback">❌ INCORRECT. Answer: <strong>${q.correct}</strong><br><span style="font-size:0.7rem;">📚 ${q.hint}</span></div>`;
             } else {
-                feedbackHtml = `<div class="neutral-feedback">⚡ Click an answer</div>`;
+                feedbackHtml = `<div class="neutral-feedback">🏆 Click an answer — master level</div>`;
             }
 
             let optionsHtml = '';
@@ -355,7 +440,7 @@
 
             html += `
                 <div class="question-card">
-                    <div class="question-text">❓ ${i+1}. ${q.text}</div>
+                    <div class="question-text">📌 ${i+1}. ${q.text}</div>
                     <div class="options" id="options-${i}">
                         ${optionsHtml}
                     </div>
