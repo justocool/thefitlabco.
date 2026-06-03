@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Literary Trio: Character · Setting · Summary Match (Hard Mode)</title>
+    <title>Literary Quad: Character · Setting · Summary · Theme Match (Hard Mode)</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
             font-family: 'Inter', system-ui, 'Segoe UI', 'Georgia', serif;
         }
         .quiz-pavilion {
-            max-width: 1200px;
+            max-width: 1250px;
             width: 100%;
             background: #fef7ea;
             border-radius: 2.5rem;
@@ -36,9 +36,9 @@
         .tab {
             flex: 1;
             text-align: center;
-            padding: 1rem 0.5rem;
+            padding: 0.9rem 0.3rem;
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             color: #ecd99b;
             background: #24382a;
@@ -101,12 +101,12 @@
             margin-bottom: 0.5rem;
         }
         .prompt-text {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 700;
             color: #2f3e2c;
             border-left: 5px solid #e6b422;
             padding-left: 1rem;
-            line-height: 1.3;
+            line-height: 1.35;
         }
         .options-grid {
             display: flex;
@@ -173,19 +173,20 @@
             color: #2d3e28;
             font-size: 0.85rem;
         }
-        @media (max-width: 650px) {
+        @media (max-width: 700px) {
             .quiz-container { padding: 1.5rem; }
-            .prompt-text { font-size: 1.2rem; }
-            .tab { font-size: 0.8rem; padding: 0.8rem 0.2rem; }
+            .prompt-text { font-size: 1.1rem; }
+            .tab { font-size: 0.7rem; padding: 0.8rem 0.2rem; }
         }
     </style>
 </head>
 <body>
 <div class="quiz-pavilion" id="masterPavilion">
     <div class="tab-bar">
-        <div class="tab" data-mode="character">🎭 CHARACTER → STORY (hard)</div>
-        <div class="tab" data-mode="setting">🌍 SETTING → STORY (hard)</div>
-        <div class="tab" data-mode="summary">📜 SUMMARY → STORY (hard)</div>
+        <div class="tab" data-mode="character">🎭 CHARACTER → STORY</div>
+        <div class="tab" data-mode="setting">🌍 SETTING → STORY</div>
+        <div class="tab" data-mode="summary">📜 SUMMARY → STORY</div>
+        <div class="tab" data-mode="theme">💡 THEME → STORY</div>
     </div>
     <div id="quizRenderZone"></div>
 </div>
@@ -206,7 +207,7 @@
         "The Charge of the Light Brigade"
     ];
 
-    // ----- 1. CHARACTER data (harder: ambiguous clues, secondary characters) -----
+    // ----- 1. CHARACTER data (harder: obscure clues, secondary characters) -----
     const CHARACTER_DATA = [
         { prompt: "Leon & the priest who sprinkles holy water on a dead man's face (Pueblo tradition)", story: "The Man to Send Rain Clouds" },
         { prompt: "The boy named Marvin who sees the glowing radioactive remains of Earth from a moon colony", story: "If I Forget Thee, O Earth" },
@@ -251,12 +252,27 @@
         { prompt: "Six hundred British cavalrymen charge into a deadly valley due to a mistaken order; they face cannon fire on all sides, yet show tremendous courage and sacrifice.", story: "The Charge of the Light Brigade" }
     ];
 
-    let currentMode = "character";   // 'character', 'setting', 'summary'
+    // ----- 4. THEME data (core messages, abstract concepts, harder match) -----
+    const THEME_DATA = [
+        { prompt: "The fusion of Christian and Indigenous spiritual traditions; honoring the dead through ritual brings communal harmony and rain.", story: "The Man to Send Rain Clouds" },
+        { prompt: "Exile, loss of home, and the haunting memory of a destroyed world; the burden of knowing what humanity has lost.", story: "If I Forget Thee, O Earth" },
+        { prompt: "Sacrificial love and generosity; the true value of a gift lies in the spirit of giving, not material worth.", story: "The Gift of the Magi" },
+        { prompt: "The destructive nature of pride and excessive ambition; love intertwined with cruelty, and the inevitability of loss.", story: "The Scarlet Ibis" },
+        { prompt: "The vanity of materialism and the dangers of pride; honesty and contentment are worth more than appearances.", story: "The Necklace" },
+        { prompt: "The tension between imagination and reality; escapism as a coping mechanism, and the fragility of inner freedom.", story: "The Secret Life of Walter Mitty" },
+        { prompt: "The power of love to transcend hatred, but also the tragic consequences of impulsive passion and societal conflict.", story: "Romeo and Juliet" },
+        { prompt: "The yearning for freedom and equality; the pain of oppression expressed through the metaphor of a caged bird.", story: "Sympathy" },
+        { prompt: "The fallibility of heroes and the cruelty of expectation; hubris and anti-climax in the face of collective hope.", story: "Casey at the Bat" },
+        { prompt: "Grief, loss, and the descent into madness; the impossibility of moving on from a loved one's death.", story: "The Raven" },
+        { prompt: "Duty, honor, and the sacrifice of soldiers in the face of certain death; the glory and tragedy of blind obedience.", story: "The Charge of the Light Brigade" }
+    ];
+
+    let currentMode = "character";   // 'character', 'setting', 'summary', 'theme'
     let currentIndex = 0;
-    let userAnswers = [];      // will be reinitialized per mode
+    let userAnswers = [];
     let quizFinished = false;
     let questionOrder = [];
-    let optionPools = [];       // shuffled story lists per question
+    let optionPools = [];
 
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
@@ -269,7 +285,15 @@
     function getDataSet() {
         if (currentMode === "character") return CHARACTER_DATA;
         if (currentMode === "setting") return SETTING_DATA;
-        return SUMMARY_DATA;
+        if (currentMode === "summary") return SUMMARY_DATA;
+        return THEME_DATA;
+    }
+
+    function getModeLabel() {
+        if (currentMode === "character") return "🎭 CHARACTER (hard clues)";
+        if (currentMode === "setting") return "🌍 SETTING (precise locations)";
+        if (currentMode === "summary") return "📜 SUMMARY (dense retelling)";
+        return "💡 THEME (abstract message)";
     }
 
     function initMode() {
@@ -325,19 +349,19 @@
         }
         const total = dataSet.length;
         const percent = Math.round((score / total) * 100);
-        let modeLabel = currentMode === "character" ? "CHARACTER MATCH" : (currentMode === "setting" ? "SETTING MATCH" : "SUMMARY MATCH");
-        let rating = percent >= 80 ? "🎓 LITERARY DETECTIVE" : (percent >= 60 ? "📚 SCHOLAR" : "⚔️ NEEDS REVIEW");
+        let modeTitle = currentMode === "character" ? "CHARACTER MATCH" : (currentMode === "setting" ? "SETTING MATCH" : (currentMode === "summary" ? "SUMMARY MATCH" : "THEME MATCH"));
+        let rating = percent >= 80 ? "🏆 LITERARY MASTER" : (percent >= 60 ? "📚 SOLID SCHOLAR" : "⚔️ REVIEW NEEDED");
         const resultHtml = `
             <div class="quiz-container">
                 <div class="progress-area"><div class="progress-fill" style="width:100%"></div></div>
                 <div style="background:#e9dfc6; border-radius: 2rem; padding: 2rem; text-align: center;">
                     <h2 style="font-size:2rem;">${score} / ${total}</h2>
-                    <p style="font-size:1.2rem;">${modeLabel} — Accuracy: ${percent}% — ${rating}</p>
+                    <p style="font-size:1.2rem;">${modeTitle} — Accuracy: ${percent}% — ${rating}</p>
                     <p style="margin-top:0.8rem;">✨ Stories: The Man to Send Rain Clouds · If I Forget Thee, O Earth · Gift of the Magi · The Scarlet Ibis · The Necklace · Walter Mitty · Romeo and Juliet · Sympathy · Casey at the Bat · The Raven · Charge of the Light Brigade ✨</p>
-                    <button class="next-btn reset-btn" id="resetModeQuiz" style="background:#5e4a2e; margin-top:1.5rem;">⟳ RESTART (${modeLabel})</button>
+                    <button class="next-btn reset-btn" id="resetModeQuiz" style="background:#5e4a2e; margin-top:1.5rem;">⟳ RESTART (${modeTitle})</button>
                 </div>
             </div>
-            <div class="footer-stats">🏆 Hard mode: obscure clues | literary precision</div>
+            <div class="footer-stats">🏆 Hard mode: character · setting · summary · theme | literary precision</div>
         `;
         const renderZone = document.getElementById("quizRenderZone");
         renderZone.innerHTML = resultHtml;
@@ -361,12 +385,12 @@
         let feedbackHtml = "";
         if (isAnswered) {
             if (isCorrect) {
-                feedbackHtml = `<div class="feedback feedback-correct">✅ Perfect match! “${correctStory}” is correct. 🔍 <em>${currentMode === 'character' ? 'Character clue' : (currentMode === 'setting' ? 'Setting detail' : 'Summary hint')}</em> verified.</div>`;
+                feedbackHtml = `<div class="feedback feedback-correct">✅ Perfect match! “${correctStory}” is correct. 🔍 <em>${currentMode === 'character' ? 'Character clue' : (currentMode === 'setting' ? 'Setting detail' : (currentMode === 'summary' ? 'Summary hint' : 'Theme insight'))}</em> verified.</div>`;
             } else {
-                feedbackHtml = `<div class="feedback feedback-wrong">❌ Incorrect match. The correct story is <strong>${correctStory}</strong>. Re-examine the clue.</div>`;
+                feedbackHtml = `<div class="feedback feedback-wrong">❌ Incorrect match. The correct story is <strong>${correctStory}</strong>. Re-examine the ${currentMode} clue.</div>`;
             }
         } else {
-            feedbackHtml = `<div class="feedback" style="background:#f2ecd9;">🎯 Select the story that matches the ${currentMode === 'character' ? 'character(s)' : (currentMode === 'setting' ? 'setting description' : 'plot summary')}.</div>`;
+            feedbackHtml = `<div class="feedback" style="background:#f2ecd9;">🎯 Select the story that best matches the ${currentMode === 'character' ? 'character(s)' : (currentMode === 'setting' ? 'setting description' : (currentMode === 'summary' ? 'plot summary' : 'central theme'))}.</div>`;
         }
 
         let optionsHtml = "";
@@ -386,17 +410,16 @@
         const totalQ = questionOrder.length;
         const answeredCount = userAnswers.filter(v => v !== null).length;
         const progressPercent = ((currentIndex) / totalQ) * 100;
-        let modeDisplay = currentMode === "character" ? "🎭 CHARACTER (hard clues)" : (currentMode === "setting" ? "🌍 SETTING (precise locations)" : "📜 SUMMARY (dense retelling)");
 
         const mainHtml = `
             <div class="quiz-container">
                 <div class="progress-area"><div class="progress-fill" style="width: ${progressPercent}%"></div></div>
                 <div class="q-meta">
                     <span class="q-count">🔖 ${currentIndex+1} / ${totalQ}</span>
-                    <span style="background:#cfc29e; padding:0.2rem 1rem; border-radius:20px; font-size:0.7rem; font-weight:bold;">${modeDisplay}</span>
+                    <span style="background:#cfc29e; padding:0.2rem 1rem; border-radius:20px; font-size:0.7rem; font-weight:bold;">${getModeLabel()}</span>
                 </div>
                 <div class="challenge-card">
-                    <div class="prompt-label">${currentMode === 'character' ? 'CHARACTER / PERSONA' : (currentMode === 'setting' ? 'SETTING & ATMOSPHERE' : 'STORY SUMMARY')}</div>
+                    <div class="prompt-label">${currentMode === 'character' ? 'CHARACTER / PERSONA' : (currentMode === 'setting' ? 'SETTING & ATMOSPHERE' : (currentMode === 'summary' ? 'PLOT SUMMARY' : 'THEMATIC STATEMENT'))}</div>
                     <div class="prompt-text">“${item.prompt}”</div>
                 </div>
                 <div class="options-grid" id="optsGrid">
@@ -410,7 +433,7 @@
                 </div>
             </div>
             <div class="footer-stats">
-                <span>📚 The Man to Send Rain Clouds · The Raven · Gift of the Magi · Casey · Walter Mitty · The Necklace</span>
+                <span>📚 The Man to Send Rain Clouds · The Raven · Gift of the Magi · Casey · Walter Mitty · The Necklace · Sympathy</span>
                 <span>✔️ ${answeredCount} matched</span>
             </div>
         `;
@@ -427,7 +450,6 @@
         currentMode = mode;
         initMode();
         renderCurrent();
-        // update tab active class
         document.querySelectorAll('.tab').forEach(tab => {
             if (tab.getAttribute('data-mode') === mode) tab.classList.add('active');
             else tab.classList.remove('active');
@@ -441,10 +463,11 @@
             if (mode === 'character') switchMode('character');
             else if (mode === 'setting') switchMode('setting');
             else if (mode === 'summary') switchMode('summary');
+            else if (mode === 'theme') switchMode('theme');
         });
     });
 
-    // initialize with character mode (hard)
+    // initialize with character mode
     switchMode('character');
 </script>
 </body>
