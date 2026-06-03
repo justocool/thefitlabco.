@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Literary Quad: Character · Setting · Summary · Theme Match (Hard Mode)</title>
+    <title>Literary Hub: Terms + Story Elements (Hard Mode)</title>
     <style>
         * {
             margin: 0;
@@ -11,7 +11,7 @@
             box-sizing: border-box;
         }
         body {
-            background: linear-gradient(145deg, #121d22 0%, #1c2a2a 100%);
+            background: linear-gradient(145deg, #0c1a24 0%, #142830 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -19,26 +19,26 @@
             padding: 2rem 1rem;
             font-family: 'Inter', system-ui, 'Segoe UI', 'Georgia', serif;
         }
-        .quiz-pavilion {
+        .master-hub {
             max-width: 1250px;
             width: 100%;
-            background: #fef7ea;
+            background: #fef7ec;
             border-radius: 2.5rem;
-            box-shadow: 0 30px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.45);
             overflow: hidden;
         }
         .tab-bar {
             display: flex;
-            background: #2b3b2a;
-            border-bottom: 2px solid #e6b422;
+            background: #1e2f2c;
+            border-bottom: 3px solid #e6b422;
             flex-wrap: wrap;
         }
         .tab {
             flex: 1;
             text-align: center;
-            padding: 0.9rem 0.3rem;
+            padding: 1rem 0.5rem;
             font-weight: 800;
-            font-size: 0.9rem;
+            font-size: 1rem;
             cursor: pointer;
             color: #ecd99b;
             background: #24382a;
@@ -48,18 +48,64 @@
         }
         .tab:last-child { border-right: none; }
         .tab.active {
-            background: #fef7ea;
+            background: #fef7ec;
             color: #2c3e2b;
             border-bottom: 3px solid #e6b422;
             position: relative;
         }
-        .quiz-container {
-            padding: 2rem 2rem 1.5rem;
-            min-height: 550px;
+        .quiz-pane {
+            display: none;
+            animation: fade 0.2s ease;
         }
-        .progress-area {
-            background: #e4dbc6;
+        .quiz-pane.active-pane {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(6px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        /* reuse existing quiz styles */
+        .quiz-header {
+            background: #1e2f2c;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid #e6b422;
+            color: #fffbee;
+        }
+        .quiz-header h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .badge-hard {
+            background: #b4652a;
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fae67a;
+        }
+        .term-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            font-family: monospace;
+        }
+        .term-strip span {
+            background: #2e4a3e;
+            padding: 0.2rem 0.8rem;
             border-radius: 30px;
+        }
+        .quiz-core {
+            padding: 2rem 2rem 1.5rem;
+        }
+        .progress-bar {
+            background: #e2d8c2;
+            border-radius: 40px;
             height: 8px;
             margin-bottom: 1.8rem;
             overflow: hidden;
@@ -70,209 +116,368 @@
             height: 100%;
             transition: width 0.2s ease;
         }
-        .q-meta {
+        .question-header {
             display: flex;
             justify-content: space-between;
+            align-items: baseline;
             margin-bottom: 1rem;
-            font-weight: 600;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.6rem;
         }
-        .q-count {
-            background: #d9cdae;
+        .q-counter {
+            background: #e3d7bf;
             padding: 0.2rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #2f412a;
         }
-        .challenge-card {
-            background: #f7f0e0;
+        .def-box {
+            background: #f3efdf;
             border-radius: 2rem;
             padding: 1.6rem;
-            margin-bottom: 1.8rem;
-            border: 1px solid #e6d9bc;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            border: 1px solid #e7dbbc;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02), 0 6px 12px rgba(0,0,0,0.05);
         }
-        .prompt-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
-            color: #b67e2e;
-            margin-bottom: 0.5rem;
-        }
-        .prompt-text {
+        .definition-text {
             font-size: 1.45rem;
-            font-weight: 700;
-            color: #2f3e2c;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #1f2e25;
             border-left: 5px solid #e6b422;
-            padding-left: 1rem;
-            line-height: 1.35;
+            padding-left: 1.2rem;
         }
         .options-grid {
             display: flex;
             flex-direction: column;
-            gap: 0.9rem;
-            margin: 1.5rem 0 1rem;
+            gap: 1rem;
+            margin: 1.8rem 0 1.5rem;
         }
         .opt-btn {
             background: white;
-            border: 2px solid #ddd0ae;
+            border: 2px solid #ddcfaa;
             border-radius: 60px;
-            padding: 0.8rem 1.3rem;
+            padding: 0.9rem 1.3rem;
+            font-size: 1rem;
             font-weight: 600;
+            font-family: monospace;
             cursor: pointer;
-            transition: 0.2s;
-            color: #2b3b28;
-            font-size: 0.95rem;
+            transition: all 0.2s;
+            color: #2b3927;
         }
         .opt-btn:hover:not(.disabled-opt) {
-            background: #fff2e0;
+            background: #fff6e8;
             border-color: #c49a2b;
-            transform: scale(0.98);
+            transform: scale(0.99);
         }
-        .disabled-opt { pointer-events: none; opacity: 0.8; }
-        .correct-highlight { background: #c9efd4 !important; border-color: #2b7a3e !important; }
-        .wrong-highlight { background: #ffe1da !important; border-color: #bc3f26 !important; text-decoration: line-through; }
-        .feedback {
-            margin: 1rem 0 0.5rem;
-            padding: 0.9rem 1.2rem;
+        .disabled-opt {
+            cursor: default;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+        .correct-opt {
+            background: #ccf0d6 !important;
+            border-color: #2b7a3e !important;
+        }
+        .wrong-opt {
+            background: #ffe0d9 !important;
+            border-color: #bc3f26 !important;
+            text-decoration: line-through;
+        }
+        .feedback-panel {
+            background: #ede3cf;
             border-radius: 1.5rem;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
             font-weight: 500;
-            background: #ece2cf;
         }
-        .feedback-correct { background: #e0f2e4; border-left: 8px solid #2e7d32; }
-        .feedback-wrong { background: #ffe7e2; border-left: 8px solid #c23b22; }
-        .actions {
+        .feedback-correct {
+            background: #dff0e3;
+            border-left: 8px solid #2e7d32;
+            color: #1b4d2b;
+        }
+        .feedback-wrong {
+            background: #fee9e4;
+            border-left: 8px solid #bc3f26;
+            color: #842e1a;
+        }
+        .action-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1rem;
             flex-wrap: wrap;
             gap: 1rem;
+            margin-top: 0.5rem;
         }
-        .next-btn {
+        .next-button {
             background: #2c3e2f;
             border: none;
-            padding: 0.7rem 2rem;
-            font-weight: bold;
+            padding: 0.8rem 2.2rem;
             font-size: 1rem;
+            font-weight: bold;
             border-radius: 60px;
             color: white;
             cursor: pointer;
             transition: 0.2s;
         }
-        .next-btn:hover { background: #1e2e21; transform: scale(0.97); }
-        .reset-btn { background: #735e3a; padding: 0.5rem 1.3rem; font-size: 0.8rem; margin-left: 0.5rem; }
-        .footer-stats {
-            background: #e2d5ba;
+        .next-button:hover {
+            background: #1f2e21;
+            transform: scale(0.97);
+        }
+        .reset-sm {
+            background: #785f3c;
+            padding: 0.5rem 1.4rem;
+            font-size: 0.85rem;
+        }
+        .score-footer {
+            background: #e4d8be;
             padding: 0.8rem 2rem;
             display: flex;
             justify-content: space-between;
             font-weight: 600;
-            border-top: 1px solid #cebf9b;
-            color: #2d3e28;
+            color: #2f402a;
             font-size: 0.85rem;
+            border-top: 1px solid #d4c5a2;
         }
         @media (max-width: 700px) {
-            .quiz-container { padding: 1.5rem; }
-            .prompt-text { font-size: 1.1rem; }
-            .tab { font-size: 0.7rem; padding: 0.8rem 0.2rem; }
+            .quiz-core { padding: 1.5rem; }
+            .definition-text { font-size: 1.2rem; }
+            .opt-btn { font-size: 0.85rem; padding: 0.7rem 1rem; }
+            .tab { font-size: 0.75rem; padding: 0.8rem 0.2rem; }
         }
     </style>
 </head>
 <body>
-<div class="quiz-pavilion" id="masterPavilion">
+<div class="master-hub">
     <div class="tab-bar">
-        <div class="tab" data-mode="character">🎭 CHARACTER → STORY</div>
-        <div class="tab" data-mode="setting">🌍 SETTING → STORY</div>
-        <div class="tab" data-mode="summary">📜 SUMMARY → STORY</div>
-        <div class="tab" data-mode="theme">💡 THEME → STORY</div>
+        <div class="tab active" data-pane="terms">📖 LITERARY TERMS (def → term)</div>
+        <div class="tab" data-pane="stories">📚 STORY ELEMENTS (character/setting/summary/theme)</div>
     </div>
-    <div id="quizRenderZone"></div>
+    <div id="paneTerms" class="quiz-pane active-pane">
+        <!-- terms quiz injected here -->
+        <div id="termsQuizContainer"></div>
+    </div>
+    <div id="paneStories" class="quiz-pane">
+        <!-- story elements quiz injected -->
+        <div id="storiesQuizContainer"></div>
+    </div>
 </div>
 
 <script>
-    // ----- ALL 11 STORIES (full list) -----
+    // --------------------------------------------------------------
+    // PART 1: LITERARY TERMS QUIZ (exactly as provided, with hard mode definition match)
+    // --------------------------------------------------------------
+    const questions = [
+        { definition: "The main character in a story, often the central figure who drives the action and faces conflict.", correctTerm: "Protagonist", distractors: ["Antagonist", "Tragic hero", "Dramatic foil"] },
+        { definition: "A character or force that actively opposes the main character, creating central conflict.", correctTerm: "Antagonist", distractors: ["Villain", "Foil", "Catalyst"] },
+        { definition: "Unrhymed poetry written in iambic pentameter; commonly used in Shakespeare and Milton.", correctTerm: "Blank verse", distractors: ["Free verse", "Iambic trimeter", "Heroic couplet"] },
+        { definition: "A metrical line consisting of five iambic feet (da-DUM repeated five times), the most common meter in English verse.", correctTerm: "Iambic pentameter", distractors: ["Trochaic pentameter", "Anapestic tetrameter", "Dactylic hexameter"] },
+        { definition: "A metrical foot with an unstressed syllable followed by a stressed syllable (˘ ′).", correctTerm: "Iamb", distractors: ["Trochee", "Spondee", "Anapest"] },
+        { definition: "A short remark or comment made by a character to the audience, unheard by other characters on stage.", correctTerm: "Aside", distractors: ["Soliloquy", "Monologue", "Choral interjection"] },
+        { definition: "A long speech by one character addressing other characters on stage.", correctTerm: "Monologue", distractors: ["Soliloquy", "Dialogue", "Aside"] },
+        { definition: "A speech delivered by a character alone on stage, revealing innermost thoughts and feelings to the audience.", correctTerm: "Soliloquy", distractors: ["Monologue", "Dramatic address", "Eulogy"] },
+        { definition: "A character whose traits directly contrast with those of another character, highlighting specific qualities of the protagonist.", correctTerm: "Dramatic foil", distractors: ["Alter ego", "Antagonist", "Symbolic double"] },
+        { definition: "A situation where the audience or reader knows something that a character does not, creating tension or irony.", correctTerm: "Dramatic irony", distractors: ["Situational irony", "Verbal irony", "Tragic flaw"] },
+        { definition: "A genre of drama where the protagonist suffers a catastrophic downfall, often due to a fatal flaw or external forces, evoking pity and fear.", correctTerm: "Tragedy", distractors: ["Comedy", "Tragicomedy", "Melodrama"] },
+        { definition: "The central, unifying idea or underlying message about life or human nature conveyed by a literary work.", correctTerm: "Theme", distractors: ["Motif", "Plot", "Symbolic meaning"] },
+        { definition: "A serious play or literary work that depicts the ruin or extreme suffering of the main character (a subset of tragedy, often focusing on stage representation).", correctTerm: "Dramatic tragedy", distractors: ["Revenge tragedy", "Domestic tragedy", "Aristotelian tragedy"] },
+        { definition: "A noble or virtuous character who experiences a downfall due to a tragic flaw (hamartia), fate, or both, evoking catharsis.", correctTerm: "Tragic hero", distractors: ["Byronic hero", "Fallen protagonist", "Anti-hero"] },
+        { definition: "An object, person, or event that represents a larger abstract idea or concept within a literary work.", correctTerm: "Symbol", distractors: ["Allegory", "Metaphor", "Image"] },
+        { definition: "A form of poetry that tells a story, complete with plot, characters, and setting (e.g., epics, ballads).", correctTerm: "Narrative poem", distractors: ["Lyric poem", "Ode", "Elegy"] },
+        { definition: "The repeated use of a word, phrase, sound, or structure for rhetorical effect and emphasis.", correctTerm: "Repetition", distractors: ["Anaphora", "Refrain", "Epanalepsis"] },
+        { definition: "A regularly recurring line, phrase, or stanza (like a chorus) in a poem or song.", correctTerm: "Refrain", distractors: ["Repetition", "Rhyme scheme", "Stanza break"] },
+        { definition: "The pattern of stressed and unstressed syllables in a line of poetry, creating flow and cadence; broader than strict meter.", correctTerm: "Rhythm", distractors: ["Meter", "Prosody", "Cadence"] }
+    ];
+
+    let randomizedOptionsTerms = [];
+    let currentIndexTerms = 0;
+    let userAnswersTerms = [];
+    let quizFinishedTerms = false;
+    let termsContainer = document.getElementById("termsQuizContainer");
+
+    function buildShuffledOptions(q) {
+        let opts = [q.correctTerm, ...q.distractors];
+        for (let i = opts.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [opts[i], opts[j]] = [opts[j], opts[i]];
+        }
+        return opts;
+    }
+
+    function initTermsQuiz() {
+        randomizedOptionsTerms = questions.map(q => buildShuffledOptions(q));
+        userAnswersTerms = new Array(questions.length).fill(null);
+        currentIndexTerms = 0;
+        quizFinishedTerms = false;
+        renderTermsQuestion();
+    }
+
+    function saveAnswerTerms(idx, selected) {
+        if (quizFinishedTerms) return;
+        if (userAnswersTerms[idx] !== null) return;
+        userAnswersTerms[idx] = selected;
+        renderTermsQuestion();
+    }
+
+    function goToNextTerms() {
+        if (quizFinishedTerms) return;
+        if (userAnswersTerms[currentIndexTerms] === null) {
+            alert("⚠️ Select a term before moving on.");
+            return;
+        }
+        if (currentIndexTerms + 1 < questions.length) {
+            currentIndexTerms++;
+            renderTermsQuestion();
+        } else {
+            finishTermsQuiz();
+        }
+    }
+
+    function finishTermsQuiz() {
+        quizFinishedTerms = true;
+        let score = 0;
+        for (let i = 0; i < questions.length; i++) {
+            if (userAnswersTerms[i] && userAnswersTerms[i].toLowerCase() === questions[i].correctTerm.toLowerCase()) score++;
+        }
+        const percent = Math.round((score / questions.length) * 100);
+        const verdict = percent >= 85 ? "🏅 LITERARY MASTER" : (percent >= 65 ? "📘 SCHOLAR" : "⚔️ NEEDS REVISION");
+        let resultHtml = `
+            <div class="quiz-core">
+                <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+                <div style="background:#ece1cb; border-radius: 2rem; padding: 2rem; text-align: center;">
+                    <h2 style="font-size:2rem;">${score} / ${questions.length}</h2>
+                    <p style="font-size:1.3rem; font-weight:600;">Accuracy: ${percent}% — ${verdict}</p>
+                    <p style="margin-top:1rem; background:#dacdae; display:inline-block; padding:0.4rem 1.2rem; border-radius:40px;">✅ all literary terms mastered</p>
+                    <div style="margin-top: 1.8rem;">
+                        <button class="next-button reset-sm" id="fullResetTerms" style="background:#4f3a24;">⟳ RESTART TERMS QUIZ</button>
+                    </div>
+                </div>
+            </div>
+            <div class="score-footer">🎯 definition → literary term | mastery challenge</div>
+        `;
+        termsContainer.innerHTML = resultHtml;
+        document.getElementById("fullResetTerms")?.addEventListener("click", () => { initTermsQuiz(); });
+    }
+
+    function renderTermsQuestion() {
+        if (quizFinishedTerms) return;
+        const q = questions[currentIndexTerms];
+        const currentOptions = randomizedOptionsTerms[currentIndexTerms];
+        const selected = userAnswersTerms[currentIndexTerms];
+        const isAnswered = selected !== null;
+        const isCorrect = isAnswered && (selected.toLowerCase() === q.correctTerm.toLowerCase());
+
+        let feedbackHtml = "";
+        if (isAnswered) {
+            if (isCorrect) feedbackHtml = `<div class="feedback-panel feedback-correct">✅ CORRECT. "${q.correctTerm}" precisely matches the definition.</div>`;
+            else feedbackHtml = `<div class="feedback-panel feedback-wrong">❌ INCORRECT. The definition belongs to <strong>${q.correctTerm}</strong>.<br><span style="font-size:0.85rem;">✏️ Review: ${q.definition}</span></div>`;
+        }
+
+        let optionsHtml = "";
+        currentOptions.forEach(opt => {
+            let cls = "";
+            let click = "";
+            if (isAnswered) {
+                cls = "disabled-opt";
+                if (opt.toLowerCase() === q.correctTerm.toLowerCase()) cls += " correct-opt";
+                if (selected === opt && opt !== q.correctTerm) cls += " wrong-opt";
+            } else {
+                click = `onclick="saveAnswerTerms(${currentIndexTerms}, '${opt.replace(/'/g, "\\'")}')"`;
+            }
+            optionsHtml += `<div class="opt-btn ${cls}" ${click}>📖 ${opt}</div>`;
+        });
+
+        const answeredCount = userAnswersTerms.filter(v => v !== null).length;
+        const progressPercent = (currentIndexTerms / questions.length) * 100;
+        const mainHtml = `
+            <div class="quiz-core">
+                <div class="progress-bar"><div class="progress-fill" style="width: ${progressPercent}%"></div></div>
+                <div class="question-header"><span class="q-counter">🔖 term ${currentIndexTerms+1}/${questions.length}</span><span style="font-size:0.7rem; background:#d8cbad; padding:0.2rem 0.8rem; border-radius:30px;">match definition → term</span></div>
+                <div class="def-box"><div class="definition-text">“${q.definition}”</div></div>
+                <div class="options-grid">${optionsHtml}</div>
+                ${feedbackHtml}
+                <div class="action-bar"><span style="background:#e9deca; padding:0.2rem 1rem; border-radius:40px;">📌 answered: ${answeredCount}/${questions.length}</span><button class="next-button" id="nextTermsBtn">${currentIndexTerms+1 === questions.length ? "🏁 SUBMIT QUIZ" : "NEXT →"}</button></div>
+                <div style="margin-top:1rem; text-align:right;"><button class="next-button reset-sm" id="resetTermsMid" style="background:#755f3a;">⟳ Reset All</button></div>
+            </div>
+            <div class="score-footer"><span>⚡ protagonist · aside · soliloquy · blank verse · tragic hero · dramatic irony · refrain</span><span>🔍 ${answeredCount} definitions matched</span></div>
+        `;
+        termsContainer.innerHTML = mainHtml;
+        document.getElementById("nextTermsBtn")?.addEventListener("click", goToNextTerms);
+        document.getElementById("resetTermsMid")?.addEventListener("click", () => initTermsQuiz());
+    }
+
+    // --------------------------------------------------------------
+    // PART 2: STORY ELEMENTS (Character, Setting, Summary, Theme)
+    // --------------------------------------------------------------
     const ALL_STORIES = [
-        "The Man to Send Rain Clouds",
-        "If I Forget Thee, O Earth",
-        "The Gift of the Magi",
-        "The Scarlet Ibis",
-        "The Necklace",
-        "The Secret Life of Walter Mitty",
-        "Romeo and Juliet",
-        "Sympathy",
-        "Casey at the Bat",
-        "The Raven",
-        "The Charge of the Light Brigade"
+        "The Man to Send Rain Clouds", "If I Forget Thee, O Earth", "The Gift of the Magi",
+        "The Scarlet Ibis", "The Necklace", "The Secret Life of Walter Mitty",
+        "Romeo and Juliet", "Sympathy", "Casey at the Bat", "The Raven", "The Charge of the Light Brigade"
     ];
 
-    // ----- 1. CHARACTER data (harder: obscure clues, secondary characters) -----
-    const CHARACTER_DATA = [
-        { prompt: "Leon & the priest who sprinkles holy water on a dead man's face (Pueblo tradition)", story: "The Man to Send Rain Clouds" },
-        { prompt: "The boy named Marvin who sees the glowing radioactive remains of Earth from a moon colony", story: "If I Forget Thee, O Earth" },
-        { prompt: "The couple who sell watch and hair to buy each other useless perfect gifts", story: "The Gift of the Magi" },
-        { prompt: "The older brother who pushes his physically disabled brother until a scarlet bird dies tragically", story: "The Scarlet Ibis" },
-        { prompt: "Mathilde Loisel, who borrows a diamond necklace and loses it, ruining her life", story: "The Necklace" },
-        { prompt: "Daydreaming commander, surgeon, and accused assassin — all in his fantasies", story: "The Secret Life of Walter Mitty" },
-        { prompt: "Friar Laurence and the star-crossed pair who die in a Verona tomb", story: "Romeo and Juliet" },
-        { prompt: "The caged bird who beats its wings against the bars — speaker of a famous Dunbar poem", story: "Sympathy" },
-        { prompt: "The mighty slugger from Mudville who strikes out in the final inning", story: "Casey at the Bat" },
-        { prompt: "The grieving scholar haunted by a talking raven; lost Lenore", story: "The Raven" },
-        { prompt: "Noble six hundred charging into 'the Valley of Death' despite a blunder", story: "The Charge of the Light Brigade" }
-    ];
+    const STORY_DATA = {
+        character: [
+            { prompt: "Leon & the priest who sprinkles holy water on a dead man's face (Pueblo tradition)", story: "The Man to Send Rain Clouds" },
+            { prompt: "The boy named Marvin who sees the glowing radioactive remains of Earth from a moon colony", story: "If I Forget Thee, O Earth" },
+            { prompt: "The couple who sell watch and hair to buy each other useless perfect gifts", story: "The Gift of the Magi" },
+            { prompt: "The older brother who pushes his physically disabled brother until a scarlet bird dies tragically", story: "The Scarlet Ibis" },
+            { prompt: "Mathilde Loisel, who borrows a diamond necklace and loses it, ruining her life", story: "The Necklace" },
+            { prompt: "Daydreaming commander, surgeon, and accused assassin — all in his fantasies", story: "The Secret Life of Walter Mitty" },
+            { prompt: "Friar Laurence and the star-crossed pair who die in a Verona tomb", story: "Romeo and Juliet" },
+            { prompt: "The caged bird who beats its wings against the bars — speaker of a famous Dunbar poem", story: "Sympathy" },
+            { prompt: "The mighty slugger from Mudville who strikes out in the final inning", story: "Casey at the Bat" },
+            { prompt: "The grieving scholar haunted by a talking raven; lost Lenore", story: "The Raven" },
+            { prompt: "Noble six hundred charging into 'the Valley of Death' despite a blunder", story: "The Charge of the Light Brigade" }
+        ],
+        setting: [
+            { prompt: "A small Pueblo community in New Mexico, near a canyon, with traditional funeral rites involving feathers and a cottonwood tree", story: "The Man to Send Rain Clouds" },
+            { prompt: "A sheltered colony on the Moon (Alphonsus crater) overlooking a desolate, radioactive Earth after nuclear war", story: "If I Forget Thee, O Earth" },
+            { prompt: "A modest, cheap flat in New York City; the couple owns only two valuable things: a watch and long hair", story: "The Gift of the Magi" },
+            { prompt: "A rural Southern farm with a bleeding tree, a cotton field, and a swamp; summer heat and a coming storm", story: "The Scarlet Ibis" },
+            { prompt: "Paris, late 19th century: a Ministry, a ballroom, and later a shabby apartment in the Rue des Martyrs", story: "The Necklace" },
+            { prompt: "A mundane drive through Waterbury, Connecticut; fantasy settings include a Navy hydroplane and a courtroom", story: "The Secret Life of Walter Mitty" },
+            { prompt: "Verona, Italy: the Capulet orchard, a tomb, and the streets where sword fights break out", story: "Romeo and Juliet" },
+            { prompt: "A metaphorical cage; the poem describes a bird's confinement and longing for freedom", story: "Sympathy" },
+            { prompt: "Mudville baseball stadium, final inning, two outs, crowd full of despair", story: "Casey at the Bat" },
+            { prompt: "A bleak, midnight chamber with a bust of Pallas and a violet curtain; a tapping at the door", story: "The Raven" },
+            { prompt: "The Valley of Death (Balaklava during the Crimean War), surrounded by cannons", story: "The Charge of the Light Brigade" }
+        ],
+        summary: [
+            { prompt: "An old shepherd dies; his family arranges a traditional burial blending Catholic rites with indigenous customs, using a feather and sprinkled holy water to send rain clouds.", story: "The Man to Send Rain Clouds" },
+            { prompt: "In a future lunar colony, a boy witnesses the destroyed Earth from afar; his father explains why they cannot return, revealing humanity's downfall.", story: "If I Forget Thee, O Earth" },
+            { prompt: "A poor couple secretly sells their prized possessions — hair and a watch — to buy gifts, only to find the gifts useless yet priceless.", story: "The Gift of the Magi" },
+            { prompt: "A prideful older brother pushes his frail younger brother, Doodle, to learn physical skills; after a storm, Doodle dies under a bleeding tree, mirroring a fallen scarlet ibis.", story: "The Scarlet Ibis" },
+            { prompt: "A discontented woman borrows a diamond necklace for a ball, loses it, and spends ten years in poverty replacing it, only to learn the original was fake.", story: "The Necklace" },
+            { prompt: "A mild-mannered man escapes mundane errands into heroic daydreams — pilot, surgeon — until reality interrupts.", story: "The Secret Life of Walter Mitty" },
+            { prompt: "Two teenagers from feuding families fall in love, marry secretly, and after misunderstandings, both commit suicide, ending the ancient grudge.", story: "Romeo and Juliet" },
+            { prompt: "The speaker observes a caged bird beating its wings and singing of freedom, paralleling oppression and longing.", story: "Sympathy" },
+            { prompt: "Mudville is losing 4–2; when Casey comes to bat, the crowd has faith — but he strikes out on a curveball.", story: "Casey at the Bat" },
+            { prompt: "A grieving scholar is visited by a raven that perches on a bust of Pallas; the bird only replies 'Nevermore,' driving him to despair.", story: "The Raven" },
+            { prompt: "Six hundred British cavalry charge into a deadly valley due to a mistaken order; they face cannon fire on all sides, showing courage and sacrifice.", story: "The Charge of the Light Brigade" }
+        ],
+        theme: [
+            { prompt: "Fusion of Christian and Indigenous spiritual traditions; honoring the dead through ritual brings communal harmony.", story: "The Man to Send Rain Clouds" },
+            { prompt: "Exile, loss of home, and the haunting memory of a destroyed world; the burden of knowing what humanity has lost.", story: "If I Forget Thee, O Earth" },
+            { prompt: "Sacrificial love and generosity; true value of a gift lies in the spirit of giving, not material worth.", story: "The Gift of the Magi" },
+            { prompt: "The destructive nature of pride and excessive ambition; love intertwined with cruelty, and the inevitability of loss.", story: "The Scarlet Ibis" },
+            { prompt: "Vanity of materialism and dangers of pride; honesty and contentment are worth more than appearances.", story: "The Necklace" },
+            { prompt: "Tension between imagination and reality; escapism as a coping mechanism, fragility of inner freedom.", story: "The Secret Life of Walter Mitty" },
+            { prompt: "Love transcends hatred, but also tragic consequences of impulsive passion and societal conflict.", story: "Romeo and Juliet" },
+            { prompt: "Yearning for freedom and equality; the pain of oppression expressed through a caged bird metaphor.", story: "Sympathy" },
+            { prompt: "Fallibility of heroes and cruelty of expectation; hubris and anti-climax in the face of collective hope.", story: "Casey at the Bat" },
+            { prompt: "Grief, loss, and the descent into madness; the impossibility of moving on from a loved one's death.", story: "The Raven" },
+            { prompt: "Duty, honor, and sacrifice in the face of certain death; the glory and tragedy of blind obedience.", story: "The Charge of the Light Brigade" }
+        ]
+    };
 
-    // ----- 2. SETTING data (harder: abstract / precise locations) -----
-    const SETTING_DATA = [
-        { prompt: "A small Pueblo community in New Mexico, near a canyon, with traditional funeral rites involving feathers and a cottonwood tree", story: "The Man to Send Rain Clouds" },
-        { prompt: "A sheltered colony on the Moon (Alphonsus crater) overlooking a desolate, radioactive Earth after nuclear war", story: "If I Forget Thee, O Earth" },
-        { prompt: "A modest, cheap flat in New York City; the couple owns only two valuable things: a watch and long hair", story: "The Gift of the Magi" },
-        { prompt: "A rural Southern farm with a bleeding tree, a cotton field, and a swamp; summer heat and a coming storm", story: "The Scarlet Ibis" },
-        { prompt: "Paris, late 19th century: a Ministry, a ballroom, and later a shabby apartment in the Rue des Martyrs", story: "The Necklace" },
-        { prompt: "A mundane drive through Waterbury, Connecticut; fantasy settings include a Navy hydroplane and a courtroom", story: "The Secret Life of Walter Mitty" },
-        { prompt: "Verona, Italy: the Capulet orchard, a tomb, and the streets where sword fights break out between Montagues and Capulets", story: "Romeo and Juliet" },
-        { prompt: "A metaphorical cage; the poem describes a bird's confinement and longing for freedom (no specific geographic location)", story: "Sympathy" },
-        { prompt: "Mudville baseball stadium, the final inning, two outs, crowd full of despair — and one mighty batter", story: "Casey at the Bat" },
-        { prompt: "A bleak, midnight chamber with a bust of Pallas and a violet curtain; a tapping at the door", story: "The Raven" },
-        { prompt: "The Valley of Death (Balaklava during the Crimean War), surrounded by cannons and Russian artillery", story: "The Charge of the Light Brigade" }
-    ];
-
-    // ----- 3. SUMMARY data (dense, tricky, plot + tone) -----
-    const SUMMARY_DATA = [
-        { prompt: "An old shepherd dies during a sheep roundup; his family arranges a traditional burial blending Catholic rites with indigenous customs, using a feather and sprinkled holy water to send rain clouds.", story: "The Man to Send Rain Clouds" },
-        { prompt: "In a future lunar colony, a boy named Marvin witnesses the destroyed Earth from afar; his father explains why they cannot return, revealing humanity's downfall.", story: "If I Forget Thee, O Earth" },
-        { prompt: "A poor married couple secretly sells their most prized possessions — hair and a watch — to buy gifts for each other, only to find the gifts are now useless yet priceless.", story: "The Gift of the Magi" },
-        { prompt: "A prideful older brother pushes his frail younger brother, Doodle, to learn physical skills; after a storm, Doodle dies under a bleeding tree, mirroring a fallen scarlet ibis.", story: "The Scarlet Ibis" },
-        { prompt: "A beautiful but discontented woman borrows a diamond necklace for a ball, loses it, and spends ten years in poverty replacing it, only to learn the original was fake.", story: "The Necklace" },
-        { prompt: "A mild-mannered man escapes mundane errands into heroic daydreams: pilot, surgeon, sharpshooter — until reality interrupts with a parking lot and a wife's reminder.", story: "The Secret Life of Walter Mitty" },
-        { prompt: "Two teenagers from feuding families fall in love, marry secretly, and after a series of misunderstandings, both commit suicide, ending the ancient grudge.", story: "Romeo and Juliet" },
-        { prompt: "The speaker observes a caged bird beating its wings and singing of freedom, drawing a parallel to the oppression and longing of African Americans.", story: "Sympathy" },
-        { prompt: "The Mudville baseball team is losing 4–2; when Casey comes to bat, the crowd has total faith — but he strikes out on a vicious curveball, stunning everyone.", story: "Casey at the Bat" },
-        { prompt: "A grieving scholar is visited by a mysterious raven that perches on a bust of Pallas; the bird only replies 'Nevermore,' driving the narrator into despair over lost Lenore.", story: "The Raven" },
-        { prompt: "Six hundred British cavalrymen charge into a deadly valley due to a mistaken order; they face cannon fire on all sides, yet show tremendous courage and sacrifice.", story: "The Charge of the Light Brigade" }
-    ];
-
-    // ----- 4. THEME data (core messages, abstract concepts, harder match) -----
-    const THEME_DATA = [
-        { prompt: "The fusion of Christian and Indigenous spiritual traditions; honoring the dead through ritual brings communal harmony and rain.", story: "The Man to Send Rain Clouds" },
-        { prompt: "Exile, loss of home, and the haunting memory of a destroyed world; the burden of knowing what humanity has lost.", story: "If I Forget Thee, O Earth" },
-        { prompt: "Sacrificial love and generosity; the true value of a gift lies in the spirit of giving, not material worth.", story: "The Gift of the Magi" },
-        { prompt: "The destructive nature of pride and excessive ambition; love intertwined with cruelty, and the inevitability of loss.", story: "The Scarlet Ibis" },
-        { prompt: "The vanity of materialism and the dangers of pride; honesty and contentment are worth more than appearances.", story: "The Necklace" },
-        { prompt: "The tension between imagination and reality; escapism as a coping mechanism, and the fragility of inner freedom.", story: "The Secret Life of Walter Mitty" },
-        { prompt: "The power of love to transcend hatred, but also the tragic consequences of impulsive passion and societal conflict.", story: "Romeo and Juliet" },
-        { prompt: "The yearning for freedom and equality; the pain of oppression expressed through the metaphor of a caged bird.", story: "Sympathy" },
-        { prompt: "The fallibility of heroes and the cruelty of expectation; hubris and anti-climax in the face of collective hope.", story: "Casey at the Bat" },
-        { prompt: "Grief, loss, and the descent into madness; the impossibility of moving on from a loved one's death.", story: "The Raven" },
-        { prompt: "Duty, honor, and the sacrifice of soldiers in the face of certain death; the glory and tragedy of blind obedience.", story: "The Charge of the Light Brigade" }
-    ];
-
-    let currentMode = "character";   // 'character', 'setting', 'summary', 'theme'
-    let currentIndex = 0;
-    let userAnswers = [];
-    let quizFinished = false;
-    let questionOrder = [];
-    let optionPools = [];
+    let storyMode = "character"; // character, setting, summary, theme
+    let storyQuestionOrder = [];
+    let storyUserAnswers = [];
+    let storyOptionPools = [];
+    let storyQuizFinished = false;
+    let storyCurrentIndex = 0;
+    const storiesContainer = document.getElementById("storiesQuizContainer");
 
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
@@ -282,193 +487,147 @@
         return arr;
     }
 
-    function getDataSet() {
-        if (currentMode === "character") return CHARACTER_DATA;
-        if (currentMode === "setting") return SETTING_DATA;
-        if (currentMode === "summary") return SUMMARY_DATA;
-        return THEME_DATA;
+    function getStoryDataset() {
+        return STORY_DATA[storyMode];
     }
 
-    function getModeLabel() {
-        if (currentMode === "character") return "🎭 CHARACTER (hard clues)";
-        if (currentMode === "setting") return "🌍 SETTING (precise locations)";
-        if (currentMode === "summary") return "📜 SUMMARY (dense retelling)";
-        return "💡 THEME (abstract message)";
-    }
-
-    function initMode() {
-        const dataSet = getDataSet();
-        const total = dataSet.length;
-        questionOrder = [...Array(total).keys()];
-        shuffleArray(questionOrder);
-        optionPools = [];
+    function initStoryQuiz() {
+        const dataset = getStoryDataset();
+        const total = dataset.length;
+        storyQuestionOrder = [...Array(total).keys()];
+        shuffleArray(storyQuestionOrder);
+        storyOptionPools = [];
         for (let i = 0; i < total; i++) {
-            let shuffledStories = [...ALL_STORIES];
-            shuffleArray(shuffledStories);
-            optionPools.push(shuffledStories);
+            let shuffled = [...ALL_STORIES];
+            shuffleArray(shuffled);
+            storyOptionPools.push(shuffled);
         }
-        userAnswers = new Array(total).fill(null);
-        currentIndex = 0;
-        quizFinished = false;
+        storyUserAnswers = new Array(total).fill(null);
+        storyCurrentIndex = 0;
+        storyQuizFinished = false;
+        renderStoryQuestion();
     }
 
-    function getCurrentRealIdx() {
-        return questionOrder[currentIndex];
+    function saveStoryAnswer(selectedStory) {
+        if (storyQuizFinished) return;
+        const realIdx = storyQuestionOrder[storyCurrentIndex];
+        if (storyUserAnswers[realIdx] !== null) return;
+        storyUserAnswers[realIdx] = selectedStory;
+        renderStoryQuestion();
     }
 
-    function saveAnswer(selectedStory) {
-        if (quizFinished) return;
-        const realIdx = getCurrentRealIdx();
-        if (userAnswers[realIdx] !== null) return;
-        userAnswers[realIdx] = selectedStory;
-        renderCurrent();
-    }
-
-    function goToNext() {
-        if (quizFinished) return;
-        const realIdx = getCurrentRealIdx();
-        if (userAnswers[realIdx] === null) {
-            alert("⚠️ You must select a story before moving to the next challenge.");
+    function nextStory() {
+        if (storyQuizFinished) return;
+        const realIdx = storyQuestionOrder[storyCurrentIndex];
+        if (storyUserAnswers[realIdx] === null) {
+            alert("Select a story before moving on.");
             return;
         }
-        const dataSet = getDataSet();
-        if (currentIndex + 1 < questionOrder.length) {
-            currentIndex++;
-            renderCurrent();
+        if (storyCurrentIndex + 1 < storyQuestionOrder.length) {
+            storyCurrentIndex++;
+            renderStoryQuestion();
         } else {
-            finishQuiz();
+            finishStoryQuiz();
         }
     }
 
-    function finishQuiz() {
-        quizFinished = true;
-        const dataSet = getDataSet();
+    function finishStoryQuiz() {
+        storyQuizFinished = true;
+        const dataset = getStoryDataset();
         let score = 0;
-        for (let i = 0; i < dataSet.length; i++) {
-            if (userAnswers[i] === dataSet[i].story) score++;
+        for (let i = 0; i < dataset.length; i++) {
+            if (storyUserAnswers[i] === dataset[i].story) score++;
         }
-        const total = dataSet.length;
-        const percent = Math.round((score / total) * 100);
-        let modeTitle = currentMode === "character" ? "CHARACTER MATCH" : (currentMode === "setting" ? "SETTING MATCH" : (currentMode === "summary" ? "SUMMARY MATCH" : "THEME MATCH"));
-        let rating = percent >= 80 ? "🏆 LITERARY MASTER" : (percent >= 60 ? "📚 SOLID SCHOLAR" : "⚔️ REVIEW NEEDED");
+        const percent = Math.round((score / dataset.length) * 100);
+        const modeLabel = { character:"CHARACTER", setting:"SETTING", summary:"SUMMARY", theme:"THEME" }[storyMode];
         const resultHtml = `
-            <div class="quiz-container">
-                <div class="progress-area"><div class="progress-fill" style="width:100%"></div></div>
-                <div style="background:#e9dfc6; border-radius: 2rem; padding: 2rem; text-align: center;">
-                    <h2 style="font-size:2rem;">${score} / ${total}</h2>
-                    <p style="font-size:1.2rem;">${modeTitle} — Accuracy: ${percent}% — ${rating}</p>
-                    <p style="margin-top:0.8rem;">✨ Stories: The Man to Send Rain Clouds · If I Forget Thee, O Earth · Gift of the Magi · The Scarlet Ibis · The Necklace · Walter Mitty · Romeo and Juliet · Sympathy · Casey at the Bat · The Raven · Charge of the Light Brigade ✨</p>
-                    <button class="next-btn reset-btn" id="resetModeQuiz" style="background:#5e4a2e; margin-top:1.5rem;">⟳ RESTART (${modeTitle})</button>
+            <div class="quiz-core">
+                <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+                <div style="background:#ece1cb; border-radius: 2rem; padding: 2rem; text-align: center;">
+                    <h2 style="font-size:2rem;">${score} / ${dataset.length}</h2>
+                    <p style="font-size:1.3rem;">${modeLabel} MATCH — ${percent}%</p>
+                    <button class="next-button reset-sm" id="restartStoryBtn" style="background:#4f3a24; margin-top:1rem;">⟳ RESTART (${modeLabel})</button>
+                    <div style="margin-top:1rem; display:flex; gap:0.5rem; justify-content:center; flex-wrap:wrap;">
+                        <button class="next-button reset-sm" id="switchCharBtn" style="background:#2c3e2f;">🎭 Character</button>
+                        <button class="next-button reset-sm" id="switchSetBtn" style="background:#2c3e2f;">🌍 Setting</button>
+                        <button class="next-button reset-sm" id="switchSumBtn" style="background:#2c3e2f;">📜 Summary</button>
+                        <button class="next-button reset-sm" id="switchThemeBtn" style="background:#2c3e2f;">💡 Theme</button>
+                    </div>
                 </div>
             </div>
-            <div class="footer-stats">🏆 Hard mode: character · setting · summary · theme | literary precision</div>
+            <div class="score-footer">🏆 story elements: character · setting · summary · theme</div>
         `;
-        const renderZone = document.getElementById("quizRenderZone");
-        renderZone.innerHTML = resultHtml;
-        document.getElementById("resetModeQuiz")?.addEventListener("click", () => {
-            initMode();
-            renderCurrent();
-        });
+        storiesContainer.innerHTML = resultHtml;
+        document.getElementById("restartStoryBtn")?.addEventListener("click", () => { storyMode = storyMode; initStoryQuiz(); });
+        document.getElementById("switchCharBtn")?.addEventListener("click", () => { storyMode = "character"; initStoryQuiz(); });
+        document.getElementById("switchSetBtn")?.addEventListener("click", () => { storyMode = "setting"; initStoryQuiz(); });
+        document.getElementById("switchSumBtn")?.addEventListener("click", () => { storyMode = "summary"; initStoryQuiz(); });
+        document.getElementById("switchThemeBtn")?.addEventListener("click", () => { storyMode = "theme"; initStoryQuiz(); });
     }
 
-    function renderCurrent() {
-        if (quizFinished) return;
-        const realIdx = getCurrentRealIdx();
-        const dataSet = getDataSet();
-        const item = dataSet[realIdx];
-        const selected = userAnswers[realIdx];
+    function renderStoryQuestion() {
+        if (storyQuizFinished) return;
+        const dataset = getStoryDataset();
+        const realIdx = storyQuestionOrder[storyCurrentIndex];
+        const item = dataset[realIdx];
+        const selected = storyUserAnswers[realIdx];
         const isAnswered = selected !== null;
         const correctStory = item.story;
-        const isCorrect = isAnswered && (selected === correctStory);
-        const currentOpts = optionPools[currentIndex];
-
+        const currentOpts = storyOptionPools[storyCurrentIndex];
         let feedbackHtml = "";
         if (isAnswered) {
-            if (isCorrect) {
-                feedbackHtml = `<div class="feedback feedback-correct">✅ Perfect match! “${correctStory}” is correct. 🔍 <em>${currentMode === 'character' ? 'Character clue' : (currentMode === 'setting' ? 'Setting detail' : (currentMode === 'summary' ? 'Summary hint' : 'Theme insight'))}</em> verified.</div>`;
-            } else {
-                feedbackHtml = `<div class="feedback feedback-wrong">❌ Incorrect match. The correct story is <strong>${correctStory}</strong>. Re-examine the ${currentMode} clue.</div>`;
-            }
-        } else {
-            feedbackHtml = `<div class="feedback" style="background:#f2ecd9;">🎯 Select the story that best matches the ${currentMode === 'character' ? 'character(s)' : (currentMode === 'setting' ? 'setting description' : (currentMode === 'summary' ? 'plot summary' : 'central theme'))}.</div>`;
+            if (selected === correctStory) feedbackHtml = `<div class="feedback-panel feedback-correct">✅ Correct! “${correctStory}” matches the ${storyMode} clue.</div>`;
+            else feedbackHtml = `<div class="feedback-panel feedback-wrong">❌ Incorrect. The correct story is <strong>${correctStory}</strong>.</div>`;
         }
-
         let optionsHtml = "";
-        currentOpts.forEach(storyTitle => {
-            let extraClass = "";
-            let clickAttr = "";
+        currentOpts.forEach(st => {
+            let cls = "";
+            let click = "";
             if (isAnswered) {
-                extraClass = "disabled-opt";
-                if (storyTitle === correctStory) extraClass += " correct-highlight";
-                if (selected === storyTitle && storyTitle !== correctStory) extraClass += " wrong-highlight";
+                cls = "disabled-opt";
+                if (st === correctStory) cls += " correct-opt";
+                if (selected === st && st !== correctStory) cls += " wrong-opt";
             } else {
-                clickAttr = `onclick="saveAnswer('${storyTitle.replace(/'/g, "\\'")}')"`;
+                click = `onclick="saveStoryAnswer('${st.replace(/'/g, "\\'")}')"`;
             }
-            optionsHtml += `<div class="opt-btn ${extraClass}" ${clickAttr}>📖 ${storyTitle}</div>`;
+            optionsHtml += `<div class="opt-btn ${cls}" ${click}>📖 ${st}</div>`;
         });
-
-        const totalQ = questionOrder.length;
-        const answeredCount = userAnswers.filter(v => v !== null).length;
-        const progressPercent = ((currentIndex) / totalQ) * 100;
-
+        const answeredCount = storyUserAnswers.filter(v => v !== null).length;
+        const progressPercent = (storyCurrentIndex / dataset.length) * 100;
+        const modeDisplay = { character:"🎭 CHARACTER (hard clues)", setting:"🌍 SETTING (precise locations)", summary:"📜 SUMMARY (dense retelling)", theme:"💡 THEME (abstract message)" }[storyMode];
         const mainHtml = `
-            <div class="quiz-container">
-                <div class="progress-area"><div class="progress-fill" style="width: ${progressPercent}%"></div></div>
-                <div class="q-meta">
-                    <span class="q-count">🔖 ${currentIndex+1} / ${totalQ}</span>
-                    <span style="background:#cfc29e; padding:0.2rem 1rem; border-radius:20px; font-size:0.7rem; font-weight:bold;">${getModeLabel()}</span>
-                </div>
-                <div class="challenge-card">
-                    <div class="prompt-label">${currentMode === 'character' ? 'CHARACTER / PERSONA' : (currentMode === 'setting' ? 'SETTING & ATMOSPHERE' : (currentMode === 'summary' ? 'PLOT SUMMARY' : 'THEMATIC STATEMENT'))}</div>
-                    <div class="prompt-text">“${item.prompt}”</div>
-                </div>
-                <div class="options-grid" id="optsGrid">
-                    ${optionsHtml}
-                </div>
+            <div class="quiz-core">
+                <div class="progress-bar"><div class="progress-fill" style="width:${progressPercent}%"></div></div>
+                <div class="question-header"><span class="q-counter">${storyCurrentIndex+1}/${dataset.length}</span><span style="background:#cfc29e; padding:0.2rem 1rem; border-radius:20px; font-size:0.7rem;">${modeDisplay}</span></div>
+                <div class="def-box"><div class="definition-text">“${item.prompt}”</div></div>
+                <div class="options-grid">${optionsHtml}</div>
                 ${feedbackHtml}
-                <div class="actions">
-                    <span style="background:#e3d7be; padding:0.2rem 1rem; border-radius:30px;">📌 matched: ${answeredCount}/${totalQ}</span>
-                    <button class="next-btn" id="nextActionBtn">${currentIndex+1 === totalQ ? "🏁 FINISH QUIZ" : "NEXT →"}</button>
-                    <button class="next-btn reset-btn" id="resetDuringQuiz">⟳ Restart (This Mode)</button>
-                </div>
+                <div class="action-bar"><span>📌 matched: ${answeredCount}/${dataset.length}</span><button class="next-button" id="storyNextBtn">${storyCurrentIndex+1 === dataset.length ? "🏁 FINISH" : "NEXT →"}</button></div>
+                <div style="margin-top:1rem; text-align:right;"><button class="next-button reset-sm" id="resetStoryMid">⟳ Reset Mode</button></div>
             </div>
-            <div class="footer-stats">
-                <span>📚 The Man to Send Rain Clouds · The Raven · Gift of the Magi · Casey · Walter Mitty · The Necklace · Sympathy</span>
-                <span>✔️ ${answeredCount} matched</span>
-            </div>
+            <div class="score-footer"><span>📚 The Man to Send Rain Clouds · The Raven · Gift of the Magi · Casey · Walter Mitty · Sympathy · Charge of the Light Brigade</span><span>✔️ ${answeredCount} matched</span></div>
         `;
-        const renderZone = document.getElementById("quizRenderZone");
-        renderZone.innerHTML = mainHtml;
-        document.getElementById("nextActionBtn")?.addEventListener("click", goToNext);
-        document.getElementById("resetDuringQuiz")?.addEventListener("click", () => {
-            initMode();
-            renderCurrent();
-        });
+        storiesContainer.innerHTML = mainHtml;
+        document.getElementById("storyNextBtn")?.addEventListener("click", nextStory);
+        document.getElementById("resetStoryMid")?.addEventListener("click", () => initStoryQuiz());
     }
 
-    function switchMode(mode) {
-        currentMode = mode;
-        initMode();
-        renderCurrent();
-        document.querySelectorAll('.tab').forEach(tab => {
-            if (tab.getAttribute('data-mode') === mode) tab.classList.add('active');
-            else tab.classList.remove('active');
-        });
+    // Tab switching logic
+    function switchPane(paneId) {
+        document.querySelectorAll('.quiz-pane').forEach(pane => pane.classList.remove('active-pane'));
+        document.getElementById(paneId).classList.add('active-pane');
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        if (paneId === 'paneTerms') document.querySelector('.tab[data-pane="terms"]').classList.add('active');
+        else document.querySelector('.tab[data-pane="stories"]').classList.add('active');
     }
 
-    // attach tab listeners
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', (e) => {
-            const mode = tab.getAttribute('data-mode');
-            if (mode === 'character') switchMode('character');
-            else if (mode === 'setting') switchMode('setting');
-            else if (mode === 'summary') switchMode('summary');
-            else if (mode === 'theme') switchMode('theme');
-        });
-    });
+    document.querySelector('.tab[data-pane="terms"]').addEventListener('click', () => switchPane('paneTerms'));
+    document.querySelector('.tab[data-pane="stories"]').addEventListener('click', () => { switchPane('paneStories'); if (!storyInitialized) { storyInitialized=true; initStoryQuiz(); } });
 
-    // initialize with character mode
-    switchMode('character');
+    let storyInitialized = false;
+    initTermsQuiz();
+    // story not auto-loaded until tab click (performance)
+    document.querySelector('.tab[data-pane="stories"]').click(); // optional: preload stories
 </script>
 </body>
 </html>
