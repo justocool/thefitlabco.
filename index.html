@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Literary Terms: Definition Match (Hard Mode)</title>
+    <title>Literary Match: Character → Story Quiz</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
 
         body {
-            background: linear-gradient(145deg, #0c1a24 0%, #142830 100%);
+            background: linear-gradient(135deg, #1e2a2c 0%, #0e1a1f 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -21,67 +21,56 @@
             font-family: 'Inter', system-ui, 'Segoe UI', 'Georgia', serif;
         }
 
-        .quiz-arena {
+        .quiz-match {
             max-width: 1100px;
             width: 100%;
-            background: #fef7ec;
-            background-image: radial-gradient(circle at 15% 30%, rgba(200, 160, 80, 0.04) 2%, transparent 2.5%);
-            background-size: 32px 32px;
-            border-radius: 2.5rem;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.45), inset 0 1px 2px rgba(255, 255, 245, 0.3);
+            background: #fffcf0;
+            background-image: radial-gradient(circle at 20% 40%, rgba(180, 130, 70, 0.05) 1.8%, transparent 2%);
+            background-size: 28px 28px;
+            border-radius: 2.2rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
             overflow: hidden;
         }
 
-        .quiz-header {
-            background: #1e2f2c;
-            padding: 1.5rem 2rem;
+        .header {
+            background: #2c3e2b;
+            padding: 1.3rem 2rem;
+            color: #fcf3cf;
             border-bottom: 4px solid #e6b422;
-            color: #fffbee;
         }
 
-        .quiz-header h1 {
+        .header h1 {
             font-size: 1.9rem;
-            font-weight: 800;
-            letter-spacing: -0.3px;
             display: flex;
+            justify-content: space-between;
             align-items: baseline;
             flex-wrap: wrap;
-            justify-content: space-between;
+            gap: 10px;
         }
 
-        .badge-hard {
-            background: #b4652a;
-            padding: 0.2rem 1rem;
-            border-radius: 60px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #fae67a;
-        }
-
-        .term-strip {
+        .story-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-top: 1rem;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
             font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .story-list span {
+            background: #3f5a49;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
             font-family: monospace;
         }
 
-        .term-strip span {
-            background: #2e4a3e;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
-
-        .quiz-core {
+        .quiz-body {
             padding: 2rem 2rem 1.5rem;
         }
 
-        .progress-bar {
-            background: #e2d8c2;
-            border-radius: 40px;
+        .progress-area {
+            background: #e4dcc8;
+            border-radius: 30px;
             height: 8px;
             margin-bottom: 1.8rem;
             overflow: hidden;
@@ -91,365 +80,377 @@
             background: #e6b422;
             width: 0%;
             height: 100%;
-            border-radius: 40px;
             transition: width 0.2s ease;
         }
 
-        .question-header {
+        .q-meta {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
             margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-
-        .q-counter {
-            background: #e3d7bf;
-            padding: 0.2rem 1.2rem;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: #2f412a;
-        }
-
-        .def-box {
-            background: #f3efdf;
-            border-radius: 2rem;
-            padding: 1.6rem;
-            margin-bottom: 2rem;
-            border: 1px solid #e7dbbc;
-            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02), 0 6px 12px rgba(0,0,0,0.05);
-        }
-
-        .definition-text {
-            font-size: 1.45rem;
             font-weight: 600;
-            line-height: 1.4;
-            color: #1f2e25;
-            font-style: normal;
-            border-left: 5px solid #e6b422;
-            padding-left: 1.2rem;
+            align-items: baseline;
+            flex-wrap: wrap;
         }
 
-        .options-grid {
+        .q-count {
+            background: #d9cdae;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+
+        .character-card {
+            background: #f7f0e0;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #e6d9bc;
+            box-shadow: 0 8px 14px rgba(0, 0, 0, 0.05);
+        }
+
+        .character-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2f3e2c;
+            letter-spacing: -0.3px;
+            border-left: 6px solid #e6b422;
+            padding-left: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .story-options {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin: 1.8rem 0 1.5rem;
+            gap: 0.9rem;
+            margin: 1.5rem 0 1rem;
         }
 
-        .opt-btn {
+        .story-option {
             background: white;
-            border: 2px solid #ddcfaa;
+            border: 2px solid #ddd0ae;
             border-radius: 60px;
-            padding: 0.9rem 1.3rem;
-            font-size: 1rem;
+            padding: 0.8rem 1.3rem;
             font-weight: 600;
-            font-family: monospace;
-            letter-spacing: 0.2px;
             cursor: pointer;
-            transition: all 0.2s;
-            color: #2b3927;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
+            transition: 0.2s;
+            color: #2b3b28;
+            font-size: 0.95rem;
         }
 
-        .opt-btn:hover:not(.disabled-opt) {
-            background: #fff6e8;
+        .story-option:hover:not(.disabled-opt) {
+            background: #fff2e0;
             border-color: #c49a2b;
-            transform: scale(0.99);
+            transform: scale(0.98);
         }
 
         .disabled-opt {
-            cursor: default;
             pointer-events: none;
-            opacity: 0.85;
+            opacity: 0.8;
         }
 
-        .correct-opt {
-            background: #ccf0d6 !important;
+        .correct-highlight {
+            background: #c9efd4 !important;
             border-color: #2b7a3e !important;
-            box-shadow: 0 0 0 1px #2b7a3e inset;
         }
 
-        .wrong-opt {
-            background: #ffe0d9 !important;
+        .wrong-highlight {
+            background: #ffe1da !important;
             border-color: #bc3f26 !important;
             text-decoration: line-through;
-            text-decoration-thickness: 1.5px;
         }
 
-        .feedback-panel {
-            background: #ede3cf;
+        .feedback {
+            margin: 1rem 0 0.5rem;
+            padding: 0.9rem 1.2rem;
             border-radius: 1.5rem;
-            padding: 1rem 1.5rem;
-            margin: 1rem 0 1rem;
             font-weight: 500;
+            background: #ece2cf;
         }
 
         .feedback-correct {
-            background: #dff0e3;
+            background: #e0f2e4;
             border-left: 8px solid #2e7d32;
-            color: #1b4d2b;
         }
 
         .feedback-wrong {
-            background: #fee9e4;
-            border-left: 8px solid #bc3f26;
-            color: #842e1a;
+            background: #ffe7e2;
+            border-left: 8px solid #c23b22;
         }
 
-        .action-bar {
+        .actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: 1rem;
             flex-wrap: wrap;
             gap: 1rem;
-            margin-top: 0.5rem;
         }
 
-        .next-button {
+        .next-btn {
             background: #2c3e2f;
             border: none;
-            padding: 0.8rem 2.2rem;
-            font-size: 1rem;
+            padding: 0.7rem 2rem;
             font-weight: bold;
+            font-size: 1rem;
             border-radius: 60px;
             color: white;
             cursor: pointer;
             transition: 0.2s;
         }
 
-        .next-button:hover {
-            background: #1f2e21;
+        .next-btn:hover {
+            background: #1e2e21;
             transform: scale(0.97);
         }
 
-        .reset-sm {
-            background: #785f3c;
-            padding: 0.5rem 1.4rem;
-            font-size: 0.85rem;
+        .reset-btn {
+            background: #735e3a;
+            padding: 0.5rem 1.3rem;
+            font-size: 0.8rem;
         }
 
-        .score-footer {
-            background: #e4d8be;
+        .footer-stats {
+            background: #e2d5ba;
             padding: 0.8rem 2rem;
             display: flex;
             justify-content: space-between;
             font-weight: 600;
-            color: #2f402a;
+            border-top: 1px solid #cebf9b;
+            color: #2d3e28;
             font-size: 0.85rem;
-            border-top: 1px solid #d4c5a2;
         }
 
-        @media (max-width: 650px) {
-            .quiz-core { padding: 1.5rem; }
-            .definition-text { font-size: 1.2rem; }
-            .opt-btn { font-size: 0.85rem; padding: 0.7rem 1rem; }
+        @media (max-width: 600px) {
+            .quiz-body { padding: 1.5rem; }
+            .character-name { font-size: 1.4rem; }
+            .story-option { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
-<div class="quiz-arena" id="quizApp">
-    <div class="quiz-header">
-        <h1>📖 DEFINE & CONQUER <span class="badge-hard">⚡ definition → term</span></h1>
-        <div class="term-strip">
-            <span>protagonist</span> <span>antagonist</span> <span>blank verse</span> <span>iambic pentameter</span>
-            <span>iamb</span> <span>aside</span> <span>monologue</span> <span>soliloquy</span> <span>dramatic foil</span>
-            <span>dramatic irony</span> <span>tragedy</span> <span>theme</span> <span>dramatic tragedy</span>
-            <span>tragic hero</span> <span>symbol</span> <span>narrative poem</span> <span>repetition</span>
-            <span>refrain</span> <span>rhythm</span>
+<div class="quiz-match" id="matchQuizRoot">
+    <div class="header">
+        <h1>📚 CHARACTER → STORY <span style="font-size:0.8rem;">matching quiz</span></h1>
+        <div class="story-list">
+            <span>The Man to Send Rain Clouds</span> <span>If I Forget Thee, O Earth</span> <span>The Gift of the Magi</span>
+            <span>The Scarlet Ibis</span> <span>The Necklace</span> <span>The Secret Life of Walter Mitty</span>
+            <span>Romeo and Juliet</span> <span>Sympathy</span> <span>Casey at the Bat</span>
+            <span>The Raven</span> <span>The Charge of the Light Brigade</span>
         </div>
     </div>
-    <div id="quizDynamicContent"></div>
+    <div id="quizMatchContent"></div>
 </div>
 
 <script>
-    // ----- HARD MODE: DEFINITION first, then pick correct literary term -----
-    const questions = [
-        { definition: "The main character in a story, often the central figure who drives the action and faces conflict.", correctTerm: "Protagonist", distractors: ["Antagonist", "Tragic hero", "Dramatic foil"] },
-        { definition: "A character or force that actively opposes the main character, creating central conflict.", correctTerm: "Antagonist", distractors: ["Villain", "Foil", "Catalyst"] },
-        { definition: "Unrhymed poetry written in iambic pentameter; commonly used in Shakespeare and Milton.", correctTerm: "Blank verse", distractors: ["Free verse", "Iambic trimeter", "Heroic couplet"] },
-        { definition: "A metrical line consisting of five iambic feet (da-DUM repeated five times), the most common meter in English verse.", correctTerm: "Iambic pentameter", distractors: ["Trochaic pentameter", "Anapestic tetrameter", "Dactylic hexameter"] },
-        { definition: "A metrical foot with an unstressed syllable followed by a stressed syllable (˘ ′).", correctTerm: "Iamb", distractors: ["Trochee", "Spondee", "Anapest"] },
-        { definition: "A short remark or comment made by a character to the audience, unheard by other characters on stage.", correctTerm: "Aside", distractors: ["Soliloquy", "Monologue", "Choral interjection"] },
-        { definition: "A long speech by one character addressing other characters on stage.", correctTerm: "Monologue", distractors: ["Soliloquy", "Dialogue", "Aside"] },
-        { definition: "A speech delivered by a character alone on stage, revealing innermost thoughts and feelings to the audience.", correctTerm: "Soliloquy", distractors: ["Monologue", "Dramatic address", "Eulogy"] },
-        { definition: "A character whose traits directly contrast with those of another character, highlighting specific qualities of the protagonist.", correctTerm: "Dramatic foil", distractors: ["Alter ego", "Antagonist", "Symbolic double"] },
-        { definition: "A situation where the audience or reader knows something that a character does not, creating tension or irony.", correctTerm: "Dramatic irony", distractors: ["Situational irony", "Verbal irony", "Tragic flaw"] },
-        { definition: "A genre of drama where the protagonist suffers a catastrophic downfall, often due to a fatal flaw or external forces, evoking pity and fear.", correctTerm: "Tragedy", distractors: ["Comedy", "Tragicomedy", "Melodrama"] },
-        { definition: "The central, unifying idea or underlying message about life or human nature conveyed by a literary work.", correctTerm: "Theme", distractors: ["Motif", "Plot", "Symbolic meaning"] },
-        { definition: "A serious play or literary work that depicts the ruin or extreme suffering of the main character (a subset of tragedy, often focusing on stage representation).", correctTerm: "Dramatic tragedy", distractors: ["Revenge tragedy", "Domestic tragedy", "Aristotelian tragedy"] },
-        { definition: "A noble or virtuous character who experiences a downfall due to a tragic flaw (hamartia), fate, or both, evoking catharsis.", correctTerm: "Tragic hero", distractors: ["Byronic hero", "Fallen protagonist", "Anti-hero"] },
-        { definition: "An object, person, or event that represents a larger abstract idea or concept within a literary work.", correctTerm: "Symbol", distractors: ["Allegory", "Metaphor", "Image"] },
-        { definition: "A form of poetry that tells a story, complete with plot, characters, and setting (e.g., epics, ballads).", correctTerm: "Narrative poem", distractors: ["Lyric poem", "Ode", "Elegy"] },
-        { definition: "The repeated use of a word, phrase, sound, or structure for rhetorical effect and emphasis.", correctTerm: "Repetition", distractors: ["Anaphora", "Refrain", "Epanalepsis"] },
-        { definition: "A regularly recurring line, phrase, or stanza (like a chorus) in a poem or song.", correctTerm: "Refrain", distractors: ["Repetition", "Rhyme scheme", "Stanza break"] },
-        { definition: "The pattern of stressed and unstressed syllables in a line of poetry, creating flow and cadence; broader than strict meter.", correctTerm: "Rhythm", distractors: ["Meter", "Prosody", "Cadence"] }
+    // Character to Story mapping (all requested works)
+    // For "Sympathy" (poem by Paul Laurence Dunbar) – the speaker/narrator (caged bird)
+    // For poems: "The Raven" (main character: narrator / Lenore reference)
+    // "Casey at the Bat" – Casey
+    // "The Charge of the Light Brigade" – noble soldiers / "the six hundred"
+    // I'll craft clear character identifiers.
+    
+    const characterData = [
+        { character: "Leon (Teofilo's grandson) / Father Paul", story: "The Man to Send Rain Clouds", hint: "Pueblo funeral & feather ritual" },
+        { character: "Marvin / The boy (Clifford?) & his father", story: "If I Forget Thee, O Earth", hint: "Post-apocalyptic lunar colony, view of irradiated Earth" },
+        { character: "Jim (James Dillingham Young) & Della", story: "The Gift of the Magi", hint: "Selling prized possessions for a Christmas gift" },
+        { character: "Brother (narrator) & Doodle", story: "The Scarlet Ibis", hint: "Tragic bird, bleeding tree, pride and love" },
+        { character: "Mathilde Loisel", story: "The Necklace", hint: "Diamond necklace, ten years of hard labor" },
+        { character: "Walter Mitty", story: "The Secret Life of Walter Mitty", hint: "Daydreaming commander, ice pilot, surgeon" },
+        { character: "Romeo Montague / Juliet Capulet", story: "Romeo and Juliet", hint: "Star-crossed lovers, Verona, poison" },
+        { character: "The caged bird (speaker/narrator)", story: "Sympathy", hint: "Paul Laurence Dunbar poem: 'I know why the caged bird sings'" },
+        { character: "Casey (Mighty Casey)", story: "Casey at the Bat", hint: "Mudville, mighty Casey strikes out" },
+        { character: "The narrator (grieving scholar) / Lenore", story: "The Raven", hint: "Nevermore, midnight dreary, bust of Pallas" },
+        { character: "The six hundred (British light cavalry)", story: "The Charge of the Light Brigade", hint: "Valley of Death, 'Cannon to right of them'" }
     ];
 
-    // SHUFFLE OPTIONS for each question (distractors + correct term, random order)
-    function buildShuffledOptions(q) {
-        let opts = [q.correctTerm, ...q.distractors];
-        for (let i = opts.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [opts[i], opts[j]] = [opts[j], opts[i]];
-        }
-        return opts;
-    }
-
-    // Precompute randomized options for each question (keep consistent across renders, but reset on restart)
-    let randomizedOptions = [];
-
-    function initRandomizedOptions() {
-        randomizedOptions = questions.map(q => buildShuffledOptions(q));
-    }
+    // Build full question set: each question will show a character, need to pick correct story from shuffled options.
+    // We'll include all 11 stories as possible choices, but each question gets random order.
+    const allStories = [
+        "The Man to Send Rain Clouds",
+        "If I Forget Thee, O Earth",
+        "The Gift of the Magi",
+        "The Scarlet Ibis",
+        "The Necklace",
+        "The Secret Life of Walter Mitty",
+        "Romeo and Juliet",
+        "Sympathy",
+        "Casey at the Bat",
+        "The Raven",
+        "The Charge of the Light Brigade"
+    ];
 
     let currentIndex = 0;
-    let userAnswers = new Array(questions.length).fill(null);   // stores the selected term string
+    let userMatches = new Array(characterData.length).fill(null); // store story string
     let quizFinished = false;
+    let questionOrder = [];        // indices in randomized order for extra challenge
+    let optionPools = [];          // for each question (in order) we store shuffled story list
 
-    const container = document.getElementById("quizDynamicContent");
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
 
-    function saveAnswer(questionIdx, selectedTerm) {
+    function initQuiz() {
+        // create question order (randomize character order)
+        questionOrder = [...Array(characterData.length).keys()];
+        shuffleArray(questionOrder);
+        // for each position, pre-shuffle the story options (allStories)
+        optionPools = [];
+        for (let i = 0; i < characterData.length; i++) {
+            let shuffledStories = [...allStories];
+            shuffleArray(shuffledStories);
+            optionPools.push(shuffledStories);
+        }
+        userMatches = new Array(characterData.length).fill(null);
+        currentIndex = 0;
+        quizFinished = false;
+    }
+
+    // helper to get current real index into characterData
+    function getCurrentRealIdx() {
+        return questionOrder[currentIndex];
+    }
+
+    function saveMatch(storySelected) {
         if (quizFinished) return;
-        if (userAnswers[questionIdx] !== null) return; // already answered, keep locked
-        userAnswers[questionIdx] = selectedTerm;
+        const realIdx = getCurrentRealIdx();
+        if (userMatches[realIdx] !== null) return; // already answered
+        userMatches[realIdx] = storySelected;
         renderCurrentQuestion();
     }
 
     function goToNext() {
         if (quizFinished) return;
-        if (userAnswers[currentIndex] === null) {
-            alert("⚠️ You must select a literary term that matches the definition before moving on.");
+        const realIdx = getCurrentRealIdx();
+        if (userMatches[realIdx] === null) {
+            alert("Please match this character to a story before continuing.");
             return;
         }
-        if (currentIndex + 1 < questions.length) {
+        if (currentIndex + 1 < questionOrder.length) {
             currentIndex++;
             renderCurrentQuestion();
         } else {
-            finishQuiz();
+            finishMatchingQuiz();
         }
     }
 
-    function finishQuiz() {
+    function finishMatchingQuiz() {
         quizFinished = true;
         let score = 0;
-        for (let i = 0; i < questions.length; i++) {
-            if (userAnswers[i] && userAnswers[i].toLowerCase() === questions[i].correctTerm.toLowerCase()) {
-                score++;
-            }
+        for (let i = 0; i < characterData.length; i++) {
+            const originalIndex = i;
+            const userChoice = userMatches[originalIndex];
+            const correctStory = characterData[originalIndex].story;
+            if (userChoice && userChoice === correctStory) score++;
         }
-        const percent = Math.round((score / questions.length) * 100);
-        let verdict = percent >= 85 ? "🏅 LITERARY MASTER" : (percent >= 65 ? "📘 SCHOLAR" : "⚔️ NEEDS REVISION");
+        const percent = Math.round((score / characterData.length) * 100);
+        let rating = percent >= 85 ? "📖 LITERARY DETECTIVE" : (percent >= 65 ? "📚 GOOD MEMORY" : "📝 REVIEW REQUIRED");
         let resultHtml = `
-            <div class="quiz-core">
-                <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-                <div style="background:#ece1cb; border-radius: 2rem; padding: 2rem; text-align: center;">
-                    <h2 style="font-size:2rem; letter-spacing:-0.5px;">${score} / ${questions.length}</h2>
-                    <p style="font-size:1.3rem; font-weight:600;">Accuracy: ${percent}% — ${verdict}</p>
-                    <p style="margin-top:1rem; background:#dacdae; display:inline-block; padding:0.4rem 1.2rem; border-radius:40px;">✅ all terms: protagonist, aside, blank verse, iambic pentameter, soliloquy, dramatic foil, symbol, refrain, rhythm ...</p>
-                    <div style="margin-top: 1.8rem;">
-                        <button class="next-button reset-sm" id="fullResetBtn" style="background:#4f3a24;">⟳ RESTART QUIZ (DEFINITION MODE)</button>
-                    </div>
+            <div class="quiz-body">
+                <div class="progress-area"><div class="progress-fill" style="width:100%"></div></div>
+                <div style="background:#e9dfc6; border-radius: 2rem; padding: 2rem; text-align: center;">
+                    <h2 style="font-size:2rem;">🏆 ${score} / ${characterData.length}</h2>
+                    <p style="font-size:1.2rem;">Match accuracy: ${percent}% — ${rating}</p>
+                    <p style="margin-top:1rem;">✨ Stories matched: The Man to Send Rain Clouds, If I Forget Thee O Earth, Gift of the Magi, The Scarlet Ibis, The Necklace, Secret Life of Walter Mitty, Romeo and Juliet, Sympathy, Casey at the Bat, The Raven, The Charge of the Light Brigade ✨</p>
+                    <button class="next-btn reset-btn" id="resetMatchQuiz" style="background:#5e4a2e; margin-top:1.5rem;">⟳ PLAY AGAIN (CHARACTER MATCH)</button>
                 </div>
             </div>
-            <div class="score-footer">🎯 hard mode: definition → literary term | mastery challenge</div>
+            <div class="footer-stats">🎭 character-to-story | classic literature & poetry edition</div>
         `;
+        const container = document.getElementById("quizMatchContent");
         container.innerHTML = resultHtml;
-        document.getElementById("fullResetBtn")?.addEventListener("click", () => resetQuiz());
-    }
-
-    function resetQuiz() {
-        currentIndex = 0;
-        userAnswers = new Array(questions.length).fill(null);
-        quizFinished = false;
-        initRandomizedOptions();   // reshuffle options for new attempt (harder!)
-        renderCurrentQuestion();
+        document.getElementById("resetMatchQuiz")?.addEventListener("click", () => {
+            initQuiz();
+            renderCurrentQuestion();
+        });
     }
 
     function renderCurrentQuestion() {
         if (quizFinished) return;
-        const q = questions[currentIndex];
-        const currentOptions = randomizedOptions[currentIndex];
-        const selected = userAnswers[currentIndex];
-        const isAnswered = selected !== null;
-        const isCorrect = isAnswered && (selected.toLowerCase() === q.correctTerm.toLowerCase());
+        const realIdx = getCurrentRealIdx();
+        const charObj = characterData[realIdx];
+        const selectedStory = userMatches[realIdx];
+        const isAnswered = selectedStory !== null;
+        const correctStory = charObj.story;
+        const isCorrect = isAnswered && (selectedStory === correctStory);
+        
+        const currentOptions = optionPools[currentIndex]; // pre-shuffled stories
 
         let feedbackHtml = "";
         if (isAnswered) {
             if (isCorrect) {
-                feedbackHtml = `<div class="feedback-panel feedback-correct">✅ CORRECT. "${q.correctTerm}" precisely matches the definition.</div>`;
+                feedbackHtml = `<div class="feedback feedback-correct">✅ Perfect match! "${charObj.character}" belongs to <strong>${correctStory}</strong>. ${charObj.hint ? `(hint: ${charObj.hint})` : ''}</div>`;
             } else {
-                feedbackHtml = `<div class="feedback-panel feedback-wrong">❌ INCORRECT. The definition belongs to <strong>${q.correctTerm}</strong>.<br><span style="font-size:0.85rem; display:inline-block; margin-top:0.4rem;">✏️ Review: ${q.definition}</span></div>`;
+                feedbackHtml = `<div class="feedback feedback-wrong">❌ Mismatch. "${charObj.character}" is from <strong>${correctStory}</strong>. ${charObj.hint ? `🔍 clue: ${charObj.hint}` : ''}</div>`;
             }
+        } else {
+            feedbackHtml = `<div class="feedback" style="background:#f2ecd9;">⚡ Which story features this character? (click on one option)</div>`;
         }
 
         let optionsHtml = "";
-        currentOptions.forEach(optTerm => {
-            let additionalClasses = "";
-            let clickHandler = "";
+        currentOptions.forEach(storyTitle => {
+            let additional = "";
+            let clickableAttr = "";
             if (isAnswered) {
-                additionalClasses = "disabled-opt";
-                if (optTerm.toLowerCase() === q.correctTerm.toLowerCase()) {
-                    additionalClasses += " correct-opt";
-                }
-                if (selected === optTerm && optTerm !== q.correctTerm) {
-                    additionalClasses += " wrong-opt";
-                }
-                clickHandler = ""; // no click
+                additional = "disabled-opt";
+                if (storyTitle === correctStory) additional += " correct-highlight";
+                if (selectedStory === storyTitle && storyTitle !== correctStory) additional += " wrong-highlight";
             } else {
-                clickHandler = `onclick="saveAnswer(${currentIndex}, '${optTerm.replace(/'/g, "\\'")}')"`;
+                clickableAttr = `onclick="saveMatch('${storyTitle.replace(/'/g, "\\'")}')"`;
             }
-            optionsHtml += `<div class="opt-btn ${additionalClasses}" ${clickHandler}>📖 ${optTerm}</div>`;
+            optionsHtml += `<div class="story-option ${additional}" ${clickableAttr}>📖 ${storyTitle}</div>`;
         });
 
-        const total = questions.length;
-        const answeredCount = userAnswers.filter(v => v !== null).length;
-        const progressPercent = ((currentIndex) / total) * 100;
+        const totalQuestions = questionOrder.length;
+        const answeredCount = userMatches.filter(v => v !== null).length;
+        const progressPercent = ((currentIndex) / totalQuestions) * 100;
 
-        const mainHtml = `
-            <div class="quiz-core">
-                <div class="progress-bar">
+        const container = document.getElementById("quizMatchContent");
+        const mainContent = `
+            <div class="quiz-body">
+                <div class="progress-area">
                     <div class="progress-fill" style="width: ${progressPercent}%"></div>
                 </div>
-                <div class="question-header">
-                    <span class="q-counter">🔖 term ${currentIndex+1} of ${total}</span>
-                    <span style="font-size:0.7rem; background:#d8cbad; padding:0.2rem 0.8rem; border-radius:30px;">match definition → term</span>
+                <div class="q-meta">
+                    <span class="q-count">🎭 character ${currentIndex+1} of ${totalQuestions}</span>
+                    <span style="font-size:0.7rem; background:#cfc29e; padding:0.2rem 0.8rem; border-radius:20px;">match to story</span>
                 </div>
-                <div class="def-box">
-                    <div class="definition-text">“${q.definition}”</div>
+                <div class="character-card">
+                    <div class="character-name">“${charObj.character}”</div>
+                    <div style="font-size:0.85rem; margin-top: 0.3rem; color:#6a5e45;">${charObj.hint ? `⚡ ${charObj.hint}` : "✍️ identify the correct literary work"}</div>
                 </div>
-                <div class="options-grid" id="optionsContainer">
+                <div class="story-options" id="storyOpts">
                     ${optionsHtml}
                 </div>
                 ${feedbackHtml}
-                <div class="action-bar">
-                    <span style="background:#e9deca; padding:0.2rem 1rem; border-radius:40px;">📌 answered: ${answeredCount}/${total}</span>
-                    <button class="next-button" id="nextBtnAction">${currentIndex+1 === total ? "🏁 SUBMIT QUIZ" : "NEXT →"}</button>
+                <div class="actions">
+                    <span style="background:#e3d7be; padding:0.2rem 1rem; border-radius:30px;">📌 matched: ${answeredCount}/${totalQuestions}</span>
+                    <button class="next-btn" id="nextMatchBtn">${currentIndex+1 === totalQuestions ? "🏁 FINISH QUIZ" : "NEXT →"}</button>
                 </div>
-                <div style="margin-top: 1rem; text-align: right;">
-                    <button class="next-button reset-sm" id="resetMidQuiz" style="background:#755f3a;">⟳ Reset All</button>
+                <div style="margin-top: 1.2rem; text-align: left;">
+                    <button class="next-btn reset-btn" id="resetDuringMatch" style="background:#725e3b;">⟳ Restart Quiz</button>
                 </div>
             </div>
-            <div class="score-footer">
-                <span>⚡ protagonist · aside · soliloquy · blank verse · tragic hero · dramatic irony · refrain</span>
-                <span>🔍 ${answeredCount} definitions matched</span>
+            <div class="footer-stats">
+                <span>📖 The Raven · Casey · Walter Mitty · Mathilde · Doodle · The six hundred</span>
+                <span>✔️ ${answeredCount} matched</span>
             </div>
         `;
-
-        container.innerHTML = mainHtml;
-        const nextBtn = document.getElementById("nextBtnAction");
+        container.innerHTML = mainContent;
+        const nextBtn = document.getElementById("nextMatchBtn");
         if (nextBtn) nextBtn.addEventListener("click", goToNext);
-        const resetMid = document.getElementById("resetMidQuiz");
-        if (resetMid) resetMid.addEventListener("click", () => resetQuiz());
+        const resetBtn = document.getElementById("resetDuringMatch");
+        if (resetBtn) resetBtn.addEventListener("click", () => {
+            initQuiz();
+            renderCurrentQuestion();
+        });
     }
 
-    // initial shuffle and render
-    initRandomizedOptions();
+    // start the quiz
+    initQuiz();
     renderCurrentQuestion();
 </script>
 </body>
