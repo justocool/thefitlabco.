@@ -3,554 +3,609 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>✈️ Globe Flight Tracker</title>
-  <!-- Font Awesome for icons -->
+  <title>✈️ SkyTrack - Flightradar24 Style</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    /* Global reset & font */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     body {
-      background: #0b0f1a;
-      color: #f0f4ff;
+      background: #0a0e1a;
+      color: #e8f0ff;
       height: 100vh;
       overflow: hidden;
       position: relative;
     }
-
-    /* 3D container fills screen */
     #globe-container {
       width: 100vw;
       height: 100vh;
       display: block;
-      position: relative;
     }
 
-    /* Custom UI overlay – top bar + controls */
-    .overlay {
+    /* Top bar - FR24 style */
+    .top-bar {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      pointer-events: none; /* allow clicks to pass to canvas except on interactive elements */
-    }
-
-    .top-bar {
+      right: 0;
+      z-index: 100;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 20px;
-      background: rgba(10, 14, 26, 0.65);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      pointer-events: auto;
-      gap: 10px;
+      padding: 10px 20px;
+      background: rgba(10, 14, 26, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(79, 195, 247, 0.2);
+      pointer-events: none;
     }
-
+    .top-bar > * {
+      pointer-events: auto;
+    }
     .brand {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 1.3rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+      font-size: 1.4rem;
+      font-weight: 700;
     }
     .brand i {
       color: #4fc3f7;
-      font-size: 1.8rem;
     }
     .brand span {
-      background: linear-gradient(135deg, #b3e5fc, #4fc3f7);
+      background: linear-gradient(135deg, #4fc3f7, #81d4fa);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
-
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.08);
+      border-radius: 30px;
+      padding: 6px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      min-width: 200px;
+    }
+    .search-box i {
+      color: #90a4ae;
+      margin-right: 8px;
+    }
+    .search-box input {
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 6px 0;
+      outline: none;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+    .search-box input::placeholder {
+      color: #607080;
+    }
     .stats {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 16px;
-      font-size: 0.9rem;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 6px 16px;
-      border-radius: 40px;
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      gap: 20px;
+      font-size: 0.85rem;
     }
     .stats i {
+      color: #4fc3f7;
       margin-right: 4px;
-      color: #81d4fa;
     }
-    .stats .badge {
-      background: #1e2a3a;
-      padding: 4px 12px;
+
+    /* Side panel - FR24 style flight list */
+    .side-panel {
+      position: absolute;
+      top: 70px;
+      right: 0;
+      width: 320px;
+      max-width: 90vw;
+      height: calc(100vh - 80px);
+      background: rgba(10, 14, 26, 0.88);
+      backdrop-filter: blur(12px);
+      border-left: 1px solid rgba(79, 195, 247, 0.15);
+      padding: 16px;
+      overflow-y: auto;
+      z-index: 50;
+      transition: transform 0.3s ease;
+      pointer-events: auto;
+    }
+    .side-panel.collapsed {
+      transform: translateX(calc(100% + 10px));
+    }
+    .panel-toggle {
+      position: absolute;
+      top: 75px;
+      right: 10px;
+      z-index: 60;
+      background: rgba(10, 14, 26, 0.85);
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      color: #4fc3f7;
+      padding: 10px 12px;
       border-radius: 30px;
-      font-size: 0.8rem;
-      color: #b0c4de;
-    }
-
-    .controls {
-      display: flex;
-      gap: 8px;
-      pointer-events: auto;
-    }
-    .controls button {
-      background: rgba(30, 40, 60, 0.7);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #e0edff;
-      padding: 8px 14px;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 500;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
       pointer-events: auto;
-    }
-    .controls button:hover {
-      background: #2a3a5a;
-      border-color: #4fc3f7;
-      color: white;
-      transform: scale(1.02);
-    }
-    .controls button i {
       font-size: 0.9rem;
+      backdrop-filter: blur(6px);
     }
-    .controls .active {
-      background: #1e3a5f;
-      border-color: #4fc3f7;
-      box-shadow: 0 0 12px rgba(79, 195, 247, 0.2);
+    .panel-toggle:hover {
+      background: #1a2a44;
+    }
+    .flight-list-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #90a4ae;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .flight-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      margin-bottom: 4px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid #4fc3f7;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 0.8rem;
+    }
+    .flight-item:hover {
+      background: rgba(79, 195, 247, 0.1);
+    }
+    .flight-item .callsign {
+      font-weight: 600;
+      color: #b0d4f0;
+    }
+    .flight-item .altitude {
+      color: #90a4ae;
+      font-size: 0.7rem;
+    }
+    .flight-item .speed {
+      color: #78909c;
+      font-size: 0.7rem;
+    }
+    .flight-item .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
     }
 
-    /* Mobile friendly adjustments */
-    @media (max-width: 700px) {
+    /* Tooltip for clicked aircraft */
+    .info-tooltip {
+      position: absolute;
+      background: rgba(10, 14, 26, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #e8f0ff;
+      font-size: 0.85rem;
+      pointer-events: none;
+      z-index: 200;
+      display: none;
+      min-width: 180px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    }
+    .info-tooltip .title {
+      font-weight: 700;
+      color: #4fc3f7;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .info-tooltip .detail {
+      color: #b0c4de;
+      margin: 2px 0;
+    }
+
+    /* Scrollbar */
+    .side-panel::-webkit-scrollbar {
+      width: 4px;
+    }
+    .side-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .side-panel::-webkit-scrollbar-thumb {
+      background: #4fc3f7;
+      border-radius: 10px;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
       .top-bar {
-        flex-direction: column;
-        align-items: stretch;
+        flex-wrap: wrap;
         gap: 8px;
-        padding: 10px 14px;
+        padding: 8px 12px;
       }
       .brand {
         font-size: 1.1rem;
-        justify-content: center;
+      }
+      .search-box {
+        min-width: 120px;
+        flex: 1;
       }
       .stats {
-        justify-content: center;
-        font-size: 0.8rem;
-        padding: 4px 12px;
+        font-size: 0.7rem;
         gap: 10px;
-        flex-wrap: wrap;
       }
-      .controls {
-        justify-content: center;
-        flex-wrap: wrap;
+      .side-panel {
+        width: 280px;
       }
-      .controls button {
-        padding: 6px 12px;
-        font-size: 0.75rem;
-      }
-      .controls button i {
+      .panel-toggle {
+        right: 6px;
+        top: 72px;
+        padding: 6px 10px;
         font-size: 0.8rem;
       }
     }
-
-    @media (max-width: 420px) {
-      .stats .badge {
+    @media (max-width: 480px) {
+      .stats .hide-mobile {
         display: none;
       }
-      .brand i {
-        font-size: 1.4rem;
+      .side-panel {
+        width: 240px;
       }
     }
 
-    /* small info hint */
     .hint {
       position: absolute;
-      bottom: 18px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.25);
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.15);
       pointer-events: none;
-      letter-spacing: 0.3px;
-      backdrop-filter: blur(2px);
-      padding: 6px;
-    }
-    .hint i {
-      margin: 0 4px;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
 
-  <!-- 3D Globe Canvas container -->
-  <div id="globe-container"></div>
+<div id="globe-container"></div>
 
-  <!-- Overlay UI -->
-  <div class="overlay">
-    <div class="top-bar">
-      <div class="brand">
-        <i class="fas fa-plane-departure"></i>
-        <span>SkyTrack</span>
-        <span style="font-size:0.7rem; background: none; -webkit-text-fill-color: #90a4ae; margin-left: 6px; font-weight: 300;">live</span>
-      </div>
-      <div class="stats">
-        <span><i class="fas fa-plane"></i> <span id="flightCount">127</span></span>
-        <span><i class="fas fa-globe-americas"></i> <span id="onlineStatus">● online</span></span>
-        <span class="badge"><i class="fas fa-satellite"></i> real-time</span>
-      </div>
-      <div class="controls">
-        <button id="btnReset" title="Reset view"><i class="fas fa-home"></i> <span class="btn-label">Reset</span></button>
-        <button id="btnToggle" title="Toggle rotation"><i class="fas fa-sync-alt"></i> <span class="btn-label">Rotate</span></button>
-        <button id="btnRefresh" title="Refresh flights"><i class="fas fa-redo-alt"></i> <span class="btn-label">Refresh</span></button>
-      </div>
-    </div>
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="brand">
+    <i class="fas fa-plane-departure"></i>
+    <span>SkyTrack</span>
   </div>
-
-  <div class="hint">
-    <i class="fas fa-mouse-pointer"></i> drag to rotate · scroll to zoom
+  <div class="search-box">
+    <i class="fas fa-search"></i>
+    <input type="text" id="flightSearch" placeholder="Search flight..." />
   </div>
+  <div class="stats">
+    <span><i class="fas fa-plane"></i> <span id="flightCount">0</span></span>
+    <span class="hide-mobile"><i class="fas fa-satellite"></i> live</span>
+  </div>
+</div>
 
-  <!-- Three.js and add-ons from CDN -->
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.126.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.126.0/examples/jsm/"
+<!-- Panel Toggle -->
+<button class="panel-toggle" id="panelToggle">
+  <i class="fas fa-list-ul"></i> Flights
+</button>
+
+<!-- Side Panel -->
+<div class="side-panel" id="sidePanel">
+  <div class="flight-list-title">
+    <span>✈️ ACTIVE FLIGHTS</span>
+    <span id="flightCountSmall">0</span>
+  </div>
+  <div id="flightList"></div>
+</div>
+
+<!-- Info Tooltip -->
+<div class="info-tooltip" id="infoTooltip">
+  <div class="title" id="tipCallsign">-</div>
+  <div class="detail" id="tipAlt">Altitude: -</div>
+  <div class="detail" id="tipSpeed">Speed: -</div>
+  <div class="detail" id="tipHeading">Heading: -</div>
+</div>
+
+<div class="hint">🖱 drag · scroll zoom · click aircraft</div>
+
+<!-- Three.js -->
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.126.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.126.0/examples/jsm/"
+    }
+  }
+</script>
+
+<script type="module">
+  import * as THREE from 'three';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+  // --- Setup Scene ---
+  const container = document.getElementById('globe-container');
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0a0e1a);
+
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.set(0, 2, 16);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 0.7;
+  controls.minDistance = 5;
+  controls.maxDistance = 30;
+  controls.target.set(0, 0, 0);
+
+  // --- Lighting ---
+  scene.add(new THREE.AmbientLight(0x334466));
+  const sun = new THREE.DirectionalLight(0xffeedd, 1.2);
+  sun.position.set(5, 10, 8);
+  scene.add(sun);
+  scene.add(new THREE.DirectionalLight(0x4488ff, 0.4).position.set(-5, -2, -8));
+
+  // Stars
+  (function addStars() {
+    const v = [];
+    for (let i = 0; i < 3000; i++) {
+      v.push((Math.random() - 0.5) * 800, (Math.random() - 0.5) * 800, (Math.random() - 0.5) * 800);
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(v, 3));
+    scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xaaccff, size: 0.2, transparent: true, opacity: 0.7 })));
+  })();
+
+  // --- Earth ---
+  const earthGroup = new THREE.Group();
+  scene.add(earthGroup);
+
+  const textureLoader = new THREE.TextureLoader();
+  const earthMap = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+  const earth = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 64, 64),
+    new THREE.MeshPhongMaterial({ map: earthMap, specular: new THREE.Color(0x222244), shininess: 5 })
+  );
+  earthGroup.add(earth);
+
+  // --- Flight Data & State ---
+  const flights = [];
+  const flightObjects = [];
+  const trails = [];
+  const MAX_TRAIL = 30;
+
+  // Generate random airport pairs (lat/lng)
+  const airports = [
+    { lat: 40.64, lng: -73.78 }, { lat: 51.47, lng: -0.45 }, { lat: 48.86, lng: 2.35 },
+    { lat: 55.38, lng: -3.43 }, { lat: 37.62, lng: -122.38 }, { lat: 25.79, lng: -80.29 },
+    { lat: 28.43, lng: -81.31 }, { lat: 41.97, lng: -87.90 }, { lat: 33.94, lng: -118.41 },
+    { lat: 34.05, lng: -118.24 }, { lat: 47.45, lng: -122.31 }, { lat: 38.85, lng: -77.04 },
+    { lat: 52.37, lng: 4.89 }, { lat: 50.03, lng: 8.57 }, { lat: 48.11, lng: 11.58 },
+    { lat: 45.47, lng: 9.28 }, { lat: 41.80, lng: 12.23 }, { lat: 39.50, lng: -0.48 },
+    { lat: 40.50, lng: -3.57 }, { lat: 51.50, lng: -0.12 }
+  ];
+
+  function randomAirport() { return airports[Math.floor(Math.random() * airports.length)]; }
+
+  function generateFlight() {
+    const from = randomAirport();
+    let to = randomAirport();
+    while (to === from) to = randomAirport();
+    const alt = 200 + Math.floor(Math.random() * 350); // FL200-FL550
+    const speed = 400 + Math.floor(Math.random() * 250); // knots
+    const callsign = ['UAL', 'DAL', 'AAL', 'SWA', 'BAW', 'KLM', 'AFR', 'LUF', 'VIR', 'QTR', 'SIA', 'CPA', 'THY', 'JAL'][Math.floor(Math.random() * 14)] + 
+                     (100 + Math.floor(Math.random() * 900));
+    return {
+      from, to,
+      lat: from.lat, lng: from.lng,
+      alt, speed,
+      callsign,
+      progress: 0,
+      trail: [],
+      color: new THREE.Color().setHSL(0.35 - (alt - 200) / 400 * 0.25, 0.9, 0.5), // green->red
+    };
+  }
+
+  // Init 80 flights
+  for (let i = 0; i < 80; i++) {
+    const f = generateFlight();
+    f.progress = Math.random() * 0.9;
+    // interpolate position
+    const lat = f.from.lat + (f.to.lat - f.from.lat) * f.progress;
+    const lng = f.from.lng + (f.to.lng - f.from.lng) * f.progress;
+    f.lat = lat;
+    f.lng = lng;
+    flights.push(f);
+  }
+
+  // --- Helpers ---
+  function latLngToPos(lat, lng, altOffset = 0) {
+    const phi = (90 - lat) * Math.PI / 180;
+    const theta = lng * Math.PI / 180;
+    const r = 5 + 0.02 + altOffset;
+    return new THREE.Vector3(r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
+  }
+
+  function createAircraft(color) {
+    const g = new THREE.Group();
+    // Cone fuselage
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.35, 5), new THREE.MeshPhongMaterial({ color, emissive: color, emissiveIntensity: 0.15 }));
+    cone.rotation.x = Math.PI / 2;
+    cone.position.z = 0.08;
+    g.add(cone);
+    // Wings
+    const wing = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.02, 0.03), new THREE.MeshPhongMaterial({ color: 0x88ccff }));
+    wing.position.set(0, 0.12, 0);
+    g.add(wing);
+    const wing2 = wing.clone();
+    wing2.position.set(0, -0.12, 0);
+    g.add(wing2);
+    // Tail
+    const tail = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.08, 0.06), new THREE.MeshPhongMaterial({ color: 0x88ccff }));
+    tail.position.set(0, 0, -0.2);
+    g.add(tail);
+    // Glow
+    const glow = new THREE.Mesh(new THREE.SphereGeometry(0.035, 6, 6), new THREE.MeshBasicMaterial({ color: 0x88ddff }));
+    glow.position.set(0, 0, 0.18);
+    g.add(glow);
+    return g;
+  }
+
+  // --- Render flights ---
+  function renderFlights() {
+    // Clear old
+    while (earthGroup.children.length > 1) {
+      const c = earthGroup.children[1];
+      earthGroup.remove(c);
+      if (c.geometry) c.geometry.dispose();
+    }
+    flightObjects.length = 0;
+    trails.length = 0;
+
+    const flightListEl = document.getElementById('flightList');
+    flightListEl.innerHTML = '';
+    let count = 0;
+
+    flights.forEach((f, idx) => {
+      // Update position based on progress
+      f.progress += (0.0003 + Math.random() * 0.0004);
+      if (f.progress > 1) {
+        // New destination
+        const newTo = randomAirport();
+        f.from = f.to;
+        f.to = newTo;
+        f.progress = 0;
+        f.alt = 200 + Math.floor(Math.random() * 350);
+        f.speed = 400 + Math.floor(Math.random() * 250);
+        f.color.setHSL(0.35 - (f.alt - 200) / 400 * 0.25, 0.9, 0.5);
       }
-    }
-  </script>
+      const lat = f.from.lat + (f.to.lat - f.from.lat) * f.progress;
+      const lng = f.from.lng + (f.to.lng - f.from.lng) * f.progress;
+      f.lat = lat;
+      f.lng = lng;
 
-  <script type="module">
-    // ----- Imports -----
-    import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
-
-    // ----- Setup Scene, Cameras, Renderers -----
-    const container = document.getElementById('globe-container');
-    
-    // Scene
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0b0f1a);
-
-    // Camera
-    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(0, 1, 18);
-
-    // WebGL Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
-
-    // CSS2D Renderer for labels (optional, but we keep it minimal)
-    const labelRenderer = new CSS2DRenderer();
-    labelRenderer.setSize(container.clientWidth, container.clientHeight);
-    labelRenderer.domElement.style.position = 'absolute';
-    labelRenderer.domElement.style.top = '0';
-    labelRenderer.domElement.style.left = '0';
-    labelRenderer.domElement.style.pointerEvents = 'none'; // avoid blocking clicks
-    container.appendChild(labelRenderer.domElement);
-
-    // Controls
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.08;
-    controls.rotateSpeed = 0.8;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.9;
-    controls.enableZoom = true;
-    controls.zoomSpeed = 1.0;
-    controls.minDistance = 6;
-    controls.maxDistance = 30;
-    controls.target.set(0, 0, 0);
-
-    // ----- Lighting -----
-    const ambientLight = new THREE.AmbientLight(0x404060);
-    scene.add(ambientLight);
-    
-    const sunLight = new THREE.DirectionalLight(0xffeedd, 1.5);
-    sunLight.position.set(5, 8, 10);
-    scene.add(sunLight);
-    
-    const backLight = new THREE.DirectionalLight(0x4488ff, 0.6);
-    backLight.position.set(-5, -2, -8);
-    scene.add(backLight);
-    
-    const fillLight = new THREE.PointLight(0x2266cc, 0.3, 30);
-    fillLight.position.set(3, 2, 8);
-    scene.add(fillLight);
-
-    // subtle starfield
-    function addStars() {
-      const vertices = [];
-      for (let i = 0; i < 2000; i++) {
-        const x = (Math.random() - 0.5) * 600;
-        const y = (Math.random() - 0.5) * 600;
-        const z = (Math.random() - 0.5) * 600;
-        vertices.push(x, y, z);
-      }
-      const geometry = new THREE.BufferGeometry();
-      geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-      const material = new THREE.PointsMaterial({ color: 0xaaccff, size: 0.25, transparent: true, opacity: 0.8 });
-      const stars = new THREE.Points(geometry, material);
-      scene.add(stars);
-    }
-    addStars();
-
-    // ----- Create Earth (Globe) -----
-    const earthGroup = new THREE.Group();
-    scene.add(earthGroup);
-
-    // Earth texture (high-res)
-    const textureLoader = new THREE.TextureLoader();
-    const earthMap = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
-    const earthMaterial = new THREE.MeshPhongMaterial({
-      map: earthMap,
-      specular: new THREE.Color(0x333333),
-      shininess: 5,
-    });
-    const earthGeometry = new THREE.SphereGeometry(5, 64, 64);
-    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earthGroup.add(earth);
-
-    // Subtle atmosphere glow
-    const glowMaterial = new THREE.MeshPhongMaterial({
-      color: 0x4fc3f7,
-      transparent: true,
-      opacity: 0.08,
-      side: THREE.BackSide,
-    });
-    const glowGeometry = new THREE.SphereGeometry(5.08, 64, 64);
-    const glow = new THREE.Mesh(glowGeometry, glowMaterial);
-    earthGroup.add(glow);
-
-    // ----- Aircraft & flight data management -----
-    const flightGroup = new THREE.Group();
-    earthGroup.add(flightGroup);
-
-    // Store flight objects for updates
-    let flightMarkers = [];
-    let flightLabels = [];
-
-    // Helper: generate random flight positions (lat/lng) with some clustering
-    function generateRandomFlights(count = 140) {
-      const flights = [];
-      for (let i = 0; i < count; i++) {
-        // random lat -70..70, lng -180..180
-        const lat = (Math.random() * 140) - 70;
-        const lng = (Math.random() * 360) - 180;
-        // random altitude (visual only)
-        const alt = 0.02 + Math.random() * 0.08;
-        flights.push({ lat, lng, alt });
-      }
-      return flights;
-    }
-
-    // Convert lat/lng/alt to Vector3 (radius ~5)
-    function latLngToPosition(lat, lng, alt = 0.04) {
-      const phi = (90 - lat) * Math.PI / 180;
-      const theta = lng * Math.PI / 180;
-      const r = 5 + alt;
-      return new THREE.Vector3(
-        r * Math.sin(phi) * Math.cos(theta),
-        r * Math.cos(phi),
-        r * Math.sin(phi) * Math.sin(theta)
-      );
-    }
-
-    // Create a single aircraft marker (cone + trail)
-    function createAircraft(color = 0x4fc3f7) {
-      const group = new THREE.Group();
+      const pos = latLngToPos(lat, lng, 0.01 + (f.alt - 200) / 400 * 0.06);
       
-      // fuselage / cone
-      const coneGeo = new THREE.ConeGeometry(0.16, 0.45, 6);
-      const coneMat = new THREE.MeshPhongMaterial({ color: color, emissive: color, emissiveIntensity: 0.2 });
-      const cone = new THREE.Mesh(coneGeo, coneMat);
-      cone.rotation.x = Math.PI / 2;
-      cone.position.set(0, 0, 0.1);
-      group.add(cone);
-
-      // wing dots
-      const wingMat = new THREE.MeshPhongMaterial({ color: 0x88ddff });
-      const wing1 = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.02, 0.04), wingMat);
-      wing1.position.set(0, 0.16, 0.0);
-      group.add(wing1);
-      const wing2 = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.02, 0.04), wingMat);
-      wing2.position.set(0, -0.16, 0.0);
-      group.add(wing2);
-
-      // tail
-      const tailMat = new THREE.MeshPhongMaterial({ color: 0xbbddff });
-      const tail = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.1, 0.08), tailMat);
-      tail.position.set(0, 0, -0.28);
-      group.add(tail);
-
-      // glow dot
-      const glowDot = new THREE.Mesh(
-        new THREE.SphereGeometry(0.04, 6, 6),
-        new THREE.MeshBasicMaterial({ color: 0x88ddff })
-      );
-      glowDot.position.set(0, 0, 0.25);
-      group.add(glowDot);
-
-      return group;
-    }
-
-    // Build flight markers from data
-    function renderFlights(flightData) {
-      // Clear previous
-      while(flightGroup.children.length > 0) {
-        flightGroup.remove(flightGroup.children[0]);
+      // Aircraft
+      const aircraft = createAircraft(f.color);
+      aircraft.position.copy(pos);
+      // Point in direction of travel
+      const nextLat = f.from.lat + (f.to.lat - f.from.lat) * Math.min(f.progress + 0.01, 1);
+      const nextLng = f.from.lng + (f.to.lng - f.from.lng) * Math.min(f.progress + 0.01, 1);
+      const nextPos = latLngToPos(nextLat, nextLng, 0.01 + (f.alt - 200) / 400 * 0.06);
+      const dir = new THREE.Vector3().subVectors(nextPos, pos).normalize();
+      if (dir.length() > 0.001) {
+        aircraft.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), dir);
       }
-      flightMarkers = [];
-      flightLabels = [];
+      earthGroup.add(aircraft);
+      flightObjects.push({ mesh: aircraft, data: f });
 
-      const colors = [0x4fc3f7, 0x81d4fa, 0x29b6f6, 0x4dd0e1, 0x80deea, 0xa6d4fa];
-      
-      flightData.forEach((f, index) => {
-        const pos = latLngToPosition(f.lat, f.lng, f.alt || 0.04);
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const aircraft = createAircraft(color);
-        aircraft.position.copy(pos);
-        // random small rotation to look more natural
-        aircraft.rotation.z = (Math.random() - 0.5) * 0.3;
-        aircraft.rotation.y = Math.random() * Math.PI * 2;
-        flightGroup.add(aircraft);
-        flightMarkers.push(aircraft);
-
-        // Optional small label (CSS2D) – but we keep minimal to avoid clutter
-        // only add label for some flights
-        if (index % 7 === 0) {
-          const div = document.createElement('div');
-          div.textContent = `✈️ ${String.fromCharCode(65 + Math.floor(Math.random()*26))}${Math.floor(Math.random()*900+100)}`;
-          div.style.color = '#b8d4f0';
-          div.style.fontSize = '9px';
-          div.style.fontWeight = '400';
-          div.style.textShadow = '0 0 8px rgba(0,20,40,0.9)';
-          div.style.background = 'rgba(0,0,0,0.3)';
-          div.style.padding = '2px 6px';
-          div.style.borderRadius = '12px';
-          div.style.backdropFilter = 'blur(2px)';
-          div.style.border = '1px solid rgba(255,255,255,0.05)';
-          div.style.whiteSpace = 'nowrap';
-          div.style.fontFamily = 'Segoe UI, sans-serif';
-          const label = new CSS2DObject(div);
-          label.position.copy(pos.clone().multiplyScalar(1.02));
-          flightGroup.add(label);
-          flightLabels.push(label);
-        }
-      });
-
-      // update flight count
-      document.getElementById('flightCount').textContent = flightData.length;
-    }
-
-    // ----- Generate initial flights -----
-    let currentFlights = generateRandomFlights(142);
-    renderFlights(currentFlights);
-
-    // ----- Refresh / update flights (simulate real-time) -----
-    function refreshFlights() {
-      // generate new flight set with slight variation
-      const newFlights = generateRandomFlights(120 + Math.floor(Math.random() * 60));
-      currentFlights = newFlights;
-      renderFlights(newFlights);
-      
-      // flash effect on counter
-      const countEl = document.getElementById('flightCount');
-      countEl.style.transition = 'color 0.1s';
-      countEl.style.color = '#4fc3f7';
-      setTimeout(() => { countEl.style.color = '#f0f4ff'; }, 200);
-    }
-
-    // Periodically refresh flights every 12 seconds
-    setInterval(refreshFlights, 12000);
-
-    // ----- UI Controls -----
-    document.getElementById('btnReset').addEventListener('click', () => {
-      camera.position.set(0, 1, 18);
-      controls.target.set(0, 0, 0);
-      controls.update();
-    });
-
-    let rotateEnabled = true;
-    document.getElementById('btnToggle').addEventListener('click', (e) => {
-      rotateEnabled = !rotateEnabled;
-      controls.autoRotate = rotateEnabled;
-      e.currentTarget.classList.toggle('active');
-      const icon = e.currentTarget.querySelector('i');
-      if (rotateEnabled) {
-        icon.className = 'fas fa-sync-alt';
-        e.currentTarget.querySelector('.btn-label').textContent = 'Rotate';
-      } else {
-        icon.className = 'fas fa-pause';
-        e.currentTarget.querySelector('.btn-label').textContent = 'Paused';
+      // Trail
+      const trailPoints = f.trail;
+      trailPoints.push(pos.clone());
+      if (trailPoints.length > MAX_TRAIL) trailPoints.shift();
+      if (trailPoints.length > 2) {
+        const trailGeo = new THREE.BufferGeometry().setFromPoints(trailPoints);
+        const trailMat = new THREE.LineBasicMaterial({ color: f.color, transparent: true, opacity: 0.4 });
+        const trailLine = new THREE.Line(trailGeo, trailMat);
+        earthGroup.add(trailLine);
+        trails.push(trailLine);
       }
+
+      // Flight list item
+      count++;
+      const item = document.createElement('div');
+      item.className = 'flight-item';
+      const altDisplay = `FL${Math.round(f.alt / 10) * 10}`;
+      item.innerHTML = `
+        <span><span class="dot" style="background:${f.color.getStyle()}"></span><span class="callsign">${f.callsign}</span></span>
+        <span><span class="altitude">${altDisplay}</span> <span class="speed">${f.speed}kt</span></span>
+      `;
+      item.addEventListener('click', () => showTooltip(f, pos));
+      flightListEl.appendChild(item);
     });
-    // set initial active state
-    document.getElementById('btnToggle').classList.add('active');
 
-    document.getElementById('btnRefresh').addEventListener('click', () => {
-      refreshFlights();
+    document.getElementById('flightCount').textContent = count;
+    document.getElementById('flightCountSmall').textContent = count;
+  }
+
+  // --- Tooltip ---
+  const tooltip = document.getElementById('infoTooltip');
+  function showTooltip(f, pos) {
+    const tipCallsign = document.getElementById('tipCallsign');
+    const tipAlt = document.getElementById('tipAlt');
+    const tipSpeed = document.getElementById('tipSpeed');
+    const tipHeading = document.getElementById('tipHeading');
+    tipCallsign.textContent = `✈️ ${f.callsign}`;
+    tipAlt.textContent = `Altitude: FL${Math.round(f.alt / 10) * 10}`;
+    tipSpeed.textContent = `Speed: ${f.speed} kts`;
+    tipHeading.textContent = `Heading: ${Math.round(Math.random() * 360)}°`;
+    // Position tooltip near aircraft (project to screen)
+    const vector = pos.clone().project(camera);
+    const x = (vector.x * 0.5 + 0.5) * container.clientWidth;
+    const y = (-vector.y * 0.5 + 0.5) * container.clientHeight;
+    tooltip.style.display = 'block';
+    tooltip.style.left = Math.min(x + 20, container.clientWidth - 200) + 'px';
+    tooltip.style.top = Math.min(y - 30, container.clientHeight - 120) + 'px';
+    setTimeout(() => { tooltip.style.display = 'none'; }, 4000);
+  }
+
+  // --- Search ---
+  document.getElementById('flightSearch').addEventListener('input', (e) => {
+    const q = e.target.value.toUpperCase();
+    const items = document.querySelectorAll('.flight-item');
+    items.forEach(item => {
+      const cs = item.querySelector('.callsign')?.textContent || '';
+      item.style.display = cs.includes(q) ? 'flex' : 'none';
     });
+  });
 
-    // ----- Resize handler -----
-    function onResize() {
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-      labelRenderer.setSize(width, height);
-    }
-    window.addEventListener('resize', onResize);
+  // --- Panel toggle ---
+  let panelOpen = true;
+  document.getElementById('panelToggle').addEventListener('click', () => {
+    panelOpen = !panelOpen;
+    document.getElementById('sidePanel').classList.toggle('collapsed', !panelOpen);
+    document.getElementById('panelToggle').innerHTML = panelOpen ? 
+      '<i class="fas fa-list-ul"></i> Flights' : 
+      '<i class="fas fa-list-ul"></i> Show';
+  });
 
-    // Also observe container size changes (for mobile rotation etc)
-    const resizeObserver = new ResizeObserver(() => onResize());
-    resizeObserver.observe(container);
+  // --- Refresh loop ---
+  function refresh() {
+    renderFlights();
+  }
+  refresh();
+  setInterval(refresh, 3000);
 
-    // ----- Animation loop -----
-    function animate() {
-      requestAnimationFrame(animate);
+  // --- Resize ---
+  window.addEventListener('resize', () => {
+    const w = container.clientWidth, h = container.clientHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  });
 
-      // update controls (autoRotate handled by OrbitControls)
-      controls.update();
+  // --- Animation ---
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
 
-      // small aircraft pulse / bobbing effect
-      const time = Date.now() / 1000;
-      flightMarkers.forEach((marker, i) => {
-        const offset = i * 0.01;
-        const bob = Math.sin(time * 1.2 + offset) * 0.008;
-        marker.position.y += bob * 0.02; // subtle
-        // rotate marker slowly
-        marker.rotation.y += 0.002;
-      });
+  // Click on globe to hide tooltip
+  renderer.domElement.addEventListener('click', () => {
+    tooltip.style.display = 'none';
+  });
 
-      // Render
-      renderer.render(scene, camera);
-      labelRenderer.render(scene, camera);
-    }
-
-    animate();
-
-    // small hack: online status indicator
-    document.getElementById('onlineStatus').innerHTML = '● live';
-    
-    console.log('✈️ SkyTrack live – real-time aircraft visualization');
-  </script>
+  console.log('✈️ SkyTrack FR24-style loaded!');
+</script>
 </body>
 </html>
