@@ -1,487 +1,556 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Romeo and Juliet Matching Game</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            user-select: none; /* avoid accidental text selection while dragging */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>✈️ Globe Flight Tracker</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* Global reset & font */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fdf6e3;
-            color: #3e2a1f;
-            margin: 0;
-            padding: 20px;
-        }
+    body {
+      background: #0b0f1a;
+      color: #f0f4ff;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+    /* 3D container fills screen */
+    #globe-container {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      position: relative;
+    }
 
-        h1 {
-            text-align: center;
-            color: #8b3c2c;
-            font-size: 2rem;
-            margin-bottom: 0.2rem;
-        }
+    /* Custom UI overlay – top bar + controls */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none; /* allow clicks to pass to canvas except on interactive elements */
+    }
 
-        .sub {
-            text-align: center;
-            font-style: italic;
-            margin-bottom: 2rem;
-            color: #6b4c3b;
-        }
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: rgba(10, 14, 26, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      pointer-events: auto;
+      gap: 10px;
+    }
 
-        /* Game selector */
-        .game-selector {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .brand i {
+      color: #4fc3f7;
+      font-size: 1.8rem;
+    }
+    .brand span {
+      background: linear-gradient(135deg, #b3e5fc, #4fc3f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .game-btn {
-            background: #d9c2a7;
-            border: none;
-            padding: 10px 24px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 40px;
-            cursor: pointer;
-            color: #3e2a1f;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 16px;
+      border-radius: 40px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .stats i {
+      margin-right: 4px;
+      color: #81d4fa;
+    }
+    .stats .badge {
+      background: #1e2a3a;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #b0c4de;
+    }
 
-        .game-btn.active {
-            background: #8b3c2c;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
+    .controls {
+      display: flex;
+      gap: 8px;
+      pointer-events: auto;
+    }
+    .controls button {
+      background: rgba(30, 40, 60, 0.7);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e0edff;
+      padding: 8px 14px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      pointer-events: auto;
+    }
+    .controls button:hover {
+      background: #2a3a5a;
+      border-color: #4fc3f7;
+      color: white;
+      transform: scale(1.02);
+    }
+    .controls button i {
+      font-size: 0.9rem;
+    }
+    .controls .active {
+      background: #1e3a5f;
+      border-color: #4fc3f7;
+      box-shadow: 0 0 12px rgba(79, 195, 247, 0.2);
+    }
 
-        .game-btn:hover:not(.active) {
-            background: #c4a27a;
-        }
+    /* Mobile friendly adjustments */
+    @media (max-width: 700px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px 14px;
+      }
+      .brand {
+        font-size: 1.1rem;
+        justify-content: center;
+      }
+      .stats {
+        justify-content: center;
+        font-size: 0.8rem;
+        padding: 4px 12px;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .controls {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .controls button {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+      }
+      .controls button i {
+        font-size: 0.8rem;
+      }
+    }
 
-        /* Score & status */
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            background: #efe2cf;
-            padding: 12px 20px;
-            border-radius: 50px;
-            margin-bottom: 25px;
-            font-weight: bold;
-        }
+    @media (max-width: 420px) {
+      .stats .badge {
+        display: none;
+      }
+      .brand i {
+        font-size: 1.4rem;
+      }
+    }
 
-        .score {
-            font-size: 1.4rem;
-            background: #3e2a1f;
-            color: #ffefcf;
-            padding: 4px 14px;
-            border-radius: 40px;
-        }
-
-        .message {
-            background: #fff3e0;
-            padding: 6px 16px;
-            border-radius: 30px;
-            color: #8b3c2c;
-        }
-
-        .reset-btn {
-            background: #7c5f44;
-            border: none;
-            color: white;
-            padding: 6px 18px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .reset-btn:hover {
-            background: #5a3e2a;
-        }
-
-        /* Game grid: two columns */
-        .game-board {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        .column {
-            flex: 1;
-            min-width: 280px;
-            background: #fffaf2;
-            border-radius: 40px;
-            padding: 20px 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
-        .column h2 {
-            text-align: center;
-            border-bottom: 2px solid #d9c2a7;
-            padding-bottom: 8px;
-            margin-top: 0;
-            color: #5c3b28;
-        }
-
-        .cards {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .card {
-            background: white;
-            border-left: 12px solid #b1624b;
-            padding: 14px 16px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            cursor: pointer;
-            transition: 0.1s linear;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #2c1a10;
-        }
-
-        .card.selected {
-            background: #ffe3b5;
-            border-left-color: #d48c3c;
-            box-shadow: 0 0 0 2px #d48c3c;
-            transform: scale(1.01);
-        }
-
-        .card.matched {
-            background: #cfe6cf;
-            border-left-color: #2c6e2c;
-            text-decoration: line-through;
-            opacity: 0.7;
-            cursor: default;
-            filter: grayscale(0.05);
-        }
-
-        .card.matched::after {
-            content: " ✓";
-            font-weight: bold;
-            color: #1f5c1f;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.8rem;
-            color: #8b6e55;
-        }
-
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            .game-selector, .reset-btn, .status-bar .message, .footer {
-                display: none;
-            }
-            .card {
-                break-inside: avoid;
-                border: 1px solid #aaa;
-            }
-            .card.matched {
-                text-decoration: none;
-                opacity: 1;
-            }
-            .card.matched::after {
-                content: " (matched)";
-            }
-        }
-    </style>
+    /* small info hint */
+    .hint {
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.25);
+      pointer-events: none;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(2px);
+      padding: 6px;
+    }
+    .hint i {
+      margin: 0 4px;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1>⚔️ Romeo & Juliet ⚔️</h1>
-    <div class="sub">Matching Game — Act to Settings / Act to Plot</div>
 
-    <div class="game-selector">
-        <button class="game-btn" data-game="settings">🎭 Act → Setting</button>
-        <button class="game-btn" data-game="plot">📖 Act → Plot Summary</button>
+  <!-- 3D Globe Canvas container -->
+  <div id="globe-container"></div>
+
+  <!-- Overlay UI -->
+  <div class="overlay">
+    <div class="top-bar">
+      <div class="brand">
+        <i class="fas fa-plane-departure"></i>
+        <span>SkyTrack</span>
+        <span style="font-size:0.7rem; background: none; -webkit-text-fill-color: #90a4ae; margin-left: 6px; font-weight: 300;">live</span>
+      </div>
+      <div class="stats">
+        <span><i class="fas fa-plane"></i> <span id="flightCount">127</span></span>
+        <span><i class="fas fa-globe-americas"></i> <span id="onlineStatus">● online</span></span>
+        <span class="badge"><i class="fas fa-satellite"></i> real-time</span>
+      </div>
+      <div class="controls">
+        <button id="btnReset" title="Reset view"><i class="fas fa-home"></i> <span class="btn-label">Reset</span></button>
+        <button id="btnToggle" title="Toggle rotation"><i class="fas fa-sync-alt"></i> <span class="btn-label">Rotate</span></button>
+        <button id="btnRefresh" title="Refresh flights"><i class="fas fa-redo-alt"></i> <span class="btn-label">Refresh</span></button>
+      </div>
     </div>
+  </div>
 
-    <div class="status-bar">
-        <span>🎯 Matches: <span id="scoreValue">0</span> / <span id="totalValue">5</span></span>
-        <span class="message" id="statusMsg">Click a card from left, then right</span>
-        <button class="reset-btn" id="resetGame">⟳ New Game</button>
-    </div>
+  <div class="hint">
+    <i class="fas fa-mouse-pointer"></i> drag to rotate · scroll to zoom
+  </div>
 
-    <div class="game-board">
-        <!-- LEFT COLUMN: ACTS -->
-        <div class="column">
-            <h2>📜 ACTS (1–5)</h2>
-            <div id="actsContainer" class="cards"></div>
-        </div>
-        <!-- RIGHT COLUMN: MATCHING ITEMS (settings or plots) -->
-        <div class="column">
-            <h2 id="rightTitle">🎭 Settings</h2>
-            <div id="matchesContainer" class="cards"></div>
-        </div>
-    </div>
-    <div class="footer">Click an Act, then click a matching card. Correct pairs lock. Press "New Game" to shuffle & reset.</div>
-</div>
-
-<script>
-    // ---------- DATA ----------
-    // Setting data (act -> matching text)
-    const settingsData = {
-        1: "Verona streets (public brawl), Capulet’s house (feast & first meeting)",
-        2: "Capulet’s orchard (balcony scene), Friar Laurence’s cell (secret marriage)",
-        3: "Verona square (Mercutio & Tybalt killed), Capulet’s orchard (wedding night & Romeo flees)",
-        4: "Friar’s cell (potion plan), Juliet’s bedroom (takes potion), Capulet house (found ‘dead’)",
-        5: "Mantua (Romeo hears news), Apothecary (buys poison), Capulet tomb (deaths & reconciliation)"
-    };
-
-    // Plot summary data
-    const plotData = {
-        1: "Romeo and Juliet meet at a Capulet feast and fall in love without knowing each other’s family identities.",
-        2: "They exchange vows on the balcony and marry in secret with the help of Friar Laurence and the Nurse.",
-        3: "Mercutio is killed by Tybalt; Romeo kills Tybalt and is banished. He spends one night with Juliet, then flees to Mantua. Juliet is ordered to marry Paris.",
-        4: "Juliet takes a potion to appear dead for 42 hours. Her family finds her ‘dead’ and places her in the tomb.",
-        5: "Romeo, believing Juliet is dead, buys poison and kills himself at her tomb. Juliet wakes, stabs herself, and the families end their feud."
-    };
-
-    // Game state
-    let currentGame = "settings";      // 'settings' or 'plot'
-    let acts = [1,2,3,4,5];            // act numbers
-    let matches = [];                  // will hold the right side items (strings) shuffled
-    let matchedActs = new Array(6).fill(false); // index 1..5
-    let matchedItems = new Array(6).fill(false);
-    let selectedAct = null;            // currently selected act number
-    let selectedItemIdx = null;        // index in matches array (for UI highlight)
-
-    // DOM elements
-    const actsContainer = document.getElementById("actsContainer");
-    const matchesContainer = document.getElementById("matchesContainer");
-    const scoreSpan = document.getElementById("scoreValue");
-    const totalSpan = document.getElementById("totalValue");
-    const statusMsg = document.getElementById("statusMsg");
-    const resetBtn = document.getElementById("resetGame");
-    const rightTitle = document.getElementById("rightTitle");
-
-    // Helper: get current mapping dictionary
-    function getCurrentMapping() {
-        return currentGame === "settings" ? settingsData : plotData;
+  <!-- Three.js and add-ons from CDN -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.126.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.126.0/examples/jsm/"
+      }
     }
+  </script>
 
-    // Helper: get right side items array (shuffled)
-    function getShuffledRightItems() {
-        const mapping = getCurrentMapping();
-        const items = [];
-        for (let act = 1; act <= 5; act++) {
-            items.push({ act: act, text: mapping[act] });
-        }
-        // shuffle Fisher-Yates
-        for (let i = items.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [items[i], items[j]] = [items[j], items[i]];
-        }
-        return items;
-    }
+  <script type="module">
+    // ----- Imports -----
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 
-    // reset full game (preserve game type)
-    function resetGame() {
-        // reset match arrays
-        matchedActs.fill(false);
-        matchedItems.fill(false);
-        selectedAct = null;
-        selectedItemIdx = null;
-        
-        // fresh shuffle of right side items (based on current game)
-        const shuffledItems = getShuffledRightItems();
-        matches.length = 0;
-        for (let item of shuffledItems) {
-            matches.push({ act: item.act, text: item.text, matched: false });
-        }
-        
-        // re-render
-        renderGame();
-        updateScoreAndMessage();
-    }
-
-    // switch between settings and plot
-    function setGameType(type) {
-        currentGame = type;
-        // update UI buttons
-        document.querySelectorAll(".game-btn").forEach(btn => {
-            if (btn.dataset.game === type) btn.classList.add("active");
-            else btn.classList.remove("active");
-        });
-        rightTitle.innerText = (type === "settings") ? "🎭 Settings" : "📖 Plot Summaries";
-        resetGame(); // rebuild with new data and shuffle
-    }
-
-    // count current matched pairs
-    function countMatched() {
-        let count = 0;
-        for (let i = 1; i <= 5; i++) {
-            if (matchedActs[i] && matchedItems[i]) count++;
-        }
-        return count;
-    }
-
-    function updateScoreAndMessage() {
-        const matchedCount = countMatched();
-        scoreSpan.innerText = matchedCount;
-        totalSpan.innerText = "5";
-        if (matchedCount === 5) {
-            statusMsg.innerHTML = "🎉 PERFECT! All acts matched! 🎉";
-        } else {
-            statusMsg.innerHTML = "💡 Click an Act, then click its matching description.";
-        }
-    }
-
-    // attempt to match selectedAct (number) with a right-side card by its internal act value
-    function attemptMatch(selectedRightIdx) {
-        const rightCard = matches[selectedRightIdx];
-        if (!rightCard || rightCard.matched) {
-            statusMsg.innerHTML = "⛔ That item is already matched!";
-            return false;
-        }
-        if (selectedAct === null) {
-            statusMsg.innerHTML = "👈 First, click an Act on the left!";
-            return false;
-        }
-        if (matchedActs[selectedAct]) {
-            statusMsg.innerHTML = `⚠️ Act ${selectedAct} is already matched! Reset or choose another.`;
-            clearSelectedAct();
-            renderGame();
-            return false;
-        }
-        
-        const expectedAct = rightCard.act;
-        if (selectedAct === expectedAct) {
-            // CORRECT MATCH!
-            matchedActs[selectedAct] = true;
-            matchedItems[expectedAct] = true;
-            rightCard.matched = true;
-            statusMsg.innerHTML = `✅ Correct! Act ${selectedAct} matched!`;
-            clearSelectedAct();
-            renderGame();
-            updateScoreAndMessage();
-            return true;
-        } else {
-            // wrong match
-            statusMsg.innerHTML = `❌ Wrong! Act ${selectedAct} does NOT match "${rightCard.text.substring(0, 60)}..." Try again.`;
-            clearSelectedAct();
-            renderGame();
-            return false;
-        }
-    }
-
-    function clearSelectedAct() {
-        selectedAct = null;
-        if (selectedItemIdx !== null) {
-            // remove highlight from right side if any
-            selectedItemIdx = null;
-        }
-    }
-
-    // ----- RENDER left (acts) and right (matches) -----
-    function renderGame() {
-        // Render acts column
-        actsContainer.innerHTML = "";
-        for (let i = 0; i < acts.length; i++) {
-            const actNum = acts[i];
-            const isMatched = matchedActs[actNum];
-            const cardDiv = document.createElement("div");
-            cardDiv.className = "card";
-            if (isMatched) cardDiv.classList.add("matched");
-            if (selectedAct === actNum && !isMatched) cardDiv.classList.add("selected");
-            cardDiv.innerText = `Act ${actNum}`;
-            if (!isMatched) {
-                cardDiv.style.cursor = "pointer";
-                cardDiv.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    if (matchedActs[actNum]) {
-                        statusMsg.innerHTML = `🔒 Act ${actNum} is already matched.`;
-                        return;
-                    }
-                    // clear previous selection on left & right highlight
-                    if (selectedItemIdx !== null) {
-                        // remove possible right highlight (by re-render)
-                    }
-                    selectedAct = actNum;
-                    selectedItemIdx = null;
-                    renderGame();   // re-render to show new selection
-                    statusMsg.innerHTML = `🎭 Act ${actNum} selected. Now click its matching ${currentGame === "settings" ? "setting" : "plot summary"}.`;
-                });
-            } else {
-                cardDiv.style.cursor = "default";
-            }
-            actsContainer.appendChild(cardDiv);
-        }
-        
-        // Render right column (matches)
-        matchesContainer.innerHTML = "";
-        for (let idx = 0; idx < matches.length; idx++) {
-            const item = matches[idx];
-            const cardDiv = document.createElement("div");
-            cardDiv.className = "card";
-            if (item.matched) {
-                cardDiv.classList.add("matched");
-                cardDiv.style.cursor = "default";
-            } else {
-                cardDiv.style.cursor = "pointer";
-            }
-            // Optional: add light highlight if this index is currently selected (not used in this logic, but friendly)
-            if (selectedItemIdx === idx && !item.matched) cardDiv.classList.add("selected");
-            // short preview for plot if too long? we show full.
-            cardDiv.innerText = item.text;
-            if (!item.matched) {
-                cardDiv.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    if (item.matched) return;
-                    if (selectedAct === null) {
-                        statusMsg.innerHTML = "👉 First select an Act (left column).";
-                        return;
-                    }
-                    if (matchedActs[selectedAct]) {
-                        statusMsg.innerHTML = `⚠️ Act ${selectedAct} already matched. Reset or pick different act.`;
-                        clearSelectedAct();
-                        renderGame();
-                        return;
-                    }
-                    // attempt match directly
-                    attemptMatch(idx);
-                });
-            }
-            matchesContainer.appendChild(cardDiv);
-        }
-    }
-
-    // Event listeners for game mode buttons
-    document.querySelectorAll(".game-btn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const gameType = btn.dataset.game;
-            setGameType(gameType);
-        });
-    });
+    // ----- Setup Scene, Cameras, Renderers -----
+    const container = document.getElementById('globe-container');
     
-    resetBtn.addEventListener("click", () => {
-        resetGame();
-        statusMsg.innerHTML = "🔄 Game reset. Ready to match!";
-        clearSelectedAct();
-    });
+    // Scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0b0f1a);
+
+    // Camera
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(0, 1, 18);
+
+    // WebGL Renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // CSS2D Renderer for labels (optional, but we keep it minimal)
+    const labelRenderer = new CSS2DRenderer();
+    labelRenderer.setSize(container.clientWidth, container.clientHeight);
+    labelRenderer.domElement.style.position = 'absolute';
+    labelRenderer.domElement.style.top = '0';
+    labelRenderer.domElement.style.left = '0';
+    labelRenderer.domElement.style.pointerEvents = 'none'; // avoid blocking clicks
+    container.appendChild(labelRenderer.domElement);
+
+    // Controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.rotateSpeed = 0.8;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.9;
+    controls.enableZoom = true;
+    controls.zoomSpeed = 1.0;
+    controls.minDistance = 6;
+    controls.maxDistance = 30;
+    controls.target.set(0, 0, 0);
+
+    // ----- Lighting -----
+    const ambientLight = new THREE.AmbientLight(0x404060);
+    scene.add(ambientLight);
     
-    // initial load
-    setGameType("settings");
-</script>
+    const sunLight = new THREE.DirectionalLight(0xffeedd, 1.5);
+    sunLight.position.set(5, 8, 10);
+    scene.add(sunLight);
+    
+    const backLight = new THREE.DirectionalLight(0x4488ff, 0.6);
+    backLight.position.set(-5, -2, -8);
+    scene.add(backLight);
+    
+    const fillLight = new THREE.PointLight(0x2266cc, 0.3, 30);
+    fillLight.position.set(3, 2, 8);
+    scene.add(fillLight);
+
+    // subtle starfield
+    function addStars() {
+      const vertices = [];
+      for (let i = 0; i < 2000; i++) {
+        const x = (Math.random() - 0.5) * 600;
+        const y = (Math.random() - 0.5) * 600;
+        const z = (Math.random() - 0.5) * 600;
+        vertices.push(x, y, z);
+      }
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+      const material = new THREE.PointsMaterial({ color: 0xaaccff, size: 0.25, transparent: true, opacity: 0.8 });
+      const stars = new THREE.Points(geometry, material);
+      scene.add(stars);
+    }
+    addStars();
+
+    // ----- Create Earth (Globe) -----
+    const earthGroup = new THREE.Group();
+    scene.add(earthGroup);
+
+    // Earth texture (high-res)
+    const textureLoader = new THREE.TextureLoader();
+    const earthMap = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+    const earthMaterial = new THREE.MeshPhongMaterial({
+      map: earthMap,
+      specular: new THREE.Color(0x333333),
+      shininess: 5,
+    });
+    const earthGeometry = new THREE.SphereGeometry(5, 64, 64);
+    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+    earthGroup.add(earth);
+
+    // Subtle atmosphere glow
+    const glowMaterial = new THREE.MeshPhongMaterial({
+      color: 0x4fc3f7,
+      transparent: true,
+      opacity: 0.08,
+      side: THREE.BackSide,
+    });
+    const glowGeometry = new THREE.SphereGeometry(5.08, 64, 64);
+    const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+    earthGroup.add(glow);
+
+    // ----- Aircraft & flight data management -----
+    const flightGroup = new THREE.Group();
+    earthGroup.add(flightGroup);
+
+    // Store flight objects for updates
+    let flightMarkers = [];
+    let flightLabels = [];
+
+    // Helper: generate random flight positions (lat/lng) with some clustering
+    function generateRandomFlights(count = 140) {
+      const flights = [];
+      for (let i = 0; i < count; i++) {
+        // random lat -70..70, lng -180..180
+        const lat = (Math.random() * 140) - 70;
+        const lng = (Math.random() * 360) - 180;
+        // random altitude (visual only)
+        const alt = 0.02 + Math.random() * 0.08;
+        flights.push({ lat, lng, alt });
+      }
+      return flights;
+    }
+
+    // Convert lat/lng/alt to Vector3 (radius ~5)
+    function latLngToPosition(lat, lng, alt = 0.04) {
+      const phi = (90 - lat) * Math.PI / 180;
+      const theta = lng * Math.PI / 180;
+      const r = 5 + alt;
+      return new THREE.Vector3(
+        r * Math.sin(phi) * Math.cos(theta),
+        r * Math.cos(phi),
+        r * Math.sin(phi) * Math.sin(theta)
+      );
+    }
+
+    // Create a single aircraft marker (cone + trail)
+    function createAircraft(color = 0x4fc3f7) {
+      const group = new THREE.Group();
+      
+      // fuselage / cone
+      const coneGeo = new THREE.ConeGeometry(0.16, 0.45, 6);
+      const coneMat = new THREE.MeshPhongMaterial({ color: color, emissive: color, emissiveIntensity: 0.2 });
+      const cone = new THREE.Mesh(coneGeo, coneMat);
+      cone.rotation.x = Math.PI / 2;
+      cone.position.set(0, 0, 0.1);
+      group.add(cone);
+
+      // wing dots
+      const wingMat = new THREE.MeshPhongMaterial({ color: 0x88ddff });
+      const wing1 = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.02, 0.04), wingMat);
+      wing1.position.set(0, 0.16, 0.0);
+      group.add(wing1);
+      const wing2 = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.02, 0.04), wingMat);
+      wing2.position.set(0, -0.16, 0.0);
+      group.add(wing2);
+
+      // tail
+      const tailMat = new THREE.MeshPhongMaterial({ color: 0xbbddff });
+      const tail = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.1, 0.08), tailMat);
+      tail.position.set(0, 0, -0.28);
+      group.add(tail);
+
+      // glow dot
+      const glowDot = new THREE.Mesh(
+        new THREE.SphereGeometry(0.04, 6, 6),
+        new THREE.MeshBasicMaterial({ color: 0x88ddff })
+      );
+      glowDot.position.set(0, 0, 0.25);
+      group.add(glowDot);
+
+      return group;
+    }
+
+    // Build flight markers from data
+    function renderFlights(flightData) {
+      // Clear previous
+      while(flightGroup.children.length > 0) {
+        flightGroup.remove(flightGroup.children[0]);
+      }
+      flightMarkers = [];
+      flightLabels = [];
+
+      const colors = [0x4fc3f7, 0x81d4fa, 0x29b6f6, 0x4dd0e1, 0x80deea, 0xa6d4fa];
+      
+      flightData.forEach((f, index) => {
+        const pos = latLngToPosition(f.lat, f.lng, f.alt || 0.04);
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const aircraft = createAircraft(color);
+        aircraft.position.copy(pos);
+        // random small rotation to look more natural
+        aircraft.rotation.z = (Math.random() - 0.5) * 0.3;
+        aircraft.rotation.y = Math.random() * Math.PI * 2;
+        flightGroup.add(aircraft);
+        flightMarkers.push(aircraft);
+
+        // Optional small label (CSS2D) – but we keep minimal to avoid clutter
+        // only add label for some flights
+        if (index % 7 === 0) {
+          const div = document.createElement('div');
+          div.textContent = `✈️ ${String.fromCharCode(65 + Math.floor(Math.random()*26))}${Math.floor(Math.random()*900+100)}`;
+          div.style.color = '#b8d4f0';
+          div.style.fontSize = '9px';
+          div.style.fontWeight = '400';
+          div.style.textShadow = '0 0 8px rgba(0,20,40,0.9)';
+          div.style.background = 'rgba(0,0,0,0.3)';
+          div.style.padding = '2px 6px';
+          div.style.borderRadius = '12px';
+          div.style.backdropFilter = 'blur(2px)';
+          div.style.border = '1px solid rgba(255,255,255,0.05)';
+          div.style.whiteSpace = 'nowrap';
+          div.style.fontFamily = 'Segoe UI, sans-serif';
+          const label = new CSS2DObject(div);
+          label.position.copy(pos.clone().multiplyScalar(1.02));
+          flightGroup.add(label);
+          flightLabels.push(label);
+        }
+      });
+
+      // update flight count
+      document.getElementById('flightCount').textContent = flightData.length;
+    }
+
+    // ----- Generate initial flights -----
+    let currentFlights = generateRandomFlights(142);
+    renderFlights(currentFlights);
+
+    // ----- Refresh / update flights (simulate real-time) -----
+    function refreshFlights() {
+      // generate new flight set with slight variation
+      const newFlights = generateRandomFlights(120 + Math.floor(Math.random() * 60));
+      currentFlights = newFlights;
+      renderFlights(newFlights);
+      
+      // flash effect on counter
+      const countEl = document.getElementById('flightCount');
+      countEl.style.transition = 'color 0.1s';
+      countEl.style.color = '#4fc3f7';
+      setTimeout(() => { countEl.style.color = '#f0f4ff'; }, 200);
+    }
+
+    // Periodically refresh flights every 12 seconds
+    setInterval(refreshFlights, 12000);
+
+    // ----- UI Controls -----
+    document.getElementById('btnReset').addEventListener('click', () => {
+      camera.position.set(0, 1, 18);
+      controls.target.set(0, 0, 0);
+      controls.update();
+    });
+
+    let rotateEnabled = true;
+    document.getElementById('btnToggle').addEventListener('click', (e) => {
+      rotateEnabled = !rotateEnabled;
+      controls.autoRotate = rotateEnabled;
+      e.currentTarget.classList.toggle('active');
+      const icon = e.currentTarget.querySelector('i');
+      if (rotateEnabled) {
+        icon.className = 'fas fa-sync-alt';
+        e.currentTarget.querySelector('.btn-label').textContent = 'Rotate';
+      } else {
+        icon.className = 'fas fa-pause';
+        e.currentTarget.querySelector('.btn-label').textContent = 'Paused';
+      }
+    });
+    // set initial active state
+    document.getElementById('btnToggle').classList.add('active');
+
+    document.getElementById('btnRefresh').addEventListener('click', () => {
+      refreshFlights();
+    });
+
+    // ----- Resize handler -----
+    function onResize() {
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+      labelRenderer.setSize(width, height);
+    }
+    window.addEventListener('resize', onResize);
+
+    // Also observe container size changes (for mobile rotation etc)
+    const resizeObserver = new ResizeObserver(() => onResize());
+    resizeObserver.observe(container);
+
+    // ----- Animation loop -----
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // update controls (autoRotate handled by OrbitControls)
+      controls.update();
+
+      // small aircraft pulse / bobbing effect
+      const time = Date.now() / 1000;
+      flightMarkers.forEach((marker, i) => {
+        const offset = i * 0.01;
+        const bob = Math.sin(time * 1.2 + offset) * 0.008;
+        marker.position.y += bob * 0.02; // subtle
+        // rotate marker slowly
+        marker.rotation.y += 0.002;
+      });
+
+      // Render
+      renderer.render(scene, camera);
+      labelRenderer.render(scene, camera);
+    }
+
+    animate();
+
+    // small hack: online status indicator
+    document.getElementById('onlineStatus').innerHTML = '● live';
+    
+    console.log('✈️ SkyTrack live – real-time aircraft visualization');
+  </script>
 </body>
 </html>
